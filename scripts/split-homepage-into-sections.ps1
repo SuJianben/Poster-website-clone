@@ -93,6 +93,8 @@ $headRenders
 [IO.File]::WriteAllText((Join-Path $RepositoryRoot 'layout\theme.liquid'), $layout, $utf8)
 
 $headerGroup = @{
+  name = 'Header group'
+  type = 'header'
   sections = @{
     topbar = @{ type = 'source-topbar'; settings = @{ enabled = $true } }
     header = @{ type = 'source-header'; settings = @{ enabled = $true } }
@@ -103,6 +105,8 @@ $headerGroup = @{
 [IO.File]::WriteAllText((Join-Path $RepositoryRoot 'sections\header-group.json'), $headerGroup, $utf8)
 
 $footerGroup = @{
+  name = 'Footer group'
+  type = 'footer'
   sections = @{
     newsletter = @{ type = 'source-newsletter'; settings = @{ enabled = $true } }
     icons = @{ type = 'source-footer-icons'; settings = @{ enabled = $true } }
