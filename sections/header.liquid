@@ -1,0 +1,13 @@
+<header class="site-header">
+  <div class="page-width site-header__inner">
+    <button class="icon-button menu-toggle" type="button" aria-controls="SiteNav" aria-expanded="false">{{ 'general.menu' | t }}</button>
+    <a class="site-logo" href="{{ routes.root_url }}">
+      {% if settings.logo != blank %}{{ settings.logo | image_url: width: 400 | image_tag: widths: '120,200,400', alt: shop.name }}{% else %}{{ settings.brand_name | default: shop.name | escape }}{% endif %}
+    </a>
+    <nav class="site-nav" id="SiteNav" aria-label="Primary navigation">
+      {% for link in section.settings.menu.links %}<a href="{{ link.url }}">{{ link.title | escape }}</a>{% endfor %}
+    </nav>
+    <div class="site-header__actions"><a href="{{ routes.search_url }}">{{ 'general.search' | t }}</a><a href="{{ routes.cart_url }}">{{ 'general.cart' | t }} ({{ cart.item_count }})</a></div>
+  </div>
+</header>
+{% schema %}{"name":"Header","settings":[{"type":"link_list","id":"menu","label":"Menu","default":"main-menu"}]}{% endschema %}

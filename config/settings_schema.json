@@ -1,0 +1,25 @@
+[
+  {
+    "name": "Brand",
+    "settings": [
+      { "type": "image_picker", "id": "logo", "label": "Logo" },
+      { "type": "image_picker", "id": "favicon", "label": "Favicon" },
+      { "type": "text", "id": "brand_name", "label": "Brand name", "default": "Canvas Collective" }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      { "type": "color", "id": "color_background", "label": "Background", "default": "#f7f6f2" },
+      { "type": "color", "id": "color_text", "label": "Text", "default": "#171717" },
+      { "type": "color", "id": "color_accent", "label": "Accent", "default": "#d6502a" }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      { "type": "range", "id": "page_width", "label": "Content width", "min": 1000, "max": 1600, "step": 50, "unit": "px", "default": 1400 },
+      { "type": "text", "id": "free_shipping_message", "label": "Free shipping message", "default": "Free shipping on orders over $49" }
+    ]
+  }
+]

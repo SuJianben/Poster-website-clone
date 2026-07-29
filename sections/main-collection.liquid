@@ -1,0 +1,2 @@
+<section class="section"><div class="page-width"><p class="eyebrow">Collection</p><h1>{{ collection.title | escape }}</h1>{% if collection.description != blank %}<div>{{ collection.description }}</div>{% endif %}<div class="product-grid">{% for product in collection.products %}{% render 'product-card', product: product %}{% endfor %}</div></div></section>
+{% schema %}{"name":"Main collection","settings":[]}{% endschema %}

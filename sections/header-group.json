@@ -1,0 +1,1 @@
+{"name":"Header group","type":"header","sections":{"announcement":{"type":"announcement-bar","settings":{"text":"Free shipping on orders over $49"}},"header":{"type":"header","settings":{"menu":"main-menu"}}},"order":["announcement","header"]}
