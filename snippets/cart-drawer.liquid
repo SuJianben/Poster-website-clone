@@ -1,0 +1,7 @@
+<aside class="cart-drawer" data-cart-drawer hidden aria-label="{{ 'cart.title' | t }}">
+  <div class="cart-drawer__scrim" data-cart-close></div>
+  <div class="cart-drawer__panel" role="dialog" aria-modal="true">
+    <div class="cart-drawer__header"><h2>{{ 'cart.title' | t }}</h2><button type="button" class="icon-button" data-cart-close aria-label="{{ 'general.close' | t }}">&times;</button></div>
+    <div data-cart-drawer-body>{% if cart.item_count == 0 %}<p class="drawer-empty">{{ 'cart.empty' | t }}</p>{% endif %}</div>
+  </div>
+</aside>

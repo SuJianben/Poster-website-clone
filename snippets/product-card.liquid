@@ -1,1 +1,10 @@
-<article class="product-card"><a href="{{ product.url }}" class="product-card__image">{% if product.featured_image %}{{ product.featured_image | image_url: width: 800 | image_tag: loading: 'lazy', widths: '300,500,800', alt: product.title }}{% endif %}</a><div class="product-card__details"><h3><a href="{{ product.url }}">{{ product.title | escape }}</a></h3><p>{{ product.price | money }}</p></div></article>
+<article class="product-card">
+  <a href="{{ product.url }}" class="product-card__image">
+    {% if product.featured_image %}
+      {{ product.featured_image | image_url: width: 800 | image_tag: loading: 'lazy', widths: '300,500,800', alt: product.title, class: 'product-card__primary' }}
+      {% if product.images[1] != blank %}{{ product.images[1] | image_url: width: 800 | image_tag: loading: 'lazy', widths: '300,500,800', alt: product.title, class: 'product-card__secondary' }}{% endif %}
+    {% endif %}
+    {% if product.metafields.custom.badges.value != blank %}<span class="product-card__badge">{{ product.metafields.custom.badges.value | escape }}</span>{% endif %}
+  </a>
+  <div class="product-card__details"><h3><a href="{{ product.url }}">{{ product.title | escape }}</a></h3><p>{{ product.price | money }}</p></div>
+</article>
