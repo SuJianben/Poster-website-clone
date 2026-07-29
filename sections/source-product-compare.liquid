@@ -1,0 +1,12 @@
+{% if section.settings.enabled %}
+{% render 'source-product-compare-1' %}
+{% endif %}
+{% schema %}
+{
+  "name": "Product compare",
+  "settings": [
+    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true }
+  ],
+  "presets": [{ "name": "Product compare" }]
+}
+{% endschema %}

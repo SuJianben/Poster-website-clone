@@ -1,0 +1,12 @@
+{% if section.settings.enabled %}
+{% render 'source-collection-list-secondary-1' %}
+{% endif %}
+{% schema %}
+{
+  "name": "Secondary collection list",
+  "settings": [
+    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true }
+  ],
+  "presets": [{ "name": "Secondary collection list" }]
+}
+{% endschema %}

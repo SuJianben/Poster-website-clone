@@ -1,0 +1,12 @@
+{% if section.settings.enabled %}
+{% render 'source-header-promotion-1' %}
+{% endif %}
+{% schema %}
+{
+  "name": "Header promotion",
+  "settings": [
+    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true }
+  ],
+  "presets": [{ "name": "Header promotion" }]
+}
+{% endschema %}

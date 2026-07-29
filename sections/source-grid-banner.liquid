@@ -1,0 +1,12 @@
+{% if section.settings.enabled %}
+{% render 'source-grid-banner-1' %}
+{% endif %}
+{% schema %}
+{
+  "name": "Grid banner",
+  "settings": [
+    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true }
+  ],
+  "presets": [{ "name": "Grid banner" }]
+}
+{% endschema %}

@@ -1,0 +1,12 @@
+{% if section.settings.enabled %}
+{% render 'source-favorite-products-1' %}
+{% endif %}
+{% schema %}
+{
+  "name": "Favorite products",
+  "settings": [
+    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true }
+  ],
+  "presets": [{ "name": "Favorite products" }]
+}
+{% endschema %}

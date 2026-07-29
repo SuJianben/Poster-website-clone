@@ -1,0 +1,12 @@
+{% if section.settings.enabled %}
+{% render 'source-gallery-1' %}
+{% endif %}
+{% schema %}
+{
+  "name": "Customer gallery",
+  "settings": [
+    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true }
+  ],
+  "presets": [{ "name": "Customer gallery" }]
+}
+{% endschema %}

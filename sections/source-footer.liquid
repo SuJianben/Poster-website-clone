@@ -1,0 +1,12 @@
+{% if section.settings.enabled %}
+{% render 'source-footer-1' %}
+{% endif %}
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true }
+  ],
+  "presets": [{ "name": "Footer" }]
+}
+{% endschema %}

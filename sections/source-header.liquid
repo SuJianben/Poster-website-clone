@@ -1,0 +1,13 @@
+{% if section.settings.enabled %}
+{% render 'source-header-1' %}
+{% render 'source-header-2' %}
+{% endif %}
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true }
+  ],
+  "presets": [{ "name": "Header" }]
+}
+{% endschema %}

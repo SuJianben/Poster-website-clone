@@ -1,0 +1,12 @@
+{% if section.settings.enabled %}
+{% render 'source-newsletter-1' %}
+{% endif %}
+{% schema %}
+{
+  "name": "Newsletter",
+  "settings": [
+    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true }
+  ],
+  "presets": [{ "name": "Newsletter" }]
+}
+{% endschema %}

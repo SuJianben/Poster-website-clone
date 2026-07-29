@@ -1,0 +1,12 @@
+{% if section.settings.enabled %}
+{% render 'source-collection-list-1' %}
+{% endif %}
+{% schema %}
+{
+  "name": "Collection list",
+  "settings": [
+    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true }
+  ],
+  "presets": [{ "name": "Collection list" }]
+}
+{% endschema %}

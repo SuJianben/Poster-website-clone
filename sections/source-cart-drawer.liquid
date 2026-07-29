@@ -1,0 +1,12 @@
+{% if section.settings.enabled %}
+{% render 'source-cart-drawer-1' %}
+{% endif %}
+{% schema %}
+{
+  "name": "Cart drawer",
+  "settings": [
+    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true }
+  ],
+  "presets": [{ "name": "Cart drawer" }]
+}
+{% endschema %}

@@ -1,0 +1,12 @@
+{% if section.settings.enabled %}
+{% render 'source-hero-1' %}
+{% endif %}
+{% schema %}
+{
+  "name": "Hero with product",
+  "settings": [
+    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true }
+  ],
+  "presets": [{ "name": "Hero with product" }]
+}
+{% endschema %}

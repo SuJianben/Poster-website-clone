@@ -1,0 +1,12 @@
+{% if section.settings.enabled %}
+{% render 'source-footer-icons-1' %}
+{% endif %}
+{% schema %}
+{
+  "name": "Footer icons",
+  "settings": [
+    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true }
+  ],
+  "presets": [{ "name": "Footer icons" }]
+}
+{% endschema %}

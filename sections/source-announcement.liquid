@@ -1,0 +1,12 @@
+{% if section.settings.enabled %}
+{% render 'source-announcement-1' %}
+{% endif %}
+{% schema %}
+{
+  "name": "Announcement",
+  "settings": [
+    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true }
+  ],
+  "presets": [{ "name": "Announcement" }]
+}
+{% endschema %}

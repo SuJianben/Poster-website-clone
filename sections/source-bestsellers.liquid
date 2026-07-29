@@ -1,0 +1,14 @@
+{% if section.settings.enabled %}
+{% render 'source-bestsellers-1' %}
+{% render 'source-bestsellers-2' %}
+{% render 'source-bestsellers-3' %}
+{% endif %}
+{% schema %}
+{
+  "name": "Best sellers",
+  "settings": [
+    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true }
+  ],
+  "presets": [{ "name": "Best sellers" }]
+}
+{% endschema %}
