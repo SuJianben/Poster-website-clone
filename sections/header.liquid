@@ -1,13 +1,10 @@
-<header class="site-header">
-  <div class="page-width site-header__inner">
-    <button class="icon-button menu-toggle" type="button" aria-controls="SiteNav" aria-expanded="false">{{ 'general.menu' | t }}</button>
-    <a class="site-logo" href="{{ routes.root_url }}">
-      {% if settings.logo != blank %}{{ settings.logo | image_url: width: 400 | image_tag: widths: '120,200,400', alt: shop.name }}{% else %}{{ settings.brand_name | default: shop.name | escape }}{% endif %}
-    </a>
-    <nav class="site-nav" id="SiteNav" aria-label="Primary navigation">
-      {% for link in section.settings.menu.links %}<a href="{{ link.url }}">{{ link.title | escape }}</a>{% endfor %}
-    </nav>
-    <div class="site-header__actions"><a href="{{ routes.search_url }}" data-analytics-event="site_search_submit">{{ 'general.search' | t }}</a><a href="{{ routes.cart_url }}" data-cart-open>{{ 'general.cart' | t }} (<span data-cart-count>{{ cart.item_count }}</span>)</a></div>
+<header class="reference-header">
+  <div class="reference-header__utility"><div class="reference-shell"><span>★★★★★　2500+ Bewertungen &amp; 30 Tage Probe-Hängen</span><span><b>Neu</b>　Kostenloser Versand ab 49€</span><span>Deutsch　⌄　　🇩🇪 Deutschland (EUR €)　⌄</span></div></div>
+  <div class="reference-header__brand reference-shell">
+    <form class="reference-search" action="{{ routes.search_url }}" method="get" role="search"><input name="q" placeholder="Wonach suchst du?"><button type="submit" aria-label="Search">⌕</button></form>
+    <a class="reference-logo" href="{{ routes.root_url }}"><img src="{{ 'reference-logo.png' | asset_url }}" width="398" height="72" alt="DOTCOM CANVAS"></a>
+    <div class="reference-actions"><a href="{{ routes.search_url }}" aria-label="Search">⌕</a><a href="{{ routes.account_login_url }}" aria-label="Account">♙</a><a href="{{ routes.cart_url }}" data-cart-open aria-label="Cart">🛒<sup data-cart-count>{{ cart.item_count }}</sup></a></div>
   </div>
+  <nav class="reference-nav" aria-label="Primary navigation"><div class="reference-shell"><a href="{{ routes.all_products_collection_url }}" class="reference-nav__selected">WANDBILDER　⌄</a><a href="{{ routes.all_products_collection_url }}">PERSONALISIERBAR　⌄</a><a href="{{ routes.all_products_collection_url }}">SPARE% MIT BUNDLES</a><a href="{{ routes.all_products_collection_url }}">SALE%</a><a href="/pages/about">INSPIRATION</a><a href="/pages/about">BEWERTUNGEN &amp; IMPRESSIONEN</a></div></nav>
 </header>
-{% schema %}{"name":"Header","settings":[{"type":"link_list","id":"menu","label":"Menu","default":"main-menu"}]}{% endschema %}
+{% schema %}{"name":"Reference header","settings":[]}{% endschema %}
