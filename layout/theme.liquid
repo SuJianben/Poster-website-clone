@@ -7,7 +7,15 @@
     <link rel="canonical" href="{{ canonical_url }}">
     {% if settings.favicon != blank %}<link rel="icon" href="{{ settings.favicon | image_url: width: 64 }}">{% endif %}
     {{ content_for_header }}
-    {{ 'theme.css.liquid' | asset_url | stylesheet_tag }}
+    <style>
+      :root {
+        --page-width: {{ settings.page_width }}px;
+        --background: {{ settings.color_background }};
+        --text: {{ settings.color_text }};
+        --accent: {{ settings.color_accent }};
+      }
+    </style>
+    {{ 'theme.css' | asset_url | stylesheet_tag }}
     <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
   </head>
   <body class="template-{{ template.name | handle }}">
