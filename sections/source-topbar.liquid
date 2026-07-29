@@ -1,0 +1,12 @@
+{% if section.settings.enabled %}
+{% render 'source-topbar-1' %}
+{% endif %}
+{% schema %}
+{
+  "name": "Top bar",
+  "settings": [
+    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true }
+  ],
+  "presets": [{ "name": "Top bar" }]
+}
+{% endschema %}

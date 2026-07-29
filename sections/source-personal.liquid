@@ -1,13 +1,1 @@
-{% if section.settings.enabled %}
-{% render 'source-personal-1' %}
-{% render 'source-personal-2' %}
-{% endif %}
-{% schema %}
-{
-  "name": "Personal masterpiece",
-  "settings": [
-    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true }
-  ],
-  "presets": [{ "name": "Personal masterpiece" }]
-}
-{% endschema %}
+{% if section.settings.enabled %} {% render 'source-personal-1' %} {% render 'source-personal-2' %} {% endif %} {% schema %} {   "name": "Personal masterpiece",   "settings": [     { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true }   ],   "presets": [{ "name": "Personal masterpiece" }] } {% endschema %}

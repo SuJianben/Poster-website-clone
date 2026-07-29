@@ -1,0 +1,12 @@
+{% if section.settings.enabled %}
+{% render 'source-spotlight-picks-1' %}
+{% endif %}
+{% schema %}
+{
+  "name": "Spotlight picks",
+  "settings": [
+    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true }
+  ],
+  "presets": [{ "name": "Spotlight picks" }]
+}
+{% endschema %}
