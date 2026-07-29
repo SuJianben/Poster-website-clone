@@ -1,0 +1,129 @@
+.darkroom-container {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  z-index: 9999999997;
+  background-image: url('../images/editor_background.png');
+  background-color: rgba(0, 0, 0, 0.85);
+}
+
+.darkroom-image-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+  z-index: 999999999;
+  padding-top: 100px;
+}
+
+.darkroom-toolbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #000;
+  height: 100px;
+  width: 100%;
+  z-index: 9999999999;
+  white-space: nowrap;
+  text-align: center;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: flex;
+}
+
+/*
+  .darkroom-toolbar:before {
+    content: "";
+    position: absolute;
+    bottom: -7px;
+    left: 20px;
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 7px solid #444; }
+*/
+.darkroom-button-group {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  -webkit-flex-grow: 1;
+  -moz-flex-grow: 1;
+  flex-grow: 1;
+}
+
+.darkroom-button-group:last-child {
+  border-right: none;
+}
+
+.darkroom-button {
+  box-sizing: border-box;
+  background: transparent;
+  border: none;
+  outline: none;
+  margin: 25px 0 0 0;
+  padding: 5px;
+  width: auto;
+}
+
+.darkroom-button:hover {
+  cursor: pointer;
+  background: #333;
+}
+
+.darkroom-button:active {
+  cursor: pointer;
+  background: #333;
+}
+
+.darkroom-button:disabled .darkroom-icon {
+  fill: #666;
+}
+
+.darkroom-button:disabled:hover {
+  cursor: default;
+  /*cursor: not-allowed;*/
+  background: transparent;
+}
+
+.darkroom-button.darkroom-button-active .darkroom-icon {
+  fill: #33b5e5;
+}
+
+.darkroom-button.darkroom-button-hidden {
+  display: none;
+}
+
+.darkroom-button.darkroom-button-success .darkroom-icon {
+  fill: #99cc00;
+}
+
+.darkroom-button.darkroom-button-warning .darkroom-icon {
+  fill: #ffbb33;
+}
+
+.darkroom-button.darkroom-button-danger .darkroom-icon {
+  fill: #ff4444;
+}
+
+.darkroom-button-group:first-child {
+  display: none;
+}
+
+@media screen and (max-device-width: 320px) {
+  .darkroom-button-group:first-child {
+    display: none;
+  }
+}
+
+.darkroom-icon {
+  width: 34px;
+  height: 34px;
+  fill: #fff;
+}
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiIiwic291cmNlcyI6WyJkYXJrcm9vbS5zY3NzIl0sInNvdXJjZXNDb250ZW50IjpbIkBpbXBvcnQgJ2xheW91dCc7XG5AaW1wb3J0ICd0b29sYmFyJztcbiJdLCJmaWxlIjoiZGFya3Jvb20uY3NzIiwic291cmNlUm9vdCI6Ii9zb3VyY2UvIn0= */

@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Web Pixels Manager Sandbox</title>
+    <script src="https://dotcomcanvas.de/cdn/wpm/s5b420bebw79a47f5bp51dad21bmd4c4ae2fm.js"></script>
+
+    <script type="text/javascript">
+  (function(shopify) {shopify.extend('WebPixel::Render', function(api) {
+var analytics=api.analytics,browser=api.browser,init=api.init;
+// Step 1. Initialize the JavaScript pixel SDK (make sure to exclude HTML)
+(function (w, d, s, l, i) {
+  w[l] = w[l] || [];
+  w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+  var f = d.getElementsByTagName(s)[0],
+    j = d.createElement(s),
+    dl = l != "dataLayer" ? "&l=" + l : "";
+  j.async = true;
+  j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+  f.parentNode.insertBefore(j, f);
+})(window, document, "script", "dataLayer", "GTM-MKT5L27");
+
+// Helper functions
+function checkoutItems(event) {
+  let checkout = event.data.checkout;
+  let lineItems = [];
+
+  for (const checkoutLineItem of checkout.lineItems) {
+    lineItems.push({
+      item_id: "shopify_DE_" + checkoutLineItem.variant.product.id + "_" + checkoutLineItem.variant.id,
+      item_name: checkoutLineItem.title,
+      product_id: checkoutLineItem.variant.product.id,
+      variant_id: checkoutLineItem.variant.id,
+      item_variant: checkoutLineItem?.variant.title,
+      currency: checkoutLineItem.variant.price.currencyCode,
+      item_brand: checkoutLineItem.variant.product.vendor,
+      item_category: checkoutLineItem.variant.product.type,
+      price: checkoutLineItem.variant.price.amount,
+      quantity: checkoutLineItem.quantity
+    });
+  }
+
+  return lineItems;
+}
+
+function checkoutItemsTT(event) {
+  let checkout = event.data.checkout;
+  let lineItems = [];
+
+  for (const checkoutLineItem of checkout.lineItems) {
+    lineItems.push({
+      content_id: checkoutLineItem.variant.product.id,
+      content_name: checkoutLineItem.title,
+      content_type: 'product_group',
+      currency: checkoutLineItem.variant.price.currencyCode,
+      content_brand: checkoutLineItem.variant.product.vendor,
+      content_category: checkoutLineItem.variant.product.type,
+      price: checkoutLineItem.variant.price.amount,
+      quantity: checkoutLineItem.quantity
+    });
+  }
+
+  return lineItems;
+}
+function checkoutItemIds(event, src = "G") {
+  let checkout = event.data.checkout;
+  let lineItems = [];
+
+  if (src == "G") {
+    for (const checkoutLineItem of checkout.lineItems) {
+      lineItems.push(
+        "shopify_DE_" + checkoutLineItem.variant.product.id + "_" + checkoutLineItem.variant.id
+      );
+    }
+  } else {
+    for (const checkoutLineItem of checkout.lineItems) {
+      lineItems.push(checkoutLineItem.variant.product.id);
+    }
+  }
+
+  return lineItems;
+}
+function getCartItems(event) {
+  return event.data.cartLines.map((cartLine) => ({
+    item_id: "shopify_DE_" + cartLine.merchandise.product.id + "_" + cartLine.merchandise.id,
+    item_name: cartLine.merchandise.title,
+    product_id: cartLine.merchandise.product.id,
+    variant_id: cartLine.merchandise.id,
+    item_variant: cartLine.merchandise?.title,
+    currency: cartLine.merchandise.price.currencyCode,
+    item_brand: cartLine.merchandise.product.vendor,
+    item_category: cartLine.merchandise.product.type,
+    price: cartLine.merchandise.price.amount,
+    quantity: cartLine.quantity
+  }));
+}
+
+function getCartValue(event) {
+  return event.data.cartLines.reduce(
+    (total, cartLine) => total + cartLine.merchandise.price.amount * cartLine.quantity,
+    0
+  );
+}
+
+// 📌 PAGE VIEWED
+analytics.subscribe("page_viewed", (event) => {
+  const eventData = {
+    event: "page_viewed",
+    timestamp: event.timestamp,
+    id: event.id,
+    client_id: event.clientId,
+    page_location: event.context.document.location.href,
+    page_title: event.context.document.title,
+  };
+  console.log("Event: page_viewed", eventData);
+  window.dataLayer.push(eventData);
+});
+
+analytics.subscribe("collection_viewed", (event) => {
+  if (!event.data.collection || !event.data.collection.productVariants) {
+    console.error("Error: No collection data or products found in collection_viewed event", event);
+    return;
+  }
+
+  const items = event.data.collection.productVariants.map((variant) => ({
+    item_id: "shopify_DE_" + variant.product.id + "_" + variant.id,
+    item_name: variant.product.title,
+    product_id: variant.product.id,
+    variant_id: variant.id,
+    currency: variant.price.currencyCode,
+    item_brand: variant.product.vendor,
+    item_category: variant.product.type,
+    price: variant.price.amount,
+    quantity: 1,
+    item_variant: variant.title,
+    item_url: variant.product.url,
+    item_image: variant.image ? variant.image.src : null
+  }));
+
+  const eventData = {
+    event: "view_item_list_dl",
+    timestamp: event.timestamp,
+    id: event.id,
+    client_id: event.clientId,
+    page_location: event.context.document.location.href,
+    collection_id: event.data.collection.id,
+    collection_title: event.data.collection.title,
+    ecommerce: {
+      items: items
+    }
+  };
+
+  console.log("DataLayer Push: collection_viewed", eventData);
+  window.dataLayer.push(eventData);
+});
+
+// 📌 SEARCH SUBMITTED
+analytics.subscribe("search_submitted", (event) => {
+  const eventData = {
+    event: "search_dl",
+    page_location: event.context.document.location.href,
+    search_term: event.data?.searchResult?.query,
+  };
+  console.log("Event: search_submitted", eventData);
+  window.dataLayer.push(eventData);
+});
+
+analytics.subscribe("cart_viewed", (event) => {
+  if (!event.data.cart || !event.data.cart.lines) {
+    console.error("Error: No cart data found in cart_viewed event", event);
+    return;
+  }
+
+  const items = event.data.cart.lines.map((cartLine) => ({
+    item_id: "shopify_DE_" + cartLine.merchandise.product.id + "_" + cartLine.merchandise.id,
+    product_id: cartLine.merchandise.product.id,
+    variant_id: cartLine.merchandise.id,
+    item_name: cartLine.merchandise.product.title,
+    item_variant: cartLine.merchandise.title,
+    currency: cartLine.merchandise.price.currencyCode,
+    item_brand: cartLine.merchandise.product.vendor,
+    item_category: cartLine.merchandise.product.type,
+    price: cartLine.merchandise.price.amount,
+    quantity: cartLine.quantity
+  }));
+
+  const eventData = {
+    event: "view_cart_dl",
+    timestamp: event.timestamp,
+    id: event.id,
+    client_id: event.clientId,
+    page_location: event.context.document.location.href,
+    ecommerce: {
+      currency: event.data.cart.cost.totalAmount.currencyCode,
+      value: event.data.cart.cost.totalAmount.amount,
+      items: items
+    }
+  };
+
+  console.log("Event: cart_viewed", eventData);
+  window.dataLayer.push(eventData);
+});
+
+// 📌 PRODUCT VIEWED
+analytics.subscribe("product_viewed", (event) => {
+  const product = event.data.productVariant;
+  const eventData = {
+    event: "view_item_dl",
+    page_location: event.context.document.location.href,
+    ecommerce: {
+      currency: product.price.currencyCode,
+      value: product.price.amount,
+      items: [{
+        item_id: "shopify_DE_" + product.product.id + "_" + product.id,
+        item_name: product.title,
+        item_variant: product?.title,
+        product_id: product.product.id,
+        variant_id: product.id,
+        currency: product.price.currencyCode,
+        item_brand: product.product.vendor,
+        item_category: product.product.type,
+        price: product.price.amount,
+        quantity: 1
+      }],
+    },
+  };
+  console.log("Event: product_viewed", eventData);
+  window.dataLayer.push(eventData);
+});
+
+function getCartLineItem(event) {
+  return {
+    item_id: "shopify_DE_" + event.data.cartLine.merchandise.product.id + "_" + event.data.cartLine.merchandise.id,
+    item_name: event.data.cartLine.merchandise.product.title,
+    item_variant: event.data.cartLine.merchandise.title,
+    product_id: event.data.cartLine.merchandise.product.id,
+    variant_id: event.data.cartLine.merchandise.id,
+    currency: event.data.cartLine.merchandise.price.currencyCode,
+    item_brand: event.data.cartLine.merchandise.product.vendor,
+    item_category: event.data.cartLine.merchandise.product.type,
+    price: event.data.cartLine.merchandise.price.amount,
+    quantity: event.data.cartLine.quantity
+  };
+}
+
+// 📌 PRODUCT ADDED TO CART
+analytics.subscribe("product_added_to_cart", (event) => {
+  const items = getCartLineItem(event); // Constructing the items array
+
+  const eventData = {
+    event: "add_to_cart_dl",
+    timestamp: event.timestamp,
+    id: event.id,
+    client_id: event.clientId,
+    page_location: event.context.document.location.href,
+    ecommerce: {
+      currency: event.data.cartLine.merchandise.price.currencyCode,
+      value: event.data.cartLine.cost.totalAmount.amount,
+      items: items
+    }
+  };
+
+  console.log("Event: product_added_to_cart", eventData);
+  window.dataLayer.push(eventData);
+});
+
+// 📌 PRODUCT REMOVED FROM CART
+analytics.subscribe("product_removed_from_cart", (event) => {
+  const items = [getCartLineItem(event)]; // Constructing the items array
+
+  const eventData = {
+    event: "product_removed_from_cart",
+    timestamp: event.timestamp,
+    id: event.id,
+    client_id: event.clientId,
+    page_location: event.context.document.location.href,
+    ecommerce: {
+      currency: event.data.cartLine.merchandise.price.currencyCode,
+      value: event.data.cartLine.cost.totalAmount.amount,
+      items: items
+    }
+  };
+
+  console.log("Event: product_removed_from_cart", eventData);
+  window.dataLayer.push(eventData);
+});
+// 📌 CHECKOUT STARTED
+analytics.subscribe("checkout_started", (event) => {
+  window.dataLayer.push({ ecommerce: null }); 
+  const eventData = {
+    event: event.name,
+    ecommerce: {
+      currency: event.data.checkout.currencyCode,
+      value: event.data.checkout.totalPrice.amount,
+      items: checkoutItems(event)
+    },
+    event_data: {
+      event_item_ids: checkoutItemIds(event, "F"),
+      event_client_id: event.clientId,
+      event_timestamp: event.timestamp,
+      event_id: event.id,
+      event_name: event.name,
+      event_url: event.context.document.location.href,
+      event_type: event.type,
+      event_items_tt: checkoutItemsTT(event)
+    },
+    page_location: event.context.document.location.href,
+    ecomm_prodid: checkoutItemIds(event),
+    ecomm_totalvalue: event.data.checkout.totalPrice.amount,
+    ecomm_pagetype: "cart",
+  };
+  console.log("Event: checkout_started", eventData);
+  window.dataLayer.push(eventData);
+});
+
+// 📌 ADDRESS INFORMATION SUBMITTED
+analytics.subscribe("checkout_shipping_info_submitted", (event) => {
+  window.dataLayer.push({ ecommerce: null }); 
+  const eventData = {
+    event: event.name,
+    ecommerce: {
+      currency: event.data.checkout.currencyCode,
+      value: event.data.checkout.totalPrice.amount,
+      items: checkoutItems(event)
+    },
+    event_data: {
+      event_item_ids: checkoutItemIds(event, "F"),
+      event_client_id: event.clientId,
+      event_timestamp: event.timestamp,
+      event_id: event.id,
+      event_name: event.name,
+      event_url: event.context.document.location.href,
+      event_type: event.type,
+      event_items_tt: checkoutItemsTT(event)
+    },
+    page_location: event.context.document.location.href,
+    ecomm_prodid: checkoutItemIds(event),
+    ecomm_totalvalue: event.data.checkout.totalPrice.amount,
+    ecomm_pagetype: "address_info",
+    customer_data: {
+      email: event.data?.checkout?.email,
+      phone: event.data?.checkout?.shippingAddress?.phone,
+      first_name: event.data?.checkout?.shippingAddress?.firstName,
+      last_name: event.data?.checkout?.shippingAddress?.lastName,
+      city: event.data?.checkout?.shippingAddress?.city,
+      country: event.data?.checkout?.shippingAddress?.country,
+      countryCode: event.data?.checkout?.shippingAddress?.countryCode,
+      province: event.data?.checkout?.shippingAddress?.province,
+      provinceCode: event.data?.checkout?.shippingAddress?.provinceCode,
+      zip: event.data?.checkout?.shippingAddress?.zip,
+    },
+  };
+  console.log("Event: checkout_shipping_info_submitted", eventData);
+  window.dataLayer.push(eventData);
+});
+
+// 📌 PAYMENT INFO SUBMITTED
+analytics.subscribe("payment_info_submitted", (event) => {
+  window.dataLayer.push({ ecommerce: null }); 
+  const eventData = {
+    event: event.name,
+    ecommerce: {
+      currency: event.data.checkout.currencyCode,
+      value: event.data.checkout.totalPrice.amount,
+      items: checkoutItems(event)
+    },
+    event_data: {
+      event_item_ids: checkoutItemIds(event, "F"),
+      event_client_id: event.clientId,
+      event_timestamp: event.timestamp,
+      event_id: event.id,
+      event_name: event.name,
+      event_url: event.context.document.location.href,
+      event_type: event.type,
+      event_items_tt: checkoutItemsTT(event)
+    },
+    page_location: event.context.document.location.href,
+    ecomm_prodid: checkoutItemIds(event),
+    ecomm_totalvalue: event.data.checkout.totalPrice.amount,
+    ecomm_pagetype: "checkout",
+    customer_data: {
+      email: event.data?.checkout?.email,
+      phone: event.data?.checkout?.shippingAddress?.phone,
+            id: event.data?.checkout?.order?.customer?.id,
+      first_name: event.data?.checkout?.shippingAddress?.firstName,
+      last_name: event.data?.checkout?.shippingAddress?.lastName,
+      city: event.data?.checkout?.shippingAddress?.city,
+      country: event.data?.checkout?.shippingAddress?.country,
+      countryCode: event.data?.checkout?.shippingAddress?.countryCode,
+      province: event.data?.checkout?.shippingAddress?.province,
+      provinceCode: event.data?.checkout?.shippingAddress?.provinceCode,
+      zip: event.data?.checkout?.shippingAddress?.zip,
+    },
+  };
+  console.log("Event: payment_info_submitted", eventData);
+  window.dataLayer.push(eventData);
+});
+
+// 📌 CHECKOUT COMPLETED
+analytics.subscribe("checkout_completed", (event) => {
+  window.dataLayer.push({ ecommerce: null }); 
+  const eventData = {
+    event: event.name,
+    ecommerce: {
+      currency: event.data.checkout.currencyCode,
+      value: event.data.checkout.totalPrice.amount,
+      transaction_id: event.data.checkout.order.id,
+      items: checkoutItems(event),
+      tax: event.data.checkout.totalTax.amount,
+      shipping: event.data.checkout.shippingLine.price.amount,
+      coupon: event.data.checkout.discountApplications.title,
+    },
+    event_data: {
+      event_item_ids: checkoutItemIds(event, "F"),
+      event_client_id: event.clientId,
+      event_timestamp: event.timestamp,
+      event_id: event.id,
+      event_name: event.name,
+      event_url: event.context.document.location.href,
+      event_type: event.type,
+      event_items_tt: checkoutItemsTT(event)
+    },
+    page_location: event.context.document.location.href,
+    ecomm_prodid: checkoutItemIds(event),
+    ecomm_totalvalue: event.data.checkout.totalPrice.amount,
+    ecomm_pagetype: "purchase",
+    customer_data: {
+      email: event.data?.checkout?.email,
+      phone: event.data?.checkout?.shippingAddress?.phone,
+      id: event.data?.checkout?.order?.customer?.id,
+      first_name: event.data?.checkout?.shippingAddress?.firstName,
+      last_name: event.data?.checkout?.shippingAddress?.lastName,
+      city: event.data?.checkout?.shippingAddress?.city,
+      country: event.data?.checkout?.shippingAddress?.country,
+      countryCode: event.data?.checkout?.shippingAddress?.countryCode,
+      province: event.data?.checkout?.shippingAddress?.province,
+      provinceCode: event.data?.checkout?.shippingAddress?.provinceCode,
+      zip: event.data?.checkout?.shippingAddress?.zip,
+      is_new_customer: event.data?.checkout?.order?.customer?.isFirstOrder || false, // New Variable
+
+    },
+  };
+  console.log("Event: checkout_completed", eventData);
+  window.dataLayer.push(eventData);
+});
+});})(self.webPixelsManager.createShopifyExtend('74547466', 'custom'));
+
+</script>
+
+  </head>
+  <body></body>
+</html>

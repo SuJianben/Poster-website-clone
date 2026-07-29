@@ -1,0 +1,259 @@
+{
+  "entrypoint": {
+    "subtitle": "Einkaufshilfe",
+    "inputPlaceholder": "Fragen Sie mich alles, um das perfekte Produkt für Sie zu finden!",
+    "inputPlaceholderBranded": "Hallo! Ich bin der KI-Assistent von {{brand}}.",
+    "inputPlaceholderShort": "Einkaufen mit KI",
+    "inputPlaceholderJewelHut": "KI-Produkthilfsprogramm"
+  },
+  "cart": {
+    "cart": "Warenkorb",
+    "add": "Zum Warenkorb hinzufügen",
+    "addMultiple": "Zum Warenkorb hinzufügen ({{count}})",
+    "added": "Zum Warenkorb hinzugefügt",
+    "adding": "Wird zum Warenkorb hinzugefügt...",
+    "unavailable": "Nicht verfügbar",
+    "buyNow": "Jetzt kaufen",
+    "getNow": "Jetzt abrufen",
+    "select": "{{options}} auswählen",
+    "label": "Einkaufswagen mit {{count}} Artikeln",
+    "inCart": "In Ihrem Warenkorb",
+    "quantity": "Menge",
+    "increaseQuantity": "Menge erhöhen",
+    "decreaseQuantity": "Menge verringern"
+  },
+  "cartCard": {
+    "title": "Warenkorb ({{count}})",
+    "checkout": "Weiter zur Kasse",
+    "viewCart": "Warenkorb anzeigen"
+  },
+  "menu": {
+    "menu": "Menü",
+    "termsOfUse": "Nutzungsbedingungen",
+    "privacy": "Datenschutz",
+    "settings": "Einstellungen",
+    "disclaimer": "{{brand}} verwendet KI, sodass sie gelegentlich Fehler machen kann."
+  },
+  "composer": {
+    "placeholder": "Nachricht {{brand}}",
+    "brandedPlaceholder": "Chatten Sie mit der KI von {{brand}}."
+  },
+  "session": {
+    "expiredTitle": "Sitzung abgelaufen",
+    "expiredMessage": "Ihre Sitzung ist abgelaufen. Starten Sie einen neuen Chat, um weitermachen zu können."
+  },
+  "error": {
+    "title": "Assistent nicht verfügbar",
+    "message": "Wir konnten keine Antwort generieren. Versuchen Sie es erneut.",
+    "retries": "Nach mehreren Versuchen konnte keine Antwort generiert werden. Versuchen Sie es später erneut.",
+    "loadingTitle": "Aktualisierung erforderlich",
+    "loadingMessage": "Eine neue Version ist verfügbar. Aktualisieren Sie die Seite, um fortzufahren.",
+    "refreshAction": "Seite aktualisieren"
+  },
+  "learn": {
+    "more": "Weitere Informationen mit {{brand}}"
+  },
+  "product": {
+    "overviewTitle": "Produktübersicht",
+    "confirmationTitle": "Bestätigen Sie Ihre Produkte ({{current}} von {{total}})",
+    "viewDetails": "Details anzeigen",
+    "optionsTitle": "Produktoptionen",
+    "selectedVariant": "Ausgewählte Variante: {{variant}}",
+    "inquiryPrompt": "Weitere Informationen über",
+    "viewProducts": "Produkte anzeigen",
+    "currentPrice": "Aktueller Preis: {{price}}",
+    "discountedPrice": "Aktueller Preis: {{currentPrice}}, wurde {{originalPrice}}"
+  },
+  "newChat": {
+    "confirmation": "Neuen Chat starten",
+    "question": "Neuen Chat starten?",
+    "message": "Durch das Starten eines neuen Chats wird diese Unterhaltung gelöscht. Sie können diese Aktion nicht rückgängig machen."
+  },
+  "actions": {
+    "back": "Zurück",
+    "cancel": "Abbrechen",
+    "confirm": "Bestätigen",
+    "next": "Weiter",
+    "copied": "In Zwischenablage kopiert",
+    "close": "Schließen",
+    "dismiss": "Schließen",
+    "submit": "Übermitteln",
+    "stop": "Beenden",
+    "liked": "Nachricht geliked",
+    "unliked": "„Gefällt mir“ wurde entfernt",
+    "disliked": "Nachricht nicht gemocht",
+    "undisliked": "„Gefällt mir nicht“ wurde entfernt",
+    "scrollLeft": "Nach links scrollen",
+    "scrollRight": "Nach rechts scrollen",
+    "navigatePdp": "Zur Produktseite navigieren",
+    "explore": "Erkunden",
+    "expand": "Aufklappen",
+    "minimize": "Minimieren",
+    "sendMessage": "Nachricht senden",
+    "copyResponse": "Antwort kopieren",
+    "giveThumbsUp": "Positiv bewerten",
+    "giveThumbsDown": "Negativ bewerten",
+    "closeChat": "Chat schließen",
+    "expandChat": "Chat erweitern",
+    "moreOptions": "Weitere Optionen",
+    "scrollProductsLeft": "Produkte nach links scrollen",
+    "scrollProductsRight": "Produkte nach rechts scrollen",
+    "scrollComparisonsLeft": "Vergleiche nach links scrollen",
+    "scrollComparisonsRight": "Vergleiche nach rechts scrollen"
+  },
+  "footer": {
+    "disclaimer": "Durch die Interaktion mit {{brand}}stimmen Sie den <terms>Nutzungsbedingungen</terms> zu und bestätigen, dass Sie die <privacy>Datenschutzerklärung</privacy> gelesen haben.",
+    "totalPrice": "Satz für {{price}} erhalten"
+  },
+  "loading": {
+    "default": "Wird geladen...",
+    "checkout": "Weiterleitung zur Kasse...",
+    "viewcart": "Umleiten in den Warenkorb...",
+    "text1": "Wir denken gerade darüber nach, einen Moment bitte...",
+    "text2": "Ihre Anforderung wird derzeit bearbeitet…",
+    "text3": "Die Details sind gleich fertig für Sie..."
+  },
+  "greeting": {
+    "handwave": "Winken"
+  },
+  "review": {
+    "see": "Rezensionen anzeigen ({{count}})",
+    "title": "Kundenbewertungen",
+    "viewAll": "Alle Bewertungen anzeigen",
+    "customerReviews": "Kundenbewertungen",
+    "customersSay": "Kunden sagen",
+    "reviewButtonText": "Bewertungen",
+    "photoLabel": "Foto von {{reviewer}}"
+  },
+  "nudge": {
+    "prolongedPdpStay": {
+      "nudgeMessage": "Denken Sie noch an {{product}}? Möchten Sie weitere Optionen oder Bewertungen sehen?",
+      "nudgeMessageNew": "Noch unsicher?",
+      "mobileNudgeMessage": "Benötigen Sie Hilfe bei der Entscheidung?",
+      "chatMessage": "Weitere Informationen zu {{product}}",
+      "chatMessageNew": "Help me decide on this.",
+      "agentMessage": "{{product}} anzeigen. Geben Sie dann eine Nachricht in diesem Format an den Benutzer zurück: Hier finden Sie weitere Informationen zu {{product}}, die Ihnen bei der Entscheidung helfen.",
+      "agentMessageNew": "Ein Detail, das bei der Entscheidung helfen könnte: Dieses Produkt zeichnet sich durch besonders hohe Haltbarkeit aus, was es für den langfristigen Gebrauch attraktiv macht.\n\n– Nennen Sie EIN nicht offensichtliches Detail, das ihnen bei ihrer Entscheidung helfen könnte (Funktion, Haltbarkeit, Erkenntnisse aus Kundenrezensionen oder Nutzungsdetails).\n– Stellen Sie EINE gezielte Anschlussfrage oder schlagen Sie einen Vergleich vor.\n\nWiederholen Sie keine Informationen, die bereits auf der Seite ersichtlich sind. Der Produktname sollte nicht am Anfang wiederholt werden. Halten Sie die Antwort präzise und entscheidungsorientiert."
+    },
+    "sizeConfusion": {
+      "nudgeMessage": "Brauchen Sie Hilfe bei der Auswahl Ihrer richtigen Größe?",
+      "nudgeMessageNew": "Brauchen Sie Hilfe bei der Dimensionierung?",
+      "mobileNudgeMessage": "Benötigen Sie Hilfe bei der Größenanpassung?",
+      "chatMessage": "Hilfe bei der Größenanpassung",
+      "chatMessageNew": "Welche Größen sind verfügbar?",
+      "agentMessage": "Helfen Sie dem Benutzer bei der Größenfindung für {{product}}. Zeigen Sie die Größentabelle NUR an, wenn eine verfügbar ist; andernfalls listen Sie die verfügbaren Größen auf. Stellen Sie eine Frage zur Passform.",
+      "agentMessageNew": "Der Benutzer möchte Hilfe bei der Größenbestimmung für {product}.\n\nWenn eine Größentabelle verfügbar ist:\n– Zeigen Sie die Größentabelle direkt im Text an.\n– Stellen Sie EINE Folgefrage, die sich auf die wichtigste Passformdimension (z. B. Brustumfang, Taillenumfang, Länge) konzentriert.\n– Empfehlen Sie noch keine Größe.\n\nWenn keine Größentabelle verfügbar ist:\n– Listen Sie die verfügbaren Größen auf.\n– Weisen Sie deutlich darauf hin, dass für dieses Produkt keine Messanleitung verfügbar ist.\n– Bieten Sie einen hilfreichen nächsten Schritt an (z. B. ein ähnliches Produkt mit Größentabelle oder Rückgaberichtlinie).\n– Geben Sie keine Größenempfehlung anhand von Messungen ab.\n\nHalten Sie die Antwort prägnant, praktisch und übersichtlich."
+    },
+    "frustrationScore": {
+      "nudgeMessage": "Anscheinend funktioniert etwas nicht – möchten Sie Hilfe?",
+      "nudgeMessageNew": "Probleme? Brauchen Sie Hilfe?",
+      "mobileNudgeMessage": "Benötigen Sie Unterstützung?",
+      "chatMessage": "Kannst du helfen?",
+      "chatMessageNew": "Etwas funktioniert nicht – können Sie helfen?",
+      "agentMessage": "Was können Sie tun, um zu helfen? Geben Sie eine Nachricht in folgendem Format an den Benutzer zurück: Hier sind einige schnelle Möglichkeiten, wie ich helfen kann",
+      "agentMessageNew": "Der Benutzer scheint Schwierigkeiten zu haben, aber das Problem ist unklar.\n\n– Bestätigen Sie die Situation in einem kurzen, neutralen Satz.\n– Stellen Sie EINE konkrete Frage, um zu klären, was genau benötigt wird (z. B. eine Entscheidung treffen, etwas anderes suchen oder Details überprüfen).\n– Beenden Sie die Antwort nach der Frage.\n\nNennen Sie keine Funktionen. Empfehlen Sie noch keine Produkte. Halten Sie die Antwort kurz und konzentrieren Sie sich darauf, dem Benutzer den nächsten Schritt zu erleichtern."
+    },
+    "productComparison": {
+      "nudgeMessage": "Sie sind unsicher zwischen einigen Produkten? Ich helfe Ihnen gerne beim Vergleich.",
+      "nudgeMessageNew": "Vergleichen Sie gerade mehrere Produkte?",
+      "mobileNudgeMessage": "Möchten Sie Optionen vergleichen?",
+      "chatMessage": "Hilf mir, Produkte zu vergleichen",
+      "chatMessageNew": "Können Sie diese Optionen vergleichen?",
+      "agentMessage": "Der Benutzer möchte Produkte vergleichen. Biete Hilfe bei der Bewertung der Unterschiede, indem du wichtige Merkmale, Kompromisse und wesentliche Unterschiede hervorhebst. Konzentriere dich darauf, ihm bei der Entscheidung zu helfen, welche Option seinen Anforderungen am besten entspricht.",
+      "agentMessageNew": "Der Benutzer vergleicht mehrere Produkte.\n\n– Heben Sie 2 bis 3 wesentliche Unterschiede hervor, die für die Wahl zwischen den beiden Produkten relevant sind (Funktionen, Preis oder Anwendungsfälle).\n– Nennen Sie einen bedeutenden Kompromiss.\n– Stellen Sie EINE Frage, um die Entscheidung zu erleichtern.\n\nHalten Sie den Vergleich übersichtlich. Führen Sie nicht jedes Detail auf. Konzentrieren Sie sich darauf, dem Benutzer bei der Wahl zu helfen."
+    },
+    "colorConfusion": {
+      "nudgeMessage": "Sie sind unsicher bei der Farbwahl? Ich unterstütze Sie gern bei der Entscheidung.",
+      "nudgeMessageNew": "Sie wissen nicht genau, welche Farbe?",
+      "mobileNudgeMessage": "Benötigen Sie Hilfe bei der Auswahl einer Farbe?",
+      "chatMessage": "Hilf mir, eine Farbe auszuwählen",
+      "chatMessageNew": "Welche Farbe soll ich für {{product}} wählen?",
+      "agentMessage": "Helfen Sie dem Benutzer, eine Farbe für {{product}}auszuwählen. Vergleichen Sie 2-3 verfügbare Farben und empfehlen Sie eine davon mit einem kurzen Grund auf Basis der Historie oder von Benutzerpräferenzen. Halten Sie es bei 3-4 Sätzen.",
+      "agentMessageNew": "Der Benutzer ist sich nicht sicher, welche Farbe für {{product}} ausgewählt werden soll.\n\n– Heben Sie die wichtigsten Unterschiede zwischen 2 bis 3 Optionstypen hervor (z. B. fett vs. neutral, hell vs. dunkel, alltagstauglich vs. ausdrucksstark).\n– Schlagen Sie eine Richtung basierend auf der typischen Verwendung oder Formatierung vor.\n– Stellen Sie EINE Frage, um die Präferenz zu bestätigen.\n\nListen Sie nicht alle Farben auf. Vermeiden Sie vage Empfehlungen. Halten Sie die Antwort fokussiert, praktisch und leicht erfassbar."
+    },
+    "websiteAbandonment": {
+      "nudgeMessage": "Noch unsicher? Ich kann Ihnen bei der Eingrenzung helfen.",
+      "nudgeMessageNew": "Noch unsicher? Ich kann Ihnen bei der Eingrenzung helfen.",
+      "mobileNudgeMessage": "Noch unsicher?",
+      "chatMessage": "Ich bin mir nicht sicher, was ich auswählen soll – kannst du mir bei der Entscheidung helfen?",
+      "chatMessageNew": "Ich bin mir nicht sicher, was ich auswählen soll – kannst du mir bei der Entscheidung helfen?",
+      "agentMessage": "Die Person zeigt Anzeichen, dass sie die Sitzung verlassen könnte – behandeln Sie das als einen Moment des Zögerns, nicht als einen bestätigten Ausstieg.\n\n– Beginnen Sie mit einem kurzen, warmen Satz, der anerkennt, dass noch eine Entscheidung offen sein kann. Ziehen Sie keine voreiligen Schlüsse. Verwenden Sie keine Formulierungen mit Ausstiegsabsicht („warten“, „bevor Sie gehen“, „nicht gehen“, „sind Sie sicher“).\n– Stellen Sie EINE gezielte Frage, um herauszufinden, was genau gerade blockiert (z. B. noch am Entscheiden, auf der Suche nach etwas Bestimmtem oder beim Prüfen eines Details).\n– Beenden Sie die Antwort nach der Frage.\n\nNennen Sie keine Funktionen. Empfehlen Sie noch keine Produkte. Beziehen Sie sich nicht auf die Zeit auf der Seite oder auf ein zugrunde liegendes Signal. Halten Sie die Antwort unter zwei kurzen Zeilen.",
+      "agentMessageNew": "Die Person zeigt Anzeichen, dass sie die Sitzung verlassen könnte – behandeln Sie das als einen Moment des Zögerns, nicht als einen bestätigten Ausstieg.\n\n– Beginnen Sie mit einem kurzen, warmen Satz, der anerkennt, dass noch eine Entscheidung offen sein kann. Ziehen Sie keine voreiligen Schlüsse. Verwenden Sie keine Formulierungen mit Ausstiegsabsicht („warten“, „bevor Sie gehen“, „nicht gehen“, „sind Sie sicher“).\n– Stellen Sie EINE gezielte Frage, um herauszufinden, was genau gerade blockiert (z. B. noch am Entscheiden, auf der Suche nach etwas Bestimmtem oder beim Prüfen eines Details).\n– Beenden Sie die Antwort nach der Frage.\n\nNennen Sie keine Funktionen. Empfehlen Sie noch keine Produkte. Beziehen Sie sich nicht auf die Zeit auf der Seite oder auf ein zugrunde liegendes Signal. Halten Sie die Antwort unter zwei kurzen Zeilen."
+    },
+    "embeddedNudges": {
+      "suggestedPromptsAriaLabel": "Vorgeschlagene Prompts"
+    },
+    "metadataAvailable": "Zusätzlicher Kontext: {{metadata}}"
+  },
+  "discount": {
+    "applyDiscount": "Rabatt anwenden",
+    "discountBadge": "{{discount}} Rabatt",
+    "shopSale": "Shop-Angebote"
+  },
+  "tracker": {
+    "progressMessage": "Sie sind {{amount}} vom kostenlosen Versand entfernt",
+    "eligibleMessage": "Sie haben Anspruch auf kostenlosen Versand!"
+  },
+  "shipping": {
+    "productListTitle": "Produkte, die Ihnen gefallen könnten",
+    "progressTitle": "Fortschritt beim kostenlosen Versand",
+    "eligibleTitle": "Kostenloser Versand freigeschaltet!"
+  },
+  "chat": {
+    "conversation": "Chatunterhaltung",
+    "userMessage": "Benutzernachricht",
+    "agentMessage": "Agent-Nachricht",
+    "loading": "Antwort wird geladen",
+    "agentTyping": "Agent gibt eine Nachricht ein",
+    "pdpHandoffPullingContextFromBing": "Kontextinformationen von {{brand}} abrufen",
+    "pdpHandoffStartedFromBing": "Suche bei {{brand}} gestartet"
+  },
+  "genux": {
+    "scrollableItems": "Scrollbare Elemente"
+  },
+  "tabs": {
+    "more": "Weitere Registerkarten"
+  },
+  "list": {
+    "showMore": "{{count}} weitere anzeigen",
+    "showMoreWithLabel": "Weitere {{count}} {{label}} anzeigen"
+  },
+  "carousel": {
+    "imageCarouselLabel": "Produktabbildung {{index}} von {{total}}: {{description}}",
+    "imageLabel": "Produktbild"
+  },
+  "rating": {
+    "starRating": "Bewertung: {{rating}} von {{max}}"
+  },
+  "tutorial": {
+    "messageBar": "Unterstützt nur geführte Prompts, bis der Agent einsatzbereit ist.",
+    "messageBarButtonCTA": "Zurück zu den Einstellungen",
+    "welcomePopoverTitle": "Vorgeschlagenen Prompt auswählen",
+    "welcomePopoverDescription": "Beginnen Sie, indem Sie auf eine der oben genannten Beispielprompts klicken, um eine Vorschau der Reaktionen Ihres Markenagents zu erhalten.",
+    "previewPopoverTitle": "Antwortvorschau",
+    "followupPopoverTitle": "Weitere Fragen ausprobieren",
+    "followupPopoverDescription": "Der Markenagent kann Fragen beantworten und Produkte empfehlen, indem er die Informationen Ihres Stores nutzt.",
+    "calloutLabel": "Diese Vorschau unterstützt einige angeleitete Prompts. Sobald Ihr Agent einsatzbereit ist, erhalten Sie einen Link zur Live-Demo, mit dem Sie Ihren Markenagenten testen und vollständige Gespräche erkunden können.",
+    "exitTutorial": "Tutorial beenden",
+    "exitTutorialDescription": "Sie haben das Tutorial abgeschlossen! Klicken Sie unten, um es zu beenden und den Agent uneingeschränkt zu nutzen."
+  },
+  "mcp": {
+    "messageBar": "Vorschau-Modus – nur bestimmte Prompts funktionieren, bis die Einrichtung des Agents abgeschlossen ist."
+  },
+  "orderTracking": {
+    "emailLabel": "E-Mail-Adresse",
+    "emailPlaceholder": "yourname@email.com",
+    "emailError": "Geben Sie eine gültige E-Mail-Adresse ein",
+    "orderLabel": "Bestellnummer",
+    "orderPlaceholder": "ON123456",
+    "orderError": "Geben Sie eine gültige Bestellnummer ein",
+    "orderNumber": "Bestellung {{orderNumber}}",
+    "track": "Nachverfolgen",
+    "trackOrder": "Bestellung nachverfolgen",
+    "findingOrder": "Ihre Bestellung wird gesucht …"
+  },
+  "form": {
+    "done": "Fertig",
+    "doneSelected": "Fertig ({{count}} ausgewählt)"
+  }
+}
