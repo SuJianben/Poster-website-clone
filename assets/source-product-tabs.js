@@ -8,32 +8,24 @@
     return Array.from(panel.querySelectorAll('.featured-collection__items > .f-column'));
   }
 
-  function animateVisibleCards(panel) {
-    const visibleCards = cardsFor(panel).filter(
-      (card) => window.getComputedStyle(card).display !== 'none',
-    );
-
-    visibleCards.forEach((card, index) => {
-      card.style.setProperty('--source-tab-enter-delay', `${index * 55}ms`);
-    });
-
+  function animateTabPanel(panel) {
     panel.classList.remove('source-tabs-entering');
     void panel.offsetWidth;
     panel.classList.add('source-tabs-entering');
   }
 
-  function setPage(panel, page, shouldAnimate = false) {
+  function setPage(panel, position) {
     const cards = cardsFor(panel);
     const perPage = window.matchMedia('(min-width: 768px)').matches ? 5 : 2;
-    const totalPages = Math.max(1, Math.ceil(cards.length / perPage));
-    const currentPage = Math.min(Math.max(page, 0), totalPages - 1);
+    const totalPositions = Math.max(1, cards.length - perPage + 1);
+    const currentPosition = Math.min(Math.max(position, 0), totalPositions - 1);
 
     cards.forEach((card, index) => {
-      const visible = index >= currentPage * perPage && index < (currentPage + 1) * perPage;
+      const visible = index >= currentPosition && index < currentPosition + perPage;
       card.style.setProperty('display', visible ? 'block' : 'none', 'important');
     });
 
-    panel.dataset.staticPage = String(currentPage);
+    panel.dataset.staticPage = String(currentPosition);
 
     const progress = panel.querySelector('.swiper-pagination');
     if (progress) {
@@ -44,33 +36,25 @@
         progressFill.className = 'swiper-pagination-progressbar-fill';
         progress.append(progressFill);
       }
-      progressFill.style.transform = `scaleX(${(currentPage + 1) / totalPages})`;
+      progressFill.style.transform = `scaleX(${(currentPosition + 1) / totalPositions})`;
     }
 
     panel.querySelectorAll('.swiper-button-prev').forEach((button) => {
-      button.disabled = currentPage === 0;
+      button.disabled = currentPosition === 0;
     });
     panel.querySelectorAll('.swiper-button-next').forEach((button) => {
-      button.disabled = currentPage === totalPages - 1;
+      button.disabled = currentPosition === totalPositions - 1;
     });
-
-    if (shouldAnimate) {
-      animateVisibleCards(panel);
-    }
   }
 
   function bindPager(panel) {
     if (panel.dataset.staticPagerBound === 'true') return;
     panel.dataset.staticPagerBound = 'true';
     panel.querySelectorAll('.swiper-button-prev').forEach((button) => {
-      button.addEventListener('click', () =>
-        setPage(panel, Number(panel.dataset.staticPage || 0) - 1, true),
-      );
+      button.addEventListener('click', () => setPage(panel, Number(panel.dataset.staticPage || 0) - 1));
     });
     panel.querySelectorAll('.swiper-button-next').forEach((button) => {
-      button.addEventListener('click', () =>
-        setPage(panel, Number(panel.dataset.staticPage || 0) + 1, true),
-      );
+      button.addEventListener('click', () => setPage(panel, Number(panel.dataset.staticPage || 0) + 1));
     });
     setPage(panel, 0);
   }
@@ -112,7 +96,8 @@
         tab.classList.toggle('active', active);
         tab.setAttribute('aria-selected', String(active));
       });
-      setPage(currentPanel, 0, true);
+      setPage(currentPanel, 0);
+      animateTabPanel(currentPanel);
     };
 
     tabs.forEach((tab) => tab.addEventListener('click', () => activate(tab.dataset.index)));

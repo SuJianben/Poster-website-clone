@@ -34,12 +34,24 @@
   inset: 0;
   position: absolute;
   transform-origin: left center;
+  transition: transform 0.3s ease;
   width: 100%;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .source-tabs-ready .source-tabs-entering .featured-collection__items > .f-column {
-    animation: fade-in-up 0.35s ease-out both;
-    animation-delay: var(--source-tab-enter-delay, 0ms);
+  .source-tabs-ready .tabs__panel.source-tabs-entering {
+    animation: source-tab-panel-in 0.5s cubic-bezier(0, 0, 0.3, 1) both;
+  }
+}
+
+@keyframes source-tab-panel-in {
+  from {
+    opacity: 0.01;
+    transform: translateY(2.5rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
