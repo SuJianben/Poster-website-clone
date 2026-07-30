@@ -37,6 +37,7 @@
 
     const progress = panel.querySelector('.swiper-pagination');
     if (progress) {
+      progress.classList.add('swiper-pagination-progressbar', 'swiper-pagination-horizontal');
       let progressFill = progress.querySelector('.swiper-pagination-progressbar-fill');
       if (!progressFill) {
         progressFill = document.createElement('span');
