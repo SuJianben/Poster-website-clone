@@ -102,12 +102,12 @@
     menu.addEventListener('source-mega-menu:close', hide);
 
     menu.addEventListener('mouseover', (event) => {
-      const item = event.target.closest('menu-sidebar .menu-sidebar__toggle[data-has-children="true"]');
+      const item = event.target.closest('menu-sidebar .menu-sidebar__toggle');
       if (item && menu.contains(item)) selectSidebarItem(item);
     });
 
     menu.addEventListener('click', (event) => {
-      const item = event.target.closest('menu-sidebar .menu-sidebar__toggle[data-has-children="true"]');
+      const item = event.target.closest('menu-sidebar .menu-sidebar__toggle');
       if (!item || event.target.closest('a')) return;
       event.preventDefault();
       selectSidebarItem(item);
