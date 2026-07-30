@@ -7,7 +7,7 @@
     data-center-text="{{ section.settings.center_text | default: 'Kostenloser Versand ab 49€' | escape }}"
   >
     {% render 'source-topbar-1' %}
-    <template data-source-topbar-localization>
+    <template data-source-topbar-localization>{% comment %}
       {% assign localization_form_id = 'SourceTopbarLocalization-' | append: section.id %}
       {% form 'localization', id: localization_form_id %}
         <div class="topbar__country flex items-center gap-4">
@@ -48,7 +48,7 @@
           </details>
         </div>
       {% endform %}
-    </template>
+    {% endcomment %}{% render 'source-topbar-localization', section: section %}</template>
   </div>
 {% endif %}
 {% schema %}

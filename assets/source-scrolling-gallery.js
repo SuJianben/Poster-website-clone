@@ -1,14 +1,12 @@
 (() => {
-  const SELECTOR = 'scrolling-promotion.scrolling-promotion--gallery';
+  const SELECTOR = 'scrolling-promotion';
 
   function init(scroller) {
-    if (scroller.dataset.sourceScrollingReady === 'true') return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     const promotion = scroller.querySelector(':scope > .promotion');
     if (!promotion) return;
 
-    scroller.dataset.sourceScrollingReady = 'true';
     promotion.classList.add('promotion--animated');
 
     const repeatTimes = Number(scroller.dataset.repeats || 10);
