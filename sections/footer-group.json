@@ -1,1 +1,66 @@
-{   "sections": {     "newsletter": {       "type": "source-newsletter",       "settings": {         "enabled": true       }     },     "spotlight": {       "type": "source-spotlight-picks",       "settings": {         "enabled": true       }     },     "custom": {       "type": "source-footer-custom",       "settings": {         "enabled": true       }     },     "cart": {       "type": "source-cart-drawer",       "settings": {         "enabled": true       }     },     "footer": {       "type": "source-footer",       "settings": {         "enabled": true       }     },     "icons": {       "type": "source-footer-icons",       "settings": {         "enabled": true       }     },     "compare": {       "type": "source-product-compare",       "settings": {         "enabled": true       }     }   },   "order": [     "newsletter",     "icons",     "footer",     "custom",     "cart",     "compare",     "spotlight"   ],   "name": "Footer group",   "type": "footer" }
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "footer",
+  "sections": {
+    "compare": {
+      "settings": {
+        "enabled": true
+      },
+      "type": "source-product-compare"
+    },
+    "cart": {
+      "settings": {
+        "enabled": true
+      },
+      "type": "source-cart-drawer"
+    },
+    "icons": {
+      "settings": {
+        "enabled": true
+      },
+      "type": "source-footer-icons"
+    },
+    "newsletter": {
+      "settings": {
+        "enabled": true
+      },
+      "type": "source-newsletter"
+    },
+    "spotlight": {
+      "settings": {
+        "enabled": true
+      },
+      "type": "source-spotlight-picks"
+    },
+    "footer": {
+      "settings": {
+        "enabled": true
+      },
+      "type": "source-footer"
+    },
+    "custom": {
+      "settings": {
+        "enabled": true
+      },
+      "type": "source-footer-custom"
+    }
+  },
+  "order": [
+    "newsletter",
+    "icons",
+    "footer",
+    "custom",
+    "cart",
+    "compare",
+    "spotlight"
+  ],
+  "name": "Footer group"
+}

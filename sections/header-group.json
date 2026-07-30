@@ -1,1 +1,38 @@
-{   "sections": {     "header": {       "type": "source-header",       "settings": {         "enabled": true       }     },     "promotion": {       "type": "source-header-promotion",       "settings": {         "enabled": true       }     },     "topbar": {       "type": "source-topbar",       "settings": {         "enabled": true       }     }   },   "order": [     "topbar",     "header",     "promotion"   ],   "name": "Header group",   "type": "header" }
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "header",
+  "sections": {
+    "promotion": {
+      "settings": {
+        "enabled": true
+      },
+      "type": "source-header-promotion"
+    },
+    "header": {
+      "settings": {
+        "enabled": true
+      },
+      "type": "source-header"
+    },
+    "topbar": {
+      "settings": {
+        "enabled": true
+      },
+      "type": "source-topbar"
+    }
+  },
+  "order": [
+    "topbar",
+    "header",
+    "promotion"
+  ],
+  "name": "Header group"
+}

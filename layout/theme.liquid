@@ -1,1 +1,18 @@
- <!doctype html> <html   class="no-js cart-has-items"   lang="de"    > <head> {% render 'source-document-head-1' %} {% render 'source-document-head-2' %} {{ content_for_header }} </head> <body> {% sections 'header-group' %} {{ content_for_layout }} {% sections 'footer-group' %} </body> </html>
+
+<!doctype html>
+<html
+  class="no-js cart-has-items"
+  lang="de"
+  
+>
+<head>
+{% render 'source-document-head-1' %}
+{% render 'source-document-head-2' %}
+{{ content_for_header }}
+</head>
+<body>
+{% sections 'header-group' %}
+{{ content_for_layout }}
+{% sections 'footer-group' %}
+</body>
+</html>
