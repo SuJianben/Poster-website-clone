@@ -39,7 +39,7 @@
   flex: 0 0 calc((100% - (var(--f-column-gap, 0px) * 4)) / 5);
 }
 
-.source-tabs-ready.featured-collection .tabs__panel.featured-collection__content
+.featured-collection .source-tabs-ready .tabs__panel.featured-collection__content
   .featured-collection__items > .f-column:nth-child(n) {
   display: block !important;
 }
