@@ -115,9 +115,11 @@ $headRenders
 {{ 'source-static-layout.css' | asset_url | stylesheet_tag }}
 </head>
 <body>
+<div class="site-wrapper">
 {% sections 'header-group' %}
 {{ content_for_layout }}
 {% sections 'footer-group' %}
+</div>
 </body>
 </html>
 "@
