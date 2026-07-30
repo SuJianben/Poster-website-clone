@@ -47,15 +47,41 @@ function Remove-SourceRuntime([string]$content) {
 function Write-Section([string]$name, [string]$content, [string]$label) {
   $chunks = Write-RawChunks "source-$name" $content
   $renders = ($chunks | ForEach-Object { "{% render '$_' %}" }) -join "`r`n"
+  $contentWrapper = if ($name -eq 'topbar') {
+@"
+<div
+  data-source-topbar-config
+  data-left-badge="{{ section.settings.left_badge | default: '✭✭✭✭✭' | escape }}"
+  data-left-text="{{ section.settings.left_text | default: '2500+ Bewertungen & 30 Tage Probe-Hängen' | escape }}"
+  data-center-badge="{{ section.settings.center_badge | default: 'Neu' | escape }}"
+  data-center-text="{{ section.settings.center_text | default: 'Kostenloser Versand ab 49€' | escape }}"
+>
+$renders
+</div>
+"@
+  } else {
+    $renders
+  }
+  $settings = if ($name -eq 'topbar') {
+@"
+    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true },
+    { "type": "text", "id": "left_badge", "label": "Left badge", "info": "Leave blank to use the source default." },
+    { "type": "text", "id": "left_text", "label": "Left text", "info": "Leave blank to use the source default." },
+    { "type": "text", "id": "center_badge", "label": "Center badge", "info": "Leave blank to use the source default." },
+    { "type": "text", "id": "center_text", "label": "Center text", "info": "Leave blank to use the source default." }
+"@
+  } else {
+    '    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true }'
+  }
   $section = @"
 {% if section.settings.enabled %}
-$renders
+$contentWrapper
 {% endif %}
 {% schema %}
 {
   "name": "$label",
   "settings": [
-    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true }
+$settings
   ],
   "presets": [{ "name": "$label" }]
 }
