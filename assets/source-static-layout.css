@@ -22,3 +22,17 @@
 .source-tabs-ready .tabs__panel.featured-collection__content {
   display: block !important;
 }
+
+.source-tabs-ready .swiper-pagination {
+  overflow: hidden;
+  position: relative;
+}
+
+.source-tabs-ready .swiper-pagination-progressbar-fill {
+  background: currentColor;
+  height: 100%;
+  inset: 0;
+  position: absolute;
+  transform-origin: left center;
+  width: 100%;
+}
