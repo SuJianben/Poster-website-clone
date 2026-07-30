@@ -19,11 +19,13 @@
     const perPage = window.matchMedia('(min-width: 768px)').matches ? 5 : 2;
     const totalPositions = Math.max(1, cards.length - perPage + 1);
     const currentPosition = Math.min(Math.max(position, 0), totalPositions - 1);
+    const track = panel.querySelector('.featured-collection__items');
 
-    cards.forEach((card, index) => {
-      const visible = index >= currentPosition && index < currentPosition + perPage;
-      card.style.setProperty('display', visible ? 'block' : 'none', 'important');
-    });
+    if (track && cards.length) {
+      const cardWidth = cards[0].getBoundingClientRect().width;
+      const columnGap = Number.parseFloat(window.getComputedStyle(track).columnGap) || 0;
+      track.style.transform = `translate3d(-${currentPosition * (cardWidth + columnGap)}px, 0, 0)`;
+    }
 
     panel.dataset.staticPage = String(currentPosition);
 
