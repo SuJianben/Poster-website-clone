@@ -1,0 +1,19 @@
+{% capture source_header_navigation %}
+[
+  {% for link in section.settings.menu.links %}
+    {
+      "title": {{ link.title | json }},
+      "url": {{ link.url | json }},
+      "has_children": {{ link.links.size | plus: 0 | json }}
+    }{% unless forloop.last %},{% endunless %}
+  {% endfor %}
+]
+{% endcapture %}
+<div
+  hidden
+  data-source-header-config
+  data-logo="{% if section.settings.logo != blank %}{{ section.settings.logo | image_url: width: 800 }}{% endif %}"
+  data-logo-link="{{ section.settings.logo_link | default: routes.root_url }}"
+  data-search-placeholder="{{ section.settings.search_placeholder | default: 'Wonach suchst du?' | escape }}"
+  data-navigation="{{ source_header_navigation | strip_newlines | escape }}"
+></div>

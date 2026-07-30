@@ -1,12 +1,18 @@
 {% if section.settings.enabled %}
 {% render 'source-header-1' %}
 {% render 'source-header-2' %}
+{% render 'source-header-config', section: section %}
+<script src="{{ 'source-header-config.js' | asset_url }}" defer="defer"></script>
 {% endif %}
 {% schema %}
 {
   "name": "Header",
   "settings": [
-    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true }
+    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true },
+    { "type": "image_picker", "id": "logo", "label": "Logo image" },
+    { "type": "url", "id": "logo_link", "label": "Logo link" },
+    { "type": "text", "id": "search_placeholder", "label": "Search placeholder", "default": "Wonach suchst du?" },
+    { "type": "link_list", "id": "menu", "label": "Primary navigation", "info": "Use a six-item menu to replace the source top navigation without changing its layout." }
   ],
   "presets": [{ "name": "Header" }]
 }
