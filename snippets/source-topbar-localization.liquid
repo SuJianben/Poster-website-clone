@@ -1,7 +1,9 @@
+{% assign language_form_id = 'SourceTopbarLanguage-' | append: section.id %}
+{% assign country_form_id = 'SourceTopbarCountry-' | append: section.id %}
 <div class="topbar__country flex items-center gap-4">
   <div class="language-switcher no-js-hidden flex">
     <localization-form class="disclosure no-js-hidden disclosure--down disclosure--plain" data-disclosure-locale>
-      {% form 'localization', id: 'SourceTopbarLanguage-' | append: section.id, class: 'selectors-form', data-disclosure-form: '' %}
+      {% form 'localization', id: language_form_id, class: 'selectors-form', data-disclosure-form: '' %}
         <input type="hidden" name="_method" value="put">
         <h2 class="visually-hidden" id="SourceTopbarLanguageLabel-{{ section.id }}">Language</h2>
         <button type="button" class="disclosure__toggle btn--plain text-normal font-body" aria-expanded="false" aria-controls="SourceTopbarLanguageList-{{ section.id }}" aria-describedby="SourceTopbarLanguageLabel-{{ section.id }}" data-disclosure-toggle>
@@ -19,7 +21,7 @@
   </div>
   <div class="country-switcher flex no-js-hidden" style="--f-max-width: 220px">
     <localization-form class="disclosure no-js-hidden disclosure--down disclosure--plain" data-disclosure-country>
-      {% form 'localization', id: 'SourceTopbarCountry-' | append: section.id, class: 'selectors-form', data-disclosure-form: '' %}
+      {% form 'localization', id: country_form_id, class: 'selectors-form', data-disclosure-form: '' %}
         <input type="hidden" name="_method" value="put">
         <h2 class="visually-hidden" id="SourceTopbarCountryLabel-{{ section.id }}">Country/region</h2>
         <button type="button" class="disclosure__toggle btn--plain text-normal font-body" aria-expanded="false" aria-controls="SourceTopbarCountryList-{{ section.id }}" aria-describedby="SourceTopbarCountryLabel-{{ section.id }}" data-disclosure-toggle><span class="f-country-flags f-country-flags--{{ localization.country.iso_code }}" style="--background-image: url(//cdn.shopify.com/static/images/flags/{{ localization.country.iso_code | downcase }}.svg?width=20)"></span>{{ localization.country.name }} ({{ localization.country.currency.iso_code }} {{ localization.country.currency.symbol }})<svg class="icon icon-caret-up icon--medium icon--thick" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3.75 12.5L10 6.25L16.25 12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
