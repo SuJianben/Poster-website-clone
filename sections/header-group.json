@@ -8,19 +8,25 @@
  * ------------------------------------------------------------
  */
 {
+  "order": [
+    "topbar",
+    "header",
+    "promotion"
+  ],
   "type": "header",
+  "name": "Header group",
   "sections": {
-    "promotion": {
-      "settings": {
-        "enabled": true
-      },
-      "type": "source-header-promotion"
-    },
     "header": {
       "settings": {
         "enabled": true
       },
       "type": "source-header"
+    },
+    "promotion": {
+      "settings": {
+        "enabled": true
+      },
+      "type": "source-header-promotion"
     },
     "topbar": {
       "settings": {
@@ -28,11 +34,5 @@
       },
       "type": "source-topbar"
     }
-  },
-  "order": [
-    "topbar",
-    "header",
-    "promotion"
-  ],
-  "name": "Header group"
+  }
 }

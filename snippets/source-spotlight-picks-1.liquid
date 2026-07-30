@@ -250,35 +250,7 @@ Besondere Angebote
   </button>
 </back-to-top>
 
-<script>
-  class BackToTop extends HTMLElement {
-    constructor() {
-      super();
-      this.addEventListener('click', this.scrollToTop);
-    }
 
-    connectedCallback() {
-      window.addEventListener('scroll', this.toggleVisibility.bind(this));
-    }
-
-    scrollToTop() {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth',
-      });
-    }
-
-    toggleVisibility() {
-      if (window.scrollY > 400) {
-        this.classList.add('show');
-      } else {
-        this.classList.remove('show');
-      }
-    }
-  }
-
-  customElements.define('back-to-top', BackToTop);
-</script>
 <ul hidden>
       <li id="a11y-refresh-page-message">Die Auswahl einer Auswahl führt zu einer vollständigen Seitenaktualisierung.</li>
       <li id="a11y-new-window-message">Öffnet in einem neuen Fenster.</li>
@@ -311,43 +283,13 @@ Besondere Angebote
             span.stamped-badge-caption[data-reviews][data-label][data-version="2"]:before{content: "("attr(data-reviews)")"!important; font-size:15.4px;}
     </style>
 
-    <script>
-document.addEventListener("click", function (e) {
-  const badge = e.target.closest('#stamped-reviews-widget');
-  if (!badge) return;
-
-  e.preventDefault();
-
-  const interval = setInterval(() => {
-    const widget = document.querySelector('#stamped-main-widget');
-    if (widget) {
-      widget.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-      clearInterval(interval);
-    }
-  }, 200);
-});
-</script>
+    
 
     <!-- Stamped -->
 
-    <script>
-      function myInit() {
-        StampedFn.init({
-          apiKey: 'pubkey-09a9xLB9CB9xiCa1764WO3XHqaSno6',
-          sId: '228253',
-        });
-      }
-    </script>
+    
 
-    <script
-      async
-      onload="myInit()"
-      type="text/javascript"
-      src="https://cdn1.stamped.io/files/widget.min.js"
-    ></script>
+    
 
     <!-- End Stamped --><style>
   /* 1. Custom Badges (Limited, Bestseller etc.) */
@@ -390,114 +332,27 @@ document.addEventListener("click", function (e) {
 
 <div id="global-atelier-drawer-container"></div>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    if (!document.querySelector('.atelier-drawer')) {
-      const drawerHTML = `
-        <div class="atelier-drawer-wrapper">
-          <div class="atelier-drawer-overlay js-close-atelier-drawer"></div>
-          <div class="atelier-drawer">
-            <div class="atelier-drawer__header">
-              <span class="atelier-drawer__title">DREI VERSCHIEDENE EDITIONEN</span>
-              <button class="atelier-drawer__close js-close-atelier-drawer">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-              </button>
-            </div>
-            <div class="atelier-drawer__content">
-              <p class="drawer-intro" style="margin-bottom:30px; font-style:italic; color:#555;">
-                Bei DotComCanvas definieren wir Wandkunst neu. Unsere drei Kategorien bieten dir Zugang zu exklusiver Kunst – vom Einstieg bis zum seltenen Investment-Piece.
-              </p>
-              <div class="drawer-section" style="margin-bottom:25px;">
-                <div class="drawer-separator">-----</div>
-                <h4>LIMITED ATELIER EXCLUSIVE</h4>
-                <p style="margin:0; color:#555;">Das ultimative Statement. Exklusive Kunstwerke, die nur bei uns zu kaufen sind. Dazu noch streng limitiert und heiß begehrt.</p>
-              </div>
-              <div class="drawer-section" style="margin-bottom:25px;">
-                <div class="drawer-separator">-----</div>
-                <h4>ATELIER EXCLUSIVE</h4>
-                <p style="margin:0; color:#555;">Eine Sammlung exklusiver Kunststücke. Diese einzigartigen Designs werden direkt für uns entworfen.</p>
-              </div>
-              <div class="drawer-section">
-                <div class="drawer-separator">-----</div>
-                <h4>ESSENTIALS</h4>
-                <p style="margin:0; color:#555;">Zeitlose Favoriten und Bestseller von Künstlern, die sich entschieden haben, ihre Werke nicht zu begrenzen.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      `;
-      document.body.insertAdjacentHTML('beforeend', drawerHTML);
-    }
 
-    document.body.addEventListener('click', function(e) {
-      if (e.target.closest('.js-open-atelier-drawer-card')) {
-        e.preventDefault(); 
-        e.stopPropagation();
-        const activeDrawer = document.querySelector('.atelier-drawer');
-        const activeOverlay = document.querySelector('.atelier-drawer-overlay');
-        if(activeDrawer && activeOverlay) {
-          activeDrawer.classList.add('is-open');
-          activeOverlay.classList.add('is-visible');
-          document.body.style.overflow = 'hidden'; 
-        }
-      }
-      if (e.target.closest('.js-close-atelier-drawer')) {
-        const activeDrawer = document.querySelector('.atelier-drawer');
-        const activeOverlay = document.querySelector('.atelier-drawer-overlay');
-        if(activeDrawer && activeOverlay) {
-          activeDrawer.classList.remove('is-open');
-          activeOverlay.classList.remove('is-visible');
-          document.body.style.overflow = ''; 
-        }
-      }
-    });
-  });
-</script>
 
 
 
   <style> @media screen and (max-width: 1023px) {/* Versteckt die Suchleiste standardmäßig auf Mobile & Tablet */ .header__search {display: none !important; position: absolute; top: 100%; /* Positioniert die Leiste direkt unter dem Header */ left: 0; width: 100%; background-color: #ffffff; /* Hintergrundfarbe der Suchleiste */ padding: 15px; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.05); /* Leichter Schatten nach unten */ } /* Diese Klasse blenden wir per Klick ein */ .header__search.mobile-search-active {display: flex !important; }} </style>
-<div id="shopify-block-ARVZGby9xRG9peXNVY__8746983209849429782" class="shopify-block shopify-app-block"><script type="module" src="https://cdn.shopify.com/extensions/019f8814-9285-765a-bb00-749a1cabdadf/dealeasy-272/assets/dealeasy-widgets.esm.js" defer></script>
+<div id="shopify-block-ARVZGby9xRG9peXNVY__8746983209849429782" class="shopify-block shopify-app-block">
 
-<script>
-  var dealeasyPublicAccessToken = '794480a78af0218f647bf5129391870b' || '';
-  var dealeasyUsingTranslatedHandles = true || false;
-  var dealeasyPublicApiVersion = "2026-04";
 
-  window.dealeasyProduct = {
-    id: 'gid://shopify/Product/' + '',
-    handle: ''
-  };
-
-  var editableQtySelector = '' === "true";
-  var minimizeFreeGiftTitle = '' === "true";
-  var isRtlLanguageStore = '' === "true";
-  var discountRoundingMethod = '';</script>
 
 
 
 
 <!-- BEGIN app snippet: custom-css --><style></style><!-- END app snippet -->
-<!-- BEGIN app snippet: custom-script --><script></script><!-- END app snippet -->
+<!-- BEGIN app snippet: custom-script --><!-- END app snippet -->
 
 
-  <script></script>
+  
 <style></style>
 
 
 
-</div><script src="https://cdn.shopify.com/storefront/standard-actions.js" type="module" data-source-attribution="shopify.standard_actions"></script>
-<script>
-(function () {
-  function reportHeight() {
-    var height = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
-    window.parent.postMessage({ type: 'source-homepage-height', height: height }, '*');
-  }
-  window.addEventListener('load', reportHeight);
-  window.addEventListener('resize', reportHeight);
-  if (window.ResizeObserver) new ResizeObserver(reportHeight).observe(document.documentElement);
-  window.setInterval(reportHeight, 1000);
-  reportHeight();
-})();
-</script>
+</div>
+
 {% endraw %}

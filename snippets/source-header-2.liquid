@@ -1069,68 +1069,8 @@ PERSONALISIERBAR
 </header>
 <div class="fixed-overlay fixed-overlay--header-section z-10"></div>
 
-<script type="application/ld+json">
-  {
-    "@context": "http://schema.org",
-    "@type": "Organization",
-    "name": "DOTCOMCANVAS®",
-    
-      "logo": "https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-7f5d6dd8ba9a-Dotcomcanvas-logo-schwarz-1.png?v=1771180820\u0026width=500",
-    
-    "sameAs": [
-      "",
-      "https://www.facebook.com/dotcomcanvas",
-      "",
-      "https://www.instagram.com/dotcomcanvas",
-      "https://www.tiktok.com/dotcomcanvas.com",
-      "",
-      "",
-      "",
-      ""
-    ],
-    "url": ""
-  }
-</script>
-  <script type="application/ld+json">
-    {
-      "@context": "http://schema.org",
-      "@type": "WebSite",
-      "name": "DOTCOMCANVAS®",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "/search?q={search_term_string}",
-        "query-input": "required name=search_term_string"
-      },
-      "url": ""
-    }
-  </script><script>
-  document.addEventListener("DOMContentLoaded", function() {
-    // Die Elemente anhand deiner Theme-Klassen auswählen
-    const searchIconLink = document.querySelector('.custom-search .search__icon-search');
-    const searchContainer = document.querySelector('.header__search');
-    const closeBtn = document.querySelector('.header__search-close');
 
-    if(searchIconLink && searchContainer) {
-      searchIconLink.addEventListener('click', function(e) {
-        // Überprüfen, ob wir uns in der Mobile-Ansicht befinden
-        if(window.innerWidth <= 1023) {
-          e.preventDefault(); // Verhindert, dass man direkt auf die /search Seite weitergeleitet wird
-          searchContainer.classList.toggle('mobile-search-active'); // Blendet die Suche ein/aus
-        }
-      });
-    }
-    
-    // Falls das Theme einen X-Button in der Leiste hat, schließt dieser die Suche wieder
-    if(closeBtn) {
-      closeBtn.addEventListener('click', function(e) {
-        if(window.innerWidth <= 1023) {
-          e.preventDefault();
-          searchContainer.classList.remove('mobile-search-active');
-        }
-      });
-    }
-  });
-</script>
+  
 
 
 

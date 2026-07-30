@@ -8,31 +8,23 @@
  * ------------------------------------------------------------
  */
 {
+  "order": [
+    "newsletter",
+    "icons",
+    "footer",
+    "custom",
+    "cart",
+    "compare",
+    "spotlight"
+  ],
   "type": "footer",
+  "name": "Footer group",
   "sections": {
     "compare": {
       "settings": {
         "enabled": true
       },
       "type": "source-product-compare"
-    },
-    "cart": {
-      "settings": {
-        "enabled": true
-      },
-      "type": "source-cart-drawer"
-    },
-    "icons": {
-      "settings": {
-        "enabled": true
-      },
-      "type": "source-footer-icons"
-    },
-    "newsletter": {
-      "settings": {
-        "enabled": true
-      },
-      "type": "source-newsletter"
     },
     "spotlight": {
       "settings": {
@@ -51,16 +43,24 @@
         "enabled": true
       },
       "type": "source-footer-custom"
+    },
+    "icons": {
+      "settings": {
+        "enabled": true
+      },
+      "type": "source-footer-icons"
+    },
+    "cart": {
+      "settings": {
+        "enabled": true
+      },
+      "type": "source-cart-drawer"
+    },
+    "newsletter": {
+      "settings": {
+        "enabled": true
+      },
+      "type": "source-newsletter"
     }
-  },
-  "order": [
-    "newsletter",
-    "icons",
-    "footer",
-    "custom",
-    "cart",
-    "compare",
-    "spotlight"
-  ],
-  "name": "Footer group"
+  }
 }
