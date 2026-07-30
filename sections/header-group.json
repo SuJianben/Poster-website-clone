@@ -15,23 +15,30 @@
   ],
   "name": "Header group",
   "sections": {
-    "header": {
-      "settings": {
-        "enabled": true
-      },
-      "type": "source-header"
-    },
     "topbar": {
+      "type": "source-topbar",
       "settings": {
-        "enabled": true
-      },
-      "type": "source-topbar"
+        "enabled": true,
+        "left_badge": "",
+        "left_text": "",
+        "center_badge": "",
+        "center_text": ""
+      }
+    },
+    "header": {
+      "type": "source-header",
+      "settings": {
+        "enabled": true,
+        "logo_link": "",
+        "search_placeholder": "Wonach suchst du?",
+        "menu": "sixmenu"
+      }
     },
     "promotion": {
+      "type": "source-header-promotion",
       "settings": {
         "enabled": true
-      },
-      "type": "source-header-promotion"
+      }
     }
   },
   "type": "header"
