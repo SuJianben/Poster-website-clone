@@ -7,6 +7,47 @@
     data-center-text="{{ section.settings.center_text | default: 'Kostenloser Versand ab 49€' | escape }}"
   >
     {% render 'source-topbar-1' %}
+    <template data-source-topbar-localization>
+      {% assign localization_form_id = 'SourceTopbarLocalization-' | append: section.id %}
+      {% form 'localization', id: localization_form_id %}
+        <div class="topbar__country flex items-center gap-4">
+          <details class="source-topbar-localization">
+            <summary class="disclosure__toggle btn--plain text-normal font-body">
+              {{ localization.language.endonym_name }}
+              <svg class="icon icon-caret-up icon--medium icon--thick" aria-hidden="true" focusable="false" viewBox="0 0 20 20" fill="none">
+                <path d="M3.75 12.5L10 6.25L16.25 12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </summary>
+            {% if localization.available_languages.size > 1 %}
+              <ul class="source-topbar-localization__list">
+                {% for language in localization.available_languages %}
+                  <li>
+                    <button class="source-topbar-localization__option" type="submit" name="language_code" value="{{ language.iso_code }}">{{ language.endonym_name }}</button>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </details>
+          <details class="source-topbar-localization">
+            <summary class="disclosure__toggle btn--plain text-normal font-body">
+              {{ localization.country.name }} ({{ localization.country.currency.iso_code }} {{ localization.country.currency.symbol }})
+              <svg class="icon icon-caret-up icon--medium icon--thick" aria-hidden="true" focusable="false" viewBox="0 0 20 20" fill="none">
+                <path d="M3.75 12.5L10 6.25L16.25 12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </summary>
+            {% if localization.available_countries.size > 1 %}
+              <ul class="source-topbar-localization__list">
+                {% for country in localization.available_countries %}
+                  <li>
+                    <button class="source-topbar-localization__option" type="submit" name="country_code" value="{{ country.iso_code }}">{{ country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})</button>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </details>
+        </div>
+      {% endform %}
+    </template>
   </div>
 {% endif %}
 {% schema %}
