@@ -113,6 +113,7 @@ $htmlOpen
 {{ content_for_header }}
 $headRenders
 {{ 'source-static-layout.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'source-product-tabs.js' | asset_url }}" defer="defer"></script>
 </head>
 <body>
 <div class="site-wrapper">
