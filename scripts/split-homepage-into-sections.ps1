@@ -57,6 +57,33 @@ function Write-Section([string]$name, [string]$content, [string]$label) {
   data-center-text="{{ section.settings.center_text | default: 'Kostenloser Versand ab 49€' | escape }}"
 >
 $renders
+<template data-source-topbar-localization>
+  {% assign localization_form_id = 'SourceTopbarLocalization-' | append: section.id %}
+  {% form 'localization', id: localization_form_id %}
+    <div class="topbar__country flex items-center gap-4">
+      <details class="source-topbar-localization">
+        <summary class="disclosure__toggle btn--plain text-normal font-body">{{ localization.language.endonym_name }}</summary>
+        {% if localization.available_languages.size > 1 %}
+          <ul class="source-topbar-localization__list">
+            {% for language in localization.available_languages %}
+              <li><button class="source-topbar-localization__option" type="submit" name="language_code" value="{{ language.iso_code }}">{{ language.endonym_name }}</button></li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </details>
+      <details class="source-topbar-localization">
+        <summary class="disclosure__toggle btn--plain text-normal font-body"><span class="f-country-flags" style="--background-image: url(https://cdn.shopify.com/static/images/flags/{{ localization.country.iso_code | downcase }}.svg?width=20)"></span>{{ localization.country.name }} ({{ localization.country.currency.iso_code }} {{ localization.country.currency.symbol }})</summary>
+        {% if localization.available_countries.size > 1 %}
+          <ul class="source-topbar-localization__list">
+            {% for country in localization.available_countries %}
+              <li><button class="source-topbar-localization__option" type="submit" name="country_code" value="{{ country.iso_code }}">{{ country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})</button></li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </details>
+    </div>
+  {% endform %}
+</template>
 </div>
 "@
   } else {
@@ -143,12 +170,15 @@ $headRenders
 {{ 'source-reviews-carousel.css' | asset_url | stylesheet_tag }}
 {{ 'source-sticky-header.css' | asset_url | stylesheet_tag }}
 {{ 'source-header-mega-menu.css' | asset_url | stylesheet_tag }}
+{{ 'source-topbar-localization.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'source-product-tabs.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'source-scrolling-gallery.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'source-favorite-products.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'source-reviews-carousel.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'source-sticky-header.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'source-header-mega-menu.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'source-topbar-config.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'source-topbar-localization.js' | asset_url }}" defer="defer"></script>
 </head>
 <body>
 <div class="site-wrapper">
