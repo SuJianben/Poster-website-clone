@@ -23,3 +23,7 @@ The Theme Editor can now manage the homepage section order and visibility. Heade
 ## Remaining work
 
 The individual copied source fields (for example, a specific product card title or image) are deliberately still source-static. Converting every source field into a native Shopify setting is a separate data-binding task and was not included in this structural-only change.
+
+## Follow-up fix on 2026-07-30
+
+The static migration now suppresses source-store runtime scripts that changed the copied grid into an uninitialized carousel. This retains the imported HTML and CSS while preventing product-card overflow in the target store.

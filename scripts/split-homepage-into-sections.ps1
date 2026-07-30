@@ -18,8 +18,15 @@ function Write-RawChunks([string]$name, [string]$content) {
   while ($position -lt $content.Length) {
     $length = [Math]::Min($chunkSize, $content.Length - $position)
     if ($position + $length -lt $content.Length) {
-      $breakAt = $content.LastIndexOf("`n", $position + $length, $length)
-      if ($breakAt -gt $position) { $length = $breakAt - $position + 1 }
+      # Liquid wrappers add whitespace between chunks. Split only after complete
+      # HTML nodes so a minified script or stylesheet is never corrupted.
+      $window = $content.Substring($position, $length)
+      $safeBreaks = [regex]::Matches($window, '</(?:script|style|template|section|div)>', [Text.RegularExpressions.RegexOptions]::IgnoreCase)
+      if ($safeBreaks.Count -eq 0) {
+        throw "Unable to find a safe HTML boundary while splitting $name."
+      }
+      $lastBreak = $safeBreaks[$safeBreaks.Count - 1]
+      $length = $lastBreak.Index + $lastBreak.Length
     }
     $snippet = "$name-$part"
     $value = "{% raw %}`r`n$($content.Substring($position, $length))`r`n{% endraw %}`r`n"
@@ -29,6 +36,12 @@ function Write-RawChunks([string]$name, [string]$content) {
     $part++
   }
   return $snippets
+}
+
+function Remove-SourceRuntime([string]$content) {
+  # This is a static migration. Source theme scripts mutate the copied DOM and
+  # require the original store's runtime, so retain the source HTML/CSS only.
+  return [regex]::Replace($content, '(?is)<script\b[^>]*>.*?</script>', '')
 }
 
 function Write-Section([string]$name, [string]$content, [string]$label) {
@@ -53,7 +66,7 @@ $renders
 
 $segments = for ($index = 0; $index -lt $matches.Count; $index++) {
   $end = if ($index -lt $matches.Count - 1) { $matches[$index + 1].Index } else { $html.LastIndexOf('</body>') }
-  $html.Substring($matches[$index].Index, $end - $matches[$index].Index)
+  Remove-SourceRuntime $html.Substring($matches[$index].Index, $end - $matches[$index].Index)
 }
 
 $names = @(
@@ -75,13 +88,30 @@ for ($index = 0; $index -lt $segments.Count; $index++) {
 $headStart = $html.IndexOf('<head>') + 6
 $headEnd = $html.IndexOf('</head>')
 $htmlOpen = $html.Substring(0, $html.IndexOf('>', $html.IndexOf('<html')) + 1)
-$headChunks = Write-RawChunks 'source-document-head' $html.Substring($headStart, $headEnd - $headStart)
+$sourceHead = $html.Substring($headStart, $headEnd - $headStart)
+
+# The downloaded source already contains the original store's rendered
+# content_for_header. Shopify injects an equivalent block for this store, so
+# keeping both executes platform scripts twice and breaks the source runtime.
+$legacyHeaderStart = $sourceHead.IndexOf("<script>window.performance && window.performance.mark && window.performance.mark('shopify.content_for_header.start');</script>")
+if ($legacyHeaderStart -lt 0) {
+  throw 'Could not find the source store content_for_header block.'
+}
+# Everything after this marker is Shopify platform/runtime code from the source
+# store. The copied CSS is already above it, and this store supplies its own
+# content_for_header below.
+$sourceHead = $sourceHead.Substring(0, $legacyHeaderStart)
+$sourceHead = Remove-SourceRuntime $sourceHead
+$headChunks = Write-RawChunks 'source-document-head' $sourceHead
+Get-ChildItem -Path (Join-Path $RepositoryRoot 'snippets') -Filter 'source-document-head-*.liquid' |
+  Where-Object { $_.BaseName -notin $headChunks } |
+  Remove-Item -Force
 $headRenders = ($headChunks | ForEach-Object { "{% render '$_' %}" }) -join "`r`n"
 $layout = @"
 $htmlOpen
 <head>
-$headRenders
 {{ content_for_header }}
+$headRenders
 </head>
 <body>
 {% sections 'header-group' %}
