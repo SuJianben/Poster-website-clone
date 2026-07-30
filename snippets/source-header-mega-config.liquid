@@ -10,9 +10,11 @@
                 <menu-sidebar class="block menu-sidebar relative w-full mega-menu__item">
                   {% for child in link.links %}
                     <details class="menu-sidebar__item"{% if forloop.first %} open{% endif %}>
-                      <summary class="menu-sidebar__toggle blocks-radius-sm flex items-center justify-between{% if forloop.first %} is-visible{% endif %}">
+                      <summary class="menu-sidebar__toggle blocks-radius-sm flex items-center justify-between{% if forloop.first %} is-visible{% endif %}"{% if child.links.size > 0 %} data-has-children="true"{% endif %}>
                         <a href="{{ child.url }}" class="h6 full-unstyled-link">{{ child.title }}</a>
-                        <svg class="icon icon-caret-right rtl-flip-x icon--small icon--thick" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 3.75L13.75 10L7.5 16.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        {% if child.links.size > 0 %}
+                          <svg class="icon icon-caret-right rtl-flip-x icon--small icon--thick" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 3.75L13.75 10L7.5 16.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        {% endif %}
                       </summary>
                       <div class="menu-sidebar__content no-empty">
                         <ul class="f-grid">
