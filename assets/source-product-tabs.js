@@ -1,4 +1,7 @@
 (() => {
+  document.documentElement.classList.remove('no-js');
+  document.documentElement.classList.add('js');
+
   const PANEL_SELECTOR = '.tabs__panel.featured-collection__content';
 
   function cardsFor(panel) {
