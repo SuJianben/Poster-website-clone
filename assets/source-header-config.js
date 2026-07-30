@@ -48,6 +48,7 @@
       if (!menu || !currentPanel || !replacement) return;
 
       currentPanel.replaceWith(replacement);
+      menu.dispatchEvent(new CustomEvent('source-mega-menu:refresh'));
     });
   }
 

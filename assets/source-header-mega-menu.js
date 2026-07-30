@@ -8,10 +8,16 @@
     if (menu.dataset.sourceMegaMenuReady === 'true') return;
 
     const summary = menu.querySelector(':scope > summary');
-    const content = menu.querySelector(':scope > .mega-menu');
-    const panel = content?.querySelector(':scope > .mega-menu__container');
-    const wrapper = content?.querySelector('.mega-menu__wrapper');
-    if (!summary || !content || !panel || !wrapper) return;
+    let content;
+    let panel;
+    let wrapper;
+    const refreshPanel = () => {
+      content = menu.querySelector(':scope > .mega-menu');
+      panel = content?.querySelector(':scope > .mega-menu__container');
+      wrapper = content?.querySelector('.mega-menu__wrapper');
+      return Boolean(content && panel && wrapper);
+    };
+    if (!summary || !refreshPanel()) return;
 
     menu.dataset.sourceMegaMenuReady = 'true';
     let openTimer;
@@ -45,6 +51,7 @@
 
     const show = () => {
       clearTimers();
+      if (!refreshPanel()) return;
       document.querySelectorAll(SELECTOR).forEach((otherMenu) => {
         if (otherMenu !== menu && otherMenu.classList.contains('source-mega-menu-open')) {
           otherMenu.dispatchEvent(new CustomEvent('source-mega-menu:close'));
@@ -91,12 +98,16 @@
 
     menu.addEventListener('source-mega-menu:close', hide);
 
-    menu.querySelectorAll('menu-sidebar .menu-sidebar__toggle').forEach((item) => {
-      item.addEventListener('mouseenter', () => selectSidebarItem(item));
-      item.addEventListener('click', (event) => {
-        event.preventDefault();
-        selectSidebarItem(item);
-      });
+    menu.addEventListener('mouseover', (event) => {
+      const item = event.target.closest('menu-sidebar .menu-sidebar__toggle');
+      if (item && menu.contains(item)) selectSidebarItem(item);
+    });
+
+    menu.addEventListener('click', (event) => {
+      const item = event.target.closest('menu-sidebar .menu-sidebar__toggle');
+      if (!item || event.target.closest('a')) return;
+      event.preventDefault();
+      selectSidebarItem(item);
     });
 
     document.addEventListener('click', (event) => {
@@ -107,8 +118,16 @@
       if (event.key === 'Escape') hide();
     });
 
-    const initialItem = menu.querySelector('menu-sidebar .menu-sidebar__toggle.is-visible');
-    if (initialItem) selectSidebarItem(initialItem);
+    const selectInitialItem = () => {
+      const initialItem = menu.querySelector('menu-sidebar .menu-sidebar__toggle.is-visible');
+      if (initialItem) selectSidebarItem(initialItem);
+    };
+
+    menu.addEventListener('source-mega-menu:refresh', () => {
+      if (refreshPanel()) selectInitialItem();
+    });
+
+    selectInitialItem();
   }
 
   const initMenus = () => {
