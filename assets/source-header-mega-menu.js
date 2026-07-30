@@ -25,10 +25,7 @@
     };
 
     const updateBodyState = () => {
-      document.body.classList.toggle(
-        'has-dropdown-menu',
-        Boolean(document.querySelector(`${SELECTOR}.source-mega-menu-open`))
-      );
+      document.body.classList.remove('has-dropdown-menu');
     };
 
     const hide = () => {
