@@ -1,0 +1,12 @@
+@media (min-width: 1024px) {
+  header details[is='details-mega'] > .mega-menu .mega-menu__wrapper {
+    transform: translateY(-100%);
+    transition: transform 0.5s cubic-bezier(0.39, 0.575, 0.565, 1);
+    visibility: hidden;
+  }
+
+  header details[is='details-mega'].source-mega-menu-open > .mega-menu .mega-menu__wrapper {
+    transform: translateY(0);
+    visibility: visible;
+  }
+}

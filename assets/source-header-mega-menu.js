@@ -9,7 +9,7 @@
 
     const summary = menu.querySelector(':scope > summary');
     const content = menu.querySelector(':scope > .mega-menu');
-    const wrapper = content?.querySelector(':scope > .mega-menu__wrapper');
+    const wrapper = content?.querySelector('.mega-menu__wrapper');
     if (!summary || !content || !wrapper) return;
 
     menu.dataset.sourceMegaMenuReady = 'true';
