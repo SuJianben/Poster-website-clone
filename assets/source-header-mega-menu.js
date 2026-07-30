@@ -69,6 +69,9 @@
       const sidebar = item.closest('menu-sidebar');
       if (!sidebar) return;
 
+      sidebar.querySelectorAll('.menu-sidebar__item').forEach((sidebarItem) => {
+        sidebarItem.open = sidebarItem.contains(item);
+      });
       sidebar.querySelectorAll('.menu-sidebar__toggle.is-visible').forEach((visibleItem) => {
         visibleItem.classList.remove('is-visible');
       });
