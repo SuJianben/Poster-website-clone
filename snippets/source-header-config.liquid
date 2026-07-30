@@ -17,3 +17,4 @@
   data-search-placeholder="{{ section.settings.search_placeholder | default: 'Wonach suchst du?' | escape }}"
   data-navigation="{{ source_header_navigation | strip_newlines | escape }}"
 ></div>
+{% render 'source-header-mega-config', section: section %}

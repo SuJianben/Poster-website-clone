@@ -1,0 +1,42 @@
+{% if section.settings.menu != blank %}
+  <template data-source-header-mega-config>
+    {% for link in section.settings.menu.links %}
+      {% if link.links.size > 0 %}
+        <template data-source-header-mega-panel data-menu-index="{{ forloop.index0 }}">
+          <div class="mega-menu v-scrollable">
+            <div class="mega-menu__container color-scheme-1">
+              <div class="page-width mega-menu__wrapper">
+                <style>.menu-sidebar { --f-columns-lg: 5; --f-column-gap-lg: 3rem; --f-row-gap-lg: 3rem; }</style>
+                <menu-sidebar class="block menu-sidebar relative w-full mega-menu__item">
+                  {% for child in link.links %}
+                    <details class="menu-sidebar__item"{% if forloop.first %} open{% endif %}>
+                      <summary class="menu-sidebar__toggle blocks-radius-sm flex items-center justify-between{% if forloop.first %} is-visible{% endif %}">
+                        <a href="{{ child.url }}" class="h6 full-unstyled-link">{{ child.title }}</a>
+                        <svg class="icon icon-caret-right rtl-flip-x icon--small icon--thick" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 3.75L13.75 10L7.5 16.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                      </summary>
+                      <div class="menu-sidebar__content no-empty">
+                        <ul class="f-grid">
+                          {% for grandchild in child.links %}
+                            {% assign collection_image = grandchild.object.image %}
+                            <li>
+                              <a href="{{ grandchild.url }}" class="grid gap-3 hover-wrapper reversed-link">
+                                {% if collection_image != blank %}
+                                  <div class="overflow-hidden blocks-radius-md"><div class="media-wrapper" style="--aspect-ratio: 1/1;">{{ collection_image | image_url: width: 1080 | image_tag: loading: 'lazy', class: 'motion-reduce hover-scale-up', widths: '352, 768, 1024, 1080', alt: grandchild.title }}</div></div>
+                                {% endif %}
+                                <p class="block m-0"><span class="reversed-link__text">{{ grandchild.title }}</span></p>
+                              </a>
+                            </li>
+                          {% endfor %}
+                        </ul>
+                      </div>
+                    </details>
+                  {% endfor %}
+                </menu-sidebar>
+              </div>
+            </div>
+          </div>
+        </template>
+      {% endif %}
+    {% endfor %}
+  </template>
+{% endif %}

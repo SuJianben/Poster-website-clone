@@ -34,6 +34,23 @@
     });
   }
 
+  function applyMegaMenus(configNode) {
+    const megaConfig = configNode.parentElement?.querySelector('template[data-source-header-mega-config]');
+    if (!megaConfig) return;
+
+    const panels = megaConfig.content.querySelectorAll('template[data-source-header-mega-panel]');
+    const items = [...document.querySelectorAll('.header__navigation > nav > ul > li')];
+    panels.forEach((panelTemplate) => {
+      const index = Number(panelTemplate.dataset.menuIndex);
+      const menu = items[index]?.querySelector(':scope > details[is="details-mega"]');
+      const currentPanel = menu?.querySelector(':scope > .mega-menu');
+      const replacement = panelTemplate.content.firstElementChild?.cloneNode(true);
+      if (!menu || !currentPanel || !replacement) return;
+
+      currentPanel.replaceWith(replacement);
+    });
+  }
+
   function applyConfig(configNode) {
     if (configNode.dataset.sourceHeaderConfigReady === 'true') return;
 
@@ -54,6 +71,7 @@
 
     try {
       applyNavigation(JSON.parse(configNode.dataset.navigation || '[]'));
+      applyMegaMenus(configNode);
     } catch (_error) {
       // A missing or incomplete backend navigation deliberately leaves source markup intact.
     }
@@ -62,7 +80,6 @@
   }
 
   const init = (scope = document) => scope.querySelectorAll(SELECTOR).forEach(applyConfig);
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => init());
-  else init();
+  init();
   document.addEventListener('shopify:section:load', (event) => init(event.target));
 })();
