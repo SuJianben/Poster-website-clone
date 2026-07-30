@@ -8,7 +8,21 @@
     return Array.from(panel.querySelectorAll('.featured-collection__items > .f-column'));
   }
 
-  function setPage(panel, page) {
+  function animateVisibleCards(panel) {
+    const visibleCards = cardsFor(panel).filter(
+      (card) => window.getComputedStyle(card).display !== 'none',
+    );
+
+    visibleCards.forEach((card, index) => {
+      card.style.setProperty('--source-tab-enter-delay', `${index * 55}ms`);
+    });
+
+    panel.classList.remove('source-tabs-entering');
+    void panel.offsetWidth;
+    panel.classList.add('source-tabs-entering');
+  }
+
+  function setPage(panel, page, shouldAnimate = false) {
     const cards = cardsFor(panel);
     const perPage = window.matchMedia('(min-width: 768px)').matches ? 5 : 2;
     const totalPages = Math.max(1, Math.ceil(cards.length / perPage));
@@ -38,16 +52,24 @@
     panel.querySelectorAll('.swiper-button-next').forEach((button) => {
       button.disabled = currentPage === totalPages - 1;
     });
+
+    if (shouldAnimate) {
+      animateVisibleCards(panel);
+    }
   }
 
   function bindPager(panel) {
     if (panel.dataset.staticPagerBound === 'true') return;
     panel.dataset.staticPagerBound = 'true';
     panel.querySelectorAll('.swiper-button-prev').forEach((button) => {
-      button.addEventListener('click', () => setPage(panel, Number(panel.dataset.staticPage || 0) - 1));
+      button.addEventListener('click', () =>
+        setPage(panel, Number(panel.dataset.staticPage || 0) - 1, true),
+      );
     });
     panel.querySelectorAll('.swiper-button-next').forEach((button) => {
-      button.addEventListener('click', () => setPage(panel, Number(panel.dataset.staticPage || 0) + 1));
+      button.addEventListener('click', () =>
+        setPage(panel, Number(panel.dataset.staticPage || 0) + 1, true),
+      );
     });
     setPage(panel, 0);
   }
@@ -89,7 +111,7 @@
         tab.classList.toggle('active', active);
         tab.setAttribute('aria-selected', String(active));
       });
-      setPage(currentPanel, 0);
+      setPage(currentPanel, 0, true);
     };
 
     tabs.forEach((tab) => tab.addEventListener('click', () => activate(tab.dataset.index)));
