@@ -112,6 +112,7 @@ $htmlOpen
 <head>
 {{ content_for_header }}
 $headRenders
+{{ 'source-static-layout.css' | asset_url | stylesheet_tag }}
 </head>
 <body>
 {% sections 'header-group' %}

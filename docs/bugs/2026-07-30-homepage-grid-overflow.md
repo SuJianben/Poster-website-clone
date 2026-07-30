@@ -18,9 +18,15 @@ The copied source runtime changed product lists from `f-grid` to Swiper layout, 
 - Remove original-store runtime scripts from the generated head and page sections.
 - Remove the original store's rendered `content_for_header` payload and keep only the target store's native `content_for_header`.
 - Split generated snippets only at completed HTML-node boundaries.
+- In the static fallback, retain only the source carousel's initial active panel
+  and first five desktop cards; clip that panel rather than allowing an
+  uninitialized carousel to enlarge the document.
 
 ## Verification
 
 - Desktop 1920 x 1080: Best sellers renders as a five-column grid; first card width is 351px.
 - Mobile: first card width is 161px and page scroll width equals viewport width.
 - Fresh browser run: no source-theme runtime script errors.
+- Desktop 1920 x 1080 after the static fallback: exactly five visible Best
+  sellers cards; the former second row is absent.
+- Mobile 390 x 844: page scroll width equals viewport width.
