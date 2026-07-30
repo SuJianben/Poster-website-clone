@@ -17,7 +17,8 @@
   "sections": {
     "header": {
       "settings": {
-        "enabled": true
+        "enabled": true,
+        "menu": "sixmenu"
       },
       "type": "source-header"
     },
