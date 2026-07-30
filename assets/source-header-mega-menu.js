@@ -9,8 +9,9 @@
 
     const summary = menu.querySelector(':scope > summary');
     const content = menu.querySelector(':scope > .mega-menu');
+    const panel = content?.querySelector(':scope > .mega-menu__container');
     const wrapper = content?.querySelector('.mega-menu__wrapper');
-    if (!summary || !content || !wrapper) return;
+    if (!summary || !content || !panel || !wrapper) return;
 
     menu.dataset.sourceMegaMenuReady = 'true';
     let openTimer;
