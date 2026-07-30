@@ -116,11 +116,13 @@ $headRenders
 {{ 'source-favorite-products.css' | asset_url | stylesheet_tag }}
 {{ 'source-reviews-carousel.css' | asset_url | stylesheet_tag }}
 {{ 'source-sticky-header.css' | asset_url | stylesheet_tag }}
+{{ 'source-header-mega-menu.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'source-product-tabs.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'source-scrolling-gallery.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'source-favorite-products.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'source-reviews-carousel.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'source-sticky-header.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'source-header-mega-menu.js' | asset_url }}" defer="defer"></script>
 </head>
 <body>
 <div class="site-wrapper">
