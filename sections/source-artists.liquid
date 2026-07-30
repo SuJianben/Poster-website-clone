@@ -1,1 +1,13 @@
-{% if section.settings.enabled %} {% render 'source-artists-1' %} {% render 'source-artists-2' %} {% endif %} {% schema %} {   "name": "Meet the artists",   "settings": [     { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true }   ],   "presets": [{ "name": "Meet the artists" }] } {% endschema %}
+{% if section.settings.enabled %}
+{% render 'source-artists-1' %}
+{% render 'source-artists-2' %}
+{% endif %}
+{% schema %}
+{
+  "name": "Meet the artists",
+  "settings": [
+    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true }
+  ],
+  "presets": [{ "name": "Meet the artists" }]
+}
+{% endschema %}
