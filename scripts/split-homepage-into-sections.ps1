@@ -114,9 +114,11 @@ $htmlOpen
 $headRenders
 {{ 'source-static-layout.css' | asset_url | stylesheet_tag }}
 {{ 'source-favorite-products.css' | asset_url | stylesheet_tag }}
+{{ 'source-reviews-carousel.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'source-product-tabs.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'source-scrolling-gallery.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'source-favorite-products.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'source-reviews-carousel.js' | asset_url }}" defer="defer"></script>
 </head>
 <body>
 <div class="site-wrapper">
