@@ -13,4 +13,9 @@
     transform: translateY(0);
     visibility: visible;
   }
+
+  header details[is='details-mega'].source-mega-menu-closing > .mega-menu > .mega-menu__container {
+    transform: translateY(-100%);
+    visibility: visible;
+  }
 }

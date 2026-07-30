@@ -31,10 +31,14 @@
     const hide = () => {
       clearTimers();
       menu.classList.remove('source-mega-menu-open');
+      menu.classList.add('source-mega-menu-closing');
       summary.removeAttribute('open');
       content.removeAttribute('open');
       hideTimer = window.setTimeout(() => {
-        if (!menu.classList.contains('source-mega-menu-open')) menu.removeAttribute('open');
+        if (!menu.classList.contains('source-mega-menu-open')) {
+          menu.classList.remove('source-mega-menu-closing');
+          menu.removeAttribute('open');
+        }
       }, TRANSITION_DURATION);
       updateBodyState();
     };
@@ -47,6 +51,7 @@
         }
       });
       menu.setAttribute('open', '');
+      menu.classList.remove('source-mega-menu-closing');
       summary.setAttribute('open', '');
       content.setAttribute('open', '');
       menu.classList.add('source-mega-menu-open');
