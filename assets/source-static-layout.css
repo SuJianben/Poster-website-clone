@@ -17,3 +17,8 @@
     display: none !important;
   }
 }
+
+/* Restores the copied product tab controls once the local interaction module loads. */
+.source-tabs-ready .tabs__panel.featured-collection__content {
+  display: block !important;
+}
