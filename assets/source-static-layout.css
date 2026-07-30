@@ -1,0 +1,19 @@
+/*
+ * The copied source uses product-tabs and Swiper to keep one panel and one
+ * carousel viewport visible. Its original runtime is intentionally absent in
+ * this static Shopify migration, so restore that initial visual state here.
+ */
+@media screen and (min-width: 768px) {
+  .featured-collection .tabs__panel:not([data-index="0"]) {
+    display: none !important;
+  }
+
+  .featured-collection .tabs__panel[data-index="0"] {
+    overflow-x: clip;
+  }
+
+  .featured-collection .tabs__panel[data-index="0"] .featured-collection__items
+    > .f-column:nth-child(n + 6) {
+    display: none !important;
+  }
+}
