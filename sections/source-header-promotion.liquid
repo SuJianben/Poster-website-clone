@@ -1,11 +1,20 @@
 {% if section.settings.enabled %}
-{% render 'source-header-promotion-1' %}
+{% render 'source-header-promotion-1', section: section %}
 {% endif %}
 {% schema %}
 {
   "name": "Header promotion",
   "settings": [
     { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Promotion text",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "✨ 5% - 25% Rabatt Sommer Sale" }
+      ]
+    }
   ],
   "presets": [{ "name": "Header promotion" }]
 }
