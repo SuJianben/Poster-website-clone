@@ -1,11 +1,29 @@
 {% if section.settings.enabled %}
-{% render 'source-promotion-1' %}
+{% render 'source-promotion-1', section: section %}
 {% endif %}
 {% schema %}
 {
   "name": "Promotion",
   "settings": [
-    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true }
+    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true },
+    { "type": "range", "id": "item_spacing", "label": "Item spacing", "min": 20, "max": 140, "step": 5, "unit": "px", "default": 70 },
+    { "type": "range", "id": "mobile_item_spacing", "label": "Mobile item spacing", "min": 12, "max": 60, "step": 4, "unit": "px", "default": 24 },
+    { "type": "range", "id": "duration", "label": "Scroll duration", "min": 20, "max": 120, "step": 5, "unit": "s", "default": 60 }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Text item",
+      "settings": [
+        { "type": "select", "id": "content_type", "label": "Content type", "options": [{ "value": "text", "label": "Text" }, { "value": "image", "label": "Image" }], "default": "text" },
+        { "type": "textarea", "id": "text", "label": "Text" },
+        { "type": "select", "id": "text_style", "label": "Text style", "options": [{ "value": "h4", "label": "Small" }, { "value": "h2", "label": "Large" }], "default": "h2" },
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "url", "id": "link", "label": "Image link" },
+        { "type": "range", "id": "image_height", "label": "Image height", "min": 40, "max": 120, "step": 5, "unit": "px", "default": 80 },
+        { "type": "range", "id": "mobile_image_height", "label": "Mobile image height", "min": 30, "max": 80, "step": 5, "unit": "px", "default": 50 }
+      ]
+    }
   ],
   "presets": [{ "name": "Promotion" }]
 }
