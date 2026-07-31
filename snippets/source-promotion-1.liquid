@@ -22,13 +22,13 @@
       <div class="promotion">
         {% if has_custom_items %}
           {% for block in section.blocks %}
-            {% if block.settings.content_type == 'image' and block.settings.image != blank %}
+            {% if block.type == 'image' and block.settings.image != blank %}
               <div class="promotion__item promotion__item-image" style="--image-height: {{ block.settings.image_height }}px; --image-height-mobile: {{ block.settings.mobile_image_height }}px;" {{ block.shopify_attributes }}>
                 <a {% if block.settings.link != blank %}href="{{ block.settings.link }}"{% endif %} aria-label="{{ block.settings.image.alt | default: 'Promotion' | escape }}" class="block promotion__item-wrap self-center hover-wrapper blocks-radius">
                   <div class="media-wrapper">{{ block.settings.image | image_url: width: 1100 | image_tag: alt: block.settings.image.alt, loading: 'lazy', class: 'motion-reduce', is: 'image-lazy' }}</div>
                 </a>
               </div>
-            {% elsif block.settings.content_type == 'text' and block.settings.text != blank %}
+            {% elsif block.type == 'text' and block.settings.text != blank %}
               <div class="promotion__item promotion__item-text" style="--text-opacity: 1.0;" {{ block.shopify_attributes }}>
                 <div class="block promotion__item-wrap self-center"><div class="promotion__text {{ block.settings.text_style }}">{{ block.settings.text }}</div></div>
               </div>
