@@ -7,6 +7,18 @@
     const promotion = scroller.querySelector(':scope > .promotion');
     if (!promotion) return;
 
+    if (scroller.hasAttribute('data-source-speed')) {
+      const sourcePixelsPerSecond = 3740.75 / 60;
+      const syncSourceSpeed = () => {
+        const duration = Math.max(8, promotion.getBoundingClientRect().width / sourcePixelsPerSecond);
+        scroller.style.setProperty('--duration', `${duration.toFixed(2)}s`);
+      };
+
+      syncSourceSpeed();
+      promotion.querySelectorAll('img').forEach((image) => image.addEventListener('load', syncSourceSpeed, { once: true }));
+      new ResizeObserver(syncSourceSpeed).observe(promotion);
+    }
+
     promotion.classList.add('promotion--animated');
 
     const repeatTimes = Number(scroller.dataset.repeats || 10);
