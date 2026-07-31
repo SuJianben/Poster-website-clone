@@ -93,6 +93,13 @@
         "enabled": true
       }
     },
+    "source_promotion_nzaqUP": {
+      "type": "source-promotion",
+      "name": "Promotion",
+      "settings": {
+        "enabled": true
+      }
+    },
     "bestsellers": {
       "type": "source-bestsellers",
       "settings": {
@@ -157,6 +164,7 @@
   "order": [
     "hero",
     "promotion",
+    "source_promotion_nzaqUP",
     "bestsellers",
     "canvas-deals",
     "gallery",
