@@ -10,76 +10,148 @@
 {
   "sections": {
     "hero": {
+      "type": "source-hero",
       "settings": {
-        "enabled": true
-      },
-      "type": "source-hero"
+        "enabled": true,
+        "link": "",
+        "link_label": "",
+        "product": "lucrecia-rey-caro-bleu",
+        "primary_badge": "Trending",
+        "secondary_badge": "Limited Edition",
+        "price_prefix": "Ab"
+      }
     },
     "promotion": {
+      "type": "source-promotion",
+      "blocks": {
+        "image_rGxGKh": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/TPC_Artwall_43_Low_Res_a179b207-af70-4731-8560-00444a1cddc5.jpg",
+            "link": "",
+            "image_height": 80,
+            "mobile_image_height": 50
+          }
+        },
+        "text_ccfqfF": {
+          "type": "text",
+          "settings": {
+            "text": "666",
+            "text_style": "h2"
+          }
+        },
+        "image_tfmwwU": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/TPC_Artwall_43_Low_Res_a179b207-af70-4731-8560-00444a1cddc5.jpg",
+            "link": "",
+            "image_height": 80,
+            "mobile_image_height": 50
+          }
+        },
+        "text_j4eUQN": {
+          "type": "text",
+          "settings": {
+            "text": "666",
+            "text_style": "h2"
+          }
+        },
+        "image_7VdAQU": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/TPC_Artwall_43_Low_Res_a179b207-af70-4731-8560-00444a1cddc5.jpg",
+            "link": "",
+            "image_height": 80,
+            "mobile_image_height": 50
+          }
+        },
+        "text_aXaUQc": {
+          "type": "text",
+          "settings": {
+            "text": "666",
+            "text_style": "h2"
+          }
+        },
+        "text_MzbyFh": {
+          "type": "text",
+          "settings": {
+            "text": "666",
+            "text_style": "h2"
+          }
+        }
+      },
+      "block_order": [
+        "image_rGxGKh",
+        "text_ccfqfF",
+        "image_tfmwwU",
+        "text_j4eUQN",
+        "image_7VdAQU",
+        "text_aXaUQc",
+        "text_MzbyFh"
+      ],
       "settings": {
         "enabled": true
-      },
-      "type": "source-promotion"
+      }
     },
     "bestsellers": {
+      "type": "source-bestsellers",
       "settings": {
         "enabled": true
-      },
-      "type": "source-bestsellers"
+      }
     },
     "canvas-deals": {
+      "type": "source-canvas-deals",
       "settings": {
         "enabled": true
-      },
-      "type": "source-canvas-deals"
+      }
     },
     "gallery": {
+      "type": "source-gallery",
       "settings": {
         "enabled": true
-      },
-      "type": "source-gallery"
+      }
     },
     "personal": {
+      "type": "source-personal",
       "settings": {
         "enabled": true
-      },
-      "type": "source-personal"
+      }
     },
     "artists": {
+      "type": "source-artists",
       "settings": {
         "enabled": true
-      },
-      "type": "source-artists"
+      }
     },
     "collection-list": {
+      "type": "source-collection-list",
       "settings": {
         "enabled": true
-      },
-      "type": "source-collection-list"
+      }
     },
     "grid-banner": {
+      "type": "source-grid-banner",
       "settings": {
         "enabled": true
-      },
-      "type": "source-grid-banner"
+      }
     },
     "favorite-products": {
+      "type": "source-favorite-products",
       "settings": {
         "enabled": true
-      },
-      "type": "source-favorite-products"
+      }
     },
     "announcement": {
+      "type": "source-announcement",
       "settings": {
         "enabled": true
-      },
-      "type": "source-announcement"
+      }
     },
     "collection-list-secondary": {
+      "type": "source-collection-list-secondary",
       "settings": {
         "enabled": true
-      },
-      "type": "source-collection-list-secondary"
+      }
     }
   },
   "order": [
