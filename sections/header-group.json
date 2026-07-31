@@ -15,24 +15,76 @@
   ],
   "name": "Header group",
   "sections": {
-    "header": {
+    "topbar": {
+      "type": "source-topbar",
       "settings": {
         "enabled": true,
-        "menu": "sixmenu"
-      },
-      "type": "source-header"
+        "left_badge": "",
+        "left_text": "",
+        "center_badge": "",
+        "center_text": ""
+      }
     },
-    "topbar": {
+    "header": {
+      "type": "source-header",
       "settings": {
-        "enabled": true
-      },
-      "type": "source-topbar"
+        "enabled": true,
+        "logo_link": "",
+        "search_placeholder": "Wonach suchst du?",
+        "menu": "sixmenu"
+      }
     },
     "promotion": {
+      "type": "source-header-promotion",
+      "blocks": {
+        "text_NDjjeh": {
+          "type": "text",
+          "settings": {
+            "text": "✨ 5% - 25% Rabatt Sommer Sale"
+          }
+        },
+        "text_6Gj9YQ": {
+          "type": "text",
+          "settings": {
+            "text": "✨ 5% - 25% Rabatt Sommer Sale"
+          }
+        },
+        "text_XLrpzb": {
+          "type": "text",
+          "settings": {
+            "text": "✨ 5% - 25% Rabatt Sommer Sale"
+          }
+        },
+        "text_XHHkXT": {
+          "type": "text",
+          "settings": {
+            "text": "✨ 5% - 25% Rabatt Sommer Sale"
+          }
+        },
+        "text_K9etah": {
+          "type": "text",
+          "settings": {
+            "text": "✨ 5% - 25% Rabatt Sommer Sale"
+          }
+        },
+        "text_8Ccdx8": {
+          "type": "text",
+          "settings": {
+            "text": "✨ 5% - 25% Rabatt Sommer Sale"
+          }
+        }
+      },
+      "block_order": [
+        "text_NDjjeh",
+        "text_6Gj9YQ",
+        "text_XLrpzb",
+        "text_XHHkXT",
+        "text_K9etah",
+        "text_8Ccdx8"
+      ],
       "settings": {
         "enabled": true
-      },
-      "type": "source-header-promotion"
+      }
     }
   },
   "type": "header"
