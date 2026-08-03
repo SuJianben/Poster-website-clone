@@ -1,0 +1,17 @@
+{% if image != blank %}
+  <div class="f-column swiper-slide">
+    <a href="{{ link | default: fallback_link }}" class="card-media--link focus-inset" aria-label="{{ heading | escape }}">
+      <div class="card-media card-media--auto-height card-media--content-middle-center card-media--extra-small relative overflow-hidden hover-wrapper color-scheme-inverse blocks-radius">
+        <div class="card-media__media-wrapper relative overflow-hidden block w-full h-full">
+          <motion-element class="block h-full" data-motion="zoom-out-sm"><picture class="card-media__media media-wrapper h-full" style="--aspect-ratio: 1/1;">{{ image | image_url: width: 696 | image_tag: alt: heading, loading: 'lazy', class: 'motion-reduce absolute inset-0 w-full h-full hover-scale-up', is: 'image-lazy' }}<div class="bg-overlay" style="--color-overlay-alpha: 32;"></div></picture></motion-element>
+        </div>
+        <div class="card-media__content card-media__content--center content-overlay content-overlay--middle-center">
+          <div class="card-media__content-wrapper rich-text rich-text--standard text-center md:text-center">
+            <motion-element class="block card-media__heading rich-text__heading h2" data-motion="fade-up" data-motion-delay="50"><em is="highlight-text" class="highlight-text relative inline-block font-normal" style="--hl-text-color: 255, 48, 95, 1.0;">{{ heading }}</em></motion-element>
+            {% if button_label != blank %}<motion-element class="card-media__button rich-text__button block" data-motion="fade-up" data-motion-delay="100"><span class="btn btn--underline btn--with-icon"><span class="btn__text">{{ button_label }}</span><span class="btn__icon order-last svg-icon svg-icon--arrow-right icon--small icon--thick inline-flex"><svg class="icon icon-arrow-right" viewBox="0 0 18 18" fill="none"><path d="M2.8125 9H15.1875" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M10.125 3.9375L15.1875 9L10.125 14.0625" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span></motion-element>{% endif %}
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+{% endif %}
