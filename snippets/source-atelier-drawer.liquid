@@ -1,6 +1,7 @@
-{% liquid
-  assign is_english = request.locale.iso_code contains 'en'
-%}
+{% assign is_english = false %}
+{% if request.locale.iso_code contains 'en' %}
+  {% assign is_english = true %}
+{% endif %}
 
 <div class="atelier-drawer-wrapper" data-source-atelier-drawer>
   <button class="atelier-drawer-overlay" type="button" data-atelier-close aria-label="Close"></button>
