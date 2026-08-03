@@ -1,12 +1,32 @@
 {% if section.settings.enabled %}
-{% render 'source-personal-1' %}
-{% render 'source-personal-2' %}
+  {% if section.blocks.size > 0 %}
+    {% render 'source-personal-configurable', section: section %}
+  {% else %}
+    {% render 'source-personal-1' %}
+    {% render 'source-personal-2' %}
+  {% endif %}
 {% endif %}
 {% schema %}
 {
   "name": "Personal masterpiece",
   "settings": [
-    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true }
+    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Mit jedem Bild erzählst du deine ganz eigene Geschichte." },
+    { "type": "text", "id": "heading_prefix", "label": "Heading prefix", "default": "DEIN PERSÖNLICHES" },
+    { "type": "text", "id": "heading_highlight", "label": "Heading highlight", "default": "MEISTERWERK" },
+    { "type": "text", "id": "link_label", "label": "Heading link label", "default": "Zu Allen Personalisierbaren Motiven" },
+    { "type": "url", "id": "link", "label": "Heading link" },
+    { "type": "text", "id": "collection_label", "label": "Collection button label", "default": "Zur Kollektion" }
+  ],
+  "blocks": [
+    {
+      "type": "collection_tab",
+      "name": "Collection tab",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "text", "id": "label", "label": "Tab label" }
+      ]
+    }
   ],
   "presets": [{ "name": "Personal masterpiece" }]
 }
