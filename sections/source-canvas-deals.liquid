@@ -1,11 +1,36 @@
 {% if section.settings.enabled %}
-{% render 'source-canvas-deals-1' %}
+  {% if section.blocks.size > 0 %}
+    {% render 'source-canvas-deals-configurable', section: section %}
+  {% else %}
+    {% render 'source-canvas-deals-1' %}
+  {% endif %}
 {% endif %}
 {% schema %}
 {
   "name": "Canvas deals",
   "settings": [
-    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true }
+    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true },
+    { "type": "text", "id": "heading_prefix", "label": "Heading prefix", "default": "LEINWAND" },
+    { "type": "text", "id": "heading_highlight", "label": "Heading highlight", "default": "DEALS" },
+    { "type": "text", "id": "heading_suffix", "label": "Heading suffix", "default": "SHOPPEN %" },
+    { "type": "text", "id": "promotion_text", "label": "Promotion link text", "default": "20% auf alle Leinwand Neuheiten und mehr" },
+    { "type": "url", "id": "promotion_link", "label": "Promotion link" },
+    { "type": "text", "id": "collection_label", "label": "Collection button label", "default": "Zur Kollektion" }
+  ],
+  "blocks": [
+    {
+      "type": "collection_tab",
+      "name": "Collection tab",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "text", "id": "label", "label": "Tab label" },
+        { "type": "header", "content": "Optional promotion card" },
+        { "type": "image_picker", "id": "promo_image", "label": "Promotion image" },
+        { "type": "text", "id": "promo_heading", "label": "Promotion heading", "default": "ALLE NEUHEITEN -20%" },
+        { "type": "text", "id": "promo_button_label", "label": "Promotion button label", "default": "ZUSCHLAGEN" },
+        { "type": "url", "id": "promo_link", "label": "Promotion link" }
+      ]
+    }
   ],
   "presets": [{ "name": "Canvas deals" }]
 }

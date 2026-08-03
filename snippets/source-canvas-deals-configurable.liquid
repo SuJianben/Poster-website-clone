@@ -1,0 +1,41 @@
+<div id="shopify-section-{{ section.id }}" class="shopify-section">
+  <link href="https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-0cec7fa656f6-section-featured-collection.css?v=15356037298051793511780837133" rel="stylesheet" type="text/css" media="all">
+  <style data-shopify>
+    .section-{{ section.id }} { --section-padding-top: 28px; --section-padding-bottom: 40px; --f-columns-mobile: 2; --f-columns-lg: 4; --f-columns-md: 3; --f-columns-xl: 5; }
+  </style>
+  <div class="section section-{{ section.id }} featured-collection section--padding color-scheme-1" data-id="{{ section.id }}">
+    <div class="section__container page-width page-width--full">
+      <div class="section__wrapper" is="product-tabs" data-section-id="{{ section.id }}">
+        <div class="section__header s__header rich-text rich-text--tight md:text-center text-center flex flex-col md:items-center">
+          <div class="section__header--text s__header--text rich-text rich-text--tight flex-1">
+            <h2 class="rich-text__heading inline-richtext hd2"><motion-element data-motion="fade-up" data-motion-delay="50" class="block">{{ section.settings.heading_prefix }} <em is="highlight-text" class="highlight-text relative inline-block font-normal highlight-text--thick-underline" style="--hl-style-color: 204, 45, 82, 1.0;">{{ section.settings.heading_highlight }}</em> {{ section.settings.heading_suffix }}</motion-element></h2>
+            {% if section.settings.promotion_text != blank %}<motion-element class="rich-text__button block" data-motion="fade-up" data-motion-delay="100"><a class="btn btn--underline btn--with-icon" href="{{ section.settings.promotion_link }}"><span class="btn__text">{{ section.settings.promotion_text }}</span><span class="btn__icon order-last svg-icon svg-icon--caret-right icon--small icon--thick inline-flex"><svg class="icon icon-caret-right" viewBox="0 0 20 20" fill="none"><path d="M7.5 3.75L13.75 10L7.5 16.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></motion-element>{% endif %}
+          </div>
+          <motion-element class="section__header--buttons flex-1 block" data-motion="fade-up" data-motion-delay="150"><div class="tabs-nav swipe-mobile swipe-mobile--auto-cols no-js-hidden"><div class="tabs-nav__inner flex flex-wrap md:justify-center swipe-mobile__inner" role="tablist">
+            {% for block in section.blocks %}{% assign tab_label = block.settings.label | default: block.settings.collection.title %}<button class="tabs__btn focus-inset btn btn--underline{% if forloop.first %} active{% endif %}" role="tab" data-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>{{ tab_label }}</button>{% endfor %}
+          </div></div></motion-element>
+        </div>
+        <div class="section__content tabs__panels">
+          {% for block in section.blocks %}
+            {% capture panel %}
+              <div class="tabs__panel featured-collection__content" data-index="{{ forloop.index0 }}" data-id="{{ block.id }}">
+                <featured-collection class="block relative swiper swiper-equal-height overflow-visible f-grid--gap-medium swipe-mobile swipe-mobile--2-cols" data-block-id="{{ block.id }}" data-enable-slider="true" data-items="5" data-tablet-items="3" data-laptop-items="4" data-pagination-type="progressbar" data-navigation-position="bottom" id="product-list-{{ block.id }}">
+                  <div class="featured-collection__items products-list f-grid f-grid--gap-medium f-grid--row-gap-medium swiper-wrapper swipe-mobile__inner">
+                    {% if block.settings.promo_image != blank %}
+                      <div class="f-column swiper-slide"><a href="{{ block.settings.promo_link | default: block.settings.collection.url }}" class="card-media--link focus-inset" aria-label="{{ block.settings.promo_heading | escape }}"><div class="card-media card-media--auto-height card-media--content-middle-center card-media--extra-small relative overflow-hidden hover-wrapper color-scheme-inverse blocks-radius"><div class="card-media__media-wrapper relative overflow-hidden block w-full h-full"><motion-element class="block h-full" data-motion="zoom-out-sm"><picture class="card-media__media media-wrapper h-full" style="--aspect-ratio: 1/1;">{{ block.settings.promo_image | image_url: width: 696 | image_tag: alt: block.settings.promo_heading, loading: 'lazy', class: 'motion-reduce absolute inset-0 w-full h-full hover-scale-up', is: 'image-lazy' }}<div class="bg-overlay" style="--color-overlay-alpha: 32;"></div></picture></motion-element></div><div class="card-media__content card-media__content--center content-overlay content-overlay--middle-center"><div class="card-media__content-wrapper rich-text rich-text--standard text-center md:text-center"><motion-element class="block card-media__heading rich-text__heading h2" data-motion="fade-up" data-motion-delay="50"><em is="highlight-text" class="highlight-text relative inline-block font-normal" style="--hl-text-color: 255, 48, 95, 1.0;">{{ block.settings.promo_heading }}</em></motion-element><motion-element class="card-media__button rich-text__button block" data-motion="fade-up" data-motion-delay="100"><span class="btn btn--underline btn--with-icon"><span class="btn__text">{{ block.settings.promo_button_label }}</span><span class="btn__icon order-last svg-icon svg-icon--arrow-right icon--small icon--thick inline-flex"><svg class="icon icon-arrow-right" viewBox="0 0 18 18" fill="none"><path d="M2.8125 9H15.1875" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M10.125 3.9375L15.1875 9L10.125 14.0625" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span></motion-element></div></div></div></a></div>
+                    {% endif %}
+                    {% if block.settings.collection != blank %}{% for product in block.settings.collection.products limit: 12 %}{% render 'source-bestsellers-product-card', product: product %}{% endfor %}{% endif %}
+                  </div>
+                </featured-collection>
+                <div class="swiper-controls swiper-controls--grouped swiper-controls--pagination-progressbar hidden md:flex"><button class="swiper-button swiper-button-prev btn" name="previous" aria-label="Nach links schieben"><span class="btn__text"><svg class="icon icon-caret-left rtl-flip-x icon--medium icon--thick" viewBox="0 0 20 20" fill="none"><path d="M12.5 16.25L6.25 10L12.5 3.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="swiper-pagination"></div><button class="swiper-button swiper-button-next btn" name="next" aria-label="Nach rechts schieben"><span class="btn__text"><svg class="icon icon-caret-right rtl-flip-x icon--medium icon--thick" viewBox="0 0 20 20" fill="none"><path d="M7.5 3.75L13.75 10L7.5 16.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+                <scroll-progress-bar class="md:hidden" target="product-list-{{ block.id }}"><div class="progress-container"><div class="progress-bar no-empty"></div></div></scroll-progress-bar>
+                {% if block.settings.collection != blank %}<div class="collection-action-bottom flex justify-end"><a class="btn btn--primary btn--with-icon" href="{{ block.settings.collection.url }}"><span class="btn__text">{{ section.settings.collection_label }}</span><span class="btn__icon order-last svg-icon svg-icon--arrow-right icon--small icon--thick inline-flex"><svg class="icon icon-arrow-right" viewBox="0 0 18 18" fill="none"><path d="M2.8125 9H15.1875" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M10.125 3.9375L15.1875 9L10.125 14.0625" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></div>{% endif %}
+              </div>
+            {% endcapture %}
+            {% if forloop.first %}{{ panel }}{% else %}<template data-index="{{ forloop.index0 }}">{{ panel }}</template>{% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
