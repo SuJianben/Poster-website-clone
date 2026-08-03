@@ -1,11 +1,29 @@
 {% if section.settings.enabled %}
-{% render 'source-collection-list-1' %}
+  {% if section.blocks.size > 0 %}
+    {% render 'source-collection-list-configurable', section: section %}
+  {% else %}
+    {% render 'source-collection-list-1' %}
+  {% endif %}
 {% endif %}
 {% schema %}
 {
   "name": "Collection list",
   "settings": [
-    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true }
+    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true },
+    { "type": "text", "id": "heading_prefix", "label": "Heading prefix", "default": "MEHR" },
+    { "type": "text", "id": "heading_highlight", "label": "Heading highlight", "default": "KOLLEKTIONEN" }
+  ],
+  "max_blocks": 7,
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection card",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "image_picker", "id": "image", "label": "Custom image (optional)" },
+        { "type": "text", "id": "label", "label": "Card label override" }
+      ]
+    }
   ],
   "presets": [{ "name": "Collection list" }]
 }
