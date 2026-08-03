@@ -1,0 +1,34 @@
+<div id="shopify-section-{{ section.id }}" class="shopify-section">
+  <link href="https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-148830c6578d-section-scrolling-gallery-image.css?v=144523477498646606071780837157" rel="stylesheet" type="text/css" media="all">
+  <style data-shopify>
+    #shopify-section-{{ section.id }} { --section-padding-top: 40px; --section-padding-bottom: 40px; --duration: 30s; }
+  </style>
+  <div class="section section--padding scrolling-gallery-image color-scheme-10" data-section-index="{{ section.index }}">
+    <div class="section__header s__header section__header--vertical spacing--normal rich-text rich-text--tight md:text-center text-center flex flex-col items-center md:items-center page-width">
+      <div class="section__header--text s__header--text rich-text rich-text--tight flex-1">
+        {% if section.settings.rating_text != blank %}<motion-element class="section__subheading text-subheading rich-text__subheading block" data-motion="fade-up" data-motion-delay="0">{{ section.settings.rating_text }}</motion-element>{% endif %}
+        <h2 class="section__heading rich-text__heading hd2"><motion-element class="block" data-motion="fade-up" data-motion-delay="50"><em is="highlight-text" class="highlight-text relative inline-block font-normal highlight-text--thick-underline" style="--hl-style-color: 230, 217, 197, 1.0;">{{ section.settings.heading_highlight }}</em> {{ section.settings.heading_suffix }}</motion-element></h2>
+      </div>
+    </div>
+    <scrolling-promotion data-section-id="{{ section.id }}" class="scrolling-promotion scrolling-promotion--gallery scrolling-promotion--left flex flex-nowrap f-grid--gap-medium">
+      <div class="promotion gallery-list f-flex items-center">
+        {% for block in section.blocks %}
+          {% if block.settings.image != blank %}
+            <div class="gallery-list__item f-column" {{ block.shopify_attributes }}>
+              <a class="block color-scheme-1 blocks-radius gallery-list__item-wrapper hover-wrapper"{% if block.settings.link != blank %} href="{{ block.settings.link }}"{% endif %}{% if block.settings.link != blank %} target="_blank" rel="noopener"{% endif %}>
+                <motion-element class="block w-full h-full" data-motion="fade-in"><picture class="card-media__media media-wrapper" style="--aspect-ratio: 1.0;">{{ block.settings.image | image_url: width: 1100 | image_tag: alt: block.settings.name, loading: 'lazy', class: 'motion-reduce absolute inset-0 w-full h-full hover-scale-up', sizes: '(max-width: 767px) 72vw, (max-width: 1023px) 40vw, 20vw', is: 'image-lazy' }}</picture></motion-element>
+                <div class="gallery-list__item-content flex items-center justify-between gap-4">
+                  <div class="flex items-center justify-start gap-2">
+                    <motion-element class="block gallery-list__image-avatar shrink-0" data-motion="fade-in"><picture class="card-media__media media-wrapper rounded" style="--aspect-ratio: 1/1;">{% if block.settings.avatar != blank %}{{ block.settings.avatar | image_url: width: 80 | image_tag: alt: block.settings.name, loading: 'lazy', class: 'motion-reduce absolute inset-0 w-full h-full', sizes: '40px', is: 'image-lazy' }}{% else %}{{ block.settings.image | image_url: width: 80 | image_tag: alt: block.settings.name, loading: 'lazy', class: 'motion-reduce absolute inset-0 w-full h-full', sizes: '40px', is: 'image-lazy' }}{% endif %}</picture></motion-element>
+                    <p class="text-base m-0">{{ block.settings.name }}</p>
+                  </div>
+                  <div class="gallery-list__item-icon flex" aria-hidden="true"><svg class="icon icon-instagram icon--large" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.8"/><circle cx="17.5" cy="6.7" r="1" fill="currentColor"/></svg></div>
+                </div>
+              </a>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </scrolling-promotion>
+  </div>
+</div>
