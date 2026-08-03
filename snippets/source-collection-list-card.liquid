@@ -1,0 +1,21 @@
+{% liquid
+  assign card_title = label | default: collection.title
+  assign card_image = image | default: collection.featured_image
+%}
+{% if collection != blank %}
+  <div class="f-column" data-index="{{ index }}" {{ attributes }}>
+    <div class="collection-card collection-card--style-card collection-card--mobile-layout-vertical collection-card--image-full collection-card--image-padding-none collection-card--has-bg blocks-radius color-scheme-inverse h-full">
+      <a href="{{ collection.url }}" class="collection-card__wrapper relative flex flex-col items-center justify-start focus-inset btn-hover-wrapper">
+        <div class="collection-card__image media-wrapper hover-wrapper">
+          <motion-element data-motion="zoom-out-sm" class="block" style="--aspect-ratio: 1/1;">
+            {% if card_image != blank %}{{ card_image | image_url: width: 720 | image_tag: alt: card_title, loading: 'lazy', class: 'motion-reduce hover-scale-up', sizes: '(max-width: 767px) 45vw, 14vw', is: 'image-lazy' }}{% endif %}
+          </motion-element>
+        </div>
+        <div class="collection-card__inner w-full pointer-events-none flex items-center gap-x-2">
+          <h3 class="collection-card__title h6 flex-1 text-limit-none-line"><span>{{ card_title }}</span></h3>
+          <button class="collection-card__btn btn btn--icon-circle btn--icon focus-none" aria-label="{{ card_title }}" tabindex="-1"><span class="btn__text flex"><svg class="icon icon-caret-right rtl-flip-x icon--extra-small icon--thick" viewBox="0 0 20 20" fill="none"><path d="M7.5 3.75L13.75 10L7.5 16.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+        </div>
+      </a>
+    </div>
+  </div>
+{% endif %}

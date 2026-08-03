@@ -1,0 +1,20 @@
+<div id="shopify-section-{{ section.id }}" class="shopify-section section-collection-list">
+  <link href="https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-a1600fa13a89-section-collection-list.css?v=68985498160426086891780837125" rel="stylesheet" type="text/css" media="all">
+  <style data-shopify>
+    .section-{{ section.id }} { --section-padding-top: 20px; --section-padding-bottom: 40px; --f-columns-mobile: 2; --f-columns-md: 3; --f-columns-lg: 7; --f-columns-xl: 7; }
+  </style>
+  <div class="section section-{{ section.id }} section--padding collection-list color-scheme-1">
+    <div class="section__container page-width page-width--full">
+      <div class="section__wrapper">
+        <div class="section__header s__header section__header--vertical spacing--normal rich-text rich-text--tight md:text-center text-center flex flex-col items-center md:items-center">
+          <div class="section__header--text s__header--text rich-text rich-text--tight flex-1"><h2 class="section__heading rich-text__heading hd2"><motion-element class="block" data-motion="fade-up" data-motion-delay="50">{{ section.settings.heading_prefix }} <em is="highlight-text" class="highlight-text relative inline-block font-normal highlight-text--thick-underline" style="--hl-style-color: 230, 217, 197, 1.0;">{{ section.settings.heading_highlight }}</em></motion-element></h2></div>
+        </div>
+        <div class="section__content swiper-show-nav-on-hover relative">
+          <div class="collection-list__container"><div class="collection-list__inner swipe-mobile swipe-mobile--2-cols" data-section-id="{{ section.id }}"><div class="collection-list__items f-grid f-grid--gap-small f-grid--row-gap-small swipe-mobile__inner">
+            {% for block in section.blocks %}{% render 'source-collection-list-card', collection: block.settings.collection, image: block.settings.image, label: block.settings.label, index: forloop.index0, attributes: block.shopify_attributes %}{% endfor %}
+          </div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
