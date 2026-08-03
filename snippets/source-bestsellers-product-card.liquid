@@ -15,12 +15,12 @@
           <motion-element data-motion="zoom-out-sm" class="block">
             <div class="media-wrapper product-card__image product-card__image--main" style="--aspect-ratio: 1/1;">
               {% if product.featured_image != blank %}
-                {{ product.featured_image | image_url: width: 1080 | image_tag: alt: product.title, loading: 'lazy', class: 'motion-reduce', sizes: '(max-width: 767px) calc((100vw - 30px) / 2), (max-width: 1023px) calc((100vw - 30px) / 3), calc(100vw / 5)', is: 'image-lazy' }}
+                {{ product.featured_image | image_url: width: 1080 | image_tag: alt: product.title, loading: 'lazy', class: 'motion-reduce loaded', sizes: '(max-width: 767px) calc((100vw - 30px) / 2), (max-width: 1023px) calc((100vw - 30px) / 3), calc(100vw / 5)', is: 'image-lazy' }}
               {% endif %}
             </div>
             {% if secondary_image != blank %}
               <div class="media-wrapper product-card__image product-card__image--second inset-full hidden md:block" style="--aspect-ratio: 1/1;">
-                {{ secondary_image | image_url: width: 900 | image_tag: alt: product.title, loading: 'lazy', class: 'motion-reduce', sizes: '(max-width: 767px) calc((100vw - 30px) / 2), (max-width: 1023px) calc((100vw - 30px) / 3), calc(100vw / 5)', is: 'image-lazy' }}
+                {{ secondary_image | image_url: width: 900 | image_tag: alt: product.title, loading: 'lazy', class: 'motion-reduce loaded', sizes: '(max-width: 767px) calc((100vw - 30px) / 2), (max-width: 1023px) calc((100vw - 30px) / 3), calc(100vw / 5)', is: 'image-lazy' }}
               </div>
             {% endif %}
           </motion-element>
