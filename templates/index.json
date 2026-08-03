@@ -100,49 +100,70 @@
           "type": "collection_tab",
           "settings": {
             "collection": "all",
-            "label": "1"
+            "label": "1",
+            "promo_heading": "",
+            "promo_button_label": "",
+            "promo_link": ""
           }
         },
         "collection_tab_c4PEqH": {
           "type": "collection_tab",
           "settings": {
             "collection": "urban-posters",
-            "label": "2"
+            "label": "2",
+            "promo_heading": "",
+            "promo_button_label": "",
+            "promo_link": ""
           }
         },
         "collection_tab_mqUYyw": {
           "type": "collection_tab",
           "settings": {
             "collection": "time-series-posters",
-            "label": "3"
+            "label": "3",
+            "promo_heading": "",
+            "promo_button_label": "",
+            "promo_link": ""
           }
         },
         "collection_tab_GHwUmw": {
           "type": "collection_tab",
           "settings": {
             "collection": "still-life-posters",
-            "label": "4"
+            "label": "4",
+            "promo_heading": "",
+            "promo_button_label": "",
+            "promo_link": ""
           }
         },
         "collection_tab_CdLRqy": {
           "type": "collection_tab",
           "settings": {
             "collection": "urban-posters",
-            "label": "5"
+            "label": "5",
+            "promo_heading": "",
+            "promo_button_label": "",
+            "promo_link": ""
           }
         },
         "collection_tab_gg4zfW": {
           "type": "collection_tab",
           "settings": {
             "collection": "still-life-posters",
-            "label": "6"
+            "label": "6",
+            "promo_heading": "",
+            "promo_button_label": "",
+            "promo_link": ""
           }
         },
         "collection_tab_PeBczR": {
           "type": "collection_tab",
           "settings": {
             "collection": "abstract-posters",
-            "label": "7"
+            "label": "7",
+            "promo_heading": "",
+            "promo_button_label": "",
+            "promo_link": ""
           }
         }
       },
@@ -348,8 +369,41 @@
     },
     "artists": {
       "type": "source-artists",
+      "blocks": {
+        "collection_tab_zDyKbU": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "all",
+            "label": "",
+            "promo_heading": "",
+            "promo_button_label": "",
+            "promo_link": ""
+          }
+        },
+        "collection_tab_AgyaRt": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "all",
+            "label": "",
+            "promo_image": "shopify://shop_images/Screenshot_2026-02-01_000936.webp",
+            "promo_heading": "",
+            "promo_button_label": "",
+            "promo_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_tab_zDyKbU",
+        "collection_tab_AgyaRt"
+      ],
       "settings": {
-        "enabled": true
+        "enabled": true,
+        "eyebrow": "Mit jedem Verkauf wird der Künstler unterstützt",
+        "heading_prefix": "DESIGNED VON ECHTEN",
+        "heading_highlight": "KÜNSTLERN",
+        "link_label": "Zu Allen Künstlern",
+        "link": "shopify://collections/all",
+        "collection_label": "Zur Kollektion"
       }
     },
     "collection-list": {
