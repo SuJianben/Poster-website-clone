@@ -156,7 +156,10 @@
         "collection_tab_PeBczR"
       ],
       "settings": {
-        "enabled": true
+        "enabled": true,
+        "heading_prefix": "UNSERE",
+        "heading_highlight": "BESTSELLER",
+        "collection_label": "Zur Kollektion"
       }
     },
     "canvas-deals": {
@@ -190,13 +193,107 @@
         "collection_tab_qyNi99"
       ],
       "settings": {
-        "enabled": true
+        "enabled": true,
+        "heading_prefix": "LEINWAND",
+        "heading_highlight": "DEALS",
+        "heading_suffix": "SHOPPEN %",
+        "promotion_text": "20% auf alle Leinwand Neuheiten und mehr",
+        "promotion_link": "",
+        "collection_label": "Zur Kollektion"
       }
     },
     "gallery": {
       "type": "source-gallery",
+      "blocks": {
+        "gallery_item_q88eMj": {
+          "type": "gallery_item",
+          "settings": {
+            "image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg",
+            "name": "哇哇哇哇",
+            "link": ""
+          }
+        },
+        "gallery_item_PB74tM": {
+          "type": "gallery_item",
+          "settings": {
+            "image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg",
+            "name": "哇哇哇哇",
+            "link": ""
+          }
+        },
+        "gallery_item_jnFVEL": {
+          "type": "gallery_item",
+          "settings": {
+            "image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg",
+            "name": "哇哇哇哇",
+            "link": ""
+          }
+        },
+        "gallery_item_BhpiPC": {
+          "type": "gallery_item",
+          "settings": {
+            "image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg",
+            "name": "哇哇哇哇",
+            "link": ""
+          }
+        },
+        "gallery_item_HbJn8k": {
+          "type": "gallery_item",
+          "settings": {
+            "image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg",
+            "name": "哇哇哇哇",
+            "link": ""
+          }
+        },
+        "gallery_item_hwhTay": {
+          "type": "gallery_item",
+          "settings": {
+            "image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg",
+            "name": "哇哇哇哇",
+            "link": ""
+          }
+        },
+        "gallery_item_ijNTUj": {
+          "type": "gallery_item",
+          "settings": {
+            "image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg",
+            "name": "哇哇哇哇",
+            "link": ""
+          }
+        },
+        "gallery_item_BxcGgU": {
+          "type": "gallery_item",
+          "settings": {
+            "image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg",
+            "name": "哇哇哇哇",
+            "link": ""
+          }
+        },
+        "gallery_item_XJDfQ9": {
+          "type": "gallery_item",
+          "settings": {
+            "image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg",
+            "name": "哇哇哇哇",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "gallery_item_q88eMj",
+        "gallery_item_PB74tM",
+        "gallery_item_jnFVEL",
+        "gallery_item_BhpiPC",
+        "gallery_item_HbJn8k",
+        "gallery_item_hwhTay",
+        "gallery_item_ijNTUj",
+        "gallery_item_BxcGgU",
+        "gallery_item_XJDfQ9"
+      ],
       "settings": {
-        "enabled": true
+        "enabled": true,
+        "rating_text": "★★★★★ 2.500+ 5-Sterne Bewertungen",
+        "heading_highlight": "Über 60.000",
+        "heading_suffix": "glückliche Kunden"
       }
     },
     "personal": {
