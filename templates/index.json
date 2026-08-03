@@ -303,21 +303,31 @@
           "type": "collection_tab",
           "settings": {
             "collection": "abstract-posters",
-            "label": ""
+            "label": "",
+            "promo_heading": "",
+            "promo_button_label": "",
+            "promo_link": ""
           }
         },
         "collection_tab_i9WCWA": {
           "type": "collection_tab",
           "settings": {
             "collection": "space-posters",
-            "label": ""
+            "label": "",
+            "promo_heading": "",
+            "promo_button_label": "",
+            "promo_link": ""
           }
         },
         "collection_tab_MPLQ8Y": {
           "type": "collection_tab",
           "settings": {
             "collection": "all",
-            "label": ""
+            "label": "",
+            "promo_image": "shopify://shop_images/Screenshot_2026-02-01_000936.webp",
+            "promo_heading": "123",
+            "promo_button_label": "44444",
+            "promo_link": ""
           }
         }
       },
