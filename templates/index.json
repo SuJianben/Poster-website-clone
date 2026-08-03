@@ -408,6 +408,42 @@
     },
     "collection-list": {
       "type": "source-collection-list",
+      "blocks": {
+        "collection_Y8UYgX": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "label": ""
+          }
+        },
+        "collection_CCiKzW": {
+          "type": "collection",
+          "settings": {
+            "collection": "abstract-posters",
+            "label": ""
+          }
+        },
+        "collection_tNejmj": {
+          "type": "collection",
+          "settings": {
+            "collection": "figurative-posters",
+            "label": ""
+          }
+        },
+        "collection_RHtHCw": {
+          "type": "collection",
+          "settings": {
+            "collection": "all",
+            "label": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_Y8UYgX",
+        "collection_CCiKzW",
+        "collection_tNejmj",
+        "collection_RHtHCw"
+      ],
       "settings": {
         "enabled": true
       }
