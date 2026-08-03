@@ -14,6 +14,20 @@
     panel.classList.add('source-tabs-entering');
   }
 
+  function syncPromotionCardHeight(panel) {
+    const cards = cardsFor(panel);
+    const promotionSlide = cards.find((card) => card.querySelector('.card-media'));
+    const promotionCard = promotionSlide?.querySelector('.card-media');
+    const productHeights = cards
+      .filter((card) => card.querySelector('.product-card'))
+      .map((card) => card.getBoundingClientRect().height);
+
+    if (!promotionCard || !productHeights.length) return;
+
+    promotionCard.style.height = 'auto';
+    promotionCard.style.height = `${Math.max(...productHeights)}px`;
+  }
+
   function setPage(panel, position) {
     const cards = cardsFor(panel);
     const perPage = window.matchMedia('(min-width: 768px)').matches ? 5 : 2;
@@ -59,6 +73,11 @@
       button.addEventListener('click', () => setPage(panel, Number(panel.dataset.staticPage || 0) + 1));
     });
     setPage(panel, 0);
+    requestAnimationFrame(() => syncPromotionCardHeight(panel));
+    panel.querySelectorAll('img').forEach((image) => {
+      image.addEventListener('load', () => syncPromotionCardHeight(panel), { once: true });
+    });
+    window.addEventListener('resize', () => syncPromotionCardHeight(panel));
   }
 
   function panelFromTemplate(container, index) {

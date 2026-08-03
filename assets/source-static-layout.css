@@ -92,6 +92,5 @@
 /* The Canvas deals promotion card stretches to the product row height, as in the source carousel. */
 [id$="__canvas-deals"] .featured-collection__items > .f-column:has(.card-media) > .card-media--link,
 [id$="__canvas-deals"] .featured-collection__items > .f-column:has(.card-media) .card-media {
-  display: block;
   height: 100%;
 }
