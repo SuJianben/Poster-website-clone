@@ -298,8 +298,42 @@
     },
     "personal": {
       "type": "source-personal",
+      "blocks": {
+        "collection_tab_Xii4M7": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "abstract-posters",
+            "label": ""
+          }
+        },
+        "collection_tab_i9WCWA": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "space-posters",
+            "label": ""
+          }
+        },
+        "collection_tab_MPLQ8Y": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "all",
+            "label": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_tab_Xii4M7",
+        "collection_tab_i9WCWA",
+        "collection_tab_MPLQ8Y"
+      ],
       "settings": {
-        "enabled": true
+        "enabled": true,
+        "eyebrow": "Mit jedem Bild erzählst du deine ganz eigene Geschichte.",
+        "heading_prefix": "DEIN PERSÖNLICHES",
+        "heading_highlight": "MEISTERWERK",
+        "link_label": "Zu Allen Personalisierbaren Motiven",
+        "link": "",
+        "collection_label": "Zur Kollektion"
       }
     },
     "artists": {
