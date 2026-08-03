@@ -1,1 +1,31 @@
-{% if section.settings.enabled %} {% render 'source-bestsellers-1' %} {% render 'source-bestsellers-2' %} {% render 'source-bestsellers-3' %} {% endif %} {% schema %} {   "name": "Best sellers",   "settings": [     { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true }   ],   "presets": [{ "name": "Best sellers" }] } {% endschema %}
+{% if section.settings.enabled %}
+  {% if section.blocks.size > 0 %}
+    {% render 'source-bestsellers-configurable', section: section %}
+  {% else %}
+    {% render 'source-bestsellers-1' %}
+    {% render 'source-bestsellers-2' %}
+    {% render 'source-bestsellers-3' %}
+  {% endif %}
+{% endif %}
+{% schema %}
+{
+  "name": "Best sellers",
+  "settings": [
+    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true },
+    { "type": "text", "id": "heading_prefix", "label": "Heading prefix", "default": "UNSERE" },
+    { "type": "text", "id": "heading_highlight", "label": "Heading highlight", "default": "BESTSELLER" },
+    { "type": "text", "id": "collection_label", "label": "Collection button label", "default": "Zur Kollektion" }
+  ],
+  "blocks": [
+    {
+      "type": "collection_tab",
+      "name": "Collection tab",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "text", "id": "label", "label": "Tab label" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Best sellers" }]
+}
+{% endschema %}
