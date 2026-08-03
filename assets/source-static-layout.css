@@ -82,3 +82,9 @@
     transform: translateY(0);
   }
 }
+
+/* Canvas deals product media uses the source's transparent image stage. */
+[id$="__canvas-deals"] .product-card__image--main,
+[id$="__canvas-deals"] .product-card__image--second {
+  background-color: transparent;
+}
