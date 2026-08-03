@@ -1,1 +1,33 @@
-{% if section.settings.enabled %} {% render 'source-artists-1' %} {% render 'source-artists-2' %} {% endif %} {% schema %} {   "name": "Meet the artists",   "settings": [     { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true }   ],   "presets": [{ "name": "Meet the artists" }] } {% endschema %}
+{% if section.settings.enabled %}
+  {% if section.blocks.size > 0 %}
+    {% render 'source-artists-configurable', section: section %}
+  {% else %}
+    {% render 'source-artists-1' %}
+    {% render 'source-artists-2' %}
+  {% endif %}
+{% endif %}
+{% schema %}
+{
+  "name": "Meet the artists",
+  "settings": [
+    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Mit jedem Verkauf wird der Künstler unterstützt" },
+    { "type": "text", "id": "heading_prefix", "label": "Heading prefix", "default": "DESIGNED VON ECHTEN" },
+    { "type": "text", "id": "heading_highlight", "label": "Heading highlight", "default": "KÜNSTLERN" },
+    { "type": "text", "id": "link_label", "label": "Heading link label", "default": "Zu Allen Künstlern" },
+    { "type": "url", "id": "link", "label": "Heading link" },
+    { "type": "text", "id": "collection_label", "label": "Collection button label", "default": "Zur Kollektion" }
+  ],
+  "blocks": [
+    {
+      "type": "collection_tab",
+      "name": "Artist collection",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Artist collection" },
+        { "type": "text", "id": "label", "label": "Artist name" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Meet the artists" }]
+}
+{% endschema %}
