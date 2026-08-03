@@ -25,6 +25,7 @@
               <div class="tabs__panel featured-collection__content" data-index="{{ forloop.index0 }}" data-id="{{ block.id }}">
                 <featured-collection class="block relative swiper swiper-equal-height overflow-visible f-grid--gap-medium swipe-mobile swipe-mobile--2-cols" data-block-id="{{ block.id }}" data-enable-slider="true" data-items="5" data-tablet-items="3" data-laptop-items="5" data-pagination-type="progressbar" data-navigation-position="bottom" id="product-list-{{ block.id }}">
                   <div class="featured-collection__items products-list f-grid f-grid--gap-medium f-grid--row-gap-inherit swiper-wrapper swipe-mobile__inner">
+                    {% render 'source-product-shelf-promo-card', image: block.settings.promo_image, heading: block.settings.promo_heading, button_label: block.settings.promo_button_label, link: block.settings.promo_link, fallback_link: block.settings.collection.url %}
                     {% if block.settings.collection != blank %}
                       {% for product in block.settings.collection.products limit: 12 %}{% render 'source-bestsellers-product-card', product: product %}{% endfor %}
                     {% endif %}
