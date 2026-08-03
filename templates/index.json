@@ -95,6 +95,66 @@
     },
     "bestsellers": {
       "type": "source-bestsellers",
+      "blocks": {
+        "collection_tab_4pbgRQ": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "anime-posters",
+            "label": "1"
+          }
+        },
+        "collection_tab_c4PEqH": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "urban-posters",
+            "label": "2"
+          }
+        },
+        "collection_tab_mqUYyw": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "time-series-posters",
+            "label": "3"
+          }
+        },
+        "collection_tab_GHwUmw": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "still-life-posters",
+            "label": "4"
+          }
+        },
+        "collection_tab_CdLRqy": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "urban-posters",
+            "label": "5"
+          }
+        },
+        "collection_tab_gg4zfW": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "still-life-posters",
+            "label": "6"
+          }
+        },
+        "collection_tab_PeBczR": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "abstract-posters",
+            "label": "7"
+          }
+        }
+      },
+      "block_order": [
+        "collection_tab_4pbgRQ",
+        "collection_tab_c4PEqH",
+        "collection_tab_mqUYyw",
+        "collection_tab_GHwUmw",
+        "collection_tab_CdLRqy",
+        "collection_tab_gg4zfW",
+        "collection_tab_PeBczR"
+      ],
       "settings": {
         "enabled": true
       }
