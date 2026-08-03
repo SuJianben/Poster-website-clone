@@ -161,6 +161,34 @@
     },
     "canvas-deals": {
       "type": "source-canvas-deals",
+      "blocks": {
+        "collection_tab_PVM3UY": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "time-series-posters",
+            "label": "",
+            "promo_image": "shopify://shop_images/match_atletico_madrid.png",
+            "promo_heading": "ALLE NEUHEITEN -20%",
+            "promo_button_label": "ZUSCHLAGEN",
+            "promo_link": ""
+          }
+        },
+        "collection_tab_qyNi99": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "all",
+            "label": "1",
+            "promo_image": "shopify://shop_images/match_man_utd.png",
+            "promo_heading": "ALLE NEUHEITEN -20%",
+            "promo_button_label": "ZUSCHLAGEN",
+            "promo_link": "shopify://collections/all"
+          }
+        }
+      },
+      "block_order": [
+        "collection_tab_PVM3UY",
+        "collection_tab_qyNi99"
+      ],
       "settings": {
         "enabled": true
       }
