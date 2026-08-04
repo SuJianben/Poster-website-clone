@@ -445,7 +445,9 @@
         "collection_RHtHCw"
       ],
       "settings": {
-        "enabled": true
+        "enabled": true,
+        "heading_prefix": "MEHR",
+        "heading_highlight": "KOLLEKTIONEN"
       }
     },
     "grid-banner": {
@@ -535,7 +537,10 @@
         "image_MTBdJW"
       ],
       "settings": {
-        "enabled": true
+        "enabled": true,
+        "heading": "Eindrücke und Inspiration der Community",
+        "button_label": "Zu Allen Bewertungen",
+        "button_link": "shopify://pages/about"
       }
     },
     "favorite-products": {
