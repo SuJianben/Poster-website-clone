@@ -48,6 +48,14 @@ favorite-products .source-favorite-scene {
   width: 100%;
 }
 
+@media (min-width: 768px) {
+  favorite-products.source-favorite-configurable .favorite-products__media,
+  favorite-products.source-favorite-configurable .favorite-products__products,
+  favorite-products.source-favorite-configurable .favorite-products__testimonials {
+    min-height: 660px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   favorite-products.source-favorite-ready .swiper-wrapper,
   favorite-products.source-favorite-ready .favorite-products__products .swiper-slide {
