@@ -1,12 +1,53 @@
 {% if section.settings.enabled %}
-{% render 'source-footer-icons-1' %}
+  {% render 'source-footer-icons-1' %}
+  <script src="{{ 'source-footer-icons-content.js' | asset_url }}" defer="defer"></script>
+  {% if section.settings.heading_prefix != blank or section.settings.heading_highlight != blank or section.blocks.size > 0 %}
+    <script type="application/json" data-source-footer-icons-overrides>
+      {
+        "headingPrefix": {{ section.settings.heading_prefix | json }},
+        "headingHighlight": {{ section.settings.heading_highlight | json }},
+        "items": [
+          {% for block in section.blocks %}
+            {
+              "index": {{ forloop.index0 }},
+              "icon": {{ block.settings.icon | json }},
+              "title": {{ block.settings.title | json }},
+              "text": {{ block.settings.text | json }}
+            }{% unless forloop.last %},{% endunless %}
+          {% endfor %}
+        ]
+      }
+    </script>
+  {% endif %}
 {% endif %}
 {% schema %}
 {
   "name": "Footer icons",
   "settings": [
-    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true }
+    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true },
+    { "type": "text", "id": "heading_prefix", "label": "Heading prefix override" },
+    { "type": "text", "id": "heading_highlight", "label": "Heading highlight override" }
   ],
+  "blocks": [
+    {
+      "type": "promise",
+      "name": "Promise item",
+      "settings": [
+        { "type": "paragraph", "content": "Blocks are mapped to the five source promise items in order. Leave a field empty to retain the source content." },
+        { "type": "select", "id": "icon", "label": "Source icon", "default": "", "options": [
+          { "value": "", "label": "Keep source icon" },
+          { "value": "heart", "label": "Heart" },
+          { "value": "package", "label": "Package" },
+          { "value": "truck", "label": "Truck" },
+          { "value": "currency-circle-dollar", "label": "Secure payment" },
+          { "value": "smiley", "label": "Customer service" }
+        ] },
+        { "type": "text", "id": "title", "label": "Title override" },
+        { "type": "textarea", "id": "text", "label": "Description override" }
+      ]
+    }
+  ],
+  "max_blocks": 5,
   "presets": [{ "name": "Footer icons" }]
 }
 {% endschema %}
