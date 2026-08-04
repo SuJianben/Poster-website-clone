@@ -593,6 +593,18 @@
     "announcement": {
       "type": "source-announcement",
       "blocks": {
+        "review_ihYkDH": {
+          "type": "review",
+          "settings": {
+            "date": "24144",
+            "rating": 5,
+            "title": "12412412",
+            "message": "51512521",
+            "author": "125125125",
+            "product": "nord-projects-8am",
+            "link": ""
+          }
+        },
         "review_4zedEa": {
           "type": "review",
           "settings": {
@@ -643,6 +655,7 @@
         }
       },
       "block_order": [
+        "review_ihYkDH",
         "review_4zedEa",
         "review_VEJhPV",
         "review_zb8dDc",
