@@ -12,10 +12,7 @@
     "newsletter",
     "icons",
     "footer",
-    "custom",
-    "cart",
-    "compare",
-    "spotlight"
+    "custom"
   ],
   "name": "Footer group",
   "sections": {
@@ -61,24 +58,6 @@
     },
     "custom": {
       "type": "source-footer-custom",
-      "settings": {
-        "enabled": true
-      }
-    },
-    "cart": {
-      "type": "source-cart-drawer",
-      "settings": {
-        "enabled": true
-      }
-    },
-    "compare": {
-      "type": "source-product-compare",
-      "settings": {
-        "enabled": true
-      }
-    },
-    "spotlight": {
-      "type": "source-spotlight-picks",
       "settings": {
         "enabled": true
       }
