@@ -556,10 +556,34 @@
             "product": "nord-projects-9pm",
             "scene_image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg"
           }
+        },
+        "slide_kQGGqG": {
+          "type": "slide",
+          "settings": {
+            "title": "666",
+            "body": "2233",
+            "customer_name": "555",
+            "customer_location": "66666",
+            "product": "nord-projects-9pm",
+            "scene_image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg"
+          }
+        },
+        "slide_Vgx3YX": {
+          "type": "slide",
+          "settings": {
+            "title": "666",
+            "body": "2233",
+            "customer_name": "555",
+            "customer_location": "66666",
+            "product": "nord-projects-9pm",
+            "scene_image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg"
+          }
         }
       },
       "block_order": [
-        "slide_Mbr6hk"
+        "slide_Mbr6hk",
+        "slide_kQGGqG",
+        "slide_Vgx3YX"
       ],
       "settings": {
         "enabled": true,
