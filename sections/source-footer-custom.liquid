@@ -1,11 +1,24 @@
 {% if section.settings.enabled %}
 {% render 'source-footer-custom-1' %}
+<script src="{{ 'source-footer-custom-content.js' | asset_url }}" defer="defer"></script>
+{% if section.settings.logo_image != blank or section.settings.logo_alt != blank or section.settings.logo_link != blank %}
+  <script type="application/json" data-source-footer-custom-overrides>
+    {
+      "image": {% if section.settings.logo_image != blank %}{{ section.settings.logo_image | image_url: width: 2200 | json }}{% else %}null{% endif %},
+      "alt": {{ section.settings.logo_alt | json }},
+      "link": {{ section.settings.logo_link | json }}
+    }
+  </script>
+{% endif %}
 {% endif %}
 {% schema %}
 {
   "name": "Footer custom content",
   "settings": [
-    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true }
+    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true },
+    { "type": "image_picker", "id": "logo_image", "label": "Logo image" },
+    { "type": "text", "id": "logo_alt", "label": "Logo alternative text", "default": "DOTCOMCANVAS®" },
+    { "type": "url", "id": "logo_link", "label": "Logo link" }
   ],
   "presets": [{ "name": "Footer custom content" }]
 }
