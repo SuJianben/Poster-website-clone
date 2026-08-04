@@ -11,6 +11,50 @@
   "sections": {
     "main": {
       "type": "source-materials-hub",
+      "blocks": {
+        "collection_pxHFVL": {
+          "type": "collection",
+          "settings": {
+            "collection": "tv-series-posters",
+            "label": ""
+          }
+        },
+        "collection_bhgrtM": {
+          "type": "collection",
+          "settings": {
+            "collection": "still-life-posters",
+            "label": ""
+          }
+        },
+        "collection_diRnTN": {
+          "type": "collection",
+          "settings": {
+            "collection": "floral-posters",
+            "label": ""
+          }
+        },
+        "collection_M8g8J4": {
+          "type": "collection",
+          "settings": {
+            "collection": "movie-posters",
+            "label": ""
+          }
+        },
+        "collection_LgxmMD": {
+          "type": "collection",
+          "settings": {
+            "collection": "anime-posters",
+            "label": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_pxHFVL",
+        "collection_bhgrtM",
+        "collection_diRnTN",
+        "collection_M8g8J4",
+        "collection_LgxmMD"
+      ],
       "settings": {
         "heading": "All materials"
       }
