@@ -45,7 +45,6 @@
       target.querySelectorAll(':scope > .country-switcher, :scope > .language-switcher').forEach((node) => node.remove());
       target.append(template.content.cloneNode(true));
     });
-
     scope.querySelectorAll('template[data-source-footer-payments]').forEach((template) => {
       const section = template.closest('.shopify-section') || document;
       const target = section.querySelector('.footer__payment');
