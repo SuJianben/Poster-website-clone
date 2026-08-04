@@ -74,6 +74,12 @@
     });
   }
 
+  function clearSuccessParameter() {
+    const url = new URL(window.location.href);
+    url.searchParams.delete('customer_posted');
+    window.history.replaceState({}, '', `${url.pathname}${url.search}${url.hash}`);
+  }
+
   function initialize() {
     const overrideScripts = document.querySelectorAll(DATA_SELECTOR);
     overrideScripts.forEach(applyOverrides);
@@ -81,6 +87,7 @@
     if (new URLSearchParams(window.location.search).get('customer_posted') === 'true') {
       const data = overrideScripts[0] ? parseData(overrideScripts[0]) : null;
       openSuccessModal(data?.successMessage || 'Vielen Dank für Ihr Abonnement');
+      clearSuccessParameter();
     }
   }
 
