@@ -669,8 +669,45 @@
     },
     "collection-list-secondary": {
       "type": "source-collection-list-secondary",
+      "blocks": {
+        "collection_card_rmCYiB": {
+          "type": "collection_card",
+          "settings": {
+            "collection": "anime-posters",
+            "title": ""
+          }
+        },
+        "collection_card_69gxxV": {
+          "type": "collection_card",
+          "settings": {
+            "collection": "anime-posters",
+            "title": ""
+          }
+        },
+        "collection_card_C9WypB": {
+          "type": "collection_card",
+          "settings": {
+            "collection": "space-posters",
+            "title": ""
+          }
+        },
+        "collection_card_fMxY6e": {
+          "type": "collection_card",
+          "settings": {
+            "collection": "space-posters",
+            "title": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_card_rmCYiB",
+        "collection_card_69gxxV",
+        "collection_card_C9WypB",
+        "collection_card_fMxY6e"
+      ],
       "settings": {
-        "enabled": true
+        "enabled": true,
+        "heading": ""
       }
     }
   },
