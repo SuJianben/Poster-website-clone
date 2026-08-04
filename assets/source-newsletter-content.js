@@ -5,13 +5,17 @@
     if (element && value) element.textContent = value;
   }
 
-  function applyOverrides(dataElement) {
-    let data;
+  function parseData(dataElement) {
     try {
-      data = JSON.parse(dataElement.textContent);
+      return JSON.parse(dataElement.textContent);
     } catch {
-      return;
+      return null;
     }
+  }
+
+  function applyOverrides(dataElement) {
+    const data = parseData(dataElement);
+    if (!data) return;
 
     const section = dataElement.closest('.shopify-section');
     if (!section) return;
@@ -25,8 +29,33 @@
     replaceText(section.querySelector('button[type="submit"] .btn__text'), data.buttonLabel);
   }
 
+  function openSuccessModal(message) {
+    const modal = document.querySelector('basic-modal.modal--newsletter-alert');
+    if (!modal) return;
+
+    const alert = modal.querySelector('.form-message');
+    if (!alert) return;
+
+    alert.classList.remove('alert--error', 'hidden');
+    alert.classList.add('alert--success');
+    alert.innerHTML = `<svg class="icon icon-success icon--medium" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.25 8.25 6.5 11.5 12.75 4.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>${message}`;
+    modal.hidden = false;
+
+    modal.querySelectorAll('.fixed-overlay, .drawer__close-btn').forEach((control) => {
+      control.addEventListener('click', () => {
+        modal.hidden = true;
+      }, { once: true });
+    });
+  }
+
   function initialize() {
-    document.querySelectorAll(DATA_SELECTOR).forEach(applyOverrides);
+    const overrideScripts = document.querySelectorAll(DATA_SELECTOR);
+    overrideScripts.forEach(applyOverrides);
+
+    if (new URLSearchParams(window.location.search).get('customer_posted') === 'true') {
+      const data = overrideScripts[0] ? parseData(overrideScripts[0]) : null;
+      openSuccessModal(data?.successMessage || 'Vielen Dank für Ihr Abonnement');
+    }
   }
 
   document.addEventListener('DOMContentLoaded', initialize);

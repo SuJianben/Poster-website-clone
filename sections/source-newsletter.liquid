@@ -1,13 +1,14 @@
 {% if section.settings.enabled %}
   {% render 'source-newsletter-1' %}
   <script src="{{ 'source-newsletter-content.js' | asset_url }}" defer="defer"></script>
-  {% if section.settings.heading != blank or section.settings.subheading != blank or section.settings.email_placeholder != blank or section.settings.button_label != blank %}
+  {% if section.settings.heading != blank or section.settings.subheading != blank or section.settings.email_placeholder != blank or section.settings.button_label != blank or section.settings.success_message != blank %}
     <script type="application/json" data-source-newsletter-overrides>
       {
         "heading": {{ section.settings.heading | json }},
         "subheading": {{ section.settings.subheading | json }},
         "emailPlaceholder": {{ section.settings.email_placeholder | json }},
-        "buttonLabel": {{ section.settings.button_label | json }}
+        "buttonLabel": {{ section.settings.button_label | json }},
+        "successMessage": {{ section.settings.success_message | json }}
       }
     </script>
   {% endif %}
@@ -20,7 +21,8 @@
     { "type": "text", "id": "heading", "label": "Heading override" },
     { "type": "text", "id": "subheading", "label": "Subheading override" },
     { "type": "text", "id": "email_placeholder", "label": "Email placeholder override" },
-    { "type": "text", "id": "button_label", "label": "Button label override" }
+    { "type": "text", "id": "button_label", "label": "Button label override" },
+    { "type": "text", "id": "success_message", "label": "Success message override" }
   ],
   "presets": [{ "name": "Newsletter" }]
 }
