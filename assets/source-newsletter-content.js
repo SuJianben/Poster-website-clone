@@ -43,26 +43,32 @@
     alert.innerHTML = `<svg class="icon icon-success icon--medium" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.25 8.25 6.5 11.5 12.75 4.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>${message}`;
     modal.hidden = false;
     modal.style.zIndex = '2147483000';
+    modal.style.pointerEvents = 'auto';
     if (overlay) {
       overlay.style.visibility = 'visible';
       overlay.style.opacity = '1';
+      overlay.style.pointerEvents = 'auto';
     }
     if (inner) {
       inner.style.opacity = '1';
       inner.style.transform = 'none';
+      inner.style.pointerEvents = 'auto';
     }
 
     modal.querySelectorAll('.fixed-overlay, .drawer__close-btn').forEach((control) => {
       control.addEventListener('click', () => {
         modal.hidden = true;
         modal.style.zIndex = '';
+        modal.style.pointerEvents = '';
         if (overlay) {
           overlay.style.visibility = '';
           overlay.style.opacity = '';
+          overlay.style.pointerEvents = '';
         }
         if (inner) {
           inner.style.opacity = '';
           inner.style.transform = '';
+          inner.style.pointerEvents = '';
         }
       }, { once: true });
     });
