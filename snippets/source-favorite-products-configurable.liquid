@@ -22,7 +22,9 @@
             <div class="favorite-product grid grid-cols-1 h-full">
               {% if scene_image != blank %}
                 <div class="favorite-product__bg h-full col-span-full row-span-full block md:hidden" style="--aspect-ratio-mobile: 0.75;">
-                  {{ scene_image | image_url: width: 1100 | image_tag: loading: 'lazy', class: 'motion-reduce w-full h-full', sizes: '100vw' }}
+                  <div class="media-wrapper block w-full h-full">
+                    {{ scene_image | image_url: width: 1100 | image_tag: loading: 'lazy', class: 'source-favorite-scene motion-reduce w-full h-full', sizes: '100vw' }}
+                  </div>
                 </div>
               {% endif %}
               <div class="favorite-product__product flex items-center justify-center relative col-span-full row-span-full">
@@ -80,7 +82,9 @@
             <div class="swiper-slide" data-index="{{ forloop.index0 }}">
               {% if scene_image != blank %}
                 <div class="media overflow-hidden h-full">
-                  {{ scene_image | image_url: width: 2000 | image_tag: loading: 'lazy', class: 'motion-reduce w-full h-full', sizes: '100vw' }}
+                  <div class="media-wrapper block w-full h-full">
+                    {{ scene_image | image_url: width: 2000 | image_tag: loading: 'lazy', class: 'source-favorite-scene motion-reduce w-full h-full', sizes: '100vw' }}
+                  </div>
                 </div>
               {% endif %}
             </div>
