@@ -592,8 +592,66 @@
     },
     "announcement": {
       "type": "source-announcement",
+      "blocks": {
+        "review_4zedEa": {
+          "type": "review",
+          "settings": {
+            "date": "12313",
+            "rating": 5,
+            "title": "123123",
+            "message": "1231312",
+            "author": "123123123",
+            "product": "nord-projects-8am",
+            "link": ""
+          }
+        },
+        "review_VEJhPV": {
+          "type": "review",
+          "settings": {
+            "date": "12313",
+            "rating": 5,
+            "title": "123123",
+            "message": "1231312",
+            "author": "123123123",
+            "product": "nord-projects-8am",
+            "link": ""
+          }
+        },
+        "review_zb8dDc": {
+          "type": "review",
+          "settings": {
+            "date": "12313",
+            "rating": 5,
+            "title": "123123",
+            "message": "1231312",
+            "author": "123123123",
+            "product": "nord-projects-8am",
+            "link": ""
+          }
+        },
+        "review_QmjKnC": {
+          "type": "review",
+          "settings": {
+            "date": "12313",
+            "rating": 5,
+            "title": "123123",
+            "message": "1231312",
+            "author": "123123123",
+            "product": "nord-projects-8am",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "review_4zedEa",
+        "review_VEJhPV",
+        "review_zb8dDc",
+        "review_QmjKnC"
+      ],
       "settings": {
-        "enabled": true
+        "enabled": true,
+        "heading": "",
+        "review_count": ""
       }
     },
     "collection-list-secondary": {
