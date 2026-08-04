@@ -37,6 +37,22 @@
     list.replaceChildren(fragment);
   }
 
+  function applyNativeStoreData(scope) {
+    scope.querySelectorAll('template[data-source-footer-localization]').forEach((template) => {
+      const section = template.closest('.shopify-section') || document;
+      const target = section.querySelector('.footer__localization');
+      if (!target) return;
+      target.querySelectorAll(':scope > .country-switcher, :scope > .language-switcher').forEach((node) => node.remove());
+      target.append(template.content.cloneNode(true));
+    });
+
+    scope.querySelectorAll('template[data-source-footer-payments]').forEach((template) => {
+      const section = template.closest('.shopify-section') || document;
+      const target = section.querySelector('.footer__payment');
+      if (target) target.replaceChildren(template.content.cloneNode(true));
+    });
+  }
+
   function applyOverrides(script) {
     let config;
     try {
@@ -78,6 +94,7 @@
   }
 
   function initialize(scope = document) {
+    applyNativeStoreData(scope);
     scope.querySelectorAll(selector).forEach(applyOverrides);
   }
 

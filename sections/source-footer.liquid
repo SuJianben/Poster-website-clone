@@ -1,5 +1,58 @@
 {% if section.settings.enabled %}
 {% render 'source-footer-1' %}
+<template data-source-footer-localization>
+  <div class="country-switcher no-js-hidden" style="--f-max-width: 220px">
+    <localization-form class="disclosure no-js-hidden disclosure--up disclosure--plain" data-disclosure-country>
+      {% form 'localization', id: 'FooterCountry-' | append: section.id, class: 'selectors-form', data-disclosure-form: '' %}
+        <h2 class="visually-hidden">Country/region</h2>
+        <button type="button" class="disclosure__toggle btn--plain text-normal font-body" aria-expanded="false" aria-controls="FooterCountryList-{{ section.id }}" data-disclosure-toggle>
+          <span class="f-country-flags f-country-flags--{{ localization.country.iso_code }}" style="--background-image: url(//cdn.shopify.com/static/images/flags/{{ localization.country.iso_code | downcase }}.svg?width=20)"></span>
+          {{ localization.country.name }} ({{ localization.country.currency.iso_code }} {{ localization.country.currency.symbol }})
+          <svg class="icon icon-caret-up icon--medium icon--thick" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3.75 12.5L10 6.25L16.25 12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <ul id="FooterCountryList-{{ section.id }}" class="disclosure-list v-scrollable text-left">
+          {% for country in localization.available_countries %}
+            <li class="disclosure-list__item{% if country.iso_code == localization.country.iso_code %} disclosure-list__item--current{% endif %}">
+              <a class="disclosure-list__option" href="#"{% if country.iso_code == localization.country.iso_code %} aria-current="true"{% endif %} data-value="{{ country.iso_code }}" data-disclosure-option>
+                <span class="f-country-flags f-country-flags--{{ country.iso_code }}" style="--background-image: url(//cdn.shopify.com/static/images/flags/{{ country.iso_code | downcase }}.svg?width=20)"></span>{{ country.name }}<span class="localization-form__currency">({{ country.currency.iso_code }} {{ country.currency.symbol }})</span>
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+        <input type="hidden" name="country_code" value="{{ localization.country.iso_code }}" data-disclosure-input>
+      {% endform %}
+    </localization-form>
+  </div>
+  {% if localization.available_languages.size > 1 %}
+    <div class="language-switcher no-js-hidden">
+      <localization-form class="disclosure no-js-hidden disclosure--up disclosure--plain" data-disclosure-locale>
+        {% form 'localization', id: 'FooterLanguage-' | append: section.id, class: 'selectors-form', data-disclosure-form: '' %}
+          <h2 class="visually-hidden">Language</h2>
+          <button type="button" class="disclosure__toggle btn--plain text-normal font-body" aria-expanded="false" aria-controls="FooterLanguageList-{{ section.id }}" data-disclosure-toggle>
+            {{ localization.language.endonym_name }}
+            <svg class="icon icon-caret-up icon--medium icon--thick" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3.75 12.5L10 6.25L16.25 12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <ul id="FooterLanguageList-{{ section.id }}" class="disclosure-list v-scrollable text-left">
+            {% for language in localization.available_languages %}
+              <li class="disclosure-list__item{% if language.iso_code == localization.language.iso_code %} disclosure-list__item--current{% endif %}" tabindex="-1">
+                <a class="disclosure-list__option" href="#" hreflang="{{ language.iso_code }}" lang="{{ language.iso_code }}"{% if language.iso_code == localization.language.iso_code %} aria-current="true"{% endif %} data-value="{{ language.iso_code }}" data-disclosure-option>{{ language.endonym_name }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+          <input type="hidden" name="locale_code" value="{{ localization.language.iso_code }}" data-disclosure-input>
+        {% endform %}
+      </localization-form>
+    </div>
+  {% endif %}
+</template>
+<template data-source-footer-payments>
+  <span class="visually-hidden">Payment methods</span>
+  <ul class="list list-payment" role="list">
+    {% for payment_type in shop.enabled_payment_types %}
+      <li class="list-payment__item">{{ payment_type | payment_type_svg_tag: class: 'icon icon--full-color' }}</li>
+    {% endfor %}
+  </ul>
+</template>
 <script src="{{ 'source-footer-content.js' | asset_url }}" defer="defer"></script>
 {% if section.settings.menu_service != blank or section.settings.menu_information != blank or section.settings.menu_collaboration != blank or section.settings.menu_general != blank or section.settings.contact_heading != blank or section.settings.contact_address != blank or section.settings.contact_email != blank or section.settings.awards_image != blank or section.settings.facebook_url != blank or section.settings.instagram_url != blank or section.settings.tiktok_url != blank %}
   <script type="application/json" data-source-footer-overrides>
