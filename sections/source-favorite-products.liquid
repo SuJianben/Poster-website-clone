@@ -1,12 +1,32 @@
 {% if section.settings.enabled %}
-{% render 'source-favorite-products-1' %}
+  {% if section.blocks.size > 0 %}
+    {% render 'source-favorite-products-configurable', section: section %}
+  {% else %}
+    {% render 'source-favorite-products-1' %}
+  {% endif %}
 {% endif %}
 {% schema %}
 {
   "name": "Favorite products",
   "settings": [
-    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true }
+    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Lieblingsprodukte unserer Kunden" }
   ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Customer testimonial",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Review title", "default": "Ein absoluter Eyecatcher dieses traumhaft schöne Bild" },
+        { "type": "richtext", "id": "text", "label": "Review text", "default": "<p>Ich liebe Kunst und freue mich über das wunderschöne neue Bild in unserem Wohnzimmer.</p>" },
+        { "type": "text", "id": "customer_name", "label": "Customer name", "default": "Verena O." },
+        { "type": "text", "id": "customer_location", "label": "Customer location", "default": "Deutschland" },
+        { "type": "product", "id": "product", "label": "Related product" },
+        { "type": "image_picker", "id": "image", "label": "Customer scene image" }
+      ]
+    }
+  ],
+  "max_blocks": 7,
   "presets": [{ "name": "Favorite products" }]
 }
 {% endschema %}

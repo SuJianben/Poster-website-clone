@@ -1,0 +1,38 @@
+{% liquid
+  assign secondary_image = product.media[1].preview_image
+  assign material = product.type | default: 'Leinwand'
+  assign on_sale = false
+  if product.compare_at_price_max > product.price_min
+    assign on_sale = true
+  endif
+%}
+
+<div class="product-card product-card-style-card color-scheme-1">
+  <div class="product-card__wrapper h-full">
+    <div class="product-card__image-wrapper{% if secondary_image != blank %} has-second-image{% endif %} color-scheme-1 bg-none">
+      <a href="{{ product.url }}" aria-label="{{ product.title | escape }}" tabindex="-1">
+        <div class="media-wrapper product-card__image product-card__image--main" style="--aspect-ratio: 1.0">
+          {{ product.featured_image | image_url: width: 1080 | image_tag: alt: product.title, loading: 'lazy', class: 'motion-reduce', sizes: '450px' }}
+        </div>
+        {% if secondary_image != blank %}
+          <div class="media-wrapper product-card__image product-card__image--second inset-full hidden md:block" style="--aspect-ratio: 1.0">
+            {{ secondary_image | image_url: width: 900 | image_tag: alt: product.title, loading: 'lazy', class: 'motion-reduce', sizes: '450px' }}
+          </div>
+        {% endif %}
+      </a>
+      {% if product.tags contains 'Trending' or product.tags contains 'Limited Edition' or on_sale %}
+        <div class="product-card__badge">
+          {% if product.tags contains 'Trending' %}<span class="f-badge f-badge--custom f-badge--trending">Trending</span>{% endif %}
+          {% if product.tags contains 'Limited Edition' %}<span class="f-badge f-badge--custom f-badge--limited-edition">Limited Edition</span>{% endif %}
+          {% if on_sale %}<span class="f-badge f-badge--sale">-{{ product.compare_at_price_max | minus: product.price_min | times: 100 | divided_by: product.compare_at_price_max }}%</span>{% endif %}
+        </div>
+      {% endif %}
+    </div>
+    <div class="product-card__info text-center">
+      <div class="product-card__atelier-badges"><span class="atelier-badge js-open-atelier-drawer-card atelier-badge--silver">ATELIER EXCLUSIVE</span></div>
+      <h3 class="product-card__title text-pcard-title"><a class="reversed-link block" href="{{ product.url }}"><span class="reversed-link__text">{{ product.title }}</span></a></h3>
+      <p class="product-card__material">{{ material }}</p>
+      <div class="f-price f-price--center{% if on_sale %} f-price--on-sale{% endif %}"><div class="f-price__regular"><span class="f-price-item f-price-item--regular">{% if product.price_varies %}Ab {% endif %}{{ product.price_min | money }}</span>{% if on_sale %}<span class="f-price-item f-price-item--regular"><s>{{ product.compare_at_price_max | money }}</s></span>{% endif %}</div></div>
+    </div>
+  </div>
+</div>

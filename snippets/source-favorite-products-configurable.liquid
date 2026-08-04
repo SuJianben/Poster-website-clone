@@ -1,0 +1,92 @@
+<link href="https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-e2920234aaf9-section-favorite-products.css?v=67825627934496914091780837131" rel="stylesheet" type="text/css" media="all">
+
+<div
+  class="section section-{{ section.id }} section-favorite-products slider-enabled color-scheme-1"
+  data-id="{{ section.id }}"
+>
+  <favorite-products
+    class="favorite-products favorite-products--layout-content-left favorite-products--height-small block md:flex flex-nowrap overflow-hidden"
+    data-items="{{ section.blocks.size }}"
+    data-section-id="{{ section.id }}"
+    data-enable-slider="true"
+    data-pagination-type="fraction"
+    data-pagination-type-mobile="fraction"
+    data-layout="content-left"
+  >
+    <div class="favorite-products__products swiper swiper-equal-height">
+      <div class="swiper-wrapper color-scheme-1">
+        {% for block in section.blocks %}
+          {% assign product = block.settings.product %}
+          {% assign scene_image = block.settings.image | default: product.featured_image %}
+          <div class="swiper-slide" data-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+            <div class="favorite-product grid grid-cols-1 h-full">
+              {% if scene_image != blank %}
+                <div class="favorite-product__bg h-full col-span-full row-span-full block md:hidden" style="--aspect-ratio-mobile: 0.75;">
+                  {{ scene_image | image_url: width: 1100 | image_tag: loading: 'lazy', class: 'motion-reduce w-full h-full', sizes: '100vw' }}
+                </div>
+              {% endif %}
+              <div class="favorite-product__product flex items-center justify-center relative col-span-full row-span-full">
+                {% if product != blank %}
+                  {% render 'source-favorite-product-card', product: product %}
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="favorite-products__testimonials relative flex flex-col justify-center gap-y-6 lg:gap-y-10 color-scheme-1">
+      {% if section.settings.heading != blank %}
+        <h2 class="section__heading text-subheading">{{ section.settings.heading | escape }}</h2>
+      {% endif %}
+      <div class="swiper block">
+        <div class="swiper-wrapper">
+          {% for block in section.blocks %}
+            <div class="swiper-slide" data-index="{{ forloop.index0 }}">
+              <div class="testimonial">
+                <div class="testimonial__content h4 rte">
+                  {% if block.settings.title != blank %}<h2>{{ block.settings.title | escape }}</h2>{% endif %}
+                  {{ block.settings.text }}
+                </div>
+                {% if block.settings.customer_name != blank or block.settings.customer_location != blank %}
+                  <div class="testimonial__author flex flex-col gap-y-2">
+                    {% if block.settings.customer_name != blank %}<h3 class="testimonial__name h5">{{ block.settings.customer_name | escape }}</h3>{% endif %}
+                    {% if block.settings.customer_location != blank %}<div class="testimonial__bio text-subtext"><span>{{ block.settings.customer_location | escape }}</span></div>{% endif %}
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="swiper-controls swiper-controls--grouped swiper-controls--pagination-fraction">
+        <button class="swiper-button swiper-button--blank swiper-button-prev btn" name="previous" aria-label="Previous testimonial">
+          <svg class="icon icon-caret-left rtl-flip-x icon--medium icon--thick" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.5 16.25L6.25 10L12.5 3.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="swiper-pagination" aria-live="polite"></div>
+        <button class="swiper-button swiper-button--blank swiper-button-next btn" name="next" aria-label="Next testimonial">
+          <svg class="icon icon-caret-right rtl-flip-x icon--medium icon--thick" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 3.75L13.75 10L7.5 16.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="favorite-products__media relative hidden md:block">
+      <div class="swiper swiper-equal-height h-full">
+        <div class="swiper-wrapper">
+          {% for block in section.blocks %}
+            {% assign product = block.settings.product %}
+            {% assign scene_image = block.settings.image | default: product.featured_image %}
+            <div class="swiper-slide" data-index="{{ forloop.index0 }}">
+              {% if scene_image != blank %}
+                <div class="media overflow-hidden h-full">
+                  {{ scene_image | image_url: width: 2000 | image_tag: loading: 'lazy', class: 'motion-reduce w-full h-full', sizes: '100vw' }}
+                </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </favorite-products>
+</div>
