@@ -450,6 +450,90 @@
     },
     "grid-banner": {
       "type": "source-grid-banner",
+      "blocks": {
+        "image_iYQiCP": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Frame_Oak_Low_Res.jpg",
+            "link": "",
+            "column_span": "1",
+            "row_span": "1"
+          }
+        },
+        "image_kmJ3F8": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Close_Up_Low_Res.jpg",
+            "link": "",
+            "column_span": "1",
+            "row_span": "1"
+          }
+        },
+        "image_FEUEey": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Anna_Johansson_Lueur_Lifestyle_Low_Res.jpg",
+            "link": "",
+            "column_span": "1",
+            "row_span": "1"
+          }
+        },
+        "image_4kwfKx": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Leise_Dich_Abrahamsen_Blue_Pearl_Forest_Product_Low_Res.jpg",
+            "link": "",
+            "column_span": "2",
+            "row_span": "2"
+          }
+        },
+        "image_mAwr4N": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Leise_Dich_Abrahamsen_Blue_Pearl_Forest_Product_Low_Res.jpg",
+            "link": "",
+            "column_span": "2",
+            "row_span": "2"
+          }
+        },
+        "image_YdpeX7": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Leise_Dich_Abrahamsen_Blue_Pearl_Forest_Product_Low_Res.jpg",
+            "link": "",
+            "column_span": "1",
+            "row_span": "1"
+          }
+        },
+        "image_W7Wzhd": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Leise_Dich_Abrahamsen_Blue_Pearl_Forest_Product_Low_Res.jpg",
+            "link": "",
+            "column_span": "2",
+            "row_span": "1"
+          }
+        },
+        "image_MTBdJW": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Leise_Dich_Abrahamsen_Blue_Pearl_Forest_Product_Low_Res.jpg",
+            "link": "",
+            "column_span": "1",
+            "row_span": "1"
+          }
+        }
+      },
+      "block_order": [
+        "image_iYQiCP",
+        "image_kmJ3F8",
+        "image_FEUEey",
+        "image_4kwfKx",
+        "image_mAwr4N",
+        "image_YdpeX7",
+        "image_W7Wzhd",
+        "image_MTBdJW"
+      ],
       "settings": {
         "enabled": true
       }
