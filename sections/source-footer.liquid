@@ -1,11 +1,65 @@
 {% if section.settings.enabled %}
 {% render 'source-footer-1' %}
+<script src="{{ 'source-footer-content.js' | asset_url }}" defer="defer"></script>
+{% if section.settings.menu_service != blank or section.settings.menu_information != blank or section.settings.menu_collaboration != blank or section.settings.menu_general != blank or section.settings.contact_heading != blank or section.settings.contact_address != blank or section.settings.contact_email != blank or section.settings.awards_image != blank or section.settings.facebook_url != blank or section.settings.instagram_url != blank or section.settings.tiktok_url != blank %}
+  <script type="application/json" data-source-footer-overrides>
+    {
+      "menus": {
+        "service": {
+          "heading": {{ section.settings.service_heading | json }},
+          "links": [{% for link in section.settings.menu_service.links %}{"title": {{ link.title | json }}, "url": {{ link.url | json }}}{% unless forloop.last %},{% endunless %}{% endfor %}]
+        },
+        "information": {
+          "heading": {{ section.settings.information_heading | json }},
+          "links": [{% for link in section.settings.menu_information.links %}{"title": {{ link.title | json }}, "url": {{ link.url | json }}}{% unless forloop.last %},{% endunless %}{% endfor %}]
+        },
+        "collaboration": {
+          "heading": {{ section.settings.collaboration_heading | json }},
+          "links": [{% for link in section.settings.menu_collaboration.links %}{"title": {{ link.title | json }}, "url": {{ link.url | json }}}{% unless forloop.last %},{% endunless %}{% endfor %}]
+        },
+        "general": {
+          "heading": {{ section.settings.general_heading | json }},
+          "links": [{% for link in section.settings.menu_general.links %}{"title": {{ link.title | json }}, "url": {{ link.url | json }}}{% unless forloop.last %},{% endunless %}{% endfor %}]
+        }
+      },
+      "contact": {
+        "heading": {{ section.settings.contact_heading | json }},
+        "address": {{ section.settings.contact_address | json }},
+        "email": {{ section.settings.contact_email | json }}
+      },
+      "awardsImage": {% if section.settings.awards_image != blank %}{{ section.settings.awards_image | image_url: width: 800 | json }}{% else %}null{% endif %},
+      "social": {
+        "facebook": {{ section.settings.facebook_url | json }},
+        "instagram": {{ section.settings.instagram_url | json }},
+        "tiktok": {{ section.settings.tiktok_url | json }}
+      }
+    }
+  </script>
+{% endif %}
 {% endif %}
 {% schema %}
 {
   "name": "Footer",
   "settings": [
-    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true }
+    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true },
+    { "type": "header", "content": "Footer menus" },
+    { "type": "text", "id": "service_heading", "label": "Service heading", "default": "Service" },
+    { "type": "link_list", "id": "menu_service", "label": "Service menu" },
+    { "type": "text", "id": "information_heading", "label": "Information heading", "default": "Mehr Infos" },
+    { "type": "link_list", "id": "menu_information", "label": "Information menu" },
+    { "type": "text", "id": "collaboration_heading", "label": "Collaboration heading", "default": "Zusammenarbeit" },
+    { "type": "link_list", "id": "menu_collaboration", "label": "Collaboration menu" },
+    { "type": "text", "id": "general_heading", "label": "General heading", "default": "Allgemein" },
+    { "type": "link_list", "id": "menu_general", "label": "General menu" },
+    { "type": "header", "content": "Contact information" },
+    { "type": "text", "id": "contact_heading", "label": "Heading", "default": "Über Uns" },
+    { "type": "textarea", "id": "contact_address", "label": "Address", "default": "Palmstraße 17, 09130 Chemnitz, Germany" },
+    { "type": "text", "id": "contact_email", "label": "Email", "default": "service@dotcomcanvas.de" },
+    { "type": "image_picker", "id": "awards_image", "label": "Awards image" },
+    { "type": "header", "content": "Social links" },
+    { "type": "url", "id": "facebook_url", "label": "Facebook URL" },
+    { "type": "url", "id": "instagram_url", "label": "Instagram URL" },
+    { "type": "url", "id": "tiktok_url", "label": "TikTok URL" }
   ],
   "presets": [{ "name": "Footer" }]
 }
