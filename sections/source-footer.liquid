@@ -3,7 +3,11 @@
 <template data-source-footer-localization>
   <div class="country-switcher no-js-hidden" style="--f-max-width: 220px">
     <localization-form class="disclosure no-js-hidden disclosure--up disclosure--plain" data-disclosure-country>
-      {% form 'localization', id: 'FooterCountry-' | append: section.id, class: 'selectors-form', data-disclosure-form: '' %}
+      <form method="post" action="{{ routes.localize_url }}" id="FooterCountry-{{ section.id }}" accept-charset="UTF-8" class="selectors-form" enctype="multipart/form-data" data-disclosure-form>
+        <input type="hidden" name="form_type" value="localization">
+        <input type="hidden" name="utf8" value="✓">
+        <input type="hidden" name="_method" value="put">
+        <input type="hidden" name="return_to" value="{{ request.path }}">
         <h2 class="visually-hidden">Country/region</h2>
         <button type="button" class="disclosure__toggle btn--plain text-normal font-body" aria-expanded="false" aria-controls="FooterCountryList-{{ section.id }}" data-disclosure-toggle>
           <span class="f-country-flags f-country-flags--{{ localization.country.iso_code }}" style="--background-image: url(//cdn.shopify.com/static/images/flags/{{ localization.country.iso_code | downcase }}.svg?width=20)"></span>
@@ -20,13 +24,17 @@
           {% endfor %}
         </ul>
         <input type="hidden" name="country_code" value="{{ localization.country.iso_code }}" data-disclosure-input>
-      {% endform %}
+      </form>
     </localization-form>
   </div>
   {% if localization.available_languages.size > 1 %}
     <div class="language-switcher no-js-hidden">
       <localization-form class="disclosure no-js-hidden disclosure--up disclosure--plain" data-disclosure-locale>
-        {% form 'localization', id: 'FooterLanguage-' | append: section.id, class: 'selectors-form', data-disclosure-form: '' %}
+        <form method="post" action="{{ routes.localize_url }}" id="FooterLanguage-{{ section.id }}" accept-charset="UTF-8" class="selectors-form" enctype="multipart/form-data" data-disclosure-form>
+          <input type="hidden" name="form_type" value="localization">
+          <input type="hidden" name="utf8" value="✓">
+          <input type="hidden" name="_method" value="put">
+          <input type="hidden" name="return_to" value="{{ request.path }}">
           <h2 class="visually-hidden">Language</h2>
           <button type="button" class="disclosure__toggle btn--plain text-normal font-body" aria-expanded="false" aria-controls="FooterLanguageList-{{ section.id }}" data-disclosure-toggle>
             {{ localization.language.endonym_name }}
@@ -40,7 +48,7 @@
             {% endfor %}
           </ul>
           <input type="hidden" name="locale_code" value="{{ localization.language.iso_code }}" data-disclosure-input>
-        {% endform %}
+        </form>
       </localization-form>
     </div>
   {% endif %}
