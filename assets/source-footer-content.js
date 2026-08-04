@@ -63,7 +63,11 @@
 
     if (config.awardsImage) {
       const image = section.querySelector('.footer-block--image_text img');
-      if (image) image.src = config.awardsImage;
+      if (image) {
+        image.src = config.awardsImage;
+        image.removeAttribute('srcset');
+        image.closest('picture')?.querySelectorAll('source').forEach((source) => source.remove());
+      }
     }
 
     Object.entries(config.social || {}).forEach(([network, url]) => {
