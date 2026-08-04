@@ -1,0 +1,20 @@
+<form id="{{ form_id }}" action="{{ collection.url }}" method="get" data-source-facet-form>
+  {% for filter in collection.filters %}
+    <details class="facet-accordion-details"{% if filter.active_values.size > 0 %} open{% endif %}>
+      <summary class="accordion-details__summary flex items-center justify-between"><span>{{ filter.label }}</span><span>{% if filter.active_values.size > 0 %}−{% else %}+{% endif %}</span></summary>
+      <div class="accordion-details__content">
+        {% case filter.type %}
+          {% when 'boolean', 'list' %}
+            <ul class="list-unstyled">
+              {% for value in filter.values %}
+                <li><label class="flex items-center gap-2"><input type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}"{% if value.active %} checked{% endif %}{% if value.count == 0 and value.active == false %} disabled{% endif %}> <span>{{ value.label }} ({{ value.count }})</span></label></li>
+              {% endfor %}
+            </ul>
+          {% when 'price_range' %}
+            <div class="flex gap-2"><label>From <input name="{{ filter.min_value.param_name }}" value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}" type="number" placeholder="0"></label><label>To <input name="{{ filter.max_value.param_name }}" value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}" type="number" placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' }}"></label></div>
+        {% endcase %}
+      </div>
+    </details>
+  {% endfor %}
+  <noscript><button class="btn btn--primary" type="submit">Apply</button></noscript>
+</form>

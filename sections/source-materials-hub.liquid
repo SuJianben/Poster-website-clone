@@ -1,0 +1,15 @@
+<section class="section section--padding collection-list color-scheme-10 source-materials-hub" style="--section-padding-top: 34px; --section-padding-bottom: 40px; --f-columns-mobile: 2; --f-columns-md: 3; --f-columns-lg: 5; --f-columns-xl: 5;">
+  <link href="https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-a1600fa13a89-section-collection-list.css?v=68985498160426086891780837125" rel="stylesheet" type="text/css" media="all">
+  <div class="section__container page-width page-width--full"><div class="section__wrapper">
+    <div class="section__header s__header section__header--vertical spacing--normal rich-text rich-text--tight md:text-center text-center flex flex-col items-center md:items-center"><div class="section__header--text s__header--text rich-text rich-text--tight flex-1"><h1 class="section__heading rich-text__heading hd2">{{ section.settings.heading | default: page.title }}</h1></div></div>
+    <div class="section__content"><div class="collection-list__container"><div class="collection-list__inner"><div class="collection-list__items f-grid f-grid--gap-small f-grid--row-gap-small">
+      {% for block in section.blocks %}{% assign linked_collection = block.settings.collection %}{% if linked_collection != blank %}
+        {% assign card_image = block.settings.image | default: linked_collection.featured_image %}
+        <div class="f-column" {{ block.shopify_attributes }}><div class="collection-card collection-card--style-standard collection-card--mobile-layout-vertical collection-card--image-full collection-card--image-padding-none collection-card--has-bg blocks-radius color-scheme-a0866d1b-f387-47d7-b88f-b8f21d12ee75 h-full"><a href="{{ linked_collection.url }}" class="collection-card__wrapper relative flex flex-col items-center justify-start text-center focus-inset btn-hover-wrapper"><div class="collection-card__image media-wrapper blocks-radius">{% if card_image != blank %}{{ card_image | image_url: width: 1080 | image_tag: alt: linked_collection.title, loading: 'lazy', class: 'motion-reduce hover-scale-up' }}{% endif %}</div><div class="collection-card__inner w-full pointer-events-none"><h2 class="collection-card__title h5 flex-1 text-limit-none-line"><span>{{ block.settings.label | default: linked_collection.title }} <svg class="icon icon-caret-right rtl-flip-x icon--medium icon--thick hidden md:block" viewBox="0 0 20 20" fill="none"><path d="M7.5 3.75L13.75 10L7.5 16.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></h2></div></a></div></div>
+      {% endif %}{% endfor %}
+    </div></div></div></div>
+  </div></div>
+</section>
+{% schema %}
+{ "name": "Materials hub", "settings": [{ "type": "text", "id": "heading", "label": "Heading", "default": "All materials" }], "blocks": [{ "type": "collection", "name": "Material card", "settings": [{ "type": "collection", "id": "collection", "label": "Collection" }, { "type": "image_picker", "id": "image", "label": "Image override" }, { "type": "text", "id": "label", "label": "Title override" }] }], "max_blocks": 7 }
+{% endschema %}

@@ -1,0 +1,115 @@
+{{ 'source-collection.css' | asset_url | stylesheet_tag }}
+{{ 'source-collection-hero.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'source-collection-page.js' | asset_url }}" defer="defer"></script>
+
+{% liquid
+  assign banner_image = collection.image | default: section.settings.banner_image
+  assign show_banner = section.settings.show_banner
+  assign show_filters = section.settings.show_filters
+  assign collection_title = collection.title | default: section.settings.fallback_title
+%}
+
+<section class="collection section--padding page-width page-width--full color-scheme-1 source-collection" data-source-collection>
+  {% if show_banner and banner_image != blank %}
+    <div class="collection-hero collection-hero--image-as-bg hero hero--extra-small hero--mobile-auto section section--padding page-width page-width--full" style="--section-padding-top: 16px; --section-padding-bottom: 0px;">
+      <div class="collection-hero__inner relative f-grid f-grid--gap-none color-scheme-inverse blocks-radius">
+        <div class="flex overflow-hidden">
+          <div class="block flex-1">
+            <div class="hero__media media-wrapper">
+              {{ banner_image | image_url: width: 3000 | image_tag: alt: collection_title, loading: 'eager', class: 'collection-hero__image' }}
+              <div class="bg-overlay" style="--color-overlay-alpha: 42;"></div>
+            </div>
+          </div>
+        </div>
+        <div class="collection-hero__text flex flex-col justify-center text-center content-overlay content-overlay--center">
+          <div class="collection-hero__info section--padding">
+            <h1 class="collection-hero__title overflow-hidden hd2"><span class="inline-block">{{ collection_title }}</span></h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  <nav class="section-breadcrumb page-width page-width-- section--padding breadcrumbs flex items-center justify-start" aria-label="breadcrumbs">
+    <a class="reversed-link" href="{{ routes.root_url }}"><span class="reversed-link__text">Home</span></a>
+    <span class="breadcrumbs--sep">/</span>
+    <a class="reversed-link" href="{{ routes.all_products_collection_url }}"><span class="reversed-link__text">Collection</span></a>
+    <span class="breadcrumbs--sep">/</span>
+    <span class="breadcrumbs--last text-subtext">{{ collection_title }}</span>
+  </nav>
+
+  <div class="sticky-element grid gap-5 z-9">
+    <div class="collection__toolbar flex flex-wrap items-end md:items-center justify-between gap-x-2">
+      <div class="collection__toolbar-left flex md:items-center flex-col md:flex-row">
+        <p class="m-0 text-subtext">{{ collection.products_count }} products</p>
+        {% if show_filters and collection.filters.size > 0 %}
+          <button class="btn btn--secondary gap-2 facet-drawer-button" type="button" data-source-open-facets>
+            <span class="btn__text">Filter</span>
+          </button>
+        {% endif %}
+      </div>
+      <div class="collection__toolbar-right flex items-center">
+        <label class="flex items-center gap-2">
+          <span>Raumansicht:</span>
+          <input type="checkbox" data-source-room-view>
+        </label>
+        <form method="get" class="facet-short">
+          {% for filter in collection.filters %}
+            {% for value in filter.active_values %}<input type="hidden" name="{{ value.param_name }}" value="{{ value.value }}">{% endfor %}
+          {% endfor %}
+          <label class="flex items-center gap-2" for="SortBy-{{ section.id }}"><span>Sort by:</span>
+            <select id="SortBy-{{ section.id }}" name="sort_by" onchange="this.form.submit()">
+              {% for option in collection.sort_options %}<option value="{{ option.value }}"{% if option.value == collection.sort_by %} selected{% endif %}>{{ option.name }}</option>{% endfor %}
+            </select>
+          </label>
+        </form>
+        <span>View as:</span>
+        <button class="btn btn--icon is-active" type="button" data-source-layout="grid" aria-label="View as grid" aria-pressed="true">▦</button>
+        <button class="btn btn--icon" type="button" data-source-layout="list" aria-label="View as list" aria-pressed="false">☷</button>
+      </div>
+    </div>
+
+    <div class="collection__content flex gap-5">
+      {% if show_filters and collection.filters.size > 0 %}
+        <aside id="FacetFiltersContainer" class="hidden xl:block">
+          {% render 'source-collection-facets', collection: collection, form_id: 'FacetFiltersDesktop-' | append: section.id %}
+        </aside>
+      {% endif %}
+
+      {% paginate collection.products by section.settings.products_per_page %}
+        <div class="flex-1 min-w-0" id="ProductGridContainer">
+          <div id="ProductsList" class="products-list f-grid f-grid--gap-medium f-grid--row-gap-inherit" data-source-products-list data-layout="grid" style="--f-columns-mobile: 2; --f-columns-md: 3; --f-columns-lg: 4; --f-columns-xl: 5;">
+            {% for product in collection.products %}{% render 'source-bestsellers-product-card', product: product %}{% else %}<p>{{ section.settings.empty_label }}</p>{% endfor %}
+          </div>
+          {% if paginate.pages > 1 %}
+            <nav class="pagination-wrapper flex justify-center" aria-label="Pagination">{{ paginate | default_pagination }}</nav>
+          {% endif %}
+        </div>
+      {% endpaginate %}
+    </div>
+  </div>
+
+  {% if show_filters and collection.filters.size > 0 %}
+    <div class="drawer drawer--left facet-drawer" data-source-facet-drawer hidden inert>
+      <div class="fixed-overlay" data-source-close-facets></div>
+      <div class="drawer__inner color-scheme-1"><div class="drawer__content flex flex-col h-full w-full">
+        <div class="drawer__header facet-drawer__header"><div class="drawer__header-inner flex items-center justify-between gap-3"><h2 class="drawer__heading h4">Filter</h2><button class="drawer__close-btn z-1" type="button" data-source-close-facets aria-label="Close">×</button></div></div>
+        <div class="drawer__body flex-grow v-scrollable">{% render 'source-collection-facets', collection: collection, form_id: 'FacetFiltersDrawer-' | append: section.id %}</div>
+      </div></div>
+    </div>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Collection catalog",
+  "settings": [
+    { "type": "checkbox", "id": "show_banner", "label": "Show collection banner", "default": true },
+    { "type": "image_picker", "id": "banner_image", "label": "Fallback banner image" },
+    { "type": "checkbox", "id": "show_filters", "label": "Show Shopify filters", "default": true },
+    { "type": "range", "id": "products_per_page", "label": "Products per page", "min": 12, "max": 48, "step": 12, "default": 24 },
+    { "type": "text", "id": "fallback_title", "label": "Fallback title", "default": "Collection" },
+    { "type": "text", "id": "empty_label", "label": "Empty collection label", "default": "No products are available in this collection." }
+  ]
+}
+{% endschema %}
