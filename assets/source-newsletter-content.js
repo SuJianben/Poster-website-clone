@@ -34,16 +34,36 @@
     if (!modal) return;
 
     const alert = modal.querySelector('.form-message');
+    const overlay = modal.querySelector('.fixed-overlay');
+    const inner = modal.querySelector('.drawer__inner');
     if (!alert) return;
 
     alert.classList.remove('alert--error', 'hidden');
     alert.classList.add('alert--success');
     alert.innerHTML = `<svg class="icon icon-success icon--medium" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.25 8.25 6.5 11.5 12.75 4.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>${message}`;
     modal.hidden = false;
+    modal.style.zIndex = '2147483000';
+    if (overlay) {
+      overlay.style.visibility = 'visible';
+      overlay.style.opacity = '1';
+    }
+    if (inner) {
+      inner.style.opacity = '1';
+      inner.style.transform = 'none';
+    }
 
     modal.querySelectorAll('.fixed-overlay, .drawer__close-btn').forEach((control) => {
       control.addEventListener('click', () => {
         modal.hidden = true;
+        modal.style.zIndex = '';
+        if (overlay) {
+          overlay.style.visibility = '';
+          overlay.style.opacity = '';
+        }
+        if (inner) {
+          inner.style.opacity = '';
+          inner.style.transform = '';
+        }
       }, { once: true });
     });
   }
