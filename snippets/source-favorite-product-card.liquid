@@ -29,9 +29,9 @@
       {% endif %}
     </div>
     <div class="product-card__info text-center">
-      <div class="product-card__atelier-badges"><span class="atelier-badge js-open-atelier-drawer-card atelier-badge--silver">ATELIER EXCLUSIVE</span></div>
-      <h3 class="product-card__title text-pcard-title"><a class="reversed-link block" href="{{ product.url }}"><span class="reversed-link__text">{{ product.title }}</span></a></h3>
-      <p class="product-card__material">{{ material }}</p>
+      <div class="product-card__atelier-badges" style="margin-bottom: 6px; display: flex; flex-wrap: wrap; gap: 4px; justify-content: center;"><span class="atelier-badge js-open-atelier-drawer-card atelier-badge--silver">ATELIER EXCLUSIVE</span></div>
+      <h3 class="product-card__title text-pcard-title" style="margin-bottom: 2px;"><a class="reversed-link block" href="{{ product.url }}"><span class="reversed-link__text">{{ product.title }}</span></a></h3>
+      <p class="product-card__material" style="color: #555555; font-size: 13px; margin: 0 0 2px 0; line-height: 1.2; text-transform: uppercase;">{{ material }}</p>
       <div class="f-price f-price--center{% if on_sale %} f-price--on-sale{% endif %}"><div class="f-price__regular"><span class="f-price-item f-price-item--regular">{% if product.price_varies %}Ab {% endif %}{{ product.price_min | money }}</span>{% if on_sale %}<span class="f-price-item f-price-item--regular"><s>{{ product.compare_at_price_max | money }}</s></span>{% endif %}</div></div>
     </div>
   </div>

@@ -50,7 +50,6 @@ favorite-products .source-favorite-scene {
 
 @media (min-width: 768px) {
   favorite-products.source-favorite-configurable .favorite-products__media,
-  favorite-products.source-favorite-configurable .favorite-products__products,
   favorite-products.source-favorite-configurable .favorite-products__testimonials {
     min-height: 660px;
   }
