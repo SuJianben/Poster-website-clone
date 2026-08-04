@@ -19,47 +19,69 @@
   ],
   "name": "Footer group",
   "sections": {
-    "cart": {
-      "settings": {
-        "enabled": true
-      },
-      "type": "source-cart-drawer"
-    },
-    "footer": {
-      "settings": {
-        "enabled": true
-      },
-      "type": "source-footer"
-    },
     "newsletter": {
+      "type": "source-newsletter",
       "settings": {
-        "enabled": true
-      },
-      "type": "source-newsletter"
-    },
-    "spotlight": {
-      "settings": {
-        "enabled": true
-      },
-      "type": "source-spotlight-picks"
-    },
-    "custom": {
-      "settings": {
-        "enabled": true
-      },
-      "type": "source-footer-custom"
+        "enabled": true,
+        "heading": "",
+        "subheading": "",
+        "email_placeholder": "",
+        "button_label": "",
+        "success_message": ""
+      }
     },
     "icons": {
+      "type": "source-footer-icons",
+      "settings": {
+        "enabled": true,
+        "heading_prefix": "",
+        "heading_highlight": ""
+      }
+    },
+    "footer": {
+      "type": "source-footer",
+      "settings": {
+        "enabled": true,
+        "service_heading": "Service",
+        "menu_service": "main-menu",
+        "information_heading": "Mehr Infos",
+        "menu_information": "main-menu",
+        "collaboration_heading": "Zusammenarbeit",
+        "menu_collaboration": "main-menu",
+        "general_heading": "Allgemein",
+        "menu_general": "main-menu",
+        "contact_heading": "Über Uns",
+        "contact_address": "Palmstraße 17, 09130 Chemnitz, Germany",
+        "contact_email": "service@dotcomcanvas.de",
+        "awards_image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg",
+        "facebook_url": "",
+        "instagram_url": "",
+        "tiktok_url": ""
+      }
+    },
+    "custom": {
+      "type": "source-footer-custom",
       "settings": {
         "enabled": true
-      },
-      "type": "source-footer-icons"
+      }
+    },
+    "cart": {
+      "type": "source-cart-drawer",
+      "settings": {
+        "enabled": true
+      }
     },
     "compare": {
+      "type": "source-product-compare",
       "settings": {
         "enabled": true
-      },
-      "type": "source-product-compare"
+      }
+    },
+    "spotlight": {
+      "type": "source-spotlight-picks",
+      "settings": {
+        "enabled": true
+      }
     }
   },
   "type": "footer"
