@@ -13,7 +13,7 @@
       "type": "source-hero",
       "settings": {
         "enabled": true,
-        "link": "",
+        "link": "shopify://collections/all",
         "link_label": "",
         "product": "lucrecia-rey-caro-bleu",
         "primary_badge": "Trending",
