@@ -1,11 +1,26 @@
 {% if section.settings.enabled %}
-{% render 'source-newsletter-1' %}
+  {% render 'source-newsletter-1' %}
+  <script src="{{ 'source-newsletter-content.js' | asset_url }}" defer="defer"></script>
+  {% if section.settings.heading != blank or section.settings.subheading != blank or section.settings.email_placeholder != blank or section.settings.button_label != blank %}
+    <script type="application/json" data-source-newsletter-overrides>
+      {
+        "heading": {{ section.settings.heading | json }},
+        "subheading": {{ section.settings.subheading | json }},
+        "emailPlaceholder": {{ section.settings.email_placeholder | json }},
+        "buttonLabel": {{ section.settings.button_label | json }}
+      }
+    </script>
+  {% endif %}
 {% endif %}
 {% schema %}
 {
   "name": "Newsletter",
   "settings": [
-    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true }
+    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true },
+    { "type": "text", "id": "heading", "label": "Heading override" },
+    { "type": "text", "id": "subheading", "label": "Subheading override" },
+    { "type": "text", "id": "email_placeholder", "label": "Email placeholder override" },
+    { "type": "text", "id": "button_label", "label": "Button label override" }
   ],
   "presets": [{ "name": "Newsletter" }]
 }
