@@ -546,92 +546,20 @@
     "favorite-products": {
       "type": "source-favorite-products",
       "blocks": {
-        "testimonial_cq6RRb": {
-          "type": "testimonial",
+        "slide_Mbr6hk": {
+          "type": "slide",
           "settings": {
-            "title": "Ein absoluter Eyecatcher dieses traumhaft schöne Bild",
-            "text": "<p>Ich liebe Kunst und freue mich über das wunderschöne neue Bild in unserem Wohnzimmer.</p>",
-            "customer_name": "Verena O.",
-            "customer_location": "Deutschland",
+            "title": "666",
+            "body": "2233",
+            "customer_name": "555",
+            "customer_location": "66666",
             "product": "nord-projects-9pm",
-            "image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg"
-          }
-        },
-        "testimonial_wTeFfA": {
-          "type": "testimonial",
-          "settings": {
-            "title": "Ein absoluter Eyecatcher dieses traumhaft schöne Bild",
-            "text": "<p>Ich liebe Kunst und freue mich über das wunderschöne neue Bild in unserem Wohnzimmer.</p>",
-            "customer_name": "Verena O.",
-            "customer_location": "Deutschland",
-            "product": "nord-projects-9pm",
-            "image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg"
-          }
-        },
-        "testimonial_NUgTdh": {
-          "type": "testimonial",
-          "settings": {
-            "title": "Ein absoluter Eyecatcher dieses traumhaft schöne Bild",
-            "text": "<p>Ich liebe Kunst und freue mich über das wunderschöne neue Bild in unserem Wohnzimmer.</p>",
-            "customer_name": "Verena O.",
-            "customer_location": "Deutschland",
-            "product": "nord-projects-9pm",
-            "image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg"
-          }
-        },
-        "testimonial_NU7M99": {
-          "type": "testimonial",
-          "settings": {
-            "title": "Ein absoluter Eyecatcher dieses traumhaft schöne Bild",
-            "text": "<p>Ich liebe Kunst und freue mich über das wunderschöne neue Bild in unserem Wohnzimmer.</p>",
-            "customer_name": "Verena O.",
-            "customer_location": "Deutschland",
-            "product": "nord-projects-9pm",
-            "image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg"
-          }
-        },
-        "testimonial_Q9wVxK": {
-          "type": "testimonial",
-          "settings": {
-            "title": "Ein absoluter Eyecatcher dieses traumhaft schöne Bild",
-            "text": "<p>Ich liebe Kunst und freue mich über das wunderschöne neue Bild in unserem Wohnzimmer.</p>",
-            "customer_name": "Verena O.",
-            "customer_location": "Deutschland",
-            "product": "nord-projects-9pm",
-            "image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg"
-          }
-        },
-        "testimonial_wzdcgd": {
-          "type": "testimonial",
-          "settings": {
-            "title": "Ein absoluter Eyecatcher dieses traumhaft schöne Bild",
-            "text": "<p>Ich liebe Kunst und freue mich über das wunderschöne neue Bild in unserem Wohnzimmer.</p>",
-            "customer_name": "Verena O.",
-            "customer_location": "Deutschland",
-            "product": "nord-projects-9pm",
-            "image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg"
-          }
-        },
-        "testimonial_QMb93X": {
-          "type": "testimonial",
-          "settings": {
-            "title": "Ein absoluter Eyecatcher dieses traumhaft schöne Bild",
-            "text": "<p>Ich liebe Kunst und freue mich über das wunderschöne neue Bild in unserem Wohnzimmer.</p>",
-            "customer_name": "Verena O.",
-            "customer_location": "Deutschland",
-            "product": "nord-projects-9pm",
-            "image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg"
+            "scene_image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg"
           }
         }
       },
       "block_order": [
-        "testimonial_cq6RRb",
-        "testimonial_wTeFfA",
-        "testimonial_NUgTdh",
-        "testimonial_NU7M99",
-        "testimonial_Q9wVxK",
-        "testimonial_wzdcgd",
-        "testimonial_QMb93X"
+        "slide_Mbr6hk"
       ],
       "settings": {
         "enabled": true,
