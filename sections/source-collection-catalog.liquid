@@ -1,7 +1,14 @@
-{{ 'source-collection.css' | asset_url | stylesheet_tag }}
-{{ 'source-collection-hero.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'source-collection-theme.js' | asset_url }}" defer="defer"></script>
-<script src="{{ 'source-facets.js' | asset_url }}" defer="defer"></script>
+{% assign collection_css_url = 'source-collection.css' | asset_url | split: '?' | first %}
+{% assign collection_hero_css_url = 'source-collection-hero.css' | asset_url | split: '?' | first %}
+{% assign collection_vendor_url = 'source-collection-vendor.js' | asset_url | split: '?' | first %}
+{% assign collection_theme_url = 'source-collection-theme.js' | asset_url | split: '?' | first %}
+{% assign collection_facets_url = 'source-facets.js' | asset_url | split: '?' | first %}
+<link rel="stylesheet" href="{{ collection_css_url }}">
+<link rel="stylesheet" href="{{ collection_hero_css_url }}">
+{% render 'source-collection-runtime-config' %}
+<script src="{{ collection_vendor_url }}" defer="defer"></script>
+<script src="{{ collection_theme_url }}" defer="defer"></script>
+<script src="{{ collection_facets_url }}" defer="defer"></script>
 
 {% assign collection_title = collection.title | default: 'Collection' %}
 
