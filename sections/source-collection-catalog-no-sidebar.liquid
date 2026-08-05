@@ -1,0 +1,84 @@
+<script src="{{ 'source-sticky-header-runtime.js' | asset_url }}"></script>
+{% assign collection_css_url = 'source-collection.css' | asset_url | split: '?' | first %}
+{% assign collection_hero_css_url = 'source-collection-hero.css' | asset_url | split: '?' | first %}
+{% assign collection_vendor_url = 'source-collection-vendor.js' | asset_url | split: '?' | first %}
+{% assign collection_theme_url = 'source-collection-theme.js' | asset_url | split: '?' | first %}
+{% assign collection_facets_url = 'source-facets.js' | asset_url | split: '?' | first %}
+<link rel="stylesheet" href="{{ collection_css_url }}">
+<link rel="stylesheet" href="{{ collection_hero_css_url }}">
+{% render 'source-collection-runtime-config' %}
+<script src="{{ collection_vendor_url }}" defer="defer"></script>
+<script src="{{ collection_theme_url }}" defer="defer"></script>
+<script src="{{ collection_facets_url }}" defer="defer"></script>
+
+{% assign collection_title = collection.title | default: 'Collection' %}
+
+{% if collection.image != blank %}
+  <div class="collection-hero collection-hero--image-as-bg hero hero--extra-small hero--mobile-auto section section--padding page-width page-width--full" style="--section-padding-top: 16px;--section-padding-bottom: 0px;">
+    <div class="collection-hero__inner relative f-grid f-grid--gap-none color-scheme-inverse blocks-radius">
+      <parallax-element class="flex overflow-hidden">
+        <motion-element class="block flex-1" data-motion="zoom-out">
+          <picture class="hero__media media-wrapper">
+            <source media="(max-width: 767px)" srcset="{{ collection.image | image_url: width: 800 }} 800w, {{ collection.image | image_url: width: 1000 }} 1000w">
+            {{ collection.image | image_url: width: 3000 | image_tag: alt: collection_title, loading: 'eager', fetchpriority: 'high', class: 'collection-hero__image', sizes: '(max-width: 767px) calc(100vw - 3rem), min(1430px, 100vw)' }}
+            <div class="bg-overlay" style="--color-overlay-alpha: 28;"></div>
+          </picture>
+        </motion-element>
+      </parallax-element>
+      <div class="collection-hero__text flex flex-col justify-center text-center content-overlay content-overlay--center">
+        <div class="collection-hero__info section--padding" style="--section-padding-top: 10px; --section-padding-bottom: 10px;">
+          <h1 class="collection-hero__title overflow-hidden hd2"><span class="visually-hidden">Collection: </span><motion-element data-motion="fade-up" class="inline-block">{{ collection_title }}</motion-element></h1>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+<div class="section-breadcrumb page-width page-width-- section--padding" style="--section-padding-top: px; --section-padding-bottom: px; margin-top: 10px;">
+  <nav class="breadcrumbs flex items-center justify-start md:justify-start" role="navigation" aria-label="breadcrumbs">
+    <a href="{{ routes.root_url }}" class="reversed-link">Home</a><span aria-hidden="true" class="breadcrumbs--sep"></span>
+    <a href="{{ routes.all_products_collection_url }}" class="reversed-link">Collection</a><span aria-hidden="true" class="breadcrumbs--sep"></span>
+    <span class="breadcrumbs--last text-subtext">{{ collection_title }}</span>
+  </nav>
+</div>
+
+<div class="collection section--padding page-width page-width--full color-scheme-1" style="--section-padding-top: 10px;--section-padding-bottom: 60px;">
+  <div class="sticky-element grid gap-5 z-9" style="--sticky-offset: 0px;">
+    <div class="collection__toolbar flex flex-wrap items-end md:items-center justify-between gap-x-2">
+      <div class="collection__toolbar-left flex md:items-center flex-col md:flex-row">
+        <div data-facet-loading class="md:order-last"><div class="loading__spinner hidden"><svg aria-hidden="true" focusable="false" class="spinner icon icon--extra-medium" viewBox="0 0 66 66"><circle class="path" fill="none" stroke-width="4" cx="33" cy="33" r="30"></circle></svg></div><p id="ProductCount" class="m-0 text-subtext" role="status">{{ collection.products_count }} products</p></div>
+        {% if collection.filters.size > 0 %}
+          <div class="facet-drawer-wrapper no-js-hidden">
+            <div class="hidden xl:flex"><button is="facet-toggler" type="button" class="btn btn--icon gap-2 facet-drawer-button no-js-hidden"><span class="btn__text flex gap-1 items-center"><svg class="icon icon--small" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M2.662 5.5h14.676M5.997 10h8.006M8.665 14.5h2.67" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>Filter</span></button></div>
+            <div class="facet-drawer-button-wrap flex xl:hidden"><button class="btn btn--secondary gap-2 facet-drawer-button" type="button" aria-controls="FacetDrawer" aria-expanded="false" data-facet-loading><span class="btn__text flex gap-1 items-center"><svg class="icon icon--small" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M2.662 5.5h14.676M5.997 10h8.006M8.665 14.5h2.67" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>Filter <facet-count hidden>(0)</facet-count></span></button></div>
+            <drawer-component id="FacetDrawer" role="dialog" class="drawer drawer--left facet-drawer" hidden>
+              <div class="fixed-overlay" aria-controls="FacetDrawer"></div>
+              <div class="drawer__inner color-scheme-1"><div class="drawer__content flex flex-col h-full w-full"><div class="drawer__header facet-drawer__header"><div class="drawer__header-inner flex items-center justify-between gap-3"><h2 class="drawer__heading h4">Filter</h2><button class="drawer__close-btn z-1" aria-controls="FacetDrawer" aria-label="Close" type="button"><svg class="icon icon--small" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button></div></div><div class="drawer__body flex-grow v-scrollable" id="DrawerFacetFiltersContainer">{% render 'source-collection-facets', collection: collection, scope: 'drawer', section_id: section.id %}</div></div></div>
+            </drawer-component>
+          </div>
+        {% endif %}
+      </div>
+      <div class="collection__toolbar-right flex items-end md:items-center flex-col md:flex-row" style="gap: 15px;">
+        <div class="room-view-toggle flex items-center gap-2 no-js-hidden"><span class="text-nowrap font-body-bolder">Raumansicht:</span><label class="room-switch"><input type="checkbox" id="RoomViewSwitch"><span class="room-slider"></span></label></div>
+        <div class="hidden no-js-hidden lg:flex items-center gap-2" id="SortByContainer"><label for="SortBy-collection" class="text-nowrap font-body-bolder">Sort by:</label><div class="select w-auto facet-short flex items-center gap-2 flex-grow"><select name="sort_by" class="form-control form-control--select" id="SortBy-collection" is="facet-short">{% for option in collection.sort_options %}<option value="{{ option.value }}"{% if option.value == collection.sort_by %} selected{% endif %}>{{ option.name }}</option>{% endfor %}</select></div></div>
+        <layout-switcher class="flex items-center gap-2 shrink-0 no-js-hidden"><span class="hidden md:block font-body-bolder">View as:</span><button class="btn btn--icon btn--icon-circle btn--active" data-layout-mode="grid" aria-label="View as grid"><svg class="icon icon--small" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="3" y="3" width="5" height="5" stroke="currentColor" stroke-width="1.5"/><rect x="12" y="3" width="5" height="5" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="12" width="5" height="5" stroke="currentColor" stroke-width="1.5"/><rect x="12" y="12" width="5" height="5" stroke="currentColor" stroke-width="1.5"/></svg></button><button class="btn btn--icon btn--icon-circle" data-layout-mode="list" aria-label="View as list"><svg class="icon icon--small" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7 5h10M7 10h10M7 15h10M3 5h.01M3 10h.01M3 15h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button></layout-switcher>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="collection__content flex gap-5">
+      {% paginate collection.products by 24 %}
+        <div id="ProductGridContainer" class="flex-1 min-w-0">
+          <div id="ProductsList" class="grid-list products-list products-list--list-standard f-grid f-grid--gap-medium f-grid--row-gap-medium" data-grid-class="product-card-style-standard" data-list-class="product-card-style-standard" data-layout="grid" style="--f-columns-mobile: 2; --f-columns-md: 3;--f-columns-lg: 4; --f-columns-xl: 4;">
+            {% for product in collection.products %}{% render 'source-bestsellers-product-card', product: product %}{% else %}<p>No products are available in this collection.</p>{% endfor %}
+          </div>
+          {% if paginate.pages > 1 %}<div class="pagination">{{ paginate | default_pagination }}</div>{% endif %}
+        </div>
+      {% endpaginate %}
+  </div>
+</div>
+
+{% schema %}
+{ "name": "Collection no sidebar", "settings": [] }
+{% endschema %}
