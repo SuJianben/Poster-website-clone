@@ -11,13 +11,7 @@
   "sections": {
     "main": {
       "type": "source-collection-catalog",
-      "settings": {
-        "show_banner": true,
-        "show_filters": true,
-        "products_per_page": 24,
-        "fallback_title": "Collection",
-        "empty_label": "No products are available in this collection."
-      }
+      "settings": {}
     }
   },
   "order": [

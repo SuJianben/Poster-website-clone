@@ -1,20 +1,17 @@
-<form id="{{ form_id }}" action="{{ collection.url }}" method="get" data-source-facet-form>
+<form class="face-form" method="get" action="{{ collection.url }}" is="facet-form" data-section-id="{{ section_id }}" data-history>
+  <div data-filter data-index="{{ scope }}-page" hidden><input type="hidden" name="page" value=""></div>
   {% for filter in collection.filters %}
-    <details class="facet-accordion-details"{% if filter.active_values.size > 0 %} open{% endif %}>
-      <summary class="accordion-details__summary flex items-center justify-between"><span>{{ filter.label }}</span><span>{% if filter.active_values.size > 0 %}−{% else %}+{% endif %}</span></summary>
-      <div class="accordion-details__content">
+    {% assign filter_key = scope | append: '-' | append: filter.param_name | handleize %}
+    <details class="accordion-details facet-accordion-details" is="accordion-details" data-filter data-index="{{ scope }}-{{ filter.param_name }}"{% if filter.active_values.size > 0 %} open{% endif %}>
+      <summary class="accordion-details__summary flex items-center justify-between"><span class="h6">{{ filter.label }}</span><svg class="icon icon-plus-toggle icon--small icon--thick" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path class="icon-plus-toggle__horizontal" d="M3.125 10h13.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path class="icon-plus-toggle__vertical" d="M10 3.125v13.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary>
+      <div class="accordion-details__content parent-display flex flex-col gap-3">
         {% case filter.type %}
           {% when 'boolean', 'list' %}
-            <ul class="list-unstyled">
-              {% for value in filter.values %}
-                <li><label class="flex items-center gap-2"><input type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}"{% if value.active %} checked{% endif %}{% if value.count == 0 and value.active == false %} disabled{% endif %}> <span>{{ value.label }} ({{ value.count }})</span></label></li>
-              {% endfor %}
-            </ul>
+            <ul class="grid gap-3">{% for value in filter.values %}<li class="flex items-center gap-2"><input name="{{ value.param_name }}" value="{{ value.value }}" class="checkbox" id="{{ filter_key }}-{{ forloop.index }}" type="checkbox"{% if value.active %} checked{% endif %}{% if value.count == 0 and value.active == false %} disabled{% endif %}><label for="{{ filter_key }}-{{ forloop.index }}" class="flex flex-grow justify-between items-center gap-1 text-subtext reversed-link"><span class="reversed-link__text">{{ value.label }}</span><span class="count">{{ value.count }}</span></label></li>{% endfor %}</ul>
           {% when 'price_range' %}
             <div class="flex gap-2"><label>From <input name="{{ filter.min_value.param_name }}" value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}" type="number" placeholder="0"></label><label>To <input name="{{ filter.max_value.param_name }}" value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}" type="number" placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' }}"></label></div>
         {% endcase %}
       </div>
     </details>
   {% endfor %}
-  <noscript><button class="btn btn--primary" type="submit">Apply</button></noscript>
 </form>
