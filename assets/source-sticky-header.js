@@ -11,6 +11,25 @@
     header.dataset.sourceStickyReady = 'true';
     section.classList.add('source-sticky-header');
 
+    const setSourceHeaderMetrics = () => {
+      const navigation = header.querySelector('.header__bottom');
+      const headerGroups = document.querySelectorAll('.shopify-section-group-header-group');
+      let groupHeight = 0;
+
+      headerGroups.forEach((group) => {
+        groupHeight += group.offsetHeight;
+      });
+
+      document.documentElement.style.setProperty('--header-height', `${Math.round(header.offsetHeight)}px`);
+      document.documentElement.style.setProperty('--header-offset-top', `${Math.round(section.offsetTop)}px`);
+      document.documentElement.style.setProperty('--header-navigation-height', `${Math.max(0, Math.round(navigation ? navigation.offsetHeight - 1 : 0))}px`);
+      document.documentElement.style.setProperty('--header-group-height', `${Math.round(groupHeight)}px`);
+    };
+
+    setSourceHeaderMetrics();
+    new ResizeObserver(setSourceHeaderMetrics).observe(header);
+    window.addEventListener('resize', setSourceHeaderMetrics, { passive: true });
+
     let previousScrollTop = window.scrollY;
     const initialBounds = section.getBoundingClientRect();
     const headerTop = initialBounds.top + previousScrollTop;
