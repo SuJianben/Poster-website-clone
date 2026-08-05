@@ -11,6 +11,14 @@
 <script src="{{ collection_theme_url }}" defer="defer"></script>
 <script src="{{ collection_facets_url }}" defer="defer"></script>
 
+<style>
+  @media screen and (min-width: 1280px) {
+    .collection--no-sidebar #FacetFiltersContainer.xl\:block {
+      display: block;
+    }
+  }
+</style>
+
 {% assign collection_title = collection.title | default: 'Collection' %}
 
 {% if collection.image != blank %}
@@ -42,7 +50,7 @@
   </nav>
 </div>
 
-<div class="collection section--padding page-width page-width--full color-scheme-1" style="--section-padding-top: 10px;--section-padding-bottom: 60px;">
+<div class="collection collection--no-sidebar section--padding page-width page-width--full color-scheme-1" style="--section-padding-top: 10px;--section-padding-bottom: 60px;">
   <div class="sticky-element grid gap-5 z-9" style="--sticky-offset: 0px;">
     <div class="collection__toolbar flex flex-wrap items-end md:items-center justify-between gap-x-2">
       <div class="collection__toolbar-left flex md:items-center flex-col md:flex-row">
