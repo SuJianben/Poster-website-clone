@@ -12,4 +12,15 @@
     root_url: {{ routes.root_url | json }}
   };
   FoxTheme.settings = { cartType: 'drawer', moneyFormat: {{ shop.money_with_currency_format | json }}, themeName: 'Hyper', themeVersion: '1.3.2' };
+
+  // The shared header already registers a few source custom elements.
+  // Preserve those registrations while the original collection runtime loads.
+  window.sourceCollectionDefine = window.customElements.define.bind(window.customElements);
+  window.customElements.define = function(name, constructor, options) {
+    if (window.customElements.get(name)) return;
+    return window.sourceCollectionDefine(name, constructor, options);
+  };
+  window.addEventListener('load', function() {
+    if (window.sourceCollectionDefine) window.customElements.define = window.sourceCollectionDefine;
+  }, { once: true });
 </script>
