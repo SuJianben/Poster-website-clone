@@ -1,6 +1,6 @@
 class SourceBasicHeader extends HTMLElement {
   get headerSection() {
-    return document.querySelector('.header-section');
+    return this.closest('.shopify-section-group-header-group') || document.querySelector('.header-section');
   }
 
   get headerNavigation() {
