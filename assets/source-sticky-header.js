@@ -1,3 +1,4 @@
+if (!customElements.get('sticky-header')) {
 class SourceBasicHeader extends HTMLElement {
   get headerSection() {
     // The migrated source header sits inside Shopify's generated section wrapper.
@@ -154,6 +155,5 @@ class SourceStickyHeader extends SourceBasicHeader {
   }
 }
 
-if (!customElements.get('sticky-header')) {
-  customElements.define('sticky-header', SourceStickyHeader, { extends: 'header' });
+customElements.define('sticky-header', SourceStickyHeader, { extends: 'header' });
 }
