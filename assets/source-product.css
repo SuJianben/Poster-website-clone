@@ -60,7 +60,7 @@
 .source-product-purchase__benefits { display: grid; gap: .85rem; margin: 2.35rem 0 0; padding: 1.8rem 0 0; border-top: .1rem solid #e2e2e2; list-style: none; font-size: 1.25rem; font-weight: 600; }
 .source-product-purchase__benefits li { display: flex; gap: .8rem; }
 .source-product-purchase__benefits li::before { content: '✓'; font-weight: 900; }
-.source-product__accordions { width: min(100%, 92rem); margin: -4rem 0 0 9.8rem; }
+.source-product__accordions { width: min(100%, 92rem); margin: 2rem 0 0 9.8rem; }
 .source-product__accordions details { border-bottom: .1rem solid #d7d7d7; }
 .source-product__accordions summary { display: flex; justify-content: space-between; align-items: center; min-height: 6.4rem; cursor: pointer; font-size: 1.7rem; font-weight: 800; list-style: none; }
 .source-product__accordions summary::-webkit-details-marker { display: none; }
