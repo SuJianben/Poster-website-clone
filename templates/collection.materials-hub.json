@@ -1,7 +1,76 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "materials_hub": {
       "type": "source-materials-hub",
+      "blocks": {
+        "collection_KHzkqD": {
+          "type": "collection",
+          "settings": {
+            "collection": "abstract-posters",
+            "label": ""
+          }
+        },
+        "collection_Mz4fzP": {
+          "type": "collection",
+          "settings": {
+            "collection": "abstract-posters",
+            "label": ""
+          }
+        },
+        "collection_BEp4Vf": {
+          "type": "collection",
+          "settings": {
+            "collection": "abstract-posters",
+            "label": ""
+          }
+        },
+        "collection_iGa6pw": {
+          "type": "collection",
+          "settings": {
+            "collection": "abstract-posters",
+            "label": ""
+          }
+        },
+        "collection_eDTKfz": {
+          "type": "collection",
+          "settings": {
+            "collection": "abstract-posters",
+            "label": ""
+          }
+        },
+        "collection_NgETEL": {
+          "type": "collection",
+          "settings": {
+            "collection": "abstract-posters",
+            "label": ""
+          }
+        },
+        "collection_Jp3TgB": {
+          "type": "collection",
+          "settings": {
+            "collection": "abstract-posters",
+            "label": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_KHzkqD",
+        "collection_Mz4fzP",
+        "collection_BEp4Vf",
+        "collection_iGa6pw",
+        "collection_eDTKfz",
+        "collection_NgETEL",
+        "collection_Jp3TgB"
+      ],
       "settings": {
         "heading": ""
       }
