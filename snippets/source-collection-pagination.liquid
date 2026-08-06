@@ -1,0 +1,26 @@
+{% comment %}
+  Source-style Shopify collection pagination.
+  Requires the surrounding paginate object.
+{% endcomment %}
+<nav class="source-collection-pagination" role="navigation" aria-label="Pagination">
+  {% if paginate.previous %}
+    <a class="source-collection-pagination__previous" href="{{ paginate.previous.url }}" aria-label="Previous page">
+      <svg class="icon icon--small" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m12 4-6 6 6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  {% endif %}
+  {% for part in paginate.parts %}
+    {% if part.is_link %}
+      <a class="source-collection-pagination__page" href="{{ part.url }}" aria-label="Page {{ part.title }}">{{ part.title }}</a>
+    {% elsif part.title == paginate.current_page %}
+      <span class="source-collection-pagination__page source-collection-pagination__page--current" aria-current="page">{{ part.title }}</span>
+    {% else %}
+      <span class="source-collection-pagination__ellipsis">{{ part.title }}</span>
+    {% endif %}
+  {% endfor %}
+  {% if paginate.next %}
+    <a class="source-collection-pagination__next" href="{{ paginate.next.url }}" aria-label="Next page">
+      <span>Next</span>
+      <svg class="icon icon--small" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m8 4 6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  {% endif %}
+</nav>

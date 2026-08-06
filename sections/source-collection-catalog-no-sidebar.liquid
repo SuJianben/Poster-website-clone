@@ -78,7 +78,7 @@
           <div id="ProductsList" class="grid-list products-list products-list--list-standard f-grid f-grid--gap-medium f-grid--row-gap-medium" data-grid-class="product-card-style-standard" data-list-class="product-card-style-standard" data-layout="grid" style="--f-columns-mobile: 2; --f-columns-md: 3;--f-columns-lg: 4; --f-columns-xl: 4;">
             {% for product in collection.products %}{% render 'source-bestsellers-product-card', product: product %}{% else %}<p>No products are available in this collection.</p>{% endfor %}
           </div>
-          {% if paginate.pages > 1 %}<div class="pagination">{{ paginate | default_pagination }}</div>{% endif %}
+          {% if paginate.pages > 1 %}{% render 'source-collection-pagination', paginate: paginate %}{% endif %}
         </div>
       {% endpaginate %}
   </div>
