@@ -1,0 +1,16 @@
+{% comment %}
+  Renders optional collection-specific SEO content from custom.seo_content.
+  The rich text field controls headings, paragraphs, lists, links, and emphasis.
+{% endcomment %}
+{% assign seo_content = collection.metafields.custom.seo_content %}
+
+{% if seo_content != blank %}
+  {{ 'source-collection-seo.css' | asset_url | stylesheet_tag }}
+  <section class="source-collection-seo" data-section-content="collection-seo">
+    <div class="page-width page-width--fixed">
+      <div class="source-collection-seo__content">
+        {{ seo_content | metafield_tag }}
+      </div>
+    </div>
+  </section>
+{% endif %}
