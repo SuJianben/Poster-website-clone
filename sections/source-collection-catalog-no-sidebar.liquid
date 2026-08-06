@@ -19,16 +19,17 @@
   }
 </style>
 
-{% assign collection_title = collection.title | default: 'Collection' %}
+{% assign collection_title = section.settings.heading | default: collection.title | default: 'Collection' %}
+{% assign collection_banner = section.settings.banner_image | default: collection.image %}
 
-{% if collection.image != blank %}
+{% if section.settings.show_banner and collection_banner != blank %}
   <div class="collection-hero collection-hero--image-as-bg hero hero--extra-small hero--mobile-auto section section--padding page-width page-width--full" style="--section-padding-top: 16px;--section-padding-bottom: 0px;">
     <div class="collection-hero__inner relative f-grid f-grid--gap-none color-scheme-inverse blocks-radius">
       <parallax-element class="flex overflow-hidden">
         <motion-element class="block flex-1" data-motion="zoom-out">
           <picture class="hero__media media-wrapper">
-            <source media="(max-width: 767px)" srcset="{{ collection.image | image_url: width: 800 }} 800w, {{ collection.image | image_url: width: 1000 }} 1000w">
-            {{ collection.image | image_url: width: 3000 | image_tag: alt: collection_title, loading: 'eager', fetchpriority: 'high', class: 'collection-hero__image', sizes: '(max-width: 767px) calc(100vw - 3rem), min(1430px, 100vw)' }}
+            <source media="(max-width: 767px)" srcset="{{ collection_banner | image_url: width: 800 }} 800w, {{ collection_banner | image_url: width: 1000 }} 1000w">
+            {{ collection_banner | image_url: width: 3000 | image_tag: alt: collection_title, loading: 'eager', fetchpriority: 'high', class: 'collection-hero__image', sizes: '(max-width: 767px) calc(100vw - 3rem), min(1430px, 100vw)' }}
             <div class="bg-overlay" style="--color-overlay-alpha: 28;"></div>
           </picture>
         </motion-element>
@@ -84,5 +85,27 @@
 </div>
 
 {% schema %}
-{ "name": "Collection no sidebar", "settings": [] }
+{
+  "name": "Collection no sidebar",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_banner",
+      "label": "Show collection banner",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Banner image override",
+      "info": "When empty, this uses the collection image."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Banner heading override",
+      "info": "When empty, this uses the collection title."
+    }
+  ]
+}
 {% endschema %}
