@@ -1,0 +1,53 @@
+{{ 'source-product.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'source-product.js' | asset_url }}" defer="defer"></script>
+
+{% assign current_variant = product.selected_or_first_available_variant %}
+{% assign primary_collection = product.collections.first %}
+
+<section class="source-product" data-source-product data-section-id="{{ section.id }}">
+  <div class="source-product__inner">
+    <nav class="source-product__breadcrumbs" aria-label="Breadcrumb">
+        <a href="{{ routes.root_url }}">Home</a>
+      {% if primary_collection != blank %}
+        <span aria-hidden="true">/</span>
+        <a href="{{ primary_collection.url }}">{{ primary_collection.title }}</a>
+      {% endif %}
+      <span aria-hidden="true">/</span>
+      <span>{{ product.title }}</span>
+    </nav>
+
+    <div class="source-product__grid">
+      {% render 'source-product-gallery', product: product %}
+
+      <div class="source-product__purchase-column">
+        {% render 'source-product-purchase', product: product, current_variant: current_variant %}
+      </div>
+    </div>
+
+    <div class="source-product__accordions" data-source-product-accordions>
+      <details open>
+        <summary>Produkt Details <span aria-hidden="true">+</span></summary>
+        <div class="source-product__accordion-content rte">
+          {% if product.description != blank %}
+            {{ product.description }}
+          {% else %}
+            <p>DOTCOMCANVAS® Premium Wandbild. Handgefertigt mit hochwertigen Materialien und direkt aufhangbereit.</p>
+          {% endif %}
+        </div>
+      </details>
+      <details>
+        <summary>Versand und Retouren <span aria-hidden="true">+</span></summary>
+        <div class="source-product__accordion-content">
+          <p>Kostenloser Versand ab 49 € und 30 Tage Rückgaberecht.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product main",
+  "settings": []
+}
+{% endschema %}

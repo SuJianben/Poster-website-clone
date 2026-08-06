@@ -1,0 +1,80 @@
+<div class="source-product-purchase" data-source-product-purchase>
+  {% assign is_trending = false %}
+  {% assign is_bestseller = false %}
+  {% assign edition_label = blank %}
+  {% for tag in product.tags %}
+    {% assign normalized_tag = tag | downcase %}
+    {% if normalized_tag == 'trending' %}{% assign is_trending = true %}{% endif %}
+    {% if normalized_tag == 'bestseller' %}{% assign is_bestseller = true %}{% endif %}
+    {% if normalized_tag contains 'edition:' %}{% assign edition_label = tag | split: ':' | last %}{% endif %}
+  {% endfor %}
+
+  {% if is_trending or is_bestseller %}
+    <div class="source-product-purchase__badges">
+      {% if is_trending %}<span class="source-product-badge source-product-badge--trending">Trending</span>{% endif %}
+      {% if is_bestseller %}<span class="source-product-badge source-product-badge--bestseller">Bestseller</span>{% endif %}
+    </div>
+  {% endif %}
+
+  <div class="source-product-purchase__trust">60.000+ Kunden lieben unsere Premium Wandbilder.</div>
+  <button class="source-product-purchase__reviews" type="button" aria-label="Product reviews">★★★★★ <span>2.860 Verifizierte Bewertungen</span></button>
+  <h1 class="source-product-purchase__title">{{ product.title }}</h1>
+
+  <div class="source-product-purchase__meta">
+    {% if product.vendor != blank %}<span>Künstler: <strong>{{ product.vendor }}</strong></span>{% endif %}
+    {% if edition_label != blank %}<span class="source-product-edition">{{ edition_label }}</span>{% endif %}
+  </div>
+
+  <div class="source-product-purchase__price" data-source-product-price>
+    {% if current_variant.compare_at_price > current_variant.price %}
+      <s data-source-product-compare-price>{{ current_variant.compare_at_price | money }}</s>
+    {% else %}
+      <s data-source-product-compare-price hidden></s>
+    {% endif %}
+    <strong data-source-product-current-price>{{ current_variant.price | money }}</strong>
+  </div>
+
+  {% form 'product', product, class: 'source-product-form', data-source-product-form: '' %}
+    <input type="hidden" name="id" value="{{ current_variant.id }}" data-source-product-variant-id>
+    {% for option in product.options_with_values %}
+      <fieldset class="source-product-form__option" data-source-product-option data-option-index="{{ forloop.index0 }}">
+        <legend>{{ option.name }}: <strong data-source-product-option-label>{{ option.selected_value }}</strong></legend>
+        <div class="source-product-form__values">
+          {% for value in option.values %}
+            <label class="source-product-form__value{% if option.selected_value == value %} is-selected{% endif %}">
+              <input
+                type="radio"
+                name="option-{{ section.id }}-{{ option.position }}"
+                value="{{ value | escape }}"
+                {% if option.selected_value == value %}checked{% endif %}
+                data-source-product-option-input
+              >
+              <span>{{ value }}</span>
+            </label>
+          {% endfor %}
+        </div>
+      </fieldset>
+    {% endfor %}
+
+    <div class="source-product-form__quantity">
+      <button type="button" data-source-product-quantity="-1" aria-label="Decrease quantity">−</button>
+      <input type="number" name="quantity" value="1" min="1" inputmode="numeric" aria-label="Quantity" data-source-product-quantity-input>
+      <button type="button" data-source-product-quantity="1" aria-label="Increase quantity">+</button>
+    </div>
+
+    <button class="source-product-form__submit" type="submit" name="add" {% unless current_variant.available %}disabled{% endunless %} data-source-product-submit>
+      <span>{% if current_variant.available %}In den Warenkorb legen{% else %}Ausverkauft{% endif %}</span>
+    </button>
+    <p class="source-product-form__status" data-source-product-status role="status" aria-live="polite"></p>
+  {% endform %}
+
+  <ul class="source-product-purchase__benefits" role="list">
+    <li>Sofort aufhänge­bereit</li>
+    <li>Kostenloser Versand weltweit über 49 €</li>
+    <li>30 Tage Rückgaberecht</li>
+  </ul>
+</div>
+
+<script type="application/json" data-source-product-variants>
+  {{ product.variants | json }}
+</script>
