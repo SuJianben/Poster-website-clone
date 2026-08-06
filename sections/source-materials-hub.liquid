@@ -5,7 +5,24 @@
     <div class="section__content"><div class="collection-list__container"><div class="collection-list__inner"><div class="collection-list__items f-grid f-grid--gap-small f-grid--row-gap-small">
       {% for block in section.blocks %}{% assign linked_collection = block.settings.collection %}{% if linked_collection != blank %}
         {% assign card_image = block.settings.image | default: linked_collection.featured_image %}
-        <div class="f-column" {{ block.shopify_attributes }}><div class="collection-card collection-card--style-standard collection-card--mobile-layout-vertical collection-card--image-full collection-card--image-padding-none collection-card--has-bg blocks-radius color-scheme-a0866d1b-f387-47d7-b88f-b8f21d12ee75 h-full"><a href="{{ linked_collection.url }}" class="collection-card__wrapper relative flex flex-col items-center justify-start text-center focus-inset btn-hover-wrapper"><div class="collection-card__image media-wrapper blocks-radius">{% if card_image != blank %}{{ card_image | image_url: width: 1080 | image_tag: alt: linked_collection.title, loading: 'lazy', class: 'motion-reduce hover-scale-up' }}{% endif %}</div><div class="collection-card__inner w-full pointer-events-none"><h2 class="collection-card__title h5 flex-1 text-limit-none-line"><span>{{ block.settings.label | default: linked_collection.title }} <svg class="icon icon-caret-right rtl-flip-x icon--medium icon--thick hidden md:block" viewBox="0 0 20 20" fill="none"><path d="M7.5 3.75L13.75 10L7.5 16.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></h2></div></a></div></div>
+        <div class="f-column" data-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+          <div class="collection-card collection-card--style-standard collection-card--mobile-layout-vertical collection-card--image-full collection-card--image-padding-none collection-card--has-bg blocks-radius color-scheme-a0866d1b-f387-47d7-b88f-b8f21d12ee75 h-full">
+            <a href="{{ linked_collection.url }}" class="collection-card__wrapper relative flex flex-col items-center justify-start text-center focus-inset btn-hover-wrapper">
+              <div class="collection-card__image media-wrapper blocks-radius">
+                {% if card_image != blank %}
+                  <motion-element data-motion="zoom-out-sm" class="block" style="--aspect-ratio: 1/1;">
+                    {{ card_image | image_url: width: 1080 | image_tag: alt: linked_collection.title, loading: 'lazy', class: 'motion-reduce hover-scale-up', sizes: '450px' }}
+                  </motion-element>
+                {% endif %}
+              </div>
+              <div class="collection-card__inner w-full pointer-events-none">
+                <h3 class="collection-card__title h5 flex-1 text-limit-none-line">
+                  <span>{{ block.settings.label | default: linked_collection.title }} <svg class="icon icon-caret-right rtl-flip-x icon--medium icon--thick hidden md:block" viewBox="0 0 20 20" fill="none"><path d="M7.5 3.75L13.75 10L7.5 16.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </h3>
+              </div>
+            </a>
+          </div>
+        </div>
       {% endif %}{% endfor %}
     </div></div></div></div>
   </div></div>
