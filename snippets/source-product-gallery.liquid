@@ -1,101 +1,124 @@
+{% liquid
+  assign selected_media = product.selected_or_first_available_variant.featured_media | default: product.featured_media
+  assign only_image = true
+  for media in product.media
+    unless media.media_type == 'image'
+      assign only_image = false
+    endunless
+  endfor
+%}
+
 <media-gallery
   id="MediaGallery-{{ section.id }}"
-  role="region"
   class="product__media-gallery block relative"
-  aria-label="Galerie-Viewer"
-  data-source-product-gallery
-  data-media-count="{{ product.media.size }}"
+  role="region"
+  aria-label="{{ product.title | escape }}"
   data-media-layout="vertical-carousel"
-  style="--media-item-gap: 8px; --media-item-gap-mobile: 12px"
+  data-only-image="{{ only_image }}"
+  data-enable-image-zoom="true"
+  data-enable-desktop-slider="true"
+  data-enable-mobile-thumbnails="true"
+  data-media-item-gap="8"
+  data-media-item-gap-mobile="8"
+  data-context="product"
 >
-  {% if product.media.size > 0 %}
-    <div class="visually-hidden" role="status" data-source-product-gallery-status></div>
-    <div class="product__media-gallery-viewer-wrap relative swiper-show-nav-on-hover">
-      <div class="product__media-gallery-viewer blocks-radius swiper">
-        <div class="product__media-list flex swiper-wrapper" data-source-product-media-list aria-live="polite">
-          {% for media in product.media %}
-            <div
-              tabindex="-1"
-              class="product__media-item swiper-slide{% if forloop.first %} is-active{% endif %}"
-              data-source-product-slide
-              data-media-index="{{ forloop.index0 }}"
-              data-media-id="{{ media.id }}"
-              {% unless forloop.first %}hidden{% endunless %}
-            >
-              <div class="product__media-item-container relative flex overflow-hidden blocks-radius media-type-image" style="--aspect-ratio: 1;">
-                <div class="block product__media media-wrapper">
-                  {% if media.preview_image != blank %}
-                    <img
-                      src="{{ media.preview_image | image_url: width: 1946 }}"
-                      srcset="{{ media.preview_image | image_url: width: 400 }} 400w, {{ media.preview_image | image_url: width: 690 }} 690w, {{ media.preview_image | image_url: width: 980 }} 980w, {{ media.preview_image | image_url: width: 1380 }} 1380w, {{ media.preview_image | image_url: width: 1946 }} 1946w"
-                      sizes="(max-width: 767px) calc(100vw - 3rem), calc(((min(1460px, 100vw) * 0.585) - 4.5rem) / 1)"
-                      width="{{ media.preview_image.width }}"
-                      height="{{ media.preview_image.height }}"
-                      loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
-                      {% if forloop.first %}fetchpriority="high"{% endif %}
-                      alt="{{ media.alt | default: product.title | escape }}"
-                    >
-                  {% endif %}
-                </div>
+  <div class="product__media-gallery-viewer-wrap relative">
+    <div id="GalleryViewer-{{ section.id }}" class="product__media-gallery-viewer swiper blocks-radius-md">
+      <div id="Slider-Gallery-{{ section.id }}" class="product__media-list swiper-wrapper">
+        {% for media in product.media %}
+          <div
+            id="Slide-{{ section.id }}-{{ media.id }}"
+            class="product__media-item swiper-slide{% if media.id == selected_media.id %} is-active{% endif %}"
+            data-media-id="{{ media.id }}"
+            data-media-type="{{ media.media_type }}"
+            data-media-index="{{ forloop.index0 }}"
+            {% if media.media_type == 'image' %}
+              data-src="{{ media | image_url: width: 2400 }}"
+              data-pswp-width="{{ media.preview_image.width }}"
+              data-pswp-height="{{ media.preview_image.height }}"
+            {% endif %}
+          >
+            <div class="product__media-item-container relative media-wrapper blocks-radius-md" style="--aspect-ratio: {{ media.preview_image.aspect_ratio | default: 1 }}">
+              {% if media.media_type == 'image' %}
+                <motion-element class="block w-full h-full" data-motion="fade-up">
+                  {{ media.preview_image
+                    | image_url: width: 1946
+                    | image_tag:
+                      widths: '400, 620, 690, 810, 980, 1240, 1380, 1620, 1946',
+                      sizes: '(max-width: 767px) calc(100vw - 3rem), calc(((min(1460px, 100vw) * 0.585) - 4.5rem) / 1)',
+                      loading: 'eager',
+                      fetchpriority: 'high',
+                      class: 'product__media-image'
+                  }}
+                </motion-element>
                 <div class="product__media-icon btn btn--white btn--small btn--icon btn--icon-circle" aria-hidden="true">
-                  <svg class="icon icon-zoom icon--medium" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <circle cx="10.875" cy="10.875" r="7.875"></circle><path d="m16.44 16.45 4.56 4.55"></path>
-                  </svg>
+                  <span class="btn__text flex items-center">
+                    <svg class="icon icon-zoom icon--medium" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.875" cy="10.875" r="7.875"></circle><path d="m16.443 16.445 4.557 4.557"></path></svg>
+                  </span>
                 </div>
-                <button class="product__media-zoom btn--inherit" type="button" data-source-product-zoom data-media-index="{{ forloop.index0 }}" aria-haspopup="dialog">
-                  <span class="visually-hidden">Öffnen Sie das Medium {{ forloop.index }} im Modalformat</span>
-                </button>
-              </div>
+                <button
+                  class="product__media-zoom btn--inherit js-photoswipe--zoom"
+                  type="button"
+                  data-media-type="image"
+                  data-media-index="{{ forloop.index0 }}"
+                  aria-label="Zoom {{ product.title | escape }}"
+                ></button>
+              {% elsif media.media_type == 'video' or media.media_type == 'external_video' %}
+                <video-element class="block w-full h-full">
+                  {{ media | media_tag: image_size: '1600x', controls: true, preload: 'metadata' }}
+                </video-element>
+              {% else %}
+                <product-model class="block w-full h-full">
+                  {{ media | media_tag: image_size: '1600x', toggleable: true }}
+                </product-model>
+              {% endif %}
             </div>
-          {% endfor %}
-        </div>
-      </div>
-      <div class="swiper-controls swiper-controls--nav-floating swiper-controls--grouped-mobile justify-center hidden md:flex">
-        <button type="button" class="btn swiper-button swiper-button--drop-shadow swiper-button-prev" data-source-product-prev aria-label="Nach links schieben">
-          <svg viewBox="0 0 20 20" fill="none"><path d="M12.75 16.25 6.5 10l6.25-6.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <button type="button" class="btn swiper-button swiper-button--drop-shadow swiper-button-next" data-source-product-next aria-label="Nach rechts schieben">
-          <svg viewBox="0 0 20 20" fill="none"><path d="m7.5 3.74 6.25 6.25-6.25 6.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
+          </div>
+        {% else %}
+          <div class="product__media-item swiper-slide">
+            {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg product__media-image' }}
+          </div>
+        {% endfor %}
       </div>
     </div>
 
     {% if product.media.size > 1 %}
-      <div class="product__media-gallery-thumbails swiper">
-        <button type="button" class="swiper-button-prev-thumb" data-source-product-thumb-prev aria-label="Nach oben scrollen">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="18 15 12 9 6 15"></polyline></svg>
+      <div class="swiper-controls swiper-controls--nav-floating swiper-controls--grouped-mobile swiper-controls--pagination-fraction justify-center hidden md:flex">
+        <button type="button" class="btn swiper-button swiper-button--drop-shadow swiper-button--blank-mobile swiper-button-prev" name="previous" aria-label="Previous slide">
+          <span class="btn__text"><svg class="icon icon-slider-prev rtl-flip-x icon--medium icon--thick" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M12.75 16.25 6.5 10l6.25-6.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
         </button>
-        <div class="thumbnail-list swiper-wrapper" data-source-product-thumbs>
-          {% for media in product.media %}
-            <div class="product__thumbs-item swiper-slide{% if forloop.first %} swiper-slide-thumb-active{% endif %}" data-media-position="{{ forloop.index }}">
-              <button
-                class="product__thumbs-container relative blocks-radius-md media-wrapper cursor-pointer"
-                type="button"
-                data-source-product-thumb
-                data-media-index="{{ forloop.index0 }}"
-                aria-label="Bild {{ forloop.index }} anzeigen"
-                aria-current="{% if forloop.first %}true{% else %}false{% endif %}"
-              >
-                <span class="product__thumbs-inner" style="--aspect-ratio: 1">
-                  <img src="{{ media.preview_image | image_url: width: 400 }}" alt="" loading="lazy" width="400" height="400">
-                </span>
-              </button>
-            </div>
-          {% endfor %}
-        </div>
-        <button type="button" class="swiper-button-next-thumb" data-source-product-thumb-next aria-label="Nach unten scrollen">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        <button type="button" class="btn swiper-button swiper-button--drop-shadow swiper-button--blank-mobile swiper-button-next" name="next" aria-label="Next slide">
+          <span class="btn__text"><svg class="icon icon-slider-next rtl-flip-x icon--medium icon--thick" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m7.5 3.741 6.25 6.25-6.25 6.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
         </button>
       </div>
     {% endif %}
+  </div>
 
-    <dialog class="source-product-lightbox" data-source-product-lightbox aria-label="Produktbild vergrößert">
-      <button class="source-product-lightbox__close" type="button" data-source-product-lightbox-close aria-label="Schließen">×</button>
-      <button class="source-product-lightbox__arrow source-product-lightbox__arrow--prev" type="button" data-source-product-lightbox-prev aria-label="Previous image">‹</button>
-      <img data-source-product-lightbox-image alt="" width="1946" height="1946">
-      <button class="source-product-lightbox__arrow source-product-lightbox__arrow--next" type="button" data-source-product-lightbox-next aria-label="Next image">›</button>
-    </dialog>
-  {% else %}
-    <div class="source-product-gallery-empty">{{ 'product-1' | placeholder_svg_tag }}</div>
+  {% if product.media.size > 1 %}
+    <div id="GalleryThumbnails-{{ section.id }}" class="product__media-gallery-thumbails swiper">
+      <button type="button" class="swiper-button-prev-thumb" aria-label="Scroll up">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"></polyline></svg>
+      </button>
+      <div id="Slider-Thumbnails-{{ section.id }}" class="thumbnail-list swiper-wrapper">
+        {% for media in product.media %}
+          <div class="product__thumbs-item swiper-slide" data-target="{{ media.id }}" data-media-position="{{ forloop.index }}">
+            <div class="product__thumbs-container relative blocks-radius-md media-wrapper cursor-pointer">
+              <div class="product__thumbs-inner" style="--aspect-ratio: {{ media.preview_image.aspect_ratio | default: 1 }}">
+                {{ media.preview_image
+                  | image_url: width: 400
+                  | image_tag:
+                    widths: '70, 84, 100, 140, 168, 200, 300, 400',
+                    sizes: '(max-width: 460px) calc((100vw - 30px) / 4), (max-width: 767px) calc((100vw - 30px) / 5), (max-width: 1023px) 70px, 84px',
+                    loading: 'lazy'
+                }}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <button type="button" class="swiper-button-next-thumb" aria-label="Scroll down">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </button>
+    </div>
   {% endif %}
 </media-gallery>

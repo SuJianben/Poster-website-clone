@@ -1,7 +1,15 @@
 {{ 'source-product.css' | asset_url | stylesheet_tag }}
 {{ 'source-product-variant-picker.css' | asset_url | stylesheet_tag }}
+{{ 'source-product-photoswipe.css' | asset_url | stylesheet_tag }}
 {{ 'source-product-clone-overrides.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'source-product.js' | asset_url }}" defer="defer"></script>
+{% render 'source-product-runtime-config' %}
+<script src="{{ 'source-product-vendor.js' | asset_url | split: '?' | first }}" defer="defer"></script>
+<script src="{{ 'source-product-theme.js' | asset_url | split: '?' | first }}" defer="defer"></script>
+<script src="{{ 'source-product-photoswipe.js' | asset_url | split: '?' | first }}" defer="defer"></script>
+<script src="{{ 'source-product-media-gallery.js' | asset_url | split: '?' | first }}" defer="defer"></script>
+<script src="{{ 'source-product-info-runtime.js' | asset_url | split: '?' | first }}" defer="defer"></script>
+<script src="{{ 'source-product-variant-selects.js' | asset_url | split: '?' | first }}" defer="defer"></script>
+<script src="{{ 'source-product-fallback-controls.js' | asset_url | split: '?' | first }}" defer="defer"></script>
 
 {% assign current_variant = product.selected_or_first_available_variant %}
 {% assign primary_collection = product.collections.first %}
@@ -25,7 +33,7 @@
   data-product-id="{{ product.id }}"
   data-update-url="true"
   data-url="{{ product.url }}"
-  class="source-product section block section-main-product page-width section--padding color-scheme-1"
+  class="section block section-main-product page-width section--padding color-scheme-1"
 >
   <div class="product flex flex-wrap product--mobile-thumbs-show product--large{% if media_count > 1 %} product--vertical-carousel product--media-has-many{% endif %} product--media-has-{{ media_count }}">
     <div class="product__media-wrapper block w-full relative">

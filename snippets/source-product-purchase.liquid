@@ -1,3 +1,4 @@
+{% assign product_form_id = 'product-form-' | append: section.id %}
 {% assign has_trending = false %}
 {% assign has_bestseller = false %}
 {% assign has_limited = false %}
@@ -63,24 +64,27 @@
         {% endif %}
       </div>
 
-      <div class="product__block product__block--price" data-source-product-price>
+      <div id="price-{{ section.id }}" class="product__block product__block--price" data-source-product-price>
         <span class="source-product-price" data-source-product-current-price>{{ current_variant.price | money }}</span>
         <s class="source-product-compare-price" data-source-product-compare-price{% unless current_variant.compare_at_price > current_variant.price %} hidden{% endunless %}>{% if current_variant.compare_at_price > current_variant.price %}{{ current_variant.compare_at_price | money }}{% endif %}</s>
         <p class="source-product-shipping">Kostenloser Versand.</p>
       </div>
 
-      {% form 'product', product, class: 'product-form source-product-form', data-source-product-form: '' %}
-        <input type="hidden" name="id" value="{{ current_variant.id }}" data-source-product-variant-id>
-        <input type="hidden" name="product-id" value="{{ product.id }}">
+      <variant-selects
+        id="variant-selects-{{ section.id }}"
+        data-section="{{ section.id }}"
+        data-url="{{ product.url }}"
+        data-update-url="true"
+      >
 
         {% if material_option == blank %}
           <fieldset class="product-form__input product-form__input--button product-form__input--button-square source-material-options source-fallback-option">
             <legend class="block w-full p-0">
               <span class="form__label"><span><strong>Material:</strong> <span data-source-property-label>Leinwandbild</span></span></span>
             </legend>
-            <input type="radio" id="FallbackMaterialCanvas-{{ section.id }}" name="properties[Material]" value="Leinwandbild" checked data-source-property-input>
+            <input type="radio" id="FallbackMaterialCanvas-{{ section.id }}" name="properties[Material]" value="Leinwandbild" form="{{ product_form_id }}" checked data-source-property-input>
             <label class="material-swatch" for="FallbackMaterialCanvas-{{ section.id }}">Leinwandbild</label>
-            <input type="radio" id="FallbackMaterialGold-{{ section.id }}" name="properties[Material]" value="Blattgoldbild" data-source-property-input>
+            <input type="radio" id="FallbackMaterialGold-{{ section.id }}" name="properties[Material]" value="Blattgoldbild" form="{{ product_form_id }}" data-source-property-input>
             <label class="material-swatch" for="FallbackMaterialGold-{{ section.id }}">Blattgoldbild</label>
           </fieldset>
         {% endif %}
@@ -112,7 +116,21 @@
 
             {% for value in option.values %}
               {% capture option_input_id %}Option-{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}{% endcapture %}
-              <input type="radio" id="{{ option_input_id }}" name="option-{{ section.id }}-{{ option.position }}" value="{{ value | escape }}" {% if option.selected_value == value %}checked{% endif %} data-source-product-option-input data-cm-value="{{ value | escape }}">
+              <input
+                type="radio"
+                id="{{ option_input_id }}"
+                name="{{ option.name | escape }}-{{ option.position }}"
+                value="{{ value | escape }}"
+                form="{{ product_form_id }}"
+                {% if value.selected or option.selected_value == value %}checked{% endif %}
+                {% unless value.available %}class="disabled"{% endunless %}
+                data-option-value-id="{{ value.id }}"
+                data-section="{{ section.id }}"
+                data-opt-pos="{{ option.position }}"
+                data-opt-val="{{ value | escape }}"
+                data-source-product-option-input
+                data-cm-value="{{ value | escape }}"
+              >
               {% if is_frame %}
                 {% assign frame_value = value | downcase %}
                 {% assign frame_image = 'source-frame-none.png' %}
@@ -132,6 +150,9 @@
           </fieldset>
         {% endfor %}
 
+        <script type="application/json" data-selected-variant>{{ current_variant | json }}</script>
+      </variant-selects>
+
         {% if frame_option == blank %}
           <fieldset class="product-form__input product-form__input--button product-form__input--button-square source-frame-options source-fallback-option">
             <legend class="block w-full p-0">
@@ -142,7 +163,7 @@
               {% assign frame_image = 'source-frame-none.png' %}
               {% if value == 'Weiß' %}{% assign frame_image = 'source-frame-white.png' %}{% endif %}
               {% if value == 'Schwarz' %}{% assign frame_image = 'source-frame-black.png' %}{% endif %}
-              <input type="radio" id="FallbackFrame-{{ section.id }}-{{ forloop.index0 }}" name="properties[Premium Frame]" value="{{ value }}" {% if forloop.first %}checked{% endif %} data-source-property-input>
+              <input type="radio" id="FallbackFrame-{{ section.id }}-{{ forloop.index0 }}" name="properties[Premium Frame]" value="{{ value }}" form="{{ product_form_id }}" {% if forloop.first %}checked{% endif %} data-source-property-input>
               <label for="FallbackFrame-{{ section.id }}-{{ forloop.index0 }}" class="variant-label--with-image" data-tooltip>
                 <span class="tooltip">{{ value }}</span><img src="{{ frame_image | asset_url }}" alt="{{ value }}" class="variant-frame-image" width="230" height="160"><span class="visually-hidden">{{ value }}</span>
               </label>
@@ -150,16 +171,20 @@
           </fieldset>
         {% endif %}
 
+      {% form 'product', product, id: product_form_id, is: 'product-form', class: 'product-form source-product-form', data-type: 'add-to-cart-form' %}
+        <input type="hidden" name="id" value="{{ current_variant.id }}" class="product-variant-id">
+        <input type="hidden" name="product-id" value="{{ product.id }}">
+
         <div class="product__block product__block--buy_buttons">
-          <div class="source-product-quantity" aria-label="Menge">
-            <button type="button" data-source-product-quantity="-1" aria-label="Menge verringern">−</button>
-            <input type="number" name="quantity" value="1" min="1" inputmode="numeric" aria-label="Menge" data-source-product-quantity-input>
-            <button type="button" data-source-product-quantity="1" aria-label="Menge erhöhen">+</button>
-          </div>
-          <button class="source-product-submit product-form__submit btn btn--primary w-full" type="submit" name="add" {% unless current_variant.available %}disabled{% endunless %} data-source-product-submit>
-            <span>{% if current_variant.available %}In den Warenkorb legen{% else %}Ausverkauft{% endif %}</span>
+          <quantity-input class="source-product-quantity quantity" data-section-id="{{ section.id }}" data-product-id="{{ product.id }}">
+            <button type="button" name="minus" aria-label="Decrease quantity"><span aria-hidden="true">−</span></button>
+            <input class="quantity__input" type="number" name="quantity" value="1" min="1" inputmode="numeric" aria-label="Quantity">
+            <button type="button" name="plus" aria-label="Increase quantity"><span aria-hidden="true">+</span></button>
+          </quantity-input>
+          <button id="ProductSubmitButton-{{ section.id }}" class="source-product-submit product-form__submit btn btn--primary w-full" type="submit" name="add" {% unless current_variant.available %}disabled{% endunless %}>
+            <span>{% if current_variant.available %}Add to cart{% else %}Sold out{% endif %}</span>
           </button>
-          <p class="source-product-form-status" data-source-product-status role="status" aria-live="polite"></p>
+          <div class="product-form__error-message" role="alert" hidden></div>
         </div>
       {% endform %}
 
