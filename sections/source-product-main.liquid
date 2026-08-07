@@ -1,62 +1,74 @@
 {{ 'source-product.css' | asset_url | stylesheet_tag }}
+{{ 'source-product-variant-picker.css' | asset_url | stylesheet_tag }}
+{{ 'source-product-clone-overrides.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'source-product.js' | asset_url }}" defer="defer"></script>
 
 {% assign current_variant = product.selected_or_first_available_variant %}
 {% assign primary_collection = product.collections.first %}
+{% assign media_count = product.media.size %}
 
-<section class="source-product" data-source-product data-section-id="{{ section.id }}">
-  <div class="source-product__page-width">
-    <nav class="source-product__breadcrumbs" aria-label="Breadcrumb">
-      <a href="{{ routes.root_url }}">Home</a>
-      {% if primary_collection != blank %}
-        <span class="source-product__breadcrumb-separator" aria-hidden="true">/</span>
-        <a href="{{ primary_collection.url }}">{{ primary_collection.title }}</a>
-      {% endif %}
-      <span class="source-product__breadcrumb-separator" aria-hidden="true">/</span>
-      <span class="source-product__breadcrumb-current">{{ product.title }}</span>
-    </nav>
+<div class="source-product-breadcrumbs page-width">
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <a href="{{ routes.root_url }}" class="reversed-link">Home</a>
+    {% if primary_collection != blank %}
+      <span aria-hidden="true" class="breadcrumbs--sep"></span>
+      <a href="{{ primary_collection.url }}" class="reversed-link">{{ primary_collection.title }}</a>
+    {% endif %}
+    <span aria-hidden="true" class="breadcrumbs--sep breadcrumbs--sep-last"></span>
+    <span class="breadcrumbs--last text-subtext">{{ product.title }}</span>
+  </nav>
+</div>
 
-    <div class="source-product__product product product--vertical-carousel product--media-has-many">
-      <div class="source-product__media-wrapper product__media-wrapper">
+<product-info
+  id="MainProduct-{{ section.id }}"
+  data-section="{{ section.id }}"
+  data-product-id="{{ product.id }}"
+  data-update-url="true"
+  data-url="{{ product.url }}"
+  class="source-product section block section-main-product page-width section--padding color-scheme-1"
+>
+  <div class="product flex flex-wrap product--mobile-thumbs-show product--large{% if media_count > 1 %} product--vertical-carousel product--media-has-many{% endif %} product--media-has-{{ media_count }}">
+    <div class="product__media-wrapper block w-full relative">
+      <div class="product__media-container sticky-element">
         {% render 'source-product-gallery', product: product %}
-      </div>
 
-      <div class="source-product__info-wrapper product__info-wrapper">
-        {% render 'source-product-purchase', product: product, current_variant: current_variant %}
-      </div>
-
-      <div class="source-product__details product__blocks-below-media">
-        <div class="source-product__details-block">
-          <details class="source-product__accordion">
-            <summary>
-              <span>Produkt Details</span>
-              <span class="source-product__accordion-icon" aria-hidden="true">+</span>
-            </summary>
-            <div class="source-product__accordion-content rte">
-              {% if product.description != blank %}
-                {{ product.description }}
-              {% else %}
-                <p>DOTCOMCANVAS® Premium Wandbild. Handgefertigt mit hochwertigen Materialien und direkt aufhangbereit.</p>
-              {% endif %}
-            </div>
-          </details>
-        </div>
-        <div class="source-product__details-block">
-          <details class="source-product__accordion">
-            <summary>
-              <span>Versand und Retouren</span>
-              <span class="source-product__accordion-icon" aria-hidden="true">+</span>
-            </summary>
-            <div class="source-product__accordion-content rte">
-              <p>Kostenloser Versand weltweit bei Bestellungen über 49 €.</p>
-              <p>30 Tage Rückgaberecht. Personalisierte Produkte sind vom Umtausch ausgeschlossen.</p>
-            </div>
-          </details>
+        <div class="product__blocks-below-media hidden md:block product__blocks accordion-parent">
+          <div class="product__block product__block--collapsible_tab">
+            <details class="accordion-details">
+              <summary class="accordion-details__summary flex items-center justify-between">
+                <h2 class="h5 inline-richtext">Produkt Details</h2>
+                <span class="source-product-accordion-icon" aria-hidden="true"></span>
+              </summary>
+              <div class="accordion-details__content rte text-subtext">
+                {% if product.description != blank %}
+                  {{ product.description }}
+                {% else %}
+                  <p>DOTCOMCANVAS® Premium Wandbild. Handgefertigt mit hochwertigen Materialien und direkt aufhangbereit.</p>
+                {% endif %}
+              </div>
+            </details>
+          </div>
+          <div class="product__block product__block--collapsible_tab">
+            <details class="accordion-details">
+              <summary class="accordion-details__summary flex items-center justify-between">
+                <h2 class="h5 inline-richtext">Versand und Retouren</h2>
+                <span class="source-product-accordion-icon" aria-hidden="true"></span>
+              </summary>
+              <div class="accordion-details__content rte text-subtext">
+                <p><strong>Versand:</strong> Kostenloser Versand weltweit bei Bestellungen über 49 €.</p>
+                <p><strong>Retouren:</strong> 30 Tage Rückgaberecht. Personalisierte Produkte sind vom Umtausch ausgeschlossen.</p>
+              </div>
+            </details>
+          </div>
         </div>
       </div>
     </div>
+
+    <div class="product__info-wrapper block w-full">
+      {% render 'source-product-purchase', product: product, current_variant: current_variant %}
+    </div>
   </div>
-</section>
+</product-info>
 
 {% schema %}
 {
