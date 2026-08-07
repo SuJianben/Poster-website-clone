@@ -1,4 +1,86 @@
 (() => {
+  const NativeDrawer = customElements.get('drawer-component');
+
+  class StandaloneDrawer extends HTMLElement {
+    constructor() {
+      super();
+      this.activeElement = null;
+      this.onControlClick = this.onControlClick.bind(this);
+      this.onKeyUp = this.onKeyUp.bind(this);
+    }
+
+    connectedCallback() {
+      this.controls = Array.from(document.querySelectorAll(`[aria-controls="${this.id}"]`));
+      this.controls.forEach((control) => control.addEventListener('click', this.onControlClick));
+      document.addEventListener('keyup', this.onKeyUp);
+    }
+
+    disconnectedCallback() {
+      this.controls?.forEach((control) => control.removeEventListener('click', this.onControlClick));
+      document.removeEventListener('keyup', this.onKeyUp);
+    }
+
+    get open() {
+      return this.hasAttribute('open');
+    }
+
+    onControlClick(event) {
+      event.preventDefault();
+      this.open ? this.hide() : this.show(event.currentTarget);
+    }
+
+    onKeyUp(event) {
+      if (event.code === 'Escape' && this.open) this.hide();
+    }
+
+    show(focusElement = null, animate = true) {
+      if (this.open) return;
+      this.activeElement = focusElement || document.activeElement;
+      this.hidden = false;
+      this.removeAttribute('inert');
+      this.setAttribute('open', '');
+      document.body.classList.add('modal-showing');
+
+      const activate = () => {
+        this.setAttribute('active', '');
+        document.body.classList.add('modal-show');
+        document.body.classList.remove('modal-showing');
+      };
+
+      animate ? window.requestAnimationFrame(() => window.requestAnimationFrame(activate)) : activate();
+    }
+
+    hide(animate = true) {
+      if (!this.open) return;
+      this.removeAttribute('active');
+      this.removeAttribute('open');
+      this.setAttribute('inert', '');
+      document.body.classList.remove('modal-show', 'modal-showing');
+
+      const finish = () => {
+        if (!this.open) this.hidden = true;
+        this.activeElement?.focus?.();
+      };
+
+      if (!animate) {
+        finish();
+        return;
+      }
+
+      let finished = false;
+      const onFinish = () => {
+        if (finished) return;
+        finished = true;
+        this.removeEventListener('transitionend', onFinish);
+        finish();
+      };
+      this.addEventListener('transitionend', onFinish, { once: true });
+      window.setTimeout(onFinish, 350);
+    }
+  }
+
+  const CartDrawerBase = NativeDrawer || StandaloneDrawer;
+
   const money = (cents) => {
     if (window.FoxTheme?.Currency?.formatMoney) {
       return FoxTheme.Currency.formatMoney(cents, FoxTheme.settings.moneyFormat);
@@ -15,7 +97,7 @@
 
   const imageUrl = (url) => url ? `${url}${url.includes('?') ? '&' : '?'}width=200` : '';
 
-  class SourceCartDrawer extends DrawerComponent {
+  class SourceCartDrawer extends CartDrawerBase {
     constructor() {
       super();
       this.onCartUpdate = this.onCartUpdate.bind(this);
