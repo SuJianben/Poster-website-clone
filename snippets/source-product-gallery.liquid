@@ -1,30 +1,91 @@
-<div class="source-product-gallery" data-source-product-gallery>
-  <div class="source-product-gallery__thumbs" role="list" aria-label="{{ product.title }} media">
-    {% for media in product.media %}
-      {% if media.media_type == 'image' %}
-        <button
-          class="source-product-gallery__thumb{% if forloop.first %} is-active{% endif %}"
-          type="button"
-          data-source-product-thumb
-          data-media-index="{{ forloop.index0 }}"
-          aria-label="Show image {{ forloop.index }}"
-          aria-current="{% if forloop.first %}true{% else %}false{% endif %}"
-        >
-          {{ media.preview_image | image_url: width: 160 | image_tag: loading: 'lazy', widths: '80, 120, 160', alt: media.alt | default: product.title }}
-        </button>
-      {% endif %}
-    {% endfor %}
-  </div>
+<media-gallery
+  class="source-product-gallery product__media-gallery"
+  data-source-product-gallery
+  data-media-count="{{ product.media.size }}"
+  aria-label="Galerie-Viewer"
+>
+  {% if product.media.size > 0 %}
+    <div class="source-product-gallery__viewer-wrap product__media-gallery-viewer-wrap">
+      <div class="source-product-gallery__viewer product__media-gallery-viewer">
+        <div class="source-product-gallery__list product__media-list" data-source-product-media-list aria-live="polite">
+          {% for media in product.media %}
+            <figure
+              class="source-product-gallery__item product__media-item{% if forloop.first %} is-active{% endif %}"
+              data-source-product-slide
+              data-media-index="{{ forloop.index0 }}"
+              data-media-id="{{ media.id }}"
+              {% unless forloop.first %}hidden{% endunless %}
+            >
+              <div class="source-product-gallery__item-container product__media-item-container">
+                {% if media.media_type == 'image' %}
+                  <img
+                    src="{{ media.preview_image | image_url: width: 1946 }}"
+                    srcset="{{ media.preview_image | image_url: width: 640 }} 640w, {{ media.preview_image | image_url: width: 980 }} 980w, {{ media.preview_image | image_url: width: 1440 }} 1440w, {{ media.preview_image | image_url: width: 1946 }} 1946w"
+                    sizes="(max-width: 767px) calc(100vw - 3rem), min(58.5vw, 854px)"
+                    width="{{ media.preview_image.width }}"
+                    height="{{ media.preview_image.height }}"
+                    loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+                    {% if forloop.first %}fetchpriority="high"{% endif %}
+                    alt="{{ media.alt | default: product.title | escape }}"
+                  >
+                {% else %}
+                  {{ media.preview_image | image_url: width: 1946 | image_tag: loading: 'lazy', alt: product.title }}
+                {% endif %}
+                <span class="source-product-gallery__zoom-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="10.875" cy="10.875" r="7.875"></circle>
+                    <path d="m16.44 16.45 4.56 4.55"></path>
+                  </svg>
+                </span>
+                <button
+                  class="source-product-gallery__zoom-button product__media-zoom"
+                  type="button"
+                  data-source-product-zoom
+                  data-media-index="{{ forloop.index0 }}"
+                  aria-haspopup="dialog"
+                  aria-label="Öffnen Sie das Medium {{ forloop.index }} im Modalformat"
+                ></button>
+              </div>
+            </figure>
+          {% endfor %}
+        </div>
+      </div>
+      <button class="source-product-gallery__arrow source-product-gallery__arrow--prev" type="button" data-source-product-prev aria-label="Previous slide">
+        <span aria-hidden="true">‹</span>
+      </button>
+      <button class="source-product-gallery__arrow source-product-gallery__arrow--next" type="button" data-source-product-next aria-label="Next slide">
+        <span aria-hidden="true">›</span>
+      </button>
+    </div>
 
-  <div class="source-product-gallery__stage">
-    {% for media in product.media %}
-      {% if media.media_type == 'image' %}
-        <figure class="source-product-gallery__slide{% if forloop.first %} is-active{% endif %}" data-source-product-slide data-media-index="{{ forloop.index0 }}">
-          <button type="button" class="source-product-gallery__image-button" data-source-product-zoom aria-label="Open {{ product.title }} image {{ forloop.index }}">
-            {{ media.preview_image | image_url: width: 1440 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '640, 900, 1200, 1440', sizes: '(min-width: 990px) 52vw, 100vw', alt: media.alt | default: product.title }}
+    <div class="source-product-gallery__thumbs product__media-gallery-thumbails" data-source-product-thumbs-wrap>
+      <button class="source-product-gallery__thumb-arrow source-product-gallery__thumb-arrow--prev" type="button" data-source-product-thumb-prev aria-label="Previous thumbnails">‹</button>
+      <div class="source-product-gallery__thumb-list" data-source-product-thumbs role="list" aria-label="Produktbilder">
+        {% for media in product.media %}
+          <button
+            class="source-product-gallery__thumb{% if forloop.first %} is-active{% endif %}"
+            type="button"
+            data-source-product-thumb
+            data-media-index="{{ forloop.index0 }}"
+            aria-label="Bild {{ forloop.index }} anzeigen"
+            aria-current="{% if forloop.first %}true{% else %}false{% endif %}"
+          >
+            {% if media.preview_image != blank %}
+              <img src="{{ media.preview_image | image_url: width: 180 }}" alt="" loading="lazy" width="180" height="180">
+            {% endif %}
           </button>
-        </figure>
-      {% endif %}
-    {% endfor %}
-  </div>
-</div>
+        {% endfor %}
+      </div>
+      <button class="source-product-gallery__thumb-arrow source-product-gallery__thumb-arrow--next" type="button" data-source-product-thumb-next aria-label="Next thumbnails">›</button>
+    </div>
+
+    <dialog class="source-product-gallery__lightbox" data-source-product-lightbox aria-label="Produktbild vergrößert">
+      <button class="source-product-gallery__lightbox-close" type="button" data-source-product-lightbox-close aria-label="Schließen">×</button>
+      <button class="source-product-gallery__lightbox-arrow source-product-gallery__lightbox-arrow--prev" type="button" data-source-product-lightbox-prev aria-label="Previous image">‹</button>
+      <img data-source-product-lightbox-image alt="" width="1946" height="1946">
+      <button class="source-product-gallery__lightbox-arrow source-product-gallery__lightbox-arrow--next" type="button" data-source-product-lightbox-next aria-label="Next image">›</button>
+    </dialog>
+  {% else %}
+    <div class="source-product-gallery__empty">{{ 'product-1' | placeholder_svg_tag }}</div>
+  {% endif %}
+</media-gallery>

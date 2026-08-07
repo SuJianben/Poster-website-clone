@@ -1,80 +1,134 @@
-<div class="source-product-purchase" data-source-product-purchase>
-  {% assign is_trending = false %}
-  {% assign is_bestseller = false %}
-  {% assign edition_label = blank %}
-  {% for tag in product.tags %}
-    {% assign normalized_tag = tag | downcase %}
-    {% if normalized_tag == 'trending' %}{% assign is_trending = true %}{% endif %}
-    {% if normalized_tag == 'bestseller' %}{% assign is_bestseller = true %}{% endif %}
-    {% if normalized_tag contains 'edition:' %}{% assign edition_label = tag | split: ':' | last %}{% endif %}
-  {% endfor %}
+{% assign has_trending = false %}
+{% assign has_bestseller = false %}
+{% assign has_limited = false %}
+{% assign has_personalizable = false %}
+{% assign atelier_label = blank %}
+{% for tag in product.tags %}
+  {% assign normalized_tag = tag | downcase | strip %}
+  {% if normalized_tag == 'trending' %}{% assign has_trending = true %}{% endif %}
+  {% if normalized_tag == 'bestseller' or normalized_tag == 'best seller' %}{% assign has_bestseller = true %}{% endif %}
+  {% if normalized_tag contains 'limited edition' or normalized_tag contains 'limited' %}{% assign has_limited = true %}{% endif %}
+  {% if normalized_tag contains 'personal' %}{% assign has_personalizable = true %}{% endif %}
+  {% if normalized_tag contains 'atelier' or normalized_tag contains 'exclusive' %}{% assign atelier_label = 'ATELIER EXCLUSIVE' %}{% endif %}
+{% endfor %}
 
-  {% if is_trending or is_bestseller %}
-    <div class="source-product-purchase__badges">
-      {% if is_trending %}<span class="source-product-badge source-product-badge--trending">Trending</span>{% endif %}
-      {% if is_bestseller %}<span class="source-product-badge source-product-badge--bestseller">Bestseller</span>{% endif %}
+<div class="source-product-purchase product__info-container" data-source-product-purchase>
+  <div class="source-product-purchase__box product__info-box">
+    <div class="source-product-purchase__brands inner-brands-banner">
+      <span class="source-product-purchase__brands-text">und 60.000+ Kunden lieben unsere Premium Wandbilder.</span>
     </div>
-  {% endif %}
 
-  <div class="source-product-purchase__trust">60.000+ Kunden lieben unsere Premium Wandbilder.</div>
-  <button class="source-product-purchase__reviews" type="button" aria-label="Product reviews">★★★★★ <span>2.860 Verifizierte Bewertungen</span></button>
-  <h1 class="source-product-purchase__title">{{ product.title }}</h1>
-
-  <div class="source-product-purchase__meta">
-    {% if product.vendor != blank %}<span>Künstler: <strong>{{ product.vendor }}</strong></span>{% endif %}
-    {% if edition_label != blank %}<span class="source-product-edition">{{ edition_label }}</span>{% endif %}
-  </div>
-
-  <div class="source-product-purchase__price" data-source-product-price>
-    {% if current_variant.compare_at_price > current_variant.price %}
-      <s data-source-product-compare-price>{{ current_variant.compare_at_price | money }}</s>
-    {% else %}
-      <s data-source-product-compare-price hidden></s>
+    {% if has_trending or has_bestseller or has_limited or has_personalizable %}
+      <div class="source-product-purchase__badges product__badges" aria-label="Produktmerkmale">
+        {% if has_trending %}<span class="source-product-badge source-product-badge--trending">TRENDING</span>{% endif %}
+        {% if has_bestseller %}<span class="source-product-badge source-product-badge--bestseller">BESTSELLER</span>{% endif %}
+        {% if has_limited %}<span class="source-product-badge source-product-badge--limited">LIMITED EDITION</span>{% endif %}
+        {% if has_personalizable %}<span class="source-product-badge source-product-badge--personalizable">PERSONALISIERBAR</span>{% endif %}
+      </div>
     {% endif %}
-    <strong data-source-product-current-price>{{ current_variant.price | money }}</strong>
-  </div>
 
-  {% form 'product', product, class: 'source-product-form', data-source-product-form: '' %}
-    <input type="hidden" name="id" value="{{ current_variant.id }}" data-source-product-variant-id>
-    {% for option in product.options_with_values %}
-      <fieldset class="source-product-form__option" data-source-product-option data-option-index="{{ forloop.index0 }}">
-        <legend>{{ option.name }}: <strong data-source-product-option-label>{{ option.selected_value }}</strong></legend>
-        <div class="source-product-form__values">
-          {% for value in option.values %}
-            <label class="source-product-form__value{% if option.selected_value == value %} is-selected{% endif %}">
-              <input
-                type="radio"
-                name="option-{{ section.id }}-{{ option.position }}"
-                value="{{ value | escape }}"
-                {% if option.selected_value == value %}checked{% endif %}
-                data-source-product-option-input
-              >
-              <span>{{ value }}</span>
-            </label>
-          {% endfor %}
-        </div>
-      </fieldset>
-    {% endfor %}
-
-    <div class="source-product-form__quantity">
-      <button type="button" data-source-product-quantity="-1" aria-label="Decrease quantity">−</button>
-      <input type="number" name="quantity" value="1" min="1" inputmode="numeric" aria-label="Quantity" data-source-product-quantity-input>
-      <button type="button" data-source-product-quantity="1" aria-label="Increase quantity">+</button>
+    <div class="source-product-purchase__reviews" data-source-product-reviews>
+      <span class="source-product-purchase__stars" aria-hidden="true">★★★★★</span>
+      <span>Verifizierte Bewertungen</span>
     </div>
 
-    <button class="source-product-form__submit" type="submit" name="add" {% unless current_variant.available %}disabled{% endunless %} data-source-product-submit>
-      <span>{% if current_variant.available %}In den Warenkorb legen{% else %}Ausverkauft{% endif %}</span>
-    </button>
-    <p class="source-product-form__status" data-source-product-status role="status" aria-live="polite"></p>
-  {% endform %}
+    <div class="source-product-purchase__title-block product__block product__block--title">
+      <h1 class="source-product-purchase__title product__title">{{ product.title }}</h1>
+    </div>
 
-  <ul class="source-product-purchase__benefits" role="list">
-    <li>Sofort aufhänge­bereit</li>
-    <li>Kostenloser Versand weltweit über 49 €</li>
-    <li>30 Tage Rückgaberecht</li>
-  </ul>
+    <div class="source-product-purchase__meta product__block product__block--meta">
+      {% if product.vendor != blank %}
+        <span class="source-product-purchase__vendor">Künstler:
+          <a href="{{ routes.collections_url }}/{{ product.vendor | handleize }}">{{ product.vendor }}</a>
+        </span>
+      {% endif %}
+      {% if atelier_label != blank %}
+        <button type="button" class="source-product-purchase__atelier">{{ atelier_label }} <span aria-hidden="true">›</span></button>
+      {% endif %}
+    </div>
+
+    <div class="source-product-purchase__price product__block product__block--price" data-source-product-price>
+      <span class="source-product-purchase__sale-price" data-source-product-current-price>{{ current_variant.price | money }}</span>
+      <s class="source-product-purchase__compare-price" data-source-product-compare-price{% unless current_variant.compare_at_price > current_variant.price %} hidden{% endunless %}>{% if current_variant.compare_at_price > current_variant.price %}{{ current_variant.compare_at_price | money }}{% endif %}</s>
+    </div>
+
+    {% form 'product', product, class: 'source-product-form product-form', data-source-product-form: '' %}
+      <input type="hidden" name="id" value="{{ current_variant.id }}" data-source-product-variant-id>
+      <input type="hidden" name="product-id" value="{{ product.id }}">
+
+      {% for option in product.options_with_values %}
+        {% assign option_name = option.name | downcase %}
+        <fieldset class="source-product-form__option product-form__input{% if option_name contains 'size' or option_name contains 'größe' or option_name contains 'groesse' %} source-product-form__option--size{% endif %}" data-source-product-option data-option-index="{{ forloop.index0 }}">
+          <legend>
+            <span>{{ option.name }}:</span>
+            <strong data-source-product-option-label>{{ option.selected_value }}</strong>
+            {% if option_name contains 'size' or option_name contains 'größe' or option_name contains 'groesse' %}
+              <button type="button" class="source-product-form__guide" data-source-product-size-guide>Größen Guide</button>
+            {% endif %}
+          </legend>
+          <div class="source-product-form__values">
+            {% for value in option.values %}
+              <label class="source-product-form__value{% if option.selected_value == value %} is-selected{% endif %}">
+                <input type="radio" name="option-{{ section.id }}-{{ option.position }}" value="{{ value | escape }}" {% if option.selected_value == value %}checked{% endif %} data-source-product-option-input>
+                <span>{{ value }}</span>
+              </label>
+            {% endfor %}
+          </div>
+        </fieldset>
+      {% endfor %}
+
+      <div class="source-product-form__quantity" aria-label="Menge">
+        <button type="button" data-source-product-quantity="-1" aria-label="Menge verringern">−</button>
+        <input type="number" name="quantity" value="1" min="1" inputmode="numeric" aria-label="Menge" data-source-product-quantity-input>
+        <button type="button" data-source-product-quantity="1" aria-label="Menge erhöhen">+</button>
+      </div>
+
+      <button class="source-product-form__submit product-form__submit" type="submit" name="add" {% unless current_variant.available %}disabled{% endunless %} data-source-product-submit>
+        <span>{% if current_variant.available %}In den Warenkorb legen{% else %}Ausverkauft{% endif %}</span>
+      </button>
+      <p class="source-product-form__status" data-source-product-status role="status" aria-live="polite"></p>
+    {% endform %}
+
+    <section class="source-product-purchase__discount" aria-label="Rabattstaffel">
+      <h2>☀️ SOMMER-SALE: Mehr bekommen, mehr sparen! 🎉</h2>
+      <p>Kombinierbar mit bereits reduzierten Artikeln!</p>
+      <div class="source-product-purchase__discount-grid">
+        <span>Kaufe</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5+</span>
+        <span>Erhalte</span><span>5%</span><span>10%</span><span>15%</span><span>20%</span><span>25%</span>
+      </div>
+    </section>
+
+    <ul class="source-product-purchase__benefits" role="list">
+      <li>Sofort aufhängbereit</li>
+      <li>Kostenloser Versand weltweit über 49 €</li>
+      <li>30 Tage Rückgaberecht</li>
+    </ul>
+
+    {% if shop.enabled_payment_types != blank %}
+      <div class="source-product-purchase__payments" aria-label="Zahlungsarten">
+        {% for type in shop.enabled_payment_types %}
+          {{ type | payment_type_svg_tag: class: 'source-product-purchase__payment-icon' }}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
 </div>
 
-<script type="application/json" data-source-product-variants>
-  {{ product.variants | json }}
-</script>
+<dialog class="source-product-size-modal" data-source-product-size-modal aria-label="Größen Guide">
+  <div class="source-product-size-modal__content">
+    <button type="button" data-source-product-size-close aria-label="Schließen">×</button>
+    <h2>Größen Guide</h2>
+    {% assign size_option = blank %}
+    {% for option in product.options_with_values %}
+      {% assign option_name = option.name | downcase %}
+      {% if option_name contains 'size' or option_name contains 'größe' or option_name contains 'groesse' %}{% assign size_option = option %}{% endif %}
+    {% endfor %}
+    {% if size_option != blank %}
+      <ul>{% for value in size_option.values %}<li>{{ value }}</li>{% endfor %}</ul>
+    {% else %}
+      <p>Bitte wähle die verfügbare Produktgröße aus.</p>
+    {% endif %}
+  </div>
+</dialog>
+
+<script type="application/json" data-source-product-variants>{{ product.variants | json }}</script>

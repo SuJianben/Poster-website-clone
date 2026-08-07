@@ -5,42 +5,55 @@
 {% assign primary_collection = product.collections.first %}
 
 <section class="source-product" data-source-product data-section-id="{{ section.id }}">
-  <div class="source-product__inner">
+  <div class="source-product__page-width">
     <nav class="source-product__breadcrumbs" aria-label="Breadcrumb">
-        <a href="{{ routes.root_url }}">Home</a>
+      <a href="{{ routes.root_url }}">Home</a>
       {% if primary_collection != blank %}
-        <span aria-hidden="true">/</span>
+        <span class="source-product__breadcrumb-separator" aria-hidden="true">/</span>
         <a href="{{ primary_collection.url }}">{{ primary_collection.title }}</a>
       {% endif %}
-      <span aria-hidden="true">/</span>
-      <span>{{ product.title }}</span>
+      <span class="source-product__breadcrumb-separator" aria-hidden="true">/</span>
+      <span class="source-product__breadcrumb-current">{{ product.title }}</span>
     </nav>
 
-    <div class="source-product__grid">
-      {% render 'source-product-gallery', product: product %}
+    <div class="source-product__product product product--vertical-carousel product--media-has-many">
+      <div class="source-product__media-wrapper product__media-wrapper">
+        {% render 'source-product-gallery', product: product %}
+      </div>
 
-      <div class="source-product__purchase-column">
+      <div class="source-product__info-wrapper product__info-wrapper">
         {% render 'source-product-purchase', product: product, current_variant: current_variant %}
       </div>
-    </div>
 
-    <div class="source-product__accordions" data-source-product-accordions>
-      <details open>
-        <summary>Produkt Details <span aria-hidden="true">+</span></summary>
-        <div class="source-product__accordion-content rte">
-          {% if product.description != blank %}
-            {{ product.description }}
-          {% else %}
-            <p>DOTCOMCANVAS® Premium Wandbild. Handgefertigt mit hochwertigen Materialien und direkt aufhangbereit.</p>
-          {% endif %}
+      <div class="source-product__details product__blocks-below-media">
+        <div class="source-product__details-block">
+          <details class="source-product__accordion">
+            <summary>
+              <span>Produkt Details</span>
+              <span class="source-product__accordion-icon" aria-hidden="true">+</span>
+            </summary>
+            <div class="source-product__accordion-content rte">
+              {% if product.description != blank %}
+                {{ product.description }}
+              {% else %}
+                <p>DOTCOMCANVAS® Premium Wandbild. Handgefertigt mit hochwertigen Materialien und direkt aufhangbereit.</p>
+              {% endif %}
+            </div>
+          </details>
         </div>
-      </details>
-      <details>
-        <summary>Versand und Retouren <span aria-hidden="true">+</span></summary>
-        <div class="source-product__accordion-content">
-          <p>Kostenloser Versand ab 49 € und 30 Tage Rückgaberecht.</p>
+        <div class="source-product__details-block">
+          <details class="source-product__accordion">
+            <summary>
+              <span>Versand und Retouren</span>
+              <span class="source-product__accordion-icon" aria-hidden="true">+</span>
+            </summary>
+            <div class="source-product__accordion-content rte">
+              <p>Kostenloser Versand weltweit bei Bestellungen über 49 €.</p>
+              <p>30 Tage Rückgaberecht. Personalisierte Produkte sind vom Umtausch ausgeschlossen.</p>
+            </div>
+          </details>
         </div>
-      </details>
+      </div>
     </div>
   </div>
 </section>
