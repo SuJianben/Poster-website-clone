@@ -5,6 +5,8 @@
 {% assign has_personalizable = false %}
 {% assign atelier_label = blank %}
 {% assign material_option = blank %}
+{% assign style_option = blank %}
+{% assign version_option = blank %}
 {% assign frame_option = blank %}
 {% assign size_option = blank %}
 
@@ -20,6 +22,8 @@
 {% for option in product.options_with_values %}
   {% assign option_name = option.name | downcase %}
   {% if option_name contains 'material' %}{% assign material_option = option %}{% endif %}
+  {% if option_name contains 'style' or option_name contains 'stil' %}{% assign style_option = option %}{% endif %}
+  {% if option_name contains 'version' %}{% assign version_option = option %}{% endif %}
   {% if option_name contains 'frame' or option_name contains 'rahmen' %}{% assign frame_option = option %}{% endif %}
   {% if option_name contains 'size' or option_name contains 'größe' or option_name contains 'groesse' %}{% assign size_option = option %}{% endif %}
 {% endfor %}
@@ -69,6 +73,14 @@
         <s class="source-product-compare-price" data-source-product-compare-price{% unless current_variant.compare_at_price > current_variant.price %} hidden{% endunless %}>{% if current_variant.compare_at_price > current_variant.price %}{{ current_variant.compare_at_price | money }}{% endif %}</s>
         <p class="source-product-shipping">Kostenloser Versand.</p>
       </div>
+
+      {% render 'source-product-fallback-options',
+        product_form_id: product_form_id,
+        material_option: material_option,
+        style_option: style_option,
+        version_option: version_option,
+        has_personalizable: has_personalizable
+      %}
 
       <variant-selects
         id="variant-selects-{{ section.id }}"
@@ -140,18 +152,6 @@
 
         <script type="application/json" data-selected-variant>{{ current_variant | json }}</script>
       </variant-selects>
-
-        {% if material_option == blank %}
-          <fieldset class="product-form__input product-form__input--button product-form__input--button-square source-material-options source-fallback-option">
-            <legend class="block w-full p-0">
-              <span class="form__label"><span><strong>Material:</strong> <span data-source-property-label>Leinwandbild</span></span></span>
-            </legend>
-            <input type="radio" id="FallbackMaterialCanvas-{{ section.id }}" name="properties[Material]" value="Leinwandbild" form="{{ product_form_id }}" checked data-source-property-input>
-            <label class="material-swatch" for="FallbackMaterialCanvas-{{ section.id }}">Leinwandbild</label>
-            <input type="radio" id="FallbackMaterialGold-{{ section.id }}" name="properties[Material]" value="Blattgoldbild" form="{{ product_form_id }}" data-source-property-input>
-            <label class="material-swatch" for="FallbackMaterialGold-{{ section.id }}">Blattgoldbild</label>
-          </fieldset>
-        {% endif %}
 
         {% if frame_option == blank %}
           <fieldset class="product-form__input product-form__input--button product-form__input--button-square source-frame-options source-fallback-option">

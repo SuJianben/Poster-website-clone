@@ -1,0 +1,61 @@
+{% assign show_fallback_options = false %}
+{% if material_option == blank %}{% assign show_fallback_options = true %}{% endif %}
+{% if has_personalizable and style_option == blank %}{% assign show_fallback_options = true %}{% endif %}
+{% if has_personalizable and version_option == blank %}{% assign show_fallback_options = true %}{% endif %}
+
+{% if show_fallback_options %}
+  <div class="product__block product__block--custom_liquid source-fallback-options">
+    <div class="product-form__input" style="margin-bottom: 0px;">
+      {% if material_option == blank %}
+        {% assign fallback_materials = 'Poster,Canvas,Acrylic Glass,Gold Leaf,Special Acrylic Glass,Special Gold Leaf' | split: ',' %}
+        <label class="form__label" style="display: block; margin-bottom: 10px; font-weight: bold;">
+          Material:&nbsp;&nbsp;<span style="color: #666666; font-weight: bold; text-transform: capitalize;" data-source-property-label="Material">Canvas</span>
+        </label>
+        <div class="material-swatch-container" style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 8px;">
+          {% for value in fallback_materials %}
+            <input
+              type="radio"
+              id="FallbackMaterial-{{ section.id }}-{{ forloop.index0 }}"
+              name="properties[Material]"
+              value="{{ value }}"
+              form="{{ product_form_id }}"
+              {% if value == 'Canvas' %}checked{% endif %}
+              data-source-property-input
+            >
+            <label class="material-swatch" for="FallbackMaterial-{{ section.id }}-{{ forloop.index0 }}">{{ value }}</label>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      {% if style_option == blank and has_personalizable %}
+        <label class="form__label" style="display: block; margin-bottom: 10px; font-weight: bold;">
+          Style:&nbsp;&nbsp;<span style="color: #666666; font-weight: bold; text-transform: capitalize;" data-source-property-label="Style">Personalized</span>
+        </label>
+        <div class="material-swatch-container" style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <input type="radio" id="FallbackStyleStandard-{{ section.id }}" name="properties[Style]" value="Standard" form="{{ product_form_id }}" data-source-property-input>
+          <label class="material-swatch" for="FallbackStyleStandard-{{ section.id }}">Standard</label>
+          <input type="radio" id="FallbackStylePersonalized-{{ section.id }}" name="properties[Style]" value="Personalized" form="{{ product_form_id }}" checked data-source-property-input>
+          <label class="material-swatch" for="FallbackStylePersonalized-{{ section.id }}">✨ Personalized</label>
+        </div>
+      {% endif %}
+    </div>
+
+    {% if version_option == blank and has_personalizable %}
+      {% assign fallback_versions = 'Black,Blue,Green' | split: ',' %}
+      <fieldset class="product-form__input product-form__input--button product-form__input--button-square source-fallback-option source-version-options">
+        <legend class="block w-full p-0">
+          <div class="form__label">
+            <div class="flex flex-wrap gap-2">
+              <span class="font-body-bolder">Version:</span>
+              <span class="text-subtext" data-source-property-label="Version">Black</span>
+            </div>
+          </div>
+        </legend>
+        {% for value in fallback_versions %}
+          <input type="radio" id="FallbackVersion-{{ section.id }}-{{ forloop.index0 }}" name="properties[Version]" value="{{ value }}" form="{{ product_form_id }}" {% if forloop.first %}checked{% endif %} data-source-property-input>
+          <label for="FallbackVersion-{{ section.id }}-{{ forloop.index0 }}" class="variant-label--standard"><span>{{ value }}</span></label>
+        {% endfor %}
+      </fieldset>
+    {% endif %}
+  </div>
+{% endif %}
