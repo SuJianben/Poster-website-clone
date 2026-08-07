@@ -3,13 +3,13 @@
 {{ 'source-product-photoswipe.css' | asset_url | stylesheet_tag }}
 {{ 'source-product-clone-overrides.css' | asset_url | stylesheet_tag }}
 {% render 'source-product-runtime-config' %}
-<script src="{{ 'source-product-vendor.js' | asset_url | split: '?' | first }}" defer="defer"></script>
-<script src="{{ 'source-product-theme.js' | asset_url | split: '?' | first }}" defer="defer"></script>
-<script src="{{ 'source-product-photoswipe.js' | asset_url | split: '?' | first }}" defer="defer"></script>
-<script src="{{ 'source-product-media-gallery.js' | asset_url | split: '?' | first }}" defer="defer"></script>
-<script src="{{ 'source-product-info-runtime.js' | asset_url | split: '?' | first }}" defer="defer"></script>
-<script src="{{ 'source-product-variant-selects.js' | asset_url | split: '?' | first }}" defer="defer"></script>
-<script src="{{ 'source-product-fallback-controls.js' | asset_url | split: '?' | first }}" defer="defer"></script>
+<script src="{{ 'source-product-vendor.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'source-product-theme.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'source-product-photoswipe.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'source-product-media-gallery.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'source-product-info-runtime.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'source-product-variant-selects.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'source-product-fallback-controls.js' | asset_url }}" defer="defer"></script>
 
 {% assign current_variant = product.selected_or_first_available_variant %}
 {% assign primary_collection = product.collections.first %}
