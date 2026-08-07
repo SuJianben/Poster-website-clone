@@ -175,11 +175,26 @@
         <input type="hidden" name="id" value="{{ current_variant.id }}" class="product-variant-id">
         <input type="hidden" name="product-id" value="{{ product.id }}">
 
-        <div class="product__block product__block--buy_buttons">
+        <div class="product__block product__block--buy_buttons product-form__buttons flex flex-wrap items-end gap-x-2 gap-y-4" id="QuantityForm-{{ section.id }}">
           <quantity-input class="source-product-quantity quantity" data-section-id="{{ section.id }}" data-product-id="{{ product.id }}">
-            <button type="button" name="minus" aria-label="Decrease quantity"><span aria-hidden="true">−</span></button>
-            <input class="quantity__input" type="number" name="quantity" value="1" min="1" inputmode="numeric" aria-label="Quantity">
-            <button type="button" name="plus" aria-label="Increase quantity"><span aria-hidden="true">+</span></button>
+            <button class="quantity__button" type="button" name="minus" aria-label="Decrease quantity"><span aria-hidden="true">−</span></button>
+            <input
+              id="Quantity-{{ section.id }}"
+              class="quantity__input"
+              type="number"
+              name="quantity"
+              value="1"
+              min="1"
+              data-min="1"
+              step="1"
+              data-cart-quantity="0"
+              data-quantity-variant-id="{{ current_variant.id }}"
+              inputmode="numeric"
+              autocomplete="off"
+              form="{{ product_form_id }}"
+              aria-label="Quantity"
+            >
+            <button class="quantity__button" type="button" name="plus" aria-label="Increase quantity"><span aria-hidden="true">+</span></button>
           </quantity-input>
           <button id="ProductSubmitButton-{{ section.id }}" class="source-product-submit product-form__submit btn btn--primary w-full" type="submit" name="add" {% unless current_variant.available %}disabled{% endunless %}>
             <span>{% if current_variant.available %}Add to cart{% else %}Sold out{% endif %}</span>
