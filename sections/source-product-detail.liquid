@@ -1,0 +1,61 @@
+{{ 'source-product.css' | asset_url | stylesheet_tag }}
+{{ 'source-product-variant-picker.css' | asset_url | stylesheet_tag }}
+{{ 'source-product-photoswipe.css' | asset_url | stylesheet_tag }}
+{{ 'source-product-clone-overrides.css' | asset_url | stylesheet_tag }}
+{% render 'source-product-runtime-config' %}
+<script src="{{ 'source-product-vendor.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'source-product-theme.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'source-product-photoswipe.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'source-product-media-gallery.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'source-product-info-runtime.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'source-product-variant-selects.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'source-product-controls.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'source-product-personalization.js' | asset_url }}" defer="defer"></script>
+
+{% assign current_variant = product.selected_or_first_available_variant %}
+{% assign primary_collection = product.collections.first %}
+{% assign media_count = product.media.size %}
+
+<div class="source-product-breadcrumbs page-width">
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <a href="{{ routes.root_url }}" class="reversed-link">Home</a>
+    {% if primary_collection != blank %}
+      <span aria-hidden="true" class="breadcrumbs--sep"></span>
+      <a href="{{ primary_collection.url }}" class="reversed-link">{{ primary_collection.title }}</a>
+    {% endif %}
+    <span aria-hidden="true" class="breadcrumbs--sep breadcrumbs--sep-last"></span>
+    <span class="breadcrumbs--last text-subtext">{{ product.title }}</span>
+  </nav>
+</div>
+
+<product-info
+  id="MainProduct-{{ section.id }}"
+  data-section="{{ section.id }}"
+  data-product-id="{{ product.id }}"
+  data-update-url="true"
+  data-url="{{ product.url }}"
+  class="source-product section block section-main-product page-width section--padding color-scheme-1"
+>
+  <div class="product flex flex-wrap product--mobile-thumbs-show product--large{% if media_count > 1 %} product--vertical-carousel product--media-has-many{% endif %} product--media-has-{{ media_count }}">
+    <div class="product__media-wrapper block w-full relative">
+      <div class="product__media-container sticky-element">
+        {% render 'source-product-gallery', product: product %}
+
+        <div class="product__blocks-below-media source-product-desktop-only product__blocks accordion-parent">
+          {% render 'source-product-details', product: product, mobile_only: false %}
+        </div>
+      </div>
+    </div>
+
+    <div class="product__info-wrapper block w-full">
+      {% render 'source-product-purchase', product: product, current_variant: current_variant %}
+    </div>
+  </div>
+</product-info>
+
+{% schema %}
+{
+  "name": "Product detail",
+  "settings": []
+}
+{% endschema %}
