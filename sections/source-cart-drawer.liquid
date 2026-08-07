@@ -1,6 +1,5 @@
 {% if section.settings.enabled %}
-{% render 'source-cart-drawer-1' %}
-<script src="{{ 'source-cart-drawer.js' | asset_url }}" defer="defer"></script>
+{% comment %}The storefront cart drawer is mounted once by source-global-overlays.{% endcomment %}
 {% endif %}
 {% schema %}
 {
