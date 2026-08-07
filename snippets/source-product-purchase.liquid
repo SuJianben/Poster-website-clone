@@ -77,18 +77,6 @@
         data-update-url="true"
       >
 
-        {% if material_option == blank %}
-          <fieldset class="product-form__input product-form__input--button product-form__input--button-square source-material-options source-fallback-option">
-            <legend class="block w-full p-0">
-              <span class="form__label"><span><strong>Material:</strong> <span data-source-property-label>Leinwandbild</span></span></span>
-            </legend>
-            <input type="radio" id="FallbackMaterialCanvas-{{ section.id }}" name="properties[Material]" value="Leinwandbild" form="{{ product_form_id }}" checked data-source-property-input>
-            <label class="material-swatch" for="FallbackMaterialCanvas-{{ section.id }}">Leinwandbild</label>
-            <input type="radio" id="FallbackMaterialGold-{{ section.id }}" name="properties[Material]" value="Blattgoldbild" form="{{ product_form_id }}" data-source-property-input>
-            <label class="material-swatch" for="FallbackMaterialGold-{{ section.id }}">Blattgoldbild</label>
-          </fieldset>
-        {% endif %}
-
         {% for option in product.options_with_values %}
           {% assign option_name = option.name | downcase %}
           {% assign is_size = false %}
@@ -152,6 +140,18 @@
 
         <script type="application/json" data-selected-variant>{{ current_variant | json }}</script>
       </variant-selects>
+
+        {% if material_option == blank %}
+          <fieldset class="product-form__input product-form__input--button product-form__input--button-square source-material-options source-fallback-option">
+            <legend class="block w-full p-0">
+              <span class="form__label"><span><strong>Material:</strong> <span data-source-property-label>Leinwandbild</span></span></span>
+            </legend>
+            <input type="radio" id="FallbackMaterialCanvas-{{ section.id }}" name="properties[Material]" value="Leinwandbild" form="{{ product_form_id }}" checked data-source-property-input>
+            <label class="material-swatch" for="FallbackMaterialCanvas-{{ section.id }}">Leinwandbild</label>
+            <input type="radio" id="FallbackMaterialGold-{{ section.id }}" name="properties[Material]" value="Blattgoldbild" form="{{ product_form_id }}" data-source-property-input>
+            <label class="material-swatch" for="FallbackMaterialGold-{{ section.id }}">Blattgoldbild</label>
+          </fieldset>
+        {% endif %}
 
         {% if frame_option == blank %}
           <fieldset class="product-form__input product-form__input--button product-form__input--button-square source-frame-options source-fallback-option">
