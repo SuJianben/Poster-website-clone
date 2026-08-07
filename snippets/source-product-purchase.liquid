@@ -5,6 +5,9 @@
 {% assign has_personalizable = false %}
 {% assign atelier_label = blank %}
 {% assign size_option = blank %}
+{% assign rating_value = product.metafields.reviews.rating.value %}
+{% assign rating_count = product.metafields.reviews.rating_count.value %}
+{% assign rating_number = rating_value.rating | default: rating_value %}
 
 {% for tag in product.tags %}
   {% assign normalized_tag = tag | downcase | strip %}
@@ -20,8 +23,21 @@
   {% if option_name contains 'size' or option_name contains 'größe' or option_name contains 'groesse' %}{% assign size_option = option %}{% endif %}
 {% endfor %}
 
+{% assign info_border_color = '#e8e8e8' %}
+{% assign info_border_width = '1px' %}
+{% if current_variant.compare_at_price > current_variant.price %}
+  {% assign info_border_color = '#cc0033' %}
+  {% assign info_border_width = '2px' %}
+{% elsif has_bestseller or has_limited %}
+  {% assign info_border_color = '#bf953f' %}
+  {% assign info_border_width = '2px' %}
+{% elsif has_personalizable %}
+  {% assign info_border_color = '#000000' %}
+  {% assign info_border_width = '2px' %}
+{% endif %}
+
 <div id="ProductInfo-{{ section.id }}" data-section="{{ section.id }}" data-url="{{ product.url }}" class="product__info-container sticky-element" data-source-product-purchase>
-  <div class="product__info-box js-product-info-box{% if current_variant.compare_at_price > current_variant.price %} is-on-sale{% endif %}" style="--top-border-color: {% if current_variant.compare_at_price > current_variant.price %}#cc0033{% elsif has_personalizable %}#000000{% else %}#e8e8e8{% endif %}; --top-border-width: {% if current_variant.compare_at_price > current_variant.price or has_personalizable %}2px{% else %}1px{% endif %};">
+  <div class="product__info-box js-product-info-box{% if current_variant.compare_at_price > current_variant.price %} is-on-sale{% endif %}" data-base-color="{{ info_border_color }}" data-base-width="{{ info_border_width }}" style="--top-border-color: {{ info_border_color }}; --top-border-width: {{ info_border_width }};">
     <div class="inner-brands-banner">
       <img src="{{ 'source-bauhaus-logo.png' | asset_url }}" alt="Bauhaus" class="brands-banner__logo bauhaus-logo-large" width="78" height="16">
       <span class="brands-banner__comma">,</span>
@@ -39,10 +55,12 @@
         </div>
       </div>
 
-      <div class="product__block product__block--reviews">
-        <span class="source-product-stars" aria-hidden="true">★★★★★</span>
-        <span class="source-product-review-count">2,860 Verified Reviews</span>
-      </div>
+      {% if rating_value != blank and rating_count != blank %}
+        <div class="product__block product__block--reviews" aria-label="{{ rating_number }} out of 5 stars, {{ rating_count }} reviews">
+          <span class="source-product-stars" aria-hidden="true">★★★★★</span>
+          <span class="source-product-review-count">{{ rating_count }} Verified Reviews</span>
+        </div>
+      {% endif %}
 
       <div class="product__block product__block--title"><h1 class="product__title h2">{{ product.title }}</h1></div>
 
@@ -50,7 +68,7 @@
         {% if product.vendor != blank %}
           <p class="product__meta product__vendor m-0"><span>Artist:</span> <a href="{{ routes.collections_url }}/{{ product.vendor | handleize }}" class="btn--link font-body-bolder text-body">{{ product.vendor }}</a></p>
         {% endif %}
-        {% if atelier_label != blank %}<button type="button" class="atelier-badge atelier-badge--silver">{{ atelier_label }} <span aria-hidden="true">›</span></button>{% endif %}
+        {% if atelier_label != blank %}<button type="button" class="atelier-badge js-open-atelier-drawer-card atelier-badge--silver">{{ atelier_label }} <span aria-hidden="true">›</span></button>{% endif %}
       </div>
 
       <div id="price-{{ section.id }}" class="product__block product__block--price" data-source-product-price>

@@ -19,13 +19,23 @@
   data-enable-desktop-slider="true"
   data-enable-mobile-thumbnails="true"
   data-media-item-gap="8"
-  data-media-item-gap-mobile="8"
+  data-media-item-gap-mobile="12"
   data-context="product"
+  style="--media-item-gap: 8px; --media-item-gap-mobile: 12px;"
 >
-  <div class="product__media-gallery-viewer-wrap relative">
-    <div id="GalleryViewer-{{ section.id }}" class="product__media-gallery-viewer swiper blocks-radius-md">
+  <div id="GalleryStatus-{{ section.id }}" class="visually-hidden" role="status"></div>
+  <div class="product__media-gallery-viewer-wrap relative swiper-show-nav-on-hover">
+    <div id="GalleryViewer-{{ section.id }}" class="product__media-gallery-viewer blocks-radius swiper">
       <div id="Slider-Gallery-{{ section.id }}" class="product__media-list swiper-wrapper">
         {% for media in product.media %}
+          {% liquid
+            assign media_loading = 'lazy'
+            assign media_fetchpriority = 'low'
+            if media.id == selected_media.id
+              assign media_loading = 'eager'
+              assign media_fetchpriority = 'high'
+            endif
+          %}
           <div
             id="Slide-{{ section.id }}-{{ media.id }}"
             class="product__media-item swiper-slide{% if media.id == selected_media.id %} is-active{% endif %}"
@@ -38,16 +48,16 @@
               data-pswp-height="{{ media.preview_image.height }}"
             {% endif %}
           >
-            <div class="product__media-item-container relative media-wrapper blocks-radius-md" style="--aspect-ratio: {{ media.preview_image.aspect_ratio | default: 1 }}">
+            <div class="product__media-item-container relative flex overflow-hidden blocks-radius media-type-{{ media.media_type }}" style="--aspect-ratio: {{ media.preview_image.aspect_ratio | default: 1 }};">
               {% if media.media_type == 'image' %}
-                <motion-element class="block w-full h-full" data-motion="fade-up">
+                <motion-element class="block product__media media-wrapper" data-motion="zoom-out-sm">
                   {{ media.preview_image
                     | image_url: width: 1946
                     | image_tag:
                       widths: '400, 620, 690, 810, 980, 1240, 1380, 1620, 1946',
                       sizes: '(max-width: 767px) calc(100vw - 3rem), calc(((min(1460px, 100vw) * 0.585) - 4.5rem) / 1)',
-                      loading: 'eager',
-                      fetchpriority: 'high',
+                      loading: media_loading,
+                      fetchpriority: media_fetchpriority,
                       class: 'product__media-image'
                   }}
                 </motion-element>
