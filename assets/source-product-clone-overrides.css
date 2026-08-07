@@ -507,6 +507,20 @@ product-info.source-product {
 .source-product-accordion-icon::after { transform: translate(-50%, -50%) rotate(90deg); transition: transform .2s ease; }
 details[open] .source-product-accordion-icon::after { transform: translate(-50%, -50%) rotate(0); }
 
+/* The source theme places the first media accordion above its trigger and the
+   shipping row below it. The native custom accordion element supplies the
+   measured height animation; this order keeps each animation anchored to the
+   same edge as the source layout. */
+.source-product-accordion--upward > details {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.source-product-accordion--downward > details {
+  display: flex;
+  flex-direction: column;
+}
+
 .source-product-lightbox,
 .source-product-size-modal { width: 100vw; max-width: none; height: 100vh; max-height: none; margin: 0; padding: 0; border: 0; background: rgba(255,255,255,.98); }
 .source-product-lightbox[open] { display: grid; place-items: center; }

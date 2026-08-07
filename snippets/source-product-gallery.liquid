@@ -48,7 +48,7 @@
               data-pswp-height="{{ media.preview_image.height }}"
             {% endif %}
           >
-            <div class="product__media-item-container relative flex overflow-hidden blocks-radius media-type-{{ media.media_type }}" style="--aspect-ratio: {{ media.preview_image.aspect_ratio | default: 1 }};">
+            <div class="product__media-item-container relative flex overflow-hidden blocks-radius media-type-{{ media.media_type }}" style="--aspect-ratio: 1;">
               {% if media.media_type == 'image' %}
                 <motion-element class="block product__media media-wrapper" data-motion="zoom-out-sm">
                   {{ media.preview_image
