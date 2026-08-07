@@ -4,10 +4,6 @@
 {% assign has_limited = false %}
 {% assign has_personalizable = false %}
 {% assign atelier_label = blank %}
-{% assign material_option = blank %}
-{% assign style_option = blank %}
-{% assign version_option = blank %}
-{% assign frame_option = blank %}
 {% assign size_option = blank %}
 
 {% for tag in product.tags %}
@@ -21,201 +17,116 @@
 
 {% for option in product.options_with_values %}
   {% assign option_name = option.name | downcase %}
-  {% if option_name contains 'material' %}{% assign material_option = option %}{% endif %}
-  {% if option_name contains 'style' or option_name contains 'stil' %}{% assign style_option = option %}{% endif %}
-  {% if option_name contains 'version' %}{% assign version_option = option %}{% endif %}
-  {% if option_name contains 'frame' or option_name contains 'rahmen' %}{% assign frame_option = option %}{% endif %}
   {% if option_name contains 'size' or option_name contains 'größe' or option_name contains 'groesse' %}{% assign size_option = option %}{% endif %}
 {% endfor %}
 
 <div id="ProductInfo-{{ section.id }}" data-section="{{ section.id }}" data-url="{{ product.url }}" class="product__info-container sticky-element" data-source-product-purchase>
-  <div class="product__info-box js-product-info-box{% if current_variant.compare_at_price > current_variant.price %} is-on-sale{% endif %}" style="--top-border-color: {% if has_personalizable %}#000000{% elsif current_variant.compare_at_price > current_variant.price %}#cc0033{% else %}#000000{% endif %}; --top-border-width: 2px;">
+  <div class="product__info-box js-product-info-box{% if current_variant.compare_at_price > current_variant.price %} is-on-sale{% endif %}" style="--top-border-color: {% if current_variant.compare_at_price > current_variant.price %}#cc0033{% elsif has_personalizable %}#000000{% else %}#e8e8e8{% endif %}; --top-border-width: {% if current_variant.compare_at_price > current_variant.price or has_personalizable %}2px{% else %}1px{% endif %};">
     <div class="inner-brands-banner">
       <img src="{{ 'source-bauhaus-logo.png' | asset_url }}" alt="Bauhaus" class="brands-banner__logo bauhaus-logo-large" width="78" height="16">
       <span class="brands-banner__comma">,</span>
       <img src="{{ 'source-xxxlutz-logo.png' | asset_url }}" alt="XXXLutz" class="brands-banner__logo xxxlutz-logo" width="70" height="13">
-      <span class="brands-banner__text">und 60.000+ Kunden lieben unsere Premium Wandbilder.</span>
+      <span class="brands-banner__text">and 60,000+ customers love our premium wall art.</span>
     </div>
 
     <div class="product__blocks accordion-parent">
       <div class="product__block product__block--badges product__badges">
         <div class="custom-top-badges">
-          {% if has_trending %}<span class="f-badge f-badge--custom f-badge--trending">TRENDING</span>{% endif %}
-          {% if has_bestseller %}<span class="f-badge f-badge--custom f-badge--bestseller">BESTSELLER</span>{% endif %}
-          {% if has_limited %}<span class="f-badge f-badge--custom f-badge--limited-edition">LIMITED EDITION</span>{% endif %}
-          {% if has_personalizable %}<span class="f-badge f-badge--custom f-badge--personalisierbar">PERSONALISIERBAR</span>{% endif %}
+          {% if has_trending %}<span class="f-badge f-badge--custom f-badge--trending">Trending</span>{% endif %}
+          {% if has_personalizable %}<span class="f-badge f-badge--custom f-badge--personalisierbar">Personalizable</span>{% endif %}
+          {% if has_bestseller %}<span class="f-badge f-badge--custom f-badge--bestseller">Bestseller</span>{% endif %}
+          {% if has_limited %}<span class="f-badge f-badge--custom f-badge--limited-edition">Limited Edition</span>{% endif %}
         </div>
       </div>
 
       <div class="product__block product__block--reviews">
         <span class="source-product-stars" aria-hidden="true">★★★★★</span>
-        <span class="source-product-review-count">2.860 Verifizierte Bewertungen</span>
+        <span class="source-product-review-count">2,860 Verified Reviews</span>
       </div>
 
-      <div class="product__block product__block--title">
-        <h1 class="product__title h2">{{ product.title }}</h1>
-      </div>
+      <div class="product__block product__block--title"><h1 class="product__title h2">{{ product.title }}</h1></div>
 
       <div class="product__block product__block--meta flex flex-wrap gap-x-3 gap-y-2 text-subtext">
         {% if product.vendor != blank %}
-          <p class="product__meta product__vendor m-0">
-            <span>Künstler:</span>
-            <a href="{{ routes.collections_url }}/{{ product.vendor | handleize }}" class="btn--link font-body-bolder text-body">{{ product.vendor }}</a>
-          </p>
+          <p class="product__meta product__vendor m-0"><span>Artist:</span> <a href="{{ routes.collections_url }}/{{ product.vendor | handleize }}" class="btn--link font-body-bolder text-body">{{ product.vendor }}</a></p>
         {% endif %}
-        {% if atelier_label != blank %}
-          <button type="button" class="atelier-badge atelier-badge--silver">{{ atelier_label }} <span aria-hidden="true">›</span></button>
-        {% endif %}
+        {% if atelier_label != blank %}<button type="button" class="atelier-badge atelier-badge--silver">{{ atelier_label }} <span aria-hidden="true">›</span></button>{% endif %}
       </div>
 
       <div id="price-{{ section.id }}" class="product__block product__block--price" data-source-product-price>
         <span class="source-product-price" data-source-product-current-price>{{ current_variant.price | money }}</span>
         <s class="source-product-compare-price" data-source-product-compare-price{% unless current_variant.compare_at_price > current_variant.price %} hidden{% endunless %}>{% if current_variant.compare_at_price > current_variant.price %}{{ current_variant.compare_at_price | money }}{% endif %}</s>
-        <p class="source-product-shipping">Kostenloser Versand.</p>
+        <p class="source-product-shipping">Free Shipping.</p>
       </div>
 
-      {% render 'source-product-fallback-options',
-        product_form_id: product_form_id,
-        material_option: material_option,
-        style_option: style_option,
-        version_option: version_option,
-        has_personalizable: has_personalizable
-      %}
+      <div class="product__block product__block--variant_picker">
+        <variant-selects id="variant-selects-{{ section.id }}" data-section="{{ section.id }}" data-url="{{ product.url }}" data-update-url="true">
+          {% for option in product.options_with_values %}
+            {% assign option_name = option.name | downcase %}
+            {% assign is_size = false %}{% assign is_frame = false %}{% assign is_material = false %}{% assign is_version = false %}
+            {% if option_name contains 'size' or option_name contains 'größe' or option_name contains 'groesse' %}{% assign is_size = true %}{% endif %}
+            {% if option_name contains 'frame' or option_name contains 'rahmen' %}{% assign is_frame = true %}{% endif %}
+            {% if option_name contains 'material' %}{% assign is_material = true %}{% endif %}
+            {% if option_name contains 'version' %}{% assign is_version = true %}{% endif %}
 
-      <variant-selects
-        id="variant-selects-{{ section.id }}"
-        data-section="{{ section.id }}"
-        data-url="{{ product.url }}"
-        data-update-url="true"
-      >
-
-        {% for option in product.options_with_values %}
-          {% assign option_name = option.name | downcase %}
-          {% assign is_size = false %}
-          {% assign is_frame = false %}
-          {% assign is_material = false %}
-          {% if option_name contains 'size' or option_name contains 'größe' or option_name contains 'groesse' %}{% assign is_size = true %}{% endif %}
-          {% if option_name contains 'frame' or option_name contains 'rahmen' %}{% assign is_frame = true %}{% endif %}
-          {% if option_name contains 'material' %}{% assign is_material = true %}{% endif %}
-
-          <fieldset class="product-form__input product-form__input--button product-form__input--button-square{% if is_size %} source-size-options{% elsif is_frame %} source-frame-options{% elsif is_material %} source-material-options{% endif %}" data-source-product-option data-option-index="{{ forloop.index0 }}">
-            <legend class="block w-full p-0">
-              <div class="form__label">
-                <div class="flex flex-wrap gap-2">
-                  <span class="font-body-bolder">{% if is_size %}Größe{% elsif is_frame %}Premium Rahmen{% else %}{{ option.name }}{% endif %}:</span>
-                  <span class="text-subtext" data-source-product-option-label>{{ option.selected_value }}</span>
+            <fieldset class="product-form__input product-form__input--button product-form__input--button-square{% if is_size %} source-size-options{% elsif is_frame %} source-frame-options{% elsif is_material %} source-material-options{% elsif is_version %} source-version-options{% endif %}" data-source-product-option data-option-index="{{ forloop.index0 }}">
+              <legend class="block w-full p-0">
+                <div class="form__label">
+                  <div class="flex flex-wrap gap-2"><span class="font-body-bolder">{{ option.name }}:</span><span class="text-subtext" data-source-product-option-label>{{ option.selected_value }}</span></div>
+                  {% if is_size %}
+                    <span class="source-size-tools"><button type="button" class="size-guide-btn" data-source-product-size-guide><span aria-hidden="true">▤</span><span>SIZE GUIDE</span></button><span class="unit-toggle" role="group" aria-label="Unit"><button type="button" class="unit-btn active" data-unit="cm">CM</button><button type="button" class="unit-btn" data-unit="in">IN</button></span></span>
+                  {% endif %}
                 </div>
-                {% if is_size %}
-                  <span class="source-size-tools">
-                    <button type="button" class="size-guide-btn" data-source-product-size-guide aria-label="Größen Guide">▤ <span>SIZE GUIDE</span></button>
-                    <span class="unit-toggle" role="group" aria-label="Maßeinheit"><button type="button" class="unit-btn active" data-unit="cm">CM</button><button type="button" class="unit-btn" data-unit="in">IN</button></span>
-                  </span>
+              </legend>
+
+              {% for value in option.values %}
+                {% capture option_input_id %}Option-{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}{% endcapture %}
+                <input type="radio" id="{{ option_input_id }}" name="{{ option.name | escape }}-{{ option.position }}" value="{{ value | escape }}" form="{{ product_form_id }}" {% if value.selected or option.selected_value == value %}checked{% endif %} {% unless value.available %}class="disabled"{% endunless %} data-option-value-id="{{ value.id }}" data-section="{{ section.id }}" data-opt-pos="{{ option.position }}" data-opt-val="{{ value | escape }}" data-source-product-option-input data-cm-value="{{ value | escape }}">
+                {% if is_frame %}
+                  {% assign frame_value = value | downcase %}{% assign frame_image = 'source-frame-none.png' %}
+                  {% if frame_value contains 'weiß' or frame_value contains 'weiss' or frame_value contains 'white' %}{% assign frame_image = 'source-frame-white.png' %}{% endif %}
+                  {% if frame_value contains 'schwarz' or frame_value contains 'black' %}{% assign frame_image = 'source-frame-black.png' %}{% endif %}
+                  {% if frame_value contains 'silber' or frame_value contains 'silver' %}{% assign frame_image = 'source-frame-silver.png' %}{% endif %}
+                  {% if frame_value contains 'gold' %}{% assign frame_image = 'source-frame-gold.png' %}{% endif %}
+                  <label for="{{ option_input_id }}" class="variant-label--with-image" data-tooltip><span class="tooltip">{{ value }}</span><img src="{{ frame_image | asset_url }}" alt="{{ value | escape }}" class="variant-frame-image" width="230" height="160"><span class="visually-hidden">{{ value }}</span></label>
+                {% elsif is_version %}
+                  {% assign swatch_color = value | downcase | replace: ' ', '' %}
+                  <label for="{{ option_input_id }}" class="variant-label--color-swatch" data-tooltip><span class="tooltip">{{ value }}</span><span class="version-color-swatch" style="background: {{ swatch_color }};"></span><span class="visually-hidden">{{ value }}</span></label>
+                {% elsif is_material %}
+                  <label for="{{ option_input_id }}" class="material-swatch">{{ value }}</label>
+                {% else %}
+                  <label for="{{ option_input_id }}" class="variant-label--standard"><span data-source-unit-label>{{ value }}</span></label>
                 {% endif %}
-              </div>
-            </legend>
+              {% endfor %}
+            </fieldset>
+          {% endfor %}
+          <script type="application/json" data-selected-variant>{{ current_variant | json }}</script>
+        </variant-selects>
+      </div>
 
-            {% for value in option.values %}
-              {% capture option_input_id %}Option-{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}{% endcapture %}
-              <input
-                type="radio"
-                id="{{ option_input_id }}"
-                name="{{ option.name | escape }}-{{ option.position }}"
-                value="{{ value | escape }}"
-                form="{{ product_form_id }}"
-                {% if value.selected or option.selected_value == value %}checked{% endif %}
-                {% unless value.available %}class="disabled"{% endunless %}
-                data-option-value-id="{{ value.id }}"
-                data-section="{{ section.id }}"
-                data-opt-pos="{{ option.position }}"
-                data-opt-val="{{ value | escape }}"
-                data-source-product-option-input
-                data-cm-value="{{ value | escape }}"
-              >
-              {% if is_frame %}
-                {% assign frame_value = value | downcase %}
-                {% assign frame_image = 'source-frame-none.png' %}
-                {% if frame_value contains 'weiß' or frame_value contains 'weiss' or frame_value contains 'white' %}{% assign frame_image = 'source-frame-white.png' %}{% endif %}
-                {% if frame_value contains 'schwarz' or frame_value contains 'black' %}{% assign frame_image = 'source-frame-black.png' %}{% endif %}
-                {% if frame_value contains 'silber' or frame_value contains 'silver' %}{% assign frame_image = 'source-frame-silver.png' %}{% endif %}
-                {% if frame_value contains 'gold' %}{% assign frame_image = 'source-frame-gold.png' %}{% endif %}
-                <label for="{{ option_input_id }}" class="variant-label--with-image" data-tooltip>
-                  <span class="tooltip">{{ value }}</span><img src="{{ frame_image | asset_url }}" alt="{{ value | escape }}" class="variant-frame-image" width="230" height="160"><span class="visually-hidden">{{ value }}</span>
-                </label>
-              {% elsif is_material %}
-                <label for="{{ option_input_id }}" class="material-swatch">{{ value }}</label>
-              {% else %}
-                <label for="{{ option_input_id }}" class="variant-label--standard"><span data-source-unit-label>{{ value }}</span></label>
-              {% endif %}
-            {% endfor %}
-          </fieldset>
-        {% endfor %}
+      {% if has_personalizable %}{% render 'source-product-personalization', product_form_id: product_form_id %}{% endif %}
 
-        <script type="application/json" data-selected-variant>{{ current_variant | json }}</script>
-      </variant-selects>
-
-        {% if frame_option == blank %}
-          <fieldset class="product-form__input product-form__input--button product-form__input--button-square source-frame-options source-fallback-option">
-            <legend class="block w-full p-0">
-              <div class="form__label"><div class="flex flex-wrap gap-2"><span class="font-body-bolder">Premium Rahmen:</span><span class="text-subtext" data-source-property-label>Ohne Rahmen</span></div></div>
-            </legend>
-            {% assign fallback_frames = 'Ohne Rahmen,Weiß,Schwarz' | split: ',' %}
-            {% for value in fallback_frames %}
-              {% assign frame_image = 'source-frame-none.png' %}
-              {% if value == 'Weiß' %}{% assign frame_image = 'source-frame-white.png' %}{% endif %}
-              {% if value == 'Schwarz' %}{% assign frame_image = 'source-frame-black.png' %}{% endif %}
-              <input type="radio" id="FallbackFrame-{{ section.id }}-{{ forloop.index0 }}" name="properties[Premium Frame]" value="{{ value }}" form="{{ product_form_id }}" {% if forloop.first %}checked{% endif %} data-source-property-input>
-              <label for="FallbackFrame-{{ section.id }}-{{ forloop.index0 }}" class="variant-label--with-image" data-tooltip>
-                <span class="tooltip">{{ value }}</span><img src="{{ frame_image | asset_url }}" alt="{{ value }}" class="variant-frame-image" width="230" height="160"><span class="visually-hidden">{{ value }}</span>
-              </label>
-            {% endfor %}
-          </fieldset>
-        {% endif %}
-
-      {% form 'product', product, id: product_form_id, is: 'product-form', class: 'product-form source-product-form', data-type: 'add-to-cart-form' %}
+      {% form 'product', product, id: product_form_id, is: 'product-form', class: 'product-form source-product-form main-product-form', data-type: 'add-to-cart-form' %}
         <input type="hidden" name="id" value="{{ current_variant.id }}" class="product-variant-id">
         <input type="hidden" name="product-id" value="{{ product.id }}">
-
         <div class="product__block product__block--buy_buttons product-form__buttons flex flex-wrap items-end gap-x-2 gap-y-4" id="QuantityForm-{{ section.id }}">
           <quantity-input class="source-product-quantity quantity" data-section-id="{{ section.id }}" data-product-id="{{ product.id }}">
-            <button class="quantity__button" type="button" name="minus" aria-label="Decrease quantity"><span aria-hidden="true">−</span></button>
-            <input
-              id="Quantity-{{ section.id }}"
-              class="quantity__input"
-              type="number"
-              name="quantity"
-              value="1"
-              min="1"
-              data-min="1"
-              step="1"
-              data-cart-quantity="0"
-              data-quantity-variant-id="{{ current_variant.id }}"
-              inputmode="numeric"
-              autocomplete="off"
-              form="{{ product_form_id }}"
-              aria-label="Quantity"
-            >
-            <button class="quantity__button" type="button" name="plus" aria-label="Increase quantity"><span aria-hidden="true">+</span></button>
+            <button class="quantity__button" type="button" name="minus"><span class="visually-hidden">Decrease quantity</span><span aria-hidden="true">−</span></button>
+            <input id="Quantity-{{ section.id }}" class="quantity__input" type="number" name="quantity" value="1" min="1" data-min="1" step="1" data-cart-quantity="0" data-quantity-variant-id="{{ current_variant.id }}" inputmode="numeric" autocomplete="off" form="{{ product_form_id }}">
+            <button class="quantity__button" type="button" name="plus"><span class="visually-hidden">Increase quantity</span><span aria-hidden="true">+</span></button>
           </quantity-input>
-          <button id="ProductSubmitButton-{{ section.id }}" class="source-product-submit product-form__submit btn btn--primary w-full" type="submit" name="add" {% unless current_variant.available %}disabled{% endunless %}>
-            <span>{% if current_variant.available %}Add to cart{% else %}Sold out{% endif %}</span>
-          </button>
-          <div class="product-form__error-message" role="alert" hidden></div>
+          <button id="ProductSubmitButton-{{ section.id }}" class="source-product-submit product-form__submit btn btn--primary" type="submit" name="add" {% unless current_variant.available %}disabled{% endunless %}><span class="btn__text">{% if current_variant.available %}Add to cart{% else %}Sold out{% endif %}</span></button>
         </div>
+        <div class="product-form__error-message blocks-radius-md alert alert--error" role="alert" hidden></div>
       {% endform %}
 
-      <ul class="source-product-benefits" role="list">
-        <li>Sofort aufhängbereit</li><li>Kostenloser Versand weltweit über 49 €</li><li>30 Tage Rückgaberecht</li>
-      </ul>
+      {% render 'source-product-volume-discount' %}
+      {% render 'source-product-trust', has_personalizable: has_personalizable %}
+      {% render 'source-product-payment-trust' %}
+      {% render 'source-product-details', product: product, mobile_only: true %}
     </div>
   </div>
 </div>
 
-<dialog class="source-product-size-modal" data-source-product-size-modal aria-label="Größen Guide">
-  <div class="source-product-size-modal__content">
-    <button type="button" data-source-product-size-close aria-label="Schließen">×</button>
-    <h2>Größen Guide</h2>
-    {% if size_option != blank %}<ul>{% for value in size_option.values %}<li>{{ value }}</li>{% endfor %}</ul>{% else %}<p>Bitte wähle die verfügbare Produktgröße aus.</p>{% endif %}
-  </div>
-</dialog>
-
+<dialog class="source-product-size-modal" data-source-product-size-modal aria-label="Size Guide"><div class="source-product-size-modal__content"><button type="button" data-source-product-size-close aria-label="Close">×</button><h2>Size Guide</h2>{% if size_option != blank %}<ul>{% for value in size_option.values %}<li>{{ value }}</li>{% endfor %}</ul>{% endif %}</div></dialog>
 <script type="application/json" data-source-product-variants>{{ product.variants | json }}</script>

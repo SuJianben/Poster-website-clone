@@ -1,0 +1,25 @@
+<div class="product__block product__block--collapsible_tab{% if mobile_only %} source-product-mobile-only{% endif %}">
+  <details class="accordion-details">
+    <summary class="accordion-details__summary flex items-center justify-between">
+      <h2 class="h5 inline-richtext">Product Details</h2>
+      <span class="source-product-accordion-icon" aria-hidden="true"></span>
+    </summary>
+    <div class="accordion-details__content rte text-subtext accordion-product-details">
+      {% if product.description != blank %}{{ product.description }}{% endif %}
+    </div>
+  </details>
+</div>
+<div class="product__block product__block--collapsible_tab{% if mobile_only %} source-product-mobile-only{% endif %}">
+  <details class="accordion-details">
+    <summary class="accordion-details__summary flex items-center justify-between">
+      <h2 class="h5 inline-richtext">Shipping and Returns</h2>
+      <span class="source-product-accordion-icon" aria-hidden="true"></span>
+    </summary>
+    <div class="accordion-details__content rte text-subtext">
+      <h3>Shipping &amp; Delivery</h3>
+      <ul><li><strong>Shipping Costs:</strong> Free worldwide shipping on orders over €49.</li><li><strong>Security:</strong> Safe and fast shipping including tracking.</li><li><strong>Delivery Time:</strong> 2–5 business days worldwide.</li></ul>
+      <h3>Returns &amp; Exchanges</h3>
+      <p>You can return or exchange your order within 30 days of receipt. Personalized products are excluded from return unless defective.</p>
+    </div>
+  </details>
+</div>

@@ -1,0 +1,14 @@
+<div class="product__block product__block--payment-trust">
+  <div class="premium-payment-trust">
+    <div class="trust-header"><span class="trust-line"></span><p class="trust-title">Securely packaged &amp; paid</p><span class="trust-line"></span></div>
+    <div class="payment-icon-grid">
+      {% for type in shop.enabled_payment_types %}
+        <span class="payment-icon-item">{{ type | payment_type_svg_tag }}</span>
+      {% endfor %}
+    </div>
+    <div class="packaging-note">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <span>Special packaging for art galleries</span>
+    </div>
+  </div>
+</div>

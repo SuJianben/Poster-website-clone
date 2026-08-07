@@ -9,7 +9,8 @@
 <script src="{{ 'source-product-media-gallery.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'source-product-info-runtime.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'source-product-variant-selects.js' | asset_url }}" defer="defer"></script>
-<script src="{{ 'source-product-fallback-controls.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'source-product-controls.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'source-product-personalization.js' | asset_url }}" defer="defer"></script>
 
 {% assign current_variant = product.selected_or_first_available_variant %}
 {% assign primary_collection = product.collections.first %}
@@ -33,41 +34,15 @@
   data-product-id="{{ product.id }}"
   data-update-url="true"
   data-url="{{ product.url }}"
-  class="section block section-main-product page-width section--padding color-scheme-1"
+  class="source-product section block section-main-product page-width section--padding color-scheme-1"
 >
   <div class="product flex flex-wrap product--mobile-thumbs-show product--large{% if media_count > 1 %} product--vertical-carousel product--media-has-many{% endif %} product--media-has-{{ media_count }}">
     <div class="product__media-wrapper block w-full relative">
       <div class="product__media-container sticky-element">
         {% render 'source-product-gallery', product: product %}
 
-        <div class="product__blocks-below-media hidden md:block product__blocks accordion-parent">
-          <div class="product__block product__block--collapsible_tab">
-            <details class="accordion-details">
-              <summary class="accordion-details__summary flex items-center justify-between">
-                <h2 class="h5 inline-richtext">Produkt Details</h2>
-                <span class="source-product-accordion-icon" aria-hidden="true"></span>
-              </summary>
-              <div class="accordion-details__content rte text-subtext">
-                {% if product.description != blank %}
-                  {{ product.description }}
-                {% else %}
-                  <p>DOTCOMCANVAS® Premium Wandbild. Handgefertigt mit hochwertigen Materialien und direkt aufhangbereit.</p>
-                {% endif %}
-              </div>
-            </details>
-          </div>
-          <div class="product__block product__block--collapsible_tab">
-            <details class="accordion-details">
-              <summary class="accordion-details__summary flex items-center justify-between">
-                <h2 class="h5 inline-richtext">Versand und Retouren</h2>
-                <span class="source-product-accordion-icon" aria-hidden="true"></span>
-              </summary>
-              <div class="accordion-details__content rte text-subtext">
-                <p><strong>Versand:</strong> Kostenloser Versand weltweit bei Bestellungen über 49 €.</p>
-                <p><strong>Retouren:</strong> 30 Tage Rückgaberecht. Personalisierte Produkte sind vom Umtausch ausgeschlossen.</p>
-              </div>
-            </details>
-          </div>
+        <div class="product__blocks-below-media source-product-desktop-only product__blocks accordion-parent">
+          {% render 'source-product-details', product: product, mobile_only: false %}
         </div>
       </div>
     </div>

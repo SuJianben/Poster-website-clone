@@ -1,0 +1,56 @@
+<div class="product__block product__block--personalization source-personalization" data-source-personalization>
+  <div class="source-personalization__group">
+    <div class="source-personalization__heading">Your Own Photo</div>
+    <label class="source-personalization__switch-row">
+      <span class="source-personalization__switch">
+        <input type="checkbox" name="properties[Your Own Photo]" value="Yes" form="{{ product_form_id }}" data-source-photo-toggle>
+        <span aria-hidden="true"></span>
+      </span>
+      <span>Yes</span>
+    </label>
+  </div>
+
+  <div class="source-personalization__upload" data-source-photo-upload hidden>
+    <label class="source-personalization__label" for="SourcePhoto-{{ section.id }}">Your Photo</label>
+    <label class="source-personalization__dropzone" for="SourcePhoto-{{ section.id }}">
+      <input id="SourcePhoto-{{ section.id }}" type="file" name="properties[Your Photo]" form="{{ product_form_id }}" accept="image/*" data-source-photo-input>
+      <span class="source-personalization__upload-button">Choose file</span>
+      <span data-source-photo-name>Or drop file to upload</span>
+      <small>Max 50 MB</small>
+    </label>
+  </div>
+
+  {% assign source_placeholders = 'J. BELFORT|WOLF OF WALL ST|J. Belfort|FUCK ALL HATERS|Hustle Edition|AMERICAN CANVAS' | split: '|' %}
+  {% for placeholder in source_placeholders %}
+    <div class="source-personalization__field">
+      <label class="source-personalization__label" for="SourceText-{{ section.id }}-{{ forloop.index }}">Text {{ forloop.index }}<span aria-hidden="true">*</span></label>
+      <input
+        id="SourceText-{{ section.id }}-{{ forloop.index }}"
+        class="source-personalization__input"
+        type="text"
+        name="properties[Text {{ forloop.index }}]"
+        placeholder="{{ placeholder | escape }}"
+        form="{{ product_form_id }}"
+        required
+      >
+    </div>
+  {% endfor %}
+
+  <div class="source-personalization__group">
+    <div class="source-personalization__heading">Optional</div>
+    <label class="source-personalization__switch-row">
+      <span class="source-personalization__switch">
+        <input type="checkbox" name="properties[Canvas Print Hanging Kit]" value="Yes" form="{{ product_form_id }}">
+        <span aria-hidden="true"></span>
+      </span>
+      <span>Canvas Print Hanging Kit</span>
+    </label>
+    <label class="source-personalization__switch-row">
+      <span class="source-personalization__switch">
+        <input type="checkbox" name="properties[Digital File Download]" value="Yes" form="{{ product_form_id }}">
+        <span aria-hidden="true"></span>
+      </span>
+      <span>Digital File Download</span>
+    </label>
+  </div>
+</div>
