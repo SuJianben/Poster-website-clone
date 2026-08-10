@@ -1,5 +1,10 @@
 {{ 'source-inspiration-wall.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'source-inspiration-wall.js' | asset_url }}" defer="defer"></script>
+<style>
+  .inspiration-wall__modal[hidden]{display:none}
+  .inspiration-wall__modal{position:fixed;inset:0;z-index:2147483000;display:grid;place-items:center;width:100vw;max-width:none;height:100vh;max-height:none;background:rgba(0,0,0,.46);overflow:hidden}
+  @media(max-width:549px){.inspiration-wall__modal{display:block;background:#fff}}
+</style>
 
 {% liquid
   assign fallback_images = 'https://cdn.stamped.io/uploads/instagram/228253_17982961991632197_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_17983635983465494_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_18027296926740370_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_18409242106058899_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_17849629965132991_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_17887485995917154_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_17985448340402894_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_17985703427386591_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_17996421116240631_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_18215387413283079_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_17918667689842490_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_18077767885439204_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_18032030818741035_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_18305893477131358_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_17969030990652784_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_17982301946406867_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_17928248822715182_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_17981617157405940_high.jpg?tr=h-500'
@@ -41,7 +46,7 @@
     <button class="inspiration-wall__more" type="button" data-inspiration-more>{{ section.settings.load_more_label }}</button>
   </div>
 
-  <dialog class="inspiration-wall__modal" data-inspiration-modal aria-label="Instagram image details">
+  <div class="inspiration-wall__modal" data-inspiration-modal role="dialog" aria-modal="true" aria-label="Instagram image details" hidden>
     <div class="inspiration-wall__modal-shell">
       <button class="inspiration-wall__close" type="button" data-inspiration-close aria-label="Close image details">×</button>
       <button class="inspiration-wall__nav inspiration-wall__nav--prev" type="button" data-inspiration-prev aria-label="Previous photo">‹</button>
@@ -60,7 +65,7 @@
       <button class="inspiration-wall__nav inspiration-wall__nav--next" type="button" data-inspiration-next aria-label="Next photo">›</button>
       <div class="inspiration-wall__thumbs" data-inspiration-thumbs></div>
     </div>
-  </dialog>
+  </div>
 </section>
 
 {% schema %}

@@ -42,7 +42,7 @@
       thumbs.appendChild(thumb);
       tile.addEventListener('click', () => {
         render(index);
-        modal.showModal();
+        modal.hidden = false;
         document.documentElement.classList.add('inspiration-modal-open');
       });
     });
@@ -54,7 +54,7 @@
       if (hiddenTiles().length <= 6) moreButton.hidden = true;
     });
     const close = () => {
-      modal.close();
+      modal.hidden = true;
       document.documentElement.classList.remove('inspiration-modal-open');
     };
     wall.querySelector('[data-inspiration-close]').addEventListener('click', close);
@@ -62,7 +62,9 @@
     wall.querySelector('[data-inspiration-next]').addEventListener('click', () => render(activeIndex + 1));
     likeButton.addEventListener('click', () => likeButton.setAttribute('aria-pressed', likeButton.getAttribute('aria-pressed') !== 'true'));
     modal.addEventListener('click', (event) => { if (event.target === modal) close(); });
-    modal.addEventListener('keydown', (event) => {
+    document.addEventListener('keydown', (event) => {
+      if (modal.hidden) return;
+      if (event.key === 'Escape') close();
       if (event.key === 'ArrowLeft') render(activeIndex - 1);
       if (event.key === 'ArrowRight') render(activeIndex + 1);
     });
