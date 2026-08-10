@@ -7,39 +7,78 @@
   const zoomImage = product.querySelector('[data-spx-zoom-image]');
   const thumbTrack = product.querySelector('[data-spx-thumb-track]');
   const thumbs = [...product.querySelectorAll('[data-spx-image]')];
+  const previousButtons = [...product.querySelectorAll('[data-spx-previous]')];
+  const nextButtons = [...product.querySelectorAll('[data-spx-next]')];
+  const thumbScrollButtons = [...product.querySelectorAll('[data-spx-thumb-scroll]')];
+  const thumbWindow = thumbTrack?.closest('.spx-product__thumb-window');
   let activeIndex = 0;
   let thumbOffset = 0;
 
-  const setActiveImage = (index) => {
-    activeIndex = (index + thumbs.length) % thumbs.length;
+  const setDisabled = (buttons, disabled) => buttons.forEach((button) => {
+    button.disabled = disabled;
+    button.classList.toggle('is-disabled', disabled);
+    button.setAttribute('aria-disabled', String(disabled));
+  });
+
+  const syncViewerControls = () => {
+    setDisabled(previousButtons, activeIndex === 0);
+    setDisabled(nextButtons, activeIndex === thumbs.length - 1);
+  };
+
+  const syncThumbControls = () => {
+    if (!thumbTrack || !thumbWindow) return;
+    const maxOffset = Math.max(0, thumbTrack.scrollHeight - thumbWindow.clientHeight);
+    const canMove = maxOffset > 0;
+    const previous = thumbScrollButtons.filter((button) => Number(button.dataset.spxThumbScroll) < 0);
+    const next = thumbScrollButtons.filter((button) => Number(button.dataset.spxThumbScroll) > 0);
+    setDisabled(previous, !canMove || thumbOffset === 0);
+    setDisabled(next, !canMove || Math.abs(thumbOffset) >= maxOffset);
+  };
+
+  const setActiveImage = (index, direction = 0) => {
+    const nextIndex = Math.max(0, Math.min(thumbs.length - 1, index));
+    if (nextIndex === activeIndex && mainImage.src) return;
+    activeIndex = nextIndex;
     const thumb = thumbs[activeIndex];
     mainImage.src = thumb.dataset.spxImage;
+    mainImage.animate(
+      [
+        { opacity: 0.35, transform: `translateX(${direction > 0 ? '2%' : direction < 0 ? '-2%' : '0'})` },
+        { opacity: 1, transform: 'translateX(0)' }
+      ],
+      { duration: 300, easing: 'cubic-bezier(.3,1,.3,1)' }
+    );
     zoomImage.src = thumb.dataset.spxImage.replace('width=1620', 'width=1946');
     thumbs.forEach((item, itemIndex) => {
       const isActive = itemIndex === activeIndex;
       item.classList.toggle('is-active', isActive);
       item.setAttribute('aria-selected', String(isActive));
     });
+    syncViewerControls();
   };
 
   thumbs.forEach((thumb, index) => thumb.addEventListener('click', () => setActiveImage(index)));
-  product.querySelectorAll('[data-spx-next]').forEach((button) => button.addEventListener('click', () => setActiveImage(activeIndex + 1)));
-  product.querySelectorAll('[data-spx-previous]').forEach((button) => button.addEventListener('click', () => setActiveImage(activeIndex - 1)));
+  nextButtons.forEach((button) => button.addEventListener('click', () => setActiveImage(activeIndex + 1, 1)));
+  previousButtons.forEach((button) => button.addEventListener('click', () => setActiveImage(activeIndex - 1, -1)));
   product.querySelectorAll('[data-spx-open-zoom]').forEach((button) => button.addEventListener('click', () => zoom.showModal()));
   product.querySelector('[data-spx-close-zoom]').addEventListener('click', () => zoom.close());
   zoom.addEventListener('click', (event) => { if (event.target === zoom) zoom.close(); });
   document.addEventListener('keydown', (event) => {
     if (!zoom.open) return;
     if (event.key === 'Escape') zoom.close();
-    if (event.key === 'ArrowRight') setActiveImage(activeIndex + 1);
-    if (event.key === 'ArrowLeft') setActiveImage(activeIndex - 1);
+    if (event.key === 'ArrowRight') setActiveImage(activeIndex + 1, 1);
+    if (event.key === 'ArrowLeft') setActiveImage(activeIndex - 1, -1);
   });
-  product.querySelectorAll('[data-spx-thumb-scroll]').forEach((button) => button.addEventListener('click', () => {
+  thumbScrollButtons.forEach((button) => button.addEventListener('click', () => {
     const step = thumbs[0] ? thumbs[0].getBoundingClientRect().height + Number.parseFloat(getComputedStyle(thumbTrack).gap || '0') : 0;
-    const maxOffset = Math.max(0, (thumbs.length - 6) * step);
+    const maxOffset = Math.max(0, thumbTrack.scrollHeight - thumbWindow.clientHeight);
     thumbOffset = Math.max(-maxOffset, Math.min(0, thumbOffset - Number(button.dataset.spxThumbScroll) * step));
     thumbTrack.style.transform = `translateY(${thumbOffset}px)`;
+    syncThumbControls();
   }));
+
+  syncViewerControls();
+  requestAnimationFrame(syncThumbControls);
 
   product.querySelectorAll('[data-spx-option]').forEach((option) => {
     option.addEventListener('click', () => {
