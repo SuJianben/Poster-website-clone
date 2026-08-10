@@ -30,10 +30,10 @@
 .spx-product__viewer-control { position:absolute; top:50%; z-index:2; display:grid; width:48px; height:48px; place-items:center; padding:0; border:0; border-radius:50%; background:#fff; color:#000; box-shadow:0 4px 10px rgba(0,0,0,.12); opacity:0; transition:.3s; }
 .spx-product__viewer-control svg { width:20px; height:20px; fill:none; stroke:currentColor; stroke-linecap:round; stroke-linejoin:round; stroke-width:1.65; }
 .spx-product__main-image:hover .spx-product__viewer-control:not(.is-disabled) { opacity:1; }
-.spx-product__viewer-control.is-disabled { cursor:default; pointer-events:none; }
+.spx-product__viewer-control.is-disabled { cursor:default; pointer-events:none; opacity:0 !important; }
 .spx-product__viewer-control--previous { left:20px; transform:translate(-24px,-50%); }
 .spx-product__viewer-control--next { right:20px; transform:translate(24px,-50%); }
-.spx-product__main-image:hover .spx-product__viewer-control--previous:not(.is-disabled),.spx-product__main-image:hover .spx-product__viewer-control--next:not(.is-disabled) { transform:translate(0,-50%); }
+.spx-product__main-image:hover .spx-product__viewer-control--previous,.spx-product__main-image:hover .spx-product__viewer-control--next { transform:translate(0,-50%); }
 .spx-product__accordions { width:100%; margin-top:20px; }
 .spx-product__accordion { border-bottom:1px solid var(--spx-line); }
 .spx-product__accordion:first-child { border-top:0; }
