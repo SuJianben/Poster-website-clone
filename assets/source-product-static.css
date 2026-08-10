@@ -82,7 +82,7 @@
 .spx-product__zoom-action:hover { color:#fff; transform:translateY(-1px); }
 .spx-product__zoom-action:hover::before { transform:scaleX(1); }
 .spx-product__zoom-action:disabled { cursor:default; opacity:.38; }
-.spx-product__panel { position:relative; overflow:visible; border:1px solid var(--spx-line); border-radius:8px; background:var(--spx-panel); }
+.spx-product__panel { position:relative; width:calc(100% - 20px); margin-left:20px; overflow:visible; border:2px solid var(--spx-line); border-radius:8px; background:var(--spx-panel); }
 .spx-product__trend-badge { position:absolute; z-index:2; display:inline-flex; min-height:24px; align-items:center; padding:0 10px; background:#c5161d; color:#fff; font-size:11px; font-weight:800; letter-spacing:.45px; transform:translate(30px,-10px); box-shadow:0 3px 7px rgba(0,0,0,.22); }
 .spx-product__brands { display:flex; align-items:center; justify-content:center; gap:5px; min-height:56px; padding:10px 16px; border-bottom:1px solid var(--spx-line); color:#333; font-size:12px; text-align:center; }
 .spx-product__brands img { display:block; width:auto; max-width:74px; height:16px; object-fit:contain; }
