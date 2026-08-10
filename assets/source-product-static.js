@@ -106,6 +106,7 @@
 
   const closeAccordion = (accordion) => {
     if (!accordion.open || accordion.classList.contains('is-closing')) return;
+    accordion.classList.remove('is-opening');
     accordion.classList.add('is-closing');
     setAccordionExpanded(accordion, false);
     accordion._spxCloseTimer = window.setTimeout(() => finishAccordionClose(accordion), accordionMotionDuration);
@@ -122,7 +123,11 @@
       return;
     }
     accordion.setAttribute('open', '');
+    accordion.classList.add('is-opening');
     setAccordionExpanded(accordion, true);
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => accordion.classList.remove('is-opening'));
+    });
   };
 
   accordions.forEach((accordion) => {
