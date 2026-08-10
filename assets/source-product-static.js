@@ -13,6 +13,7 @@
   const thumbWindow = thumbTrack?.closest('.spx-product__thumb-window');
   let activeIndex = 0;
   let thumbOffset = 0;
+  let zoomCloseTimer;
 
   const setDisabled = (buttons, disabled) => buttons.forEach((button) => {
     button.disabled = disabled;
@@ -49,6 +50,15 @@
       { duration: 300, easing: 'cubic-bezier(.3,1,.3,1)' }
     );
     zoomImage.src = thumb.dataset.spxImage.replace('width=1620', 'width=1946');
+    if (zoom.open) {
+      zoomImage.animate(
+        [
+          { opacity: 0, transform: `translateX(${direction > 0 ? '18px' : direction < 0 ? '-18px' : '0'}) scale(.985)` },
+          { opacity: 1, transform: 'translateX(0) scale(1)' }
+        ],
+        { duration: 320, easing: 'cubic-bezier(.3,1,.3,1)' }
+      );
+    }
     thumbs.forEach((item, itemIndex) => {
       const isActive = itemIndex === activeIndex;
       item.classList.toggle('is-active', isActive);
@@ -60,12 +70,32 @@
   thumbs.forEach((thumb, index) => thumb.addEventListener('click', () => setActiveImage(index)));
   nextButtons.forEach((button) => button.addEventListener('click', () => setActiveImage(activeIndex + 1, 1)));
   previousButtons.forEach((button) => button.addEventListener('click', () => setActiveImage(activeIndex - 1, -1)));
-  product.querySelectorAll('[data-spx-open-zoom]').forEach((button) => button.addEventListener('click', () => zoom.showModal()));
-  product.querySelector('[data-spx-close-zoom]').addEventListener('click', () => zoom.close());
-  zoom.addEventListener('click', (event) => { if (event.target === zoom) zoom.close(); });
+  const openZoom = () => {
+    window.clearTimeout(zoomCloseTimer);
+    if (!zoom.open) zoom.showModal();
+    zoom.classList.remove('is-closing');
+    zoom.classList.add('is-opening');
+    window.requestAnimationFrame(() => window.requestAnimationFrame(() => zoom.classList.remove('is-opening')));
+  };
+
+  const closeZoom = () => {
+    if (!zoom.open || zoom.classList.contains('is-closing')) return;
+    zoom.classList.remove('is-opening');
+    zoom.classList.add('is-closing');
+    zoomCloseTimer = window.setTimeout(() => zoom.close(), 400);
+  };
+
+  product.querySelectorAll('[data-spx-open-zoom]').forEach((button) => button.addEventListener('click', openZoom));
+  product.querySelector('[data-spx-close-zoom]').addEventListener('click', closeZoom);
+  zoom.addEventListener('click', (event) => { if (event.target === zoom) closeZoom(); });
+  zoom.addEventListener('cancel', (event) => { event.preventDefault(); closeZoom(); });
+  zoom.addEventListener('close', () => {
+    window.clearTimeout(zoomCloseTimer);
+    zoom.classList.remove('is-opening', 'is-closing');
+  });
   document.addEventListener('keydown', (event) => {
     if (!zoom.open) return;
-    if (event.key === 'Escape') zoom.close();
+    if (event.key === 'Escape') { event.preventDefault(); closeZoom(); }
     if (event.key === 'ArrowRight') setActiveImage(activeIndex + 1, 1);
     if (event.key === 'ArrowLeft') setActiveImage(activeIndex - 1, -1);
   });
