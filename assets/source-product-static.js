@@ -35,8 +35,9 @@
     if (event.key === 'ArrowLeft') setActiveImage(activeIndex - 1);
   });
   product.querySelectorAll('[data-spx-thumb-scroll]').forEach((button) => button.addEventListener('click', () => {
-    const maxOffset = Math.max(0, (thumbs.length - 6) * 84);
-    thumbOffset = Math.max(-maxOffset, Math.min(0, thumbOffset - Number(button.dataset.spxThumbScroll) * 84));
+    const step = thumbs[0] ? thumbs[0].getBoundingClientRect().height + Number.parseFloat(getComputedStyle(thumbTrack).gap || '0') : 0;
+    const maxOffset = Math.max(0, (thumbs.length - 6) * step);
+    thumbOffset = Math.max(-maxOffset, Math.min(0, thumbOffset - Number(button.dataset.spxThumbScroll) * step));
     thumbTrack.style.transform = `translateY(${thumbOffset}px)`;
   }));
 
