@@ -1,9 +1,12 @@
+{{ 'source-product-static.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'source-product-static.js' | asset_url }}" defer="defer"></script>
+
 {% comment %}
-  This section intentionally mounts the captured source module without adapting its
-  markup, styles, or scripts. Product data/configuration will be reintroduced only
-  after the static reference has been visually accepted.
+  The captured source HTML remains in source-product-save-water-static.liquid as
+  an audit reference. This section renders an isolated copy of the accepted source
+  layout so it does not inherit Shopify theme classes or third-party app markup.
 {% endcomment %}
-{% render 'source-product-save-water-static' %}
+{% render 'source-product-save-water-core' %}
 
 {% schema %}
 {
