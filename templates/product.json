@@ -12,7 +12,15 @@
     "main": {
       "type": "source-product-viewport",
       "settings": {}
+    },
+    "source_benefits": {
+      "type": "source-product-benefits",
+      "settings": {}
+    },
+    "source_known_from": {
+      "type": "source-product-known-from",
+      "settings": {}
     }
   },
-  "order": ["main"]
+  "order": ["main", "source_benefits", "source_known_from"]
 }

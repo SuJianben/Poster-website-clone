@@ -1,0 +1,17 @@
+{{ 'source-product-followup.css' | asset_url | stylesheet_tag }}
+
+<section class="spf-known" aria-labelledby="spf-known-{{ section.id }}">
+  <h2 id="spf-known-{{ section.id }}">Known from</h2>
+  <div class="spf-known__rail" aria-label="Media and awards">
+    <a href="https://www.german-brand-award.com/preistraeger/galerie/detail/45110-dotcomcanvas.html"><img src="https://dotcomcanvas.de/cdn/shop/files/GBA23_HO_SPECIAL_MC_RGB_18e95b9b-9ef8-41df-97a1-2c05ba00f96a.png?v=1757412001&amp;width=320" alt="German Brand Award"></a>
+    <span><img src="https://dotcomcanvas.de/cdn/shop/files/Logo-1_22c722b1-ad66-4b4b-bd17-812c1c9bc657.png?v=1769264255&amp;width=200" alt="Award"></span>
+    <span><img src="https://dotcomcanvas.de/cdn/shop/files/Logo-3.png?v=1769264343&amp;width=250" alt="Media mention"></span>
+    <span><img src="https://dotcomcanvas.de/cdn/shop/files/Business-Insider.png?v=1682845804&amp;width=320" alt="Business Insider"></span>
+    <span><img src="https://dotcomcanvas.de/cdn/shop/files/Bloomberg.png?v=1682845989&amp;width=320" alt="Bloomberg"></span>
+    <span><img src="https://dotcomcanvas.de/cdn/shop/files/Yahoo-Finance.png?v=1682846040&amp;width=320" alt="Yahoo Finance"></span>
+  </div>
+</section>
+
+{% schema %}
+{"name":"Source product known from","settings":[],"presets":[{"name":"Source product known from"}]}
+{% endschema %}
