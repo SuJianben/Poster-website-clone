@@ -2,6 +2,7 @@
 <script src="{{ 'source-inspiration-wall.js' | asset_url }}" defer="defer"></script>
 <style>
   .inspiration-wall__modal[hidden]{display:none}
+  .inspiration-wall__tile{height:auto!important;min-height:0!important;border-radius:0!important}
   .inspiration-wall__modal{position:fixed;inset:0;z-index:2147483000;display:grid;place-items:center;width:100vw;max-width:none;height:100vh;max-height:none;background:rgba(0,0,0,.46);overflow:hidden}
   @media(max-width:549px){.inspiration-wall__modal{display:block;background:#fff}}
 </style>
