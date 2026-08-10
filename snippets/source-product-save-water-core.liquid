@@ -6,7 +6,10 @@
     <div class="spx-product__layout">
       <div class="spx-product__media-column">
         <div class="spx-product__gallery" aria-label="Save Water product gallery">
-          <div class="spx-product__thumbs" role="tablist" aria-label="Product images">
+          <div class="spx-product__thumb-rail">
+            <button class="spx-product__thumb-control spx-product__thumb-control--up" type="button" aria-label="Show previous product images" data-spx-thumb-scroll="-1">⌃</button>
+            <div class="spx-product__thumb-window">
+              <div class="spx-product__thumbs" role="tablist" aria-label="Product images" data-spx-thumb-track>
             <button class="spx-product__thumb is-active" type="button" role="tab" aria-selected="true" data-spx-image="https://dotcomcanvas.de/cdn/shop/files/PosterSaveWaterDrinkChampagneOriginalPopArtBildFront-Vertical.jpg?v=1737392893&amp;width=1620" data-analytics-event="product_gallery_thumbnail"><img src="https://dotcomcanvas.de/cdn/shop/files/PosterSaveWaterDrinkChampagneOriginalPopArtBildFront-Vertical.jpg?v=1737392893&amp;width=168" alt="Save Water poster front"></button>
             <button class="spx-product__thumb" type="button" role="tab" aria-selected="false" data-spx-image="https://dotcomcanvas.de/cdn/shop/files/PosterSaveWaterDrinkChampagneOriginalPopArtBildBeton-Wall-Vertical.jpg?v=1737392893&amp;width=1620" data-analytics-event="product_gallery_thumbnail"><img src="https://dotcomcanvas.de/cdn/shop/files/PosterSaveWaterDrinkChampagneOriginalPopArtBildBeton-Wall-Vertical.jpg?v=1737392893&amp;width=168" alt="Save Water poster in room"></button>
             <button class="spx-product__thumb" type="button" role="tab" aria-selected="false" data-spx-image="https://dotcomcanvas.de/cdn/shop/files/PosterSaveWaterDrinkChampagneOriginalPopArtBildCertificat-Vertical.jpg?v=1737392893&amp;width=1620" data-analytics-event="product_gallery_thumbnail"><img src="https://dotcomcanvas.de/cdn/shop/files/PosterSaveWaterDrinkChampagneOriginalPopArtBildCertificat-Vertical.jpg?v=1737392893&amp;width=168" alt="Certificate detail"></button>
@@ -14,8 +17,16 @@
             <button class="spx-product__thumb" type="button" role="tab" aria-selected="false" data-spx-image="https://dotcomcanvas.de/cdn/shop/files/PosterSaveWaterDrinkChampagneOriginalPopArtBildCorner-Detail-Vertical.jpg?v=1737392893&amp;width=1620" data-analytics-event="product_gallery_thumbnail"><img src="https://dotcomcanvas.de/cdn/shop/files/PosterSaveWaterDrinkChampagneOriginalPopArtBildCorner-Detail-Vertical.jpg?v=1737392893&amp;width=168" alt="Poster detail"></button>
             <button class="spx-product__thumb" type="button" role="tab" aria-selected="false" data-spx-image="https://dotcomcanvas.de/cdn/shop/files/PosterSaveWaterDrinkChampagneOriginalPopArtBildRoll-up-Poster-Vertical.jpg?v=1737392864&amp;width=1620" data-analytics-event="product_gallery_thumbnail"><img src="https://dotcomcanvas.de/cdn/shop/files/PosterSaveWaterDrinkChampagneOriginalPopArtBildRoll-up-Poster-Vertical.jpg?v=1737392864&amp;width=168" alt="Rolled poster"></button>
             <button class="spx-product__thumb" type="button" role="tab" aria-selected="false" data-spx-image="https://dotcomcanvas.de/cdn/shop/files/PosterSaveWaterDrinkChampagneOriginalPopArtBildTube-Roll-Vertical.jpg?v=1737392864&amp;width=1620" data-analytics-event="product_gallery_thumbnail"><img src="https://dotcomcanvas.de/cdn/shop/files/PosterSaveWaterDrinkChampagneOriginalPopArtBildTube-Roll-Vertical.jpg?v=1737392864&amp;width=168" alt="Poster tube"></button>
+              </div>
+            </div>
+            <button class="spx-product__thumb-control spx-product__thumb-control--down" type="button" aria-label="Show more product images" data-spx-thumb-scroll="1">⌄</button>
           </div>
-          <div class="spx-product__main-image"><img data-spx-main-image src="https://dotcomcanvas.de/cdn/shop/files/PosterSaveWaterDrinkChampagneOriginalPopArtBildFront-Vertical.jpg?v=1737392893&amp;width=1620" alt="Save Water - Poster"></div>
+          <div class="spx-product__main-image" data-spx-viewer>
+            <button class="spx-product__main-image-button" type="button" aria-label="Expand Save Water poster" data-spx-open-zoom><img data-spx-main-image src="https://dotcomcanvas.de/cdn/shop/files/PosterSaveWaterDrinkChampagneOriginalPopArtBildFront-Vertical.jpg?v=1737392893&amp;width=1620" alt="Save Water - Poster"></button>
+            <button class="spx-product__zoom-button" type="button" aria-label="Expand image" data-spx-open-zoom>⌕</button>
+            <button class="spx-product__viewer-control spx-product__viewer-control--previous" type="button" aria-label="Previous image" data-spx-previous>‹</button>
+            <button class="spx-product__viewer-control spx-product__viewer-control--next" type="button" aria-label="Next image" data-spx-next>›</button>
+          </div>
         </div>
 
         <div class="spx-product__accordions">
@@ -47,4 +58,10 @@
       </aside>
     </div>
   </div>
+  <dialog class="spx-product__zoom-dialog" data-spx-zoom aria-label="Expanded product image">
+    <button class="spx-product__zoom-close" type="button" aria-label="Close expanded image" data-spx-close-zoom>×</button>
+    <button class="spx-product__zoom-dialog-control spx-product__zoom-dialog-control--previous" type="button" aria-label="Previous image" data-spx-previous>‹</button>
+    <img src="https://dotcomcanvas.de/cdn/shop/files/PosterSaveWaterDrinkChampagneOriginalPopArtBildFront-Vertical.jpg?v=1737392893&amp;width=1946" alt="Save Water - Poster" data-spx-zoom-image>
+    <button class="spx-product__zoom-dialog-control spx-product__zoom-dialog-control--next" type="button" aria-label="Next image" data-spx-next>›</button>
+  </dialog>
 </section>
