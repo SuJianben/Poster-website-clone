@@ -147,10 +147,11 @@
   cartButton?.addEventListener('click', () => {
     if (cartButton.disabled) return;
     cartButton.disabled = true;
-    cartLabel.textContent = 'Adding…';
+    cartButton.classList.add('is-loading');
     window.setTimeout(() => {
+      cartButton.classList.remove('is-loading');
       cartButton.classList.add('is-success');
-      cartLabel.textContent = 'Added ✓';
+      cartLabel.textContent = 'Added to Cart';
       window.setTimeout(() => {
         cartButton.disabled = false;
         cartButton.classList.remove('is-success');
