@@ -10,7 +10,7 @@
 {
   "sections": {
     "main": {
-      "type": "source-product-detail",
+      "type": "source-product-viewport",
       "settings": {}
     }
   },

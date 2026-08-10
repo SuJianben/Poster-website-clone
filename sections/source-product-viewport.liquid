@@ -1,0 +1,10 @@
+{{ 'source-product-static.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'source-product-static.js' | asset_url }}" defer="defer"></script>
+{% render 'source-product-save-water-core' %}
+
+{% schema %}
+{
+  "name": "Save Water viewport",
+  "settings": []
+}
+{% endschema %}
