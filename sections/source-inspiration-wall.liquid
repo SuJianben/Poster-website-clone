@@ -16,16 +16,51 @@
 
   <div class="inspiration-wall__grid" data-inspiration-grid>
     {% for image in fallback_images %}
-      <a class="inspiration-wall__tile{% if forloop.index > 12 %} is-hidden{% endif %}" href="{{ section.settings.instagram_url | default: 'https://www.instagram.com/dotcomcanvas/' }}" target="_blank" rel="noopener" data-inspiration-tile>
+      {% liquid
+        assign username = 'dotcomcanvas'
+        assign product_title = 'DOTCOMCANVAS Wall Art'
+        assign product_image = image
+        assign caption = 'Discover original wall art, created to bring personality and colour to your space.'
+        if forloop.first
+          assign product_title = 'Smells like Success'
+          assign product_image = 'https://cdn.shopify.com/s/files/1/0601/1253/5810/files/LeinwandbildSmellslikeSuccessCocoChanelParfumPopArt10.jpg?tr=h-180'
+          assign caption = 'SMELLS LIKE SUCCESS - New Art 🔥 Artist: STEFAN BAMERT 🎨 BUY 1 - GET 1 for FREE. Each week new art drops here — do not miss your chance to get your favourite art. Premium Acrylic Glass • Premium Canvas. Do you like this art?'
+        elsif forloop.index == 9
+          assign username = 'julianhelbigecom'
+          assign caption = 'A special customer interior featuring DOTCOMCANVAS art.'
+        endif
+      %}
+      <button class="inspiration-wall__tile{% if forloop.index > 12 %} is-hidden{% endif %}" type="button" data-inspiration-tile data-index="{{ forloop.index0 }}" data-image="{{ image }}" data-username="{{ username }}" data-caption="{{ caption | escape }}" data-product-title="{{ product_title }}" data-product-image="{{ product_image }}" data-likes="{{ forloop.index | times: 7 | plus: 8 }}">
         <img src="{{ image }}" alt="{{ section.settings.image_alt }} {{ forloop.index }}" loading="{% if forloop.index < 7 %}eager{% else %}lazy{% endif %}" width="500" height="500">
         <span>SHOP THE LOOK</span>
-      </a>
+      </button>
     {% endfor %}
   </div>
 
   <div class="inspiration-wall__more-wrap">
     <button class="inspiration-wall__more" type="button" data-inspiration-more>{{ section.settings.load_more_label }}</button>
   </div>
+
+  <dialog class="inspiration-wall__modal" data-inspiration-modal aria-label="Instagram image details">
+    <div class="inspiration-wall__modal-shell">
+      <button class="inspiration-wall__close" type="button" data-inspiration-close aria-label="Close image details">×</button>
+      <button class="inspiration-wall__nav inspiration-wall__nav--prev" type="button" data-inspiration-prev aria-label="Previous photo">‹</button>
+      <div class="inspiration-wall__modal-image"><img src="" alt="" data-inspiration-modal-image></div>
+      <article class="inspiration-wall__modal-content">
+        <p class="inspiration-wall__source">Instagram</p>
+        <h2 data-inspiration-username></h2>
+        <p class="inspiration-wall__date">30 months ago</p>
+        <p class="inspiration-wall__caption" data-inspiration-caption></p>
+        <div class="inspiration-wall__votes"><button type="button" data-inspiration-like aria-pressed="false">♥ <span data-inspiration-likes>0</span></button><span>● 0</span></div>
+        <a class="inspiration-wall__product" href="/products/berit-mogensen-lopez-improvise" data-inspiration-product>
+          <img src="" alt="" data-inspiration-product-image>
+          <span data-inspiration-product-title></span>
+        </a>
+      </article>
+      <button class="inspiration-wall__nav inspiration-wall__nav--next" type="button" data-inspiration-next aria-label="Next photo">›</button>
+      <div class="inspiration-wall__thumbs" data-inspiration-thumbs></div>
+    </div>
+  </dialog>
 </section>
 
 {% schema %}
