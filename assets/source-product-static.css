@@ -82,10 +82,14 @@
 .spx-product__zoom-action:hover { color:#fff; transform:translateY(-1px); }
 .spx-product__zoom-action:hover::before { transform:scaleX(1); }
 .spx-product__zoom-action:disabled { cursor:default; opacity:.38; }
-.spx-product__panel { position:relative; width:calc(100% - 20px); margin-left:20px; overflow:visible; border:2px solid var(--spx-line); border-radius:8px; background:var(--spx-panel); }
-.spx-product__trend-badge { position:absolute; z-index:2; display:inline-flex; min-height:24px; align-items:center; padding:0 10px; background:#c5161d; color:#fff; font-size:11px; font-weight:800; letter-spacing:.45px; transform:translate(30px,-10px); box-shadow:0 3px 7px rgba(0,0,0,.22); }
-.spx-product__brands { display:flex; align-items:center; justify-content:center; gap:5px; min-height:56px; padding:10px 16px; border-bottom:1px solid var(--spx-line); color:#333; font-size:12px; text-align:center; }
-.spx-product__brands img { display:block; width:auto; max-width:74px; height:16px; object-fit:contain; }
+.spx-product__panel { position:relative; width:calc(100% - 20px); margin-left:20px; overflow:visible; border:1px solid #e8e8e8; border-top:2px solid #b90e0a; border-radius:8px; background:var(--spx-panel); box-shadow:0 5px 20px rgba(0,0,0,.03); }
+.spx-product__trend-badge { position:absolute; top:0; left:30px; z-index:2; display:inline-flex; align-items:center; height:21px; padding:4px 8px; border-radius:2px; background:#b90e0a; color:#fff; font-size:11px; font-weight:750; letter-spacing:.55px; line-height:11px; text-transform:uppercase; transform:translateY(-50%); box-shadow:0 0 10px rgba(185,14,10,.4); }
+.spx-product__brands { display:flex; align-items:center; justify-content:center; gap:0; min-height:38px; margin:20px 0 20px; padding:8px 10px; border-top:1px solid #dada; border-bottom:1px solid #dada; background:#f8f9fa; color:#333; font-size:14px; font-weight:700; line-height:19.6px; text-align:center; }
+.spx-product__brands img { display:block; width:auto; height:16px; object-fit:contain; }
+.spx-product__brands img:first-child { width:82px; max-width:82px; }
+.spx-product__brands img:nth-of-type(2) { width:54px; max-width:54px; height:13px; margin:0 3px 0 -2px; }
+.spx-product__brands > span:first-of-type { margin:0 1px; font-size:13px; line-height:18.2px; }
+.spx-product__brands > span:last-child { font-size:12px; font-weight:400; line-height:16.8px; }
 .spx-product__panel-content { padding:12px 30px 28px; }
 .spx-product__reviews { margin:0 0 7px; color:#111; font-size:12px; font-weight:700; }
 .spx-product__reviews span { color:#a89573; font-size:17px; letter-spacing:0; vertical-align:-1px; }
