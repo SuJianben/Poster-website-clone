@@ -36,8 +36,9 @@
 .spx-product__accordion summary::-webkit-details-marker { display:none; }
 .spx-product__accordion summary span { font-size:28px; font-weight:400; transition:transform .2s ease; }
 .spx-product__accordion[open] summary span { transform:rotate(45deg); }
-.spx-product__accordion-content { padding:0 0 20px; color:#454545; }
-.spx-product__accordion-content p { margin:0; }
+.spx-product__accordion-content,.spx-product__accordion:not([open])>.spx-product__accordion-content { display:grid; grid-template-rows:0fr; padding:0; color:#454545; transition:grid-template-rows .28s ease,padding .28s ease; }
+.spx-product__accordion-content p { min-height:0; margin:0; overflow:hidden; }
+.spx-product__accordion[open]>.spx-product__accordion-content { grid-template-rows:1fr; padding:0 0 20px; }
 .spx-product__zoom-dialog { width:100vw; max-width:none; height:100vh; max-height:none; margin:0; padding:50px; border:0; background:rgba(255,255,255,.98); }
 .spx-product__zoom-dialog::backdrop { background:rgba(0,0,0,.58); }
 .spx-product__zoom-dialog[open] { display:grid; place-items:center; }
