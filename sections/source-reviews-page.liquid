@@ -1,80 +1,51 @@
 {{ 'source-reviews-page.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'source-reviews-page.js' | asset_url }}" defer="defer"></script>
 
-{% liquid
-  assign fallback_reviews = '7 beautiful acrylglas work in my home|I have ordered paintings over the years and I am very proud of the acrylic glass work. They are a beautiful part of my home decorations, and guests always ask about them.|Tapio V.|Finland|Shit Happens - Acrylic Glass 40 × 40 CM~Awesome company|Yesterday I received my 6th piece of artwork from DOTCOMCANVAS. The colours and attention to detail are top quality, and customer service was fantastic.|James C.|United Kingdom|Queen - Acrylic Glass~Top quality|The print quality and finish are perfect. It looks even better in our living room than we expected.|Tom K.|Germany|Donald Duck - Canvas' | split: '~'
-%}
-
 <section class="srp-page" data-srp-page data-analytics-page="reviews_fallback">
   <header class="srp-page__heading"><h1>Reviews</h1></header>
-
   <section class="srp-page__hero" aria-label="Our happy customers">
     <img src="https://dotcomcanvas.de/cdn/shop/files/Trustpilot_Kunden_Bewertungen_Reviews_Fotos_Banner.png?v=1773373385&width=2400" alt="DOTCOMCANVAS customer artwork and reviews">
-    <div class="srp-page__hero-copy">
-      <h2>Our happy customers</h2>
-      <p>Real reviews, real inspiration</p>
-    </div>
+    <div class="srp-page__hero-copy"><h2>Our happy customers</h2><p>Real reviews, real inspiration</p></div>
   </section>
 
-  <section class="srp-page__reviews" aria-labelledby="srp-reviews-heading">
-    <div class="srp-page__summary">
-      <div class="srp-page__score"><strong>4.9</strong><span aria-label="5 out of 5 stars">★★★★★</span><small>Based on 2,624 Reviews</small></div>
-      <div class="srp-page__breakdown" aria-label="Rating breakdown">
-        <span>5 ★ <i style="--srp-fill:94%"></i><b>(2461)</b></span>
-        <span>4 ★ <i style="--srp-fill:6%"></i><b>(157)</b></span>
-        <span>3 ★ <i style="--srp-fill:1%"></i><b>(5)</b></span>
-        <span>2 ★ <i style="--srp-fill:0%"></i><b>(0)</b></span>
-        <span>1 ★ <i style="--srp-fill:1%"></i><b>(1)</b></span>
+  <section class="srp-widget" aria-labelledby="srp-customer-reviews">
+    <h2 class="srp-widget__access-title" id="srp-customer-reviews">Customer Reviews</h2>
+    <div class="srp-widget__summary">
+      <div class="srp-widget__overview"><strong>4.9</strong><span class="srp-stars" aria-label="5 stars">★★★★★</span><small>Based on 2,624 Reviews</small></div>
+      <div class="srp-widget__ratings" aria-label="Review rating distribution">
+        {% assign ratings = '5|94|2461,4|6|157,3|0|5,2|0|0,1|0|1' | split: ',' %}
+        {% for rating in ratings %}{% assign row = rating | split: '|' %}<button type="button" data-srp-rating-filter="{{ row[0] }}"><span>{{ row[0] }} ★</span><i><b style="width:{{ row[1] }}%"></b></i><em>{{ row[2] }}</em></button>{% endfor %}
       </div>
-      <div class="srp-page__photo-wall" aria-label="Customer photos">
-        <img src="https://dotcomcanvas.de/cdn/shop/files/Trustpilot_Kunden_Bewertungen_Reviews_Fotos_Banner.png?v=1773373385&width=300" alt="Customer artwork">
-        <img src="https://dotcomcanvas.de/cdn/shop/files/Trustpilot_Kunden_Bewertungen_Reviews_Fotos_Banner.png?v=1773373385&width=400" alt="Customer artwork">
-        <img src="https://dotcomcanvas.de/cdn/shop/files/Trustpilot_Kunden_Bewertungen_Reviews_Fotos_Banner.png?v=1773373385&width=500" alt="Customer artwork">
-        <img src="https://dotcomcanvas.de/cdn/shop/files/Trustpilot_Kunden_Bewertungen_Reviews_Fotos_Banner.png?v=1773373385&width=600" alt="Customer artwork">
+      <div class="srp-widget__photos" data-srp-photo-strip>
+        <p>Customer Photos</p><div class="srp-widget__photo-track">
+          <img src="https://cdn.stamped.io/uploads/videos/a8e34717bc9fe2f9f83292b1af39b519.jpg" alt="Customer artwork"><img src="https://cdn.stamped.io/uploads/videos/6cab27b9e5a6e8abf7376643397e3aaf.jpg" alt="Customer artwork"><img src="https://cdn.stamped.io/uploads/videos/8c7e5f380f1f3173c8dd30029278b25a.jpg" alt="Customer artwork"><img src="https://cdn.stamped.io/uploads/videos/21a4e1daec458d792212652c1cf5085a.jpg" alt="Customer artwork">
+        </div><div class="srp-widget__photo-nav"><button type="button" data-srp-photo-prev aria-label="Previous customer photos">‹</button><button type="button" data-srp-photo-next aria-label="Next customer photos">›</button></div>
       </div>
+      <div class="srp-widget__actions"><button type="button" data-srp-open-form="review">Write a Review</button><button type="button" data-srp-open-form="question">Ask a Question</button></div>
     </div>
 
-    <div class="srp-page__review-toolbar">
-      <h2 id="srp-reviews-heading">Reviews <span>2624</span></h2>
-      <div class="srp-page__filter-wrap">
-        <button type="button" class="srp-page__photos-toggle" data-srp-photos aria-pressed="false">With Photos</button>
-        <label class="srp-page__sort-label">Sort
-          <select data-srp-sort aria-label="Sort reviews"><option value="recent">Most Recent</option><option value="highest">Highest Rating</option><option value="lowest">Lowest Rating</option><option value="helpful">Most Helpful</option></select>
-        </label>
-      </div>
+    <div class="srp-widget__tabs" role="tablist"><button class="is-active" type="button" role="tab" aria-selected="true" data-srp-tab="reviews">Reviews <span>2624</span></button><button type="button" role="tab" aria-selected="false" data-srp-tab="questions">Questions <span>0</span></button></div>
+    <form class="srp-widget__form" data-srp-form hidden>
+      <button type="button" class="srp-widget__form-close" data-srp-close-form aria-label="Close">×</button><h3 data-srp-form-title>Write a review</h3>
+      <div class="srp-widget__form-row"><label>Name<input required name="name" autocomplete="name" placeholder="Enter your name"></label><label>Email<input required type="email" name="email" autocomplete="email" placeholder="john.smith@example.com"></label><label>Location<input name="location" placeholder="e.g. Paris, France"></label></div>
+      <label class="srp-widget__form-stars">Rating <span data-srp-rating-input><button type="button" data-value="1">★</button><button type="button" data-value="2">★</button><button type="button" data-value="3">★</button><button type="button" data-value="4">★</button><button type="button" data-value="5">★</button></span></label><label>Title of Review<input required name="title" placeholder="Give your review a title"></label><label>How was your overall experience?<textarea required name="message" rows="5"></textarea></label><button class="srp-widget__submit" type="submit">Submit</button>
+    </form>
+
+    <div class="srp-widget__filters" data-srp-review-controls><label>Sort<select data-srp-sort aria-label="Sort reviews"><option value="featured">Sort</option><option value="photos">With Photos</option><option value="recent">Most Recent</option><option value="highest">Highest Rating</option><option value="lowest">Lowest Rating</option><option value="helpful">Most Helpful</option></select></label><span>Filter Reviews:</span></div>
+
+    <div class="srp-widget__review-grid" data-srp-grid>
+      <article class="srp-review" data-srp-review data-srp-photo="true" data-srp-rating="5"><img src="https://cdn.stamped.io/tr:h-800:/uploads/photos/228253_1_5c56274c_ee94_4dda_bee4_d0986a746823.jpg?" alt="Customer submitted artwork"><div class="srp-review__meta"><span>★★★★★</span><time>16/06/2026</time></div><dl><dt>Was hast du bestellt?</dt><dd>Acrylglasbild, Blattgoldbild</dd><dt>Wie alt bist du?</dt><dd>60</dd><dt>Was machst du beruflich?</dt><dd>Entrepreneur</dd><dt>Wo hängt das Wandbild?</dt><dd>Livingroom, kitchen, toilet</dd><dt>Wie bewertest du die Druckqualität?</dt><dd>Schlecht <i>●●●●●</i> Perfekt</dd></dl><h3>7 beautiful acrylglas work in my home</h3><p>I have ordered paintings over the years and I am very proud of the acrylic glass work. They are my home decorations items. I have accumulated 7 of them over the year. Guests who visit my home are interested in them because acrylic glass work are immediately noticeable.</p><a href="/collections/all">Shit Happens - Acrylic Glass - 40 × 40 CM / Ohne Rahmen</a><footer><strong>Tapio V.</strong><span>Finland · Verified Buyer</span></footer><button type="button" data-srp-helpful>Was this helpful? <b>♧ 0</b> <b>♢ 0</b></button></article>
+      <article class="srp-review" data-srp-review data-srp-photo="true" data-srp-rating="5"><img src="https://cdn.stamped.io/tr:h-800:/uploads/photos/228253_8264592785674_3cc4f078_0a80_4335_a599_175c3974ca6b.jpg?" alt="Customer submitted artwork"><div class="srp-review__meta"><span>★★★★★</span><time>07/06/2026</time></div><dl><dt>Bestellung</dt><dd>Acrylglasbild</dd><dt>Alter</dt><dd>52</dd><dt>Beruf</dt><dd>Carpenter</dd><dt>Anwendung</dt><dd>Will be the living room</dd><dt>Druckqualität</dt><dd>Schlecht <i>●●●●●</i> Perfekt</dd></dl><h3>Awesome company</h3><p>Yesterday I received my 6th piece of artwork from dotcomcanvas. Once again, the colours and attention to detail are top quality. Customer service is fantastic, shipping and delivery are fast and reliable.</p><footer><strong>James C.</strong><span>United Kingdom</span></footer><button type="button" data-srp-helpful>Was this helpful? <b>♧ 0</b> <b>♢ 0</b></button></article>
+      <article class="srp-review" data-srp-review data-srp-photo="true" data-srp-rating="5"><img src="https://cdn.stamped.io/tr:h-800:/uploads/photos/228253_8202634854666_e52e860b_9db8_4f3c_8a81_0cd68bfa9de8.jpg?" alt="Customer submitted artwork"><div class="srp-review__meta"><span>★★★★★</span><time>06/06/2026</time></div><dl><dt>Was hast du bestellt?</dt><dd>Acrylglasbild</dd><dt>Wie bewertest du die Druckqualität?</dt><dd>Schlecht <i>●●●●●</i> Perfekt</dd><dt>Wie bewertest du die Verarbeitung?</dt><dd>Schlecht <i>●●●●●</i> Perfekt</dd></dl><h3>5/5</h3><p>Tilaaminen todella helppoa ja tuote tuli noin viikossa perille. Taulut vaikuttaa korkea laatuiselta.</p><a href="/collections/all">Queen Card - Acrylglas</a><footer><strong>Tomi K.</strong><span>Finland</span></footer><button type="button" data-srp-helpful>Was this helpful? <b>♧ 1</b> <b>♢ 0</b></button></article>
+      <article class="srp-review" data-srp-review data-srp-photo="true" data-srp-rating="5"><img src="https://cdn.stamped.io/tr:h-800:/uploads/photos/228253_10484023623946_f6621af5_7a5c_4871_8105_f5465414762a_r1780202711687.jpg?v=1780202711" alt="Customer submitted artwork"><div class="srp-review__meta"><span>★★★★★</span><time>29/05/2026</time></div><dl><dt>Was hast du bestellt?</dt><dd>Leinwandbild</dd><dt>Wie alt bist du?</dt><dd>24</dd><dt>Was machst du beruflich?</dt><dd>Sales</dd><dt>Wo hängt das Wandbild?</dt><dd>Living Room</dd></dl><h3>Bild</h3><p>Hat alles super geklappt, Qualität ist gut und Lieferung war schnell!</p><a href="/collections/all">Old Money Duck</a><footer><strong>Daniel S.</strong><span>Switzerland · Verified Buyer</span></footer><button type="button" data-srp-helpful>Was this helpful? <b>♧ 2</b> <b>♢ 0</b></button></article>
     </div>
-
-    <div class="srp-page__review-grid" data-srp-grid>
-      {% for item in fallback_reviews %}
-        {% assign fields = item | split: '|' %}
-        <article class="srp-page__review" data-srp-review data-srp-rating="5" data-srp-photo="{% if forloop.index == 1 %}true{% else %}false{% endif %}">
-          {% if forloop.index == 1 %}<img class="srp-page__review-photo" src="https://dotcomcanvas.de/cdn/shop/files/Trustpilot_Kunden_Bewertungen_Reviews_Fotos_Banner.png?v=1773373385&width=640" alt="Customer submitted artwork">{% endif %}
-          <div class="srp-page__review-stars">★★★★★ <time>{{ 'now' | date: '%d/%m/%Y' }}</time></div>
-          <h3>{{ fields[0] }}</h3><p>{{ fields[1] }}</p>
-          <p class="srp-page__review-product">{{ fields[4] }}</p>
-          <footer><strong>{{ fields[2] }}</strong><span>{{ fields[3] }}</span></footer>
-          <button type="button" class="srp-page__helpful" data-srp-helpful>Was this helpful? <span>♡ 0</span><span>♢ 0</span></button>
-        </article>
-      {% endfor %}
-    </div>
-    <nav class="srp-page__pagination" aria-label="Reviews pagination"><button type="button" disabled>‹</button><button class="is-current" type="button">1</button><button type="button">2</button><button type="button">3</button><span>…</span><button type="button">10</button><button type="button">›</button></nav>
+    <nav class="srp-widget__pagination" aria-label="Reviews pagination"><button disabled type="button">‹</button><button class="is-current" type="button">1</button><button type="button">2</button><button type="button">3</button><button type="button">4</button><button type="button">5</button><button type="button">6</button><button type="button">7</button><button type="button">8</button><button type="button">9</button><button type="button">10</button><button type="button">›</button></nav>
+    <div class="srp-widget__questions" data-srp-questions hidden><p>There are no customer questions yet.</p><button type="button" data-srp-open-form="question">Ask a Question</button></div>
   </section>
 
-  <section class="srp-page__community" aria-labelledby="srp-community-heading">
-    <h2 id="srp-community-heading">Our community</h2>
-    <div class="srp-page__community-stage"><button type="button" aria-label="Previous community photos">‹</button><p>Customer photos and real homes are shown here when the review feed is connected.</p><button type="button" aria-label="Next community photos">›</button></div>
-  </section>
-
-  <section class="srp-page__write-review" aria-labelledby="srp-write-heading">
-    <h2 id="srp-write-heading">Write a review</h2>
-    <p>We would appreciate feedback via <a href="/pages/contact">the contact form.</a><br>Or leave an official review after placing an order.</p>
-    <a href="/pages/contact" class="srp-page__write-button">Write a review <span>›</span></a>
-  </section>
+  <section class="srp-community"><h2>Our community</h2><div class="srp-community__frame"><button type="button" data-srp-community-prev aria-label="Previous">‹</button><div data-srp-community-content></div><button type="button" data-srp-community-next aria-label="Next">›</button></div><button type="button" class="srp-community__more" data-srp-load-more>Load More</button></section>
+  <section class="srp-instagram"><h2>Instagram</h2><div class="srp-instagram__empty" aria-label="Instagram feed fallback"></div></section>
+  <section class="srp-write"><h2>Write a review</h2><p>We would appreciate feedback via <a href="/pages/contact">the contact form.</a><br>or look forward to an official review after placing an order!</p><button type="button" data-srp-open-form="review">Write a review <span>›</span></button></section>
 </section>
 
-{% schema %}
-{
-  "name": "Source reviews page",
-  "settings": []
-}
-{% endschema %}
+{% schema %}{"name":"Source reviews page","settings":[]}{% endschema %}
