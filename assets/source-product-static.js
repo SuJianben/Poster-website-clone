@@ -110,13 +110,53 @@
   syncViewerControls();
   requestAnimationFrame(syncThumbControls);
 
+  let selectedUnit = 'cm';
+  const renderSizeLabels = () => {
+    product.querySelectorAll('[data-spx-option="size"]').forEach((option) => {
+      const label = option.querySelector('[data-spx-size-label]');
+      if (label) label.textContent = option.dataset[`spxSize${selectedUnit === 'cm' ? 'Cm' : 'In'}`];
+    });
+    const selected = product.querySelector('[data-spx-option="size"].is-selected');
+    const output = product.querySelector('[data-spx-size]');
+    if (selected && output) output.textContent = selected.dataset[`spxSize${selectedUnit === 'cm' ? 'Cm' : 'In'}`];
+  };
+
   product.querySelectorAll('[data-spx-option]').forEach((option) => {
     option.addEventListener('click', () => {
       const group = option.dataset.spxOption;
       product.querySelectorAll(`[data-spx-option="${group}"]`).forEach((item) => item.classList.toggle('is-selected', item === option));
       const output = product.querySelector(group === 'material' ? '[data-spx-material]' : '[data-spx-size]');
-      if (output) output.textContent = option.dataset.spxValue;
+      if (output) output.textContent = group === 'size' ? option.dataset[`spxSize${selectedUnit === 'cm' ? 'Cm' : 'In'}`] : option.dataset.spxValue;
     });
+  });
+
+  product.querySelectorAll('[data-spx-unit]').forEach((button) => button.addEventListener('click', () => {
+    selectedUnit = button.dataset.spxUnit;
+    product.querySelectorAll('[data-spx-unit]').forEach((item) => item.classList.toggle('is-selected', item === button));
+    renderSizeLabels();
+  }));
+  renderSizeLabels();
+
+  const sizeGuide = product.querySelector('[data-spx-size-guide-dialog]');
+  product.querySelector('[data-spx-size-guide]')?.addEventListener('click', () => sizeGuide?.showModal());
+  product.querySelector('[data-spx-close-size-guide]')?.addEventListener('click', () => sizeGuide?.close());
+  sizeGuide?.addEventListener('click', (event) => { if (event.target === sizeGuide) sizeGuide.close(); });
+
+  const cartButton = product.querySelector('[data-spx-cart-button]');
+  const cartLabel = product.querySelector('[data-spx-cart-label]');
+  cartButton?.addEventListener('click', () => {
+    if (cartButton.disabled) return;
+    cartButton.disabled = true;
+    cartLabel.textContent = 'Adding…';
+    window.setTimeout(() => {
+      cartButton.classList.add('is-success');
+      cartLabel.textContent = 'Added ✓';
+      window.setTimeout(() => {
+        cartButton.disabled = false;
+        cartButton.classList.remove('is-success');
+        cartLabel.textContent = 'Add To Cart';
+      }, 1350);
+    }, 460);
   });
 
   const accordions = [...product.querySelectorAll('[data-spx-accordion]')];
