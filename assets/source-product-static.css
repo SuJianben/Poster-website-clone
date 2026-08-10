@@ -137,12 +137,12 @@
 @keyframes spx-cart-rotate { to { transform:rotate(270deg); } }
 @keyframes spx-cart-dash { 0% { stroke-dashoffset:280; } 50% { stroke-dashoffset:75; transform:rotate(135deg); } 100% { stroke-dashoffset:280; transform:rotate(450deg); } }
 .spx-product__sale { margin:17px 0 24px; color:#000; font-size:14px; line-height:20px; }
-.spx-product__sale p { margin:0 0 10px; font-weight:700; }
-.spx-product__sale-title { font-size:16px; font-weight:700; line-height:22px; }
+.spx-product__sale p { margin:0 0 10px; font-weight:400; }
+.spx-product__sale-title { font-size:16px; font-weight:400; line-height:22px; }
 .spx-product__discount-table { overflow:hidden; border:1px solid #9d9d9d; border-radius:8px; }
 .spx-product__discount-row { display:grid; grid-template-columns:1fr 1fr; min-height:35px; border-top:1px solid #a6a6a6; }
 .spx-product__discount-row:first-child { border-top:0; }
-.spx-product__discount-row span { display:flex; align-items:center; padding:7px 10px; color:#000; font-size:14px; font-weight:700; line-height:20px; }
+.spx-product__discount-row span { display:flex; align-items:center; padding:7px 10px; color:#000; font-size:14px; font-weight:400; line-height:20px; }
 .spx-product__discount-row span + span { border-left:1px solid #a6a6a6; }
 .spx-product__discount-row--head { min-height:36px; background:#000; }
 .spx-product__discount-row--head span { color:#fff; font-size:14px; font-weight:700; }
