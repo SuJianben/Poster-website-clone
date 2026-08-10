@@ -98,8 +98,8 @@
 .spx-product__artist a { position:relative; display:inline-block; margin-left:5px; padding-bottom:1px; color:#111; font-weight:700; text-decoration:none; }
 .spx-product__artist a::after { position:absolute; right:0; bottom:0; left:0; height:1px; background:currentColor; content:""; transform:scaleX(1); transform-origin:right center; transition:transform .28s cubic-bezier(.3,1,.3,1); }
 .spx-product__artist a:hover::after { transform:scaleX(0); }
-.spx-product .spx-product__atelier-badge { display:inline-flex; align-items:center; min-height:0; height:auto; margin-left:13px; padding:3px 8px; border:1px solid #95a5a6; border-radius:2px; background:linear-gradient(135deg,#dce4e8,#fff,#bdc3c7,#fff,#dce4e8); color:#000; box-shadow:0 0 5px rgba(189,195,199,.5); font-size:9px; font-weight:800; letter-spacing:.45px; line-height:1; white-space:nowrap; cursor:pointer; transition:filter .2s ease,transform .2s ease; }
-.spx-product__atelier-badge:hover { filter:brightness(1.05); transform:translateY(-1px); }
+.spx-product .spx-product__atelier-badge { display:inline-flex; align-items:center; min-height:0; height:auto; margin-left:13px; padding:3px 8px; border:1px solid #95a5a6; border-radius:2px; background:linear-gradient(135deg,#dce4e8,#fff,#bdc3c7,#fff,#dce4e8); color:#000; box-shadow:0 0 5px rgba(189,195,199,.5); font-size:9px; font-weight:800; letter-spacing:.45px; line-height:1; white-space:nowrap; cursor:pointer; transition:filter .2s ease; }
+.spx-product .spx-product__atelier-badge:hover { filter:brightness(1.05); }
 .spx-product__atelier-badge svg { width:10px; height:10px; margin-left:4px; stroke:currentColor; stroke-linecap:round; stroke-linejoin:round; stroke-width:2.5; }
 .spx-product__price { margin:0; font-size:28px; font-weight:800; line-height:1.1; }
 .spx-product__shipping { margin:8px 0 30px; color:#666; font-size:13px; font-weight:700; }
