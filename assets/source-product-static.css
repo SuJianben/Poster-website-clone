@@ -19,7 +19,7 @@
 .spx-product__thumb-control svg { width:18px; height:18px; fill:none; stroke:currentColor; stroke-linecap:round; stroke-linejoin:round; stroke-width:1.75; }
 .spx-product__thumb-rail:hover .spx-product__thumb-control:not(:disabled) { opacity:1; }
 .spx-product__thumb-rail:hover .spx-product__thumb-control:not(:disabled) { transform:translateX(0); }
-.spx-product__thumb-control:disabled { pointer-events:none; }
+.spx-product__thumb-control:disabled { pointer-events:none; opacity:0 !important; }
 .spx-product__thumb-control--up { top:8px; }
 .spx-product__thumb-control--down { bottom:8px; }
 .spx-product__main-image { position:relative; width:725.55px; max-width:100%; aspect-ratio:1; overflow:hidden; background:transparent; box-shadow:none; }
