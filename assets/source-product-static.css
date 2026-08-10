@@ -16,12 +16,12 @@
 .spx-product__thumb-window { height:726px; overflow:hidden; }
 .spx-product__thumbs { transition:transform .28s ease; }
 .spx-product__thumb-control { position:absolute; left:17px; z-index:2; display:grid; width:50px; height:50px; place-items:center; overflow:hidden; border:0; border-radius:50%; background:#fff; color:#000; box-shadow:0 6px 16px rgba(0,0,0,.4); opacity:0; transform:translateX(-25px); transition:opacity .3s,transform .3s,color .3s; }
-.spx-product__thumb-control::before,.spx-product__zoom-button::before,.spx-product__viewer-control::before { position:absolute; top:-1px; bottom:-1px; left:-1px; width:0; border-radius:50%; background:#000; content:""; transition:width .4s; }
+.spx-product__thumb-control::before,.spx-product__viewer-control::before { position:absolute; inset:0; width:100%; height:100%; border-radius:inherit; background:#000; content:""; transform:scaleX(0); transform-origin:left center; transition:transform .4s cubic-bezier(.3,1,.3,1); }
 .spx-product__thumb-control svg { position:relative; z-index:1; width:18px; height:18px; fill:none; stroke:currentColor; stroke-linecap:round; stroke-linejoin:round; stroke-width:1.75; }
 .spx-product__thumb-rail:hover .spx-product__thumb-control:not(:disabled) { opacity:1; }
 .spx-product__thumb-rail:hover .spx-product__thumb-control:not(:disabled) { transform:translateX(0); }
 .spx-product__thumb-control:not(:disabled):hover { color:#fff; }
-.spx-product__thumb-control:not(:disabled):hover::before { width:100%; }
+.spx-product__thumb-control:not(:disabled):hover::before { transform:scaleX(1); }
 .spx-product__thumb-control:disabled { pointer-events:none; opacity:0 !important; }
 .spx-product__thumb-control--up { top:8px; }
 .spx-product__thumb-control--down { bottom:8px; }
@@ -35,7 +35,7 @@
 .spx-product__viewer-control { position:absolute; top:50%; z-index:2; display:grid; width:48px; height:48px; place-items:center; overflow:hidden; padding:0; border:0; border-radius:50%; background:#fff; color:#000; box-shadow:0 4px 10px rgba(0,0,0,.12); opacity:0; transition:.3s; }
 .spx-product__viewer-control svg { position:relative; z-index:1; width:20px; height:20px; fill:none; stroke:currentColor; stroke-linecap:round; stroke-linejoin:round; stroke-width:1.65; }
 .spx-product__viewer-control:not(.is-disabled):hover { color:#fff; }
-.spx-product__viewer-control:not(.is-disabled):hover::before { width:100%; }
+.spx-product__viewer-control:not(.is-disabled):hover::before { transform:scaleX(1); }
 .spx-product__main-image:hover .spx-product__viewer-control:not(.is-disabled) { opacity:1; }
 .spx-product__viewer-control.is-disabled { cursor:default; pointer-events:none; opacity:0 !important; }
 .spx-product__viewer-control--previous { left:20px; transform:translate(-24px,-50%); }
