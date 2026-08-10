@@ -21,7 +21,7 @@
 .spx-product__thumb-rail:hover .spx-product__thumb-control:not(:disabled) { opacity:1; }
 .spx-product__thumb-rail:hover .spx-product__thumb-control:not(:disabled) { transform:translateX(0); }
 .spx-product__thumb-control:not(:disabled):hover { color:#fff; }
-.spx-product__thumb-control:not(:disabled):hover::before { width:calc(100% + 2px); }
+.spx-product__thumb-control:not(:disabled):hover::before { width:100%; }
 .spx-product__thumb-control:disabled { pointer-events:none; opacity:0 !important; }
 .spx-product__thumb-control--up { top:8px; }
 .spx-product__thumb-control--down { bottom:8px; }
@@ -31,11 +31,11 @@
 .spx-product__zoom-button { position:absolute; top:20px; right:20px; z-index:3; display:grid; width:34px; height:34px; place-items:center; overflow:hidden; padding:0; border:1px solid #e5e5e5; border-radius:50%; background:#fff; color:#000; transition:.2s; }
 .spx-product__zoom-button svg { position:relative; z-index:1; width:17px; height:17px; fill:none; stroke:currentColor; stroke-linecap:round; stroke-width:1.5; }
 .spx-product__zoom-button:hover { color:#fff; }
-.spx-product__zoom-button:hover::before { width:calc(100% + 2px); }
+.spx-product__zoom-button:hover::before { width:100%; }
 .spx-product__viewer-control { position:absolute; top:50%; z-index:2; display:grid; width:48px; height:48px; place-items:center; overflow:hidden; padding:0; border:0; border-radius:50%; background:#fff; color:#000; box-shadow:0 4px 10px rgba(0,0,0,.12); opacity:0; transition:.3s; }
 .spx-product__viewer-control svg { position:relative; z-index:1; width:20px; height:20px; fill:none; stroke:currentColor; stroke-linecap:round; stroke-linejoin:round; stroke-width:1.65; }
 .spx-product__viewer-control:not(.is-disabled):hover { color:#fff; }
-.spx-product__viewer-control:not(.is-disabled):hover::before { width:calc(100% + 2px); }
+.spx-product__viewer-control:not(.is-disabled):hover::before { width:100%; }
 .spx-product__main-image:hover .spx-product__viewer-control:not(.is-disabled) { opacity:1; }
 .spx-product__viewer-control.is-disabled { cursor:default; pointer-events:none; opacity:0 !important; }
 .spx-product__viewer-control--previous { left:20px; transform:translate(-24px,-50%); }
