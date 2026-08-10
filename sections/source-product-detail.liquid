@@ -1,9 +1,6 @@
-{% comment %}
-  Restore the captured source module as the active renderer. The isolated rebuild
-  was visually and behaviorally inferior, so its assets are deliberately not
-  mounted here.
-{% endcomment %}
-{% render 'source-product-save-water-static' %}
+{{ 'source-product-static.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'source-product-static.js' | asset_url }}" defer="defer"></script>
+{% render 'source-product-save-water-core' %}
 
 {% schema %}
 {
