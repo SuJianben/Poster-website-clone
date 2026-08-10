@@ -1,0 +1,37 @@
+{{ 'source-shipping-returns.css' | asset_url | stylesheet_tag }}
+
+<section class="sr-policy" data-sr-policy-section>
+  <div class="sr-policy__inner">
+    <h1 class="sr-policy__title">{{ page.title | default: 'Shipping and Returns Policy' }}</h1>
+
+    <div class="sr-policy__content">
+      <h2>Shipping &amp; Delivery</h2>
+      <ul>
+        <li><strong>Shipping Costs:</strong> Free worldwide shipping on orders over <strong>€49</strong>.</li>
+        <li><strong>Security:</strong> Safe and fast shipping including tracking.</li>
+        <li><strong>Delivery Time:</strong> 2–5 business days worldwide (may vary depending on product size and material).</li>
+      </ul>
+      <p><strong>International Shipping:</strong> Please note that deliveries outside the EU may be subject to customs duties or import taxes. These costs are levied by the destination country and are the responsibility of the recipient.</p>
+
+      <h2>Returns &amp; Exchanges</h2>
+      <p>You can return or exchange your order within <strong>30 days</strong> of receipt.</p>
+      <ul>
+        <li><strong>Notification:</strong> To ensure fast processing, we kindly ask you to notify us of any return or exchange in advance via email at <a href="mailto:service@dotcomcanvas.de">service@dotcomcanvas.de</a> or through our <a href="/pages/contact">contact form</a>.</li>
+        <li><strong>Exchange Policy:</strong> An exchange is only possible within 30 days of receiving the original order. A completed exchange does not extend this period again. Furthermore, exchanges are limited to a maximum of two transactions per order.</li>
+        <li><strong>Return Address:</strong> Please send the goods exclusively to the address stated in the cancellation policy or the address provided by our support team. Shipments to incorrect addresses cannot be processed.</li>
+        <li><strong>Costs:</strong> The direct costs of returning the goods are borne by the buyer.</li>
+        <li><strong>Refund:</strong> Upon receipt and inspection of the return, we will refund the purchase amount to your original payment method.</li>
+        <li><strong>Important:</strong> Returns that arrive without any means of identification (for example, a missing delivery note or sender details) can only be processed once the sender is clearly identified. This will result in significant delays.</li>
+        <li><strong>Exclusions:</strong> Personalized products that have been custom-made for you are excluded from exchange and refund.</li>
+      </ul>
+      <p>You can find further details in our <a href="/policies/refund-policy">Cancellation Policy</a> and our <a href="/policies/terms-of-service">Terms of Service</a>.</p>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Source shipping returns",
+  "settings": []
+}
+{% endschema %}
