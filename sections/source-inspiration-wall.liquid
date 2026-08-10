@@ -1,0 +1,42 @@
+{{ 'source-inspiration-wall.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'source-inspiration-wall.js' | asset_url }}" defer="defer"></script>
+
+{% liquid
+  assign fallback_images = 'https://cdn.stamped.io/uploads/instagram/228253_17982961991632197_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_17983635983465494_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_18027296926740370_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_18409242106058899_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_17849629965132991_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_17887485995917154_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_17985448340402894_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_17985703427386591_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_17996421116240631_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_18215387413283079_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_17918667689842490_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_18077767885439204_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_18032030818741035_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_18305893477131358_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_17969030990652784_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_17982301946406867_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_17928248822715182_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_17981617157405940_high.jpg?tr=h-500'
+  assign fallback_images = fallback_images | split: '|'
+%}
+
+<section class="inspiration-wall" data-inspiration-wall>
+  <header class="inspiration-wall__heading">
+    <h1>{{ section.settings.heading }}</h1>
+    <a class="inspiration-wall__instagram" href="{{ section.settings.instagram_url | default: 'https://www.instagram.com/dotcomcanvas/' }}" target="_blank" rel="noopener" aria-label="Follow DOTCOMCANVAS on Instagram">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.8" r="1"></circle></svg>
+    </a>
+  </header>
+
+  <div class="inspiration-wall__grid" data-inspiration-grid>
+    {% for image in fallback_images %}
+      <a class="inspiration-wall__tile{% if forloop.index > 12 %} is-hidden{% endif %}" href="{{ section.settings.instagram_url | default: 'https://www.instagram.com/dotcomcanvas/' }}" target="_blank" rel="noopener" data-inspiration-tile>
+        <img src="{{ image }}" alt="{{ section.settings.image_alt }} {{ forloop.index }}" loading="{% if forloop.index < 7 %}eager{% else %}lazy{% endif %}" width="500" height="500">
+        <span>SHOP THE LOOK</span>
+      </a>
+    {% endfor %}
+  </div>
+
+  <div class="inspiration-wall__more-wrap">
+    <button class="inspiration-wall__more" type="button" data-inspiration-more>{{ section.settings.load_more_label }}</button>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Inspiration image wall",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Shop the Look" },
+    { "type": "text", "id": "image_alt", "label": "Image alt prefix", "default": "DOTCOMCANVAS interior inspiration" },
+    { "type": "text", "id": "load_more_label", "label": "Load more label", "default": "Load More" },
+    { "type": "url", "id": "instagram_url", "label": "Instagram URL" }
+  ],
+  "presets": [{ "name": "Inspiration image wall" }]
+}
+{% endschema %}
