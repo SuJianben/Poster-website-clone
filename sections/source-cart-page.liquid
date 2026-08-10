@@ -1,0 +1,74 @@
+{{ 'source-cart-page.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'source-cart-page.js' | asset_url }}" defer="defer"></script>
+
+<section class="scp-cart" data-scp-cart data-cart-count="{{ cart.item_count }}">
+  <div class="scp-cart__wrap">
+    <nav class="scp-cart__crumbs" aria-label="Breadcrumb">
+      <a href="{{ routes.root_url }}">Home</a><span>/</span><span>Your Shopping Cart</span>
+    </nav>
+    <header class="scp-cart__heading">
+      <h1>Your cart <span>({{ cart.item_count }})</span></h1>
+      <p>Free shipping on orders over €49</p>
+    </header>
+
+    <div class="scp-cart__layout">
+      <div class="scp-cart__items" data-scp-items>
+        {% if cart.item_count == 0 %}
+          <div class="scp-cart__empty" data-scp-empty>
+            <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M9 12h5l4 21h20l5-15H16"/><circle cx="20" cy="39" r="2"/><circle cx="36" cy="39" r="2"/></svg>
+            <h2>Your cart is currently empty.</h2>
+            <a href="{{ routes.all_products_collection_url }}" class="scp-cart__shop">Continue shopping <span>→</span></a>
+          </div>
+        {% else %}
+          <div class="scp-cart__table-head"><span>Product</span><span>Quantity</span><span>Total</span></div>
+          {% for item in cart.items %}
+            <article class="scp-cart__item" data-scp-item data-price-cents="{{ item.final_price }}" data-quantity="{{ item.quantity }}">
+              <a class="scp-cart__image" href="{{ item.url }}">
+                {% if item.image %}{{ item.image | image_url: width: 360 | image_tag: loading: 'lazy', widths: '180, 360', alt: item.title }}{% endif %}
+              </a>
+              <div class="scp-cart__product">
+                <a href="{{ item.url }}">{{ item.product.title }}</a>
+                {% unless item.product.has_only_default_variant %}<small>{{ item.variant.title }}</small>{% endunless %}
+                <strong>{{ item.final_price | money }}</strong>
+                <button type="button" data-scp-remove aria-label="Remove {{ item.title }}">Remove</button>
+              </div>
+              <div class="scp-cart__quantity" aria-label="Quantity selector">
+                <button type="button" data-scp-quantity="-1" aria-label="Decrease quantity">−</button><output data-scp-quantity-value>{{ item.quantity }}</output><button type="button" data-scp-quantity="1" aria-label="Increase quantity">+</button>
+              </div>
+              <strong class="scp-cart__line-total" data-scp-total>{{ item.final_line_price | money }}</strong>
+            </article>
+          {% endfor %}
+        {% endif %}
+      </div>
+
+      <aside class="scp-cart__summary" data-scp-summary>
+        <div class="scp-cart__goal" data-scp-goal>
+          <div><span>Free shipping</span><strong data-scp-goal-text>{% if cart.total_price >= 4900 %}You are eligible for free shipping!{% else %}Spend {{ 4900 | minus: cart.total_price | money }} more to reach free shipping!{% endif %}</strong></div>
+          <span class="scp-cart__progress"><i data-scp-progress style="width:{% if cart.total_price >= 4900 %}100{% else %}{{ cart.total_price | times: 100 | divided_by: 4900 }}{% endif %}%"></i></span>
+        </div>
+        <div class="scp-cart__discount">
+          <label for="scp-discount">Discount code</label>
+          <div><input id="scp-discount" type="text" placeholder="Enter discount code" data-scp-discount-input><button type="button" data-scp-discount>Apply</button></div>
+          <p data-scp-discount-message aria-live="polite"></p>
+        </div>
+        <div class="scp-cart__subtotal"><span>Subtotal</span><strong data-scp-subtotal>{{ cart.total_price | money }}</strong></div>
+        <p class="scp-cart__tax">Tax included. Shipping and discounts calculated at checkout.</p>
+        <button type="button" class="scp-cart__checkout" data-scp-checkout>SECURE CHECKOUT <span>→</span></button>
+        <p class="scp-cart__secure">♢ Order without risk - 100% money-back guarantee</p>
+      </aside>
+    </div>
+
+    <section class="scp-cart__offers" aria-labelledby="scp-offers-title">
+      <p>Save now with these exclusive offers</p><h2 id="scp-offers-title">Special offers <span>(3)</span></h2>
+      <div class="scp-cart__offer-grid">
+        <a href="{{ routes.root_url }}"><b>-10%</b><span>discount for newsletter signup</span><em>To Register →</em></a>
+        <a href="{{ routes.all_products_collection_url }}"><b>-20%</b><span>discount on new releases</span><em>New offers every week →</em></a>
+        <a href="{{ routes.all_products_collection_url }}"><b>-25%</b><span>discount on bundles</span><em>New bundles regularly →</em></a>
+      </div>
+    </section>
+  </div>
+</section>
+
+{% schema %}
+{"name":"Source cart page","settings":[]}
+{% endschema %}
