@@ -43,26 +43,12 @@
           "type": "price",
           "settings": { "use_product_price": false, "price_text": "$29.00", "shipping_text": "Free Shipping." }
         },
-        "material_picker": {
-          "type": "material_picker",
-          "settings": { "label": "Material", "option_1": "Poster", "option_2": "Canvas", "option_3": "Acrylic Glass" }
-        },
-        "size_picker": {
-          "type": "size_picker",
+        "variant_picker": {
+          "type": "variant_picker",
           "settings": {
-            "label": "Sizes",
-            "guide_label": "SIZE GUIDE",
-            "popular_label": "MOST POPULAR",
-            "size_1_cm": "A4 (30 X 21 CM)",
-            "size_1_in": "12\" × 8\"",
-            "size_2_cm": "40 X 30 CM",
-            "size_2_in": "16\" × 12\"",
-            "size_3_cm": "76 X 51 CM",
-            "size_3_in": "30\" × 20\"",
-            "size_4_cm": "102 X 76 CM",
-            "size_4_in": "40\" × 30\"",
-            "size_5_cm": "119 X 81 CM",
-            "size_5_in": "47\" × 32\""
+            "picker_type": "button",
+            "show_size_guide": true,
+            "size_guide_label": "SIZE GUIDE"
           }
         },
         "buy_button": {
@@ -99,8 +85,7 @@
         "title",
         "artist",
         "price",
-        "material_picker",
-        "size_picker",
+        "variant_picker",
         "buy_button",
         "volume_discount",
         "benefits",

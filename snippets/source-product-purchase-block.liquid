@@ -41,40 +41,45 @@
       <p class="spx-product__shipping">{{ block.settings.shipping_text }}</p>
     </div>
 
-  {% when 'material_picker' %}
-    <div class="spx-product__option-group" data-analytics-block-type="material_picker" {{ block.shopify_attributes }}>
-      <p><strong>{{ block.settings.label }}:</strong> <span data-spx-material>{{ block.settings.option_1 }}</span></p>
-      <div class="spx-product__option-row" role="group" aria-label="{{ block.settings.label }}">
-        <button type="button" class="is-selected" data-spx-option="material" data-spx-value="{{ block.settings.option_1 | escape }}">{{ block.settings.option_1 }}</button>
-        <button type="button" data-spx-option="material" data-spx-value="{{ block.settings.option_2 | escape }}">{{ block.settings.option_2 }}</button>
-        <button type="button" data-spx-option="material" data-spx-value="{{ block.settings.option_3 | escape }}">{{ block.settings.option_3 }}</button>
+  {% when 'variant_picker' %}
+    {% unless product.has_only_default_variant %}
+      <div class="spx-product__variant-picker" data-spx-variant-picker data-analytics-block-type="variant_picker" {{ block.shopify_attributes }}>
+        {% for option in product.options_with_values %}
+          {% assign option_name_downcase = option.name | downcase %}
+          {% assign is_size_option = false %}
+          {% if option_name_downcase contains 'size' or option_name_downcase contains 'größe' %}{% assign is_size_option = true %}{% endif %}
+          <div class="spx-product__option-group{% if is_size_option %} spx-product__size-group{% endif %}" data-spx-variant-option data-option-index="{{ option.position | minus: 1 }}">
+            <p>
+              <strong>{{ option.name }}:</strong>
+              <span data-spx-option-output>{{ option.selected_value }}</span>
+              {% if is_size_option and block.settings.show_size_guide %}
+                <span class="spx-product__size-tools">
+                  <button type="button" data-spx-size-guide aria-haspopup="dialog">
+                    <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 6v4m4-4v4m4-4v4m4-4v4"/></svg>
+                    <span>{{ block.settings.size_guide_label }}</span>
+                  </button>
+                </span>
+              {% endif %}
+            </p>
+            {% if block.settings.picker_type == 'dropdown' %}
+              <select data-spx-variant-select aria-label="{{ option.name | escape }}">
+                {% for value in option.values %}
+                  <option value="{{ value | escape }}"{% if value == option.selected_value %} selected{% endif %}{% unless value.available %} disabled{% endunless %}>{{ value }}</option>
+                {% endfor %}
+              </select>
+            {% else %}
+              <div class="{% if is_size_option %}spx-product__option-grid{% else %}spx-product__option-row{% endif %}" role="group" aria-label="{{ option.name | escape }}">
+                {% for value in option.values %}
+                  <button type="button"{% if value == option.selected_value %} class="is-selected"{% endif %} data-spx-variant-value data-option-value="{{ value | escape }}" aria-pressed="{% if value == option.selected_value %}true{% else %}false{% endif %}"{% unless value.available %} disabled{% endunless %}>{{ value }}</button>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" data-spx-variant-id>
+        <script type="application/json" data-spx-variant-data>{{ product.variants | json }}</script>
       </div>
-    </div>
-
-  {% when 'size_picker' %}
-    <div class="spx-product__option-group spx-product__size-group" data-analytics-block-type="size_picker" {{ block.shopify_attributes }}>
-      <p>
-        <strong>{{ block.settings.label }}:</strong>
-        <span data-spx-size>{{ block.settings.size_1_cm }}</span>
-        <span class="spx-product__size-tools">
-          <button type="button" data-spx-size-guide aria-haspopup="dialog">
-            <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 6v4m4-4v4m4-4v4m4-4v4"/></svg>
-            <span>{{ block.settings.guide_label }}</span>
-          </button>
-          <span class="spx-product__unit-toggle">
-            <button type="button" class="is-selected" data-spx-unit="cm">CM</button>
-            <button type="button" data-spx-unit="in">IN</button>
-          </span>
-        </span>
-      </p>
-      <div class="spx-product__option-grid" role="group" aria-label="{{ block.settings.label }}">
-        <button type="button" class="is-selected" data-spx-option="size" data-spx-size-cm="{{ block.settings.size_1_cm | escape }}" data-spx-size-in="{{ block.settings.size_1_in | escape }}"><span data-spx-size-label>{{ block.settings.size_1_in }}</span></button>
-        <button type="button" data-spx-option="size" data-spx-size-cm="{{ block.settings.size_2_cm | escape }}" data-spx-size-in="{{ block.settings.size_2_in | escape }}"><span data-spx-size-label>{{ block.settings.size_2_in }}</span></button>
-        <button type="button" data-spx-option="size" data-spx-size-cm="{{ block.settings.size_3_cm | escape }}" data-spx-size-in="{{ block.settings.size_3_in | escape }}"><span data-spx-size-label>{{ block.settings.size_3_in }}</span></button>
-        <button type="button" data-spx-option="size" data-spx-size-cm="{{ block.settings.size_4_cm | escape }}" data-spx-size-in="{{ block.settings.size_4_in | escape }}"><span data-spx-size-label>{{ block.settings.size_4_in }}</span><span class="spx-product__popular">{{ block.settings.popular_label }}</span></button>
-        <button type="button" data-spx-option="size" data-spx-size-cm="{{ block.settings.size_5_cm | escape }}" data-spx-size-in="{{ block.settings.size_5_in | escape }}"><span data-spx-size-label>{{ block.settings.size_5_in }}</span></button>
-      </div>
-    </div>
+    {% endunless %}
 
   {% when 'buy_button' %}
     <button class="spx-product__cart-button" type="button" data-spx-cart-button data-analytics-event="static_product_add_to_cart" data-analytics-block-type="buy_button" {{ block.shopify_attributes }}>

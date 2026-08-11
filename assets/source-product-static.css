@@ -117,6 +117,8 @@
 .spx-product__option-row, .spx-product__option-grid { display:flex; flex-wrap:wrap; gap:10px; }
 .spx-product__option-row button, .spx-product__option-grid button { min-height:42px; padding:8px 14px; border:1px solid #c9c9c9; border-radius:0; background:#fff; color:#333; font-size:14px; font-weight:700; cursor:pointer; }
 .spx-product__option-row button.is-selected, .spx-product__option-grid button.is-selected { border:2px solid #111; color:#111; padding:7px 13px; }
+.spx-product__option-row button:disabled, .spx-product__option-grid button:disabled { border-color:#ddd; color:#aaa; cursor:not-allowed; opacity:.55; text-decoration:line-through; }
+.spx-product__option-group select { width:100%; min-height:42px; padding:8px 36px 8px 12px; border:1px solid #c9c9c9; border-radius:0; background:#fff; color:#111; font:700 14px/1.2 Arial,sans-serif; }
 .spx-product__option-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px 5px; }
 .spx-product__option-grid button { width:100%; padding-inline:4px; }
 .spx-product__option-grid button.is-selected { padding-inline:3px; }

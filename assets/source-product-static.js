@@ -110,32 +110,67 @@
   syncViewerControls();
   requestAnimationFrame(syncThumbControls);
 
-  let selectedUnit = 'cm';
-  const renderSizeLabels = () => {
-    product.querySelectorAll('[data-spx-option="size"]').forEach((option) => {
-      const label = option.querySelector('[data-spx-size-label]');
-      if (label) label.textContent = option.dataset[`spxSize${selectedUnit === 'cm' ? 'Cm' : 'In'}`];
-    });
-    const selected = product.querySelector('[data-spx-option="size"].is-selected');
-    const output = product.querySelector('[data-spx-size]');
-    if (selected && output) output.textContent = selected.dataset[`spxSize${selectedUnit === 'cm' ? 'Cm' : 'In'}`];
-  };
+  const variantPicker = product.querySelector('[data-spx-variant-picker]');
+  if (variantPicker) {
+    const variantData = variantPicker.querySelector('[data-spx-variant-data]');
+    const variantIdInput = variantPicker.querySelector('[data-spx-variant-id]');
+    const optionGroups = [...variantPicker.querySelectorAll('[data-spx-variant-option]')];
+    let variants = [];
 
-  product.querySelectorAll('[data-spx-option]').forEach((option) => {
-    option.addEventListener('click', () => {
-      const group = option.dataset.spxOption;
-      product.querySelectorAll(`[data-spx-option="${group}"]`).forEach((item) => item.classList.toggle('is-selected', item === option));
-      const output = product.querySelector(group === 'material' ? '[data-spx-material]' : '[data-spx-size]');
-      if (output) output.textContent = group === 'size' ? option.dataset[`spxSize${selectedUnit === 'cm' ? 'Cm' : 'In'}`] : option.dataset.spxValue;
-    });
-  });
+    try {
+      variants = JSON.parse(variantData?.textContent || '[]');
+    } catch (error) {
+      console.warn('Unable to read product variant data.', error);
+    }
 
-  product.querySelectorAll('[data-spx-unit]').forEach((button) => button.addEventListener('click', () => {
-    selectedUnit = button.dataset.spxUnit;
-    product.querySelectorAll('[data-spx-unit]').forEach((item) => item.classList.toggle('is-selected', item === button));
-    renderSizeLabels();
-  }));
-  renderSizeLabels();
+    const optionValuesForVariant = (variant) => variant.options || [variant.option1, variant.option2, variant.option3].filter(Boolean);
+    const selectedValues = optionGroups.map((group) => group.querySelector('[data-spx-option-output]')?.textContent.trim() || '');
+
+    const syncVariantState = () => {
+      const selectedVariant = variants.find((variant) => optionValuesForVariant(variant).every((value, index) => value === selectedValues[index]));
+      if (selectedVariant && variantIdInput) variantIdInput.value = selectedVariant.id;
+
+      optionGroups.forEach((group, optionIndex) => {
+        group.querySelectorAll('[data-spx-variant-value]').forEach((control) => {
+          const candidate = [...selectedValues];
+          candidate[optionIndex] = control.dataset.optionValue;
+          const available = variants.some((variant) => {
+            if (!variant.available) return false;
+            const values = optionValuesForVariant(variant);
+            return values.every((value, index) => index === optionIndex ? value === candidate[index] : value === selectedValues[index]);
+          });
+          control.disabled = !available;
+        });
+      });
+
+      product.dispatchEvent(new CustomEvent('spx:variant-change', {
+        bubbles: true,
+        detail: { variant: selectedVariant || null, options: [...selectedValues] }
+      }));
+    };
+
+    optionGroups.forEach((group, optionIndex) => {
+      const output = group.querySelector('[data-spx-option-output]');
+      group.querySelectorAll('[data-spx-variant-value]').forEach((control) => control.addEventListener('click', () => {
+        selectedValues[optionIndex] = control.dataset.optionValue;
+        group.querySelectorAll('[data-spx-variant-value]').forEach((item) => {
+          const selected = item === control;
+          item.classList.toggle('is-selected', selected);
+          item.setAttribute('aria-pressed', String(selected));
+        });
+        if (output) output.textContent = selectedValues[optionIndex];
+        syncVariantState();
+      }));
+
+      group.querySelector('[data-spx-variant-select]')?.addEventListener('change', (event) => {
+        selectedValues[optionIndex] = event.currentTarget.value;
+        if (output) output.textContent = selectedValues[optionIndex];
+        syncVariantState();
+      });
+    });
+
+    syncVariantState();
+  }
 
   const sizeGuide = product.querySelector('[data-spx-size-guide-dialog]');
   product.querySelector('[data-spx-size-guide]')?.addEventListener('click', () => sizeGuide?.showModal());

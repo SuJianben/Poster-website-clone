@@ -67,34 +67,22 @@
       ]
     },
     {
-      "type": "material_picker",
-      "name": "Material picker",
+      "type": "variant_picker",
+      "name": "Variant picker",
       "limit": 1,
       "settings": [
-        { "type": "text", "id": "label", "label": "Label", "default": "Material" },
-        { "type": "text", "id": "option_1", "label": "Option 1", "default": "Poster" },
-        { "type": "text", "id": "option_2", "label": "Option 2", "default": "Canvas" },
-        { "type": "text", "id": "option_3", "label": "Option 3", "default": "Acrylic Glass" }
-      ]
-    },
-    {
-      "type": "size_picker",
-      "name": "Size picker",
-      "limit": 1,
-      "settings": [
-        { "type": "text", "id": "label", "label": "Label", "default": "Sizes" },
-        { "type": "text", "id": "guide_label", "label": "Guide button", "default": "SIZE GUIDE" },
-        { "type": "text", "id": "popular_label", "label": "Popular badge", "default": "MOST POPULAR" },
-        { "type": "text", "id": "size_1_cm", "label": "Size 1 CM", "default": "A4 (30 X 21 CM)" },
-        { "type": "text", "id": "size_1_in", "label": "Size 1 IN", "default": "12\" × 8\"" },
-        { "type": "text", "id": "size_2_cm", "label": "Size 2 CM", "default": "40 X 30 CM" },
-        { "type": "text", "id": "size_2_in", "label": "Size 2 IN", "default": "16\" × 12\"" },
-        { "type": "text", "id": "size_3_cm", "label": "Size 3 CM", "default": "76 X 51 CM" },
-        { "type": "text", "id": "size_3_in", "label": "Size 3 IN", "default": "30\" × 20\"" },
-        { "type": "text", "id": "size_4_cm", "label": "Size 4 CM", "default": "102 X 76 CM" },
-        { "type": "text", "id": "size_4_in", "label": "Size 4 IN", "default": "40\" × 30\"" },
-        { "type": "text", "id": "size_5_cm", "label": "Size 5 CM", "default": "119 X 81 CM" },
-        { "type": "text", "id": "size_5_in", "label": "Size 5 IN", "default": "47\" × 32\"" }
+        {
+          "type": "select",
+          "id": "picker_type",
+          "label": "Picker type",
+          "options": [
+            { "value": "button", "label": "Buttons" },
+            { "value": "dropdown", "label": "Dropdown" }
+          ],
+          "default": "button"
+        },
+        { "type": "checkbox", "id": "show_size_guide", "label": "Show size guide for size options", "default": true },
+        { "type": "text", "id": "size_guide_label", "label": "Size guide label", "default": "SIZE GUIDE" }
       ]
     },
     {
@@ -144,8 +132,7 @@
         { "type": "title" },
         { "type": "artist" },
         { "type": "price" },
-        { "type": "material_picker" },
-        { "type": "size_picker" },
+        { "type": "variant_picker" },
         { "type": "buy_button" },
         { "type": "volume_discount" },
         { "type": "benefits" },
