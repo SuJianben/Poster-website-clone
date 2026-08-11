@@ -29,3 +29,18 @@
 .sprv .sprv__filter-menu{top:35px;width:170px;border-color:#ccd6e0;border-radius:3px;font:400 11px/13.75px Arial,sans-serif}
 @media(max-width:520px){.sprv .sprv__filter>button{width:170px;min-width:170px}}
 @media(min-width:901px){.sprv .sprv__cards{margin-top:0}}
+
+/* Source-matched desktop pagination and review CTA spacing. */
+@media(min-width:901px){
+  .sprv .sprv__pagination{height:23.625px;margin:50px 0 26px;gap:0;align-items:center;overflow:visible}
+  .sprv .sprv__pagination button{width:auto;min-width:0;height:23.625px;padding:0 10px;border:0;border-radius:0;background:transparent;font:700 15px/23.625px "Open Sans",Verdana,sans-serif}
+  .sprv .sprv__pagination button:first-child{margin-right:10px}
+  .sprv .sprv__pagination button:last-child{margin-left:10px}
+  .sprv .sprv__pagination button.is-active{text-decoration:underline;text-underline-offset:auto}
+  .sprv .sprv__write{padding:0 0 28px}
+  .sprv .sprv__write h3{margin:0 0 12px;font:700 28px/38px Helvetica,Arial,sans-serif}
+  .sprv .sprv__write p{margin:0 0 20px;color:#666;font:700 14px/22.05px Helvetica,Arial,sans-serif}
+  .sprv .sprv__write-button{width:185.859375px;min-width:185.859375px;height:44px;padding:0 32px;gap:4px;border-radius:10px;font:700 14px/30px Helvetica,Arial,sans-serif}
+}
+.sprv .sprv__write-icon{display:inline-block;width:14px;height:14px;font-size:0;flex:0 0 14px}
+.sprv .sprv__write-icon::before{content:"";position:absolute;top:3px;left:2px;width:7px;height:7px;border-top:1.5px solid currentColor;border-right:1.5px solid currentColor;transform:rotate(45deg)}
