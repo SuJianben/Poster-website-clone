@@ -407,7 +407,8 @@
   }
 
   .spf-tabs__component {
-    width: calc(100% + 13.203125px);
+    width: max(100%, 1443.203125px);
+    min-width: 1443.203125px;
   }
 
   .spf-tabs__header {
