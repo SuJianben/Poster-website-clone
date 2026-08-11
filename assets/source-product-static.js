@@ -188,24 +188,6 @@
   product.querySelector('[data-spx-close-size-guide]')?.addEventListener('click', () => sizeGuide?.close());
   sizeGuide?.addEventListener('click', (event) => { if (event.target === sizeGuide) sizeGuide.close(); });
 
-  const cartButton = product.querySelector('[data-spx-cart-button]');
-  const cartLabel = product.querySelector('[data-spx-cart-label]');
-  cartButton?.addEventListener('click', () => {
-    if (cartButton.disabled) return;
-    cartButton.disabled = true;
-    cartButton.classList.add('is-loading');
-    window.setTimeout(() => {
-      cartButton.classList.remove('is-loading');
-      cartButton.classList.add('is-success');
-      cartLabel.textContent = 'Added to Cart';
-      window.setTimeout(() => {
-        cartButton.disabled = false;
-        cartButton.classList.remove('is-success');
-        cartLabel.textContent = 'Add To Cart';
-      }, 1350);
-    }, 460);
-  });
-
   const accordions = [...product.querySelectorAll('[data-spx-accordion]')];
   const accordionMotionDuration = 520;
 

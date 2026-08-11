@@ -88,10 +88,15 @@
     {% endunless %}
 
   {% when 'buy_button' %}
-    <button class="spx-product__cart-button" type="button" data-spx-cart-button data-analytics-event="static_product_add_to_cart" data-analytics-block-type="buy_button" {{ block.shopify_attributes }}>
-      <span class="spx-product__cart-label" data-spx-cart-label>{{ block.settings.label }}</span>
-      <span class="spx-product__cart-spinner" aria-hidden="true"><svg viewBox="0 0 66 66" focusable="false"><circle cx="33" cy="33" r="30"></circle></svg></span>
-    </button>
+    <form class="spx-product__cart-form" method="post" action="{{ routes.cart_add_url }}" data-spx-cart-form data-analytics-block-type="buy_button" {{ block.shopify_attributes }}>
+      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" data-spx-cart-variant-id>
+      <input type="hidden" name="quantity" value="1">
+      <button class="spx-product__cart-button" type="submit" data-spx-cart-button data-analytics-event="product_add_to_cart"{% unless product.selected_or_first_available_variant.available %} disabled{% endunless %}>
+        <span class="spx-product__cart-label" data-spx-cart-label>{{ block.settings.label }}</span>
+        <span class="spx-product__cart-spinner" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="12" r="9"></circle></svg></span>
+      </button>
+      <p class="spx-product__cart-error" role="alert" data-spx-cart-error hidden></p>
+    </form>
 
   {% when 'volume_discount' %}
     <section class="spx-product__sale" aria-label="Quantity discount promotion" data-analytics-block-type="volume_discount" {{ block.shopify_attributes }}>

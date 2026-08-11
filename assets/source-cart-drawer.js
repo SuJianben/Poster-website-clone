@@ -101,6 +101,7 @@
     constructor() {
       super();
       this.onCartUpdate = this.onCartUpdate.bind(this);
+      this.onProductAdded = this.onProductAdded.bind(this);
       this.onDrawerClick = this.onDrawerClick.bind(this);
       this.onQuantityChange = this.onQuantityChange.bind(this);
     }
@@ -109,6 +110,7 @@
       super.connectedCallback();
       this.addEventListener('click', this.onDrawerClick);
       this.addEventListener('change', this.onQuantityChange);
+      document.addEventListener('spx:cart-added', this.onProductAdded);
       this.unsubscribe = window.FoxTheme?.pubsub?.subscribe(
         FoxTheme.pubsub.PUB_SUB_EVENTS.cartUpdate,
         this.onCartUpdate
@@ -119,6 +121,7 @@
       super.disconnectedCallback();
       this.removeEventListener('click', this.onDrawerClick);
       this.removeEventListener('change', this.onQuantityChange);
+      document.removeEventListener('spx:cart-added', this.onProductAdded);
       this.unsubscribe?.();
     }
 
@@ -143,6 +146,13 @@
 
     onCartUpdate(event) {
       if (event?.cart && !event.cart.errors) this.renderCart(event.cart);
+    }
+
+    onProductAdded(event) {
+      const { cart, source } = event.detail || {};
+      if (!cart || cart.errors) return;
+      this.renderCart(cart);
+      this.show(source || null);
     }
 
     async changeLine(line, quantity) {
