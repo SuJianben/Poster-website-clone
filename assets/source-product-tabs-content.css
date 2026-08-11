@@ -189,11 +189,11 @@
 .spf-tabs__spacer {
   display: block !important;
   width: 100%;
-  height: 44px;
+  height: 24px;
 }
 
 .spf-tabs__spacer--small {
-  height: 24px;
+  height: 14px;
 }
 
 .spf-tabs__price-chart {
