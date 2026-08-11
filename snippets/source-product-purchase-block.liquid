@@ -88,7 +88,7 @@
     {% endunless %}
 
   {% when 'buy_button' %}
-    <form class="spx-product__cart-form" method="post" action="{{ routes.cart_add_url }}" data-spx-cart-form data-analytics-block-type="buy_button" {{ block.shopify_attributes }}>
+    <form class="spx-product__cart-form" method="post" action="{{ routes.cart_add_url }}" data-spx-cart-form data-spx-cart-add-url="{{ routes.cart_add_url }}.js" data-spx-cart-url="{{ routes.cart_url }}.js" data-analytics-block-type="buy_button" {{ block.shopify_attributes }}>
       <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" data-spx-cart-variant-id>
       <input type="hidden" name="quantity" value="1">
       <button class="spx-product__cart-button" type="submit" data-spx-cart-button data-analytics-event="product_add_to_cart"{% unless product.selected_or_first_available_variant.available %} disabled{% endunless %}>
