@@ -64,7 +64,10 @@
       <div class="sprv__write">
         <h3>{{ section.settings.write_heading }}</h3>
         <p>We would appreciate feedback via the <a href="{{ section.settings.contact_url }}">contact form</a><br>or look forward to an official review after placing an order!</p>
-        <a class="sprv__write-button" href="{{ section.settings.contact_url }}" data-sprv-write>Write A Review <span aria-hidden="true">›</span></a>
+        <a class="sprv__write-button" href="{{ section.settings.contact_url }}" data-sprv-write>
+          <span class="sprv__write-label">Write A Review</span>
+          <span class="sprv__write-icon" aria-hidden="true">›</span>
+        </a>
       </div>
     </div>
   </div>
