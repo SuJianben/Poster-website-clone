@@ -1,0 +1,78 @@
+{%- liquid
+  case index
+    when 1
+      assign image_urls = 'https://cdn.stamped.io/tr:w-700:/uploads/photos/228253_8264592785674_bbcf5af6_6d4e_4392_8109_868d996fa81e.jpg?|https://cdn.stamped.io/tr:w-700:/uploads/photos/228253_8264592785674_85af7e91_7171_4fd5_81c6_e48557cb06fc.jpg?|https://cdn.stamped.io/tr:w-700:/uploads/photos/228253_8264592785674_6b62d13f_3bca_4491_b59f_9dd2d48a635a.jpg?' | split: '|'
+      assign review_date = '16/06/2026'
+      assign detail_rows = 'Was hast du bestellt?::Acrylglasbild, Blattgoldbild|Wie alt bist du?::60|Was machst du beruflich?::Entrepreneur|Wo hängt das Wandbild?::Livingroom, kitchen, toilet' | split: '|'
+      assign review_title = '7 beautiful acrylglas work in my home'
+      assign review_body = 'I have ordered paintings over the years and i am very proud of the acrykglas work. They are my home decorations items. I have accumulated 7 of them over the year. Guests who visit my home are interested in them because acrylclas work are immediately noticeable.'
+      assign product_name = 'Shit Happens - Acrylglas - 40 X 40 CM / Ohne Rahmen'
+      assign author = 'Tapio V.'
+      assign country = 'Finland'
+      assign helpful = '0'
+    when 2
+      assign image_urls = 'https://cdn.stamped.io/tr:w-700:/uploads/photos/228253_1_5c56274c_ee94_4dda_bee4_d0986a746823.jpg?' | split: '|'
+      assign review_date = '07/06/2026'
+      assign detail_rows = 'Bestellung::Acrylglasbild|Alter::52|Beruf::Carpenter|Anwendung::Will be the living room' | split: '|'
+      assign review_title = 'Awesome company'
+      assign review_body = 'Yesterday I received my 6th piece of artwork from dotcomcanvas. And once again dotcomcanvas done a outstanding job the colours and attention to detail are top quality and definitely the best company out there selling this type of product. Also dotcomcanvas selection is much better than all the others companies out there trying to do what dotcomcanvas does but not quite as good in my opinion. Customer service is fantastic shipping and delivery is fast and reliable. This delivery did take a bit longer not dotcomcanvas fault. I made a mistake with my delivery address so when it arrived in the uk Customs sent it back to Germany. Contacted dotcomcanvas and they sorted out the problem in no time fantastic. If your looking for something to stand out in your home something you don’t see all the time then you need to check this company out. I just want to say a big thanks to everyone at dotcomcanvas you do a fantastic job. Can’t wait to hang my new artwork in the next few days.'
+      assign product_name = ''
+      assign author = 'James C.'
+      assign country = ''
+      assign helpful = '0'
+    when 3
+      assign image_urls = 'https://cdn.stamped.io/tr:w-700:/uploads/photos/228253_8202634854666_e52e860b_9db8_4f3c_8a81_0cd68bfa9de8.jpg?' | split: '|'
+      assign review_date = '06/06/2026'
+      assign detail_rows = 'Was hast du bestellt?::Acrylglasbild' | split: '|'
+      assign review_title = '5/5'
+      assign review_body = 'Tilaaminen todella helppoa ja tuote tuli noin viikossa perille. Taulut vaikuttaa korkea laatuiselta. Tätä tukee myös +100 takuu. Ehdottomasti tilaan uudelleen.'
+      assign product_name = 'Queen Card - Acrylglas'
+      assign author = 'Tomi K.'
+      assign country = 'Finland'
+      assign helpful = '1'
+    else
+      assign image_urls = 'https://cdn.stamped.io/tr:w-700:/uploads/photos/228253_10484023623946_f6621af5_7a5c_4871_8105_f5465414762a_r1780202711687.jpg?v=1780202711' | split: '|'
+      assign review_date = '29/05/2026'
+      assign detail_rows = 'Was hast du bestellt?::Leinwandbild|Wie alt bist du?::24|Was machst du beruflich?::Sales|Wo hängt das Wandbild?::Living Room' | split: '|'
+      assign review_title = 'Bild'
+      assign review_body = 'Hat alles super geklappt, Qualität ist gut und Lieferung war schnell.'
+      assign product_name = 'Old Money Duck'
+      assign author = 'Daniel S.'
+      assign country = 'Switzerland'
+      assign helpful = '2'
+  endcase
+-%}
+
+<article class="sprv-card" data-sprv-review-card data-has-photo="true">
+  <div class="sprv-card__media{% if image_urls.size > 1 %} sprv-card__media--stack{% endif %}">
+    {%- for image_url in image_urls -%}
+      <button type="button" data-sprv-photo="{{ image_url }}" aria-label="Open review photo {{ forloop.index }}">
+        <img src="{{ image_url }}" alt="Save Water customer review" width="700" height="525" loading="lazy">
+      </button>
+    {%- endfor -%}
+  </div>
+  <div class="sprv-card__content">
+    <div class="sprv-card__meta"><span class="sprv__stars">★★★★★</span><time>{{ review_date }}</time></div>
+    <dl class="sprv-card__details">
+      {%- for row in detail_rows -%}
+        {%- assign columns = row | split: '::' -%}
+        <div><dt>{{ columns[0] }}</dt><dd>{{ columns[1] }}</dd></div>
+      {%- endfor -%}
+    </dl>
+    <div class="sprv-card__meters">
+      {%- assign meter_labels = 'Wie bewertest du die Druckqualität?|Wie bewertest du die Verarbeitung?|Wie bewertest du das Preis-Leistungs-Verhältnis?' | split: '|' -%}
+      {%- for label in meter_labels -%}
+        <div><strong>{{ label }}</strong><span class="sprv-card__meter"><i></i><i></i><i></i><i></i><i></i></span><small><b>Schlecht</b><b>Perfekt</b></small></div>
+      {%- endfor -%}
+    </div>
+    <h3>{{ review_title }}</h3>
+    <p class="sprv-card__body">{{ review_body }}</p>
+    {%- if product_name != blank -%}<p class="sprv-card__product">{{ product_name }}</p>{%- endif -%}
+    <p class="sprv-card__author"><strong>{{ author }}</strong>{% if index != 2 %} <span>Verified Buyer</span>{% endif %}</p>
+    {%- if country != blank -%}<p class="sprv-card__country">⚑ {{ country }}</p>{%- endif -%}
+    <div class="sprv-card__helpful">Was this helpful?
+      <button type="button" data-sprv-helpful="up" aria-label="Helpful">♥ <span>{{ helpful }}</span></button>
+      <button type="button" data-sprv-helpful="down" aria-label="Not helpful">♡ <span>0</span></button>
+    </div>
+  </div>
+</article>
