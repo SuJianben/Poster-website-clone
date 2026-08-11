@@ -36,8 +36,8 @@
   {% when 'price' %}
     {% assign panel_price = block.settings.price_text %}
     {% if block.settings.use_product_price and product != blank %}{% assign panel_price = product.selected_or_first_available_variant.price | money %}{% endif %}
-    <div data-analytics-block-type="price" {{ block.shopify_attributes }}>
-      <p class="spx-product__price">{{ panel_price }}</p>
+    <div data-analytics-block-type="price"{% if block.settings.use_product_price %} data-spx-dynamic-price{% endif %} {{ block.shopify_attributes }}>
+      <p class="spx-product__price" data-spx-price-output>{{ panel_price }}</p>
       <p class="spx-product__shipping">{{ block.settings.shipping_text }}</p>
     </div>
 

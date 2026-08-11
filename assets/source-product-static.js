@@ -130,6 +130,15 @@
       const selectedVariant = variants.find((variant) => optionValuesForVariant(variant).every((value, index) => value === selectedValues[index]));
       if (selectedVariant && variantIdInput) variantIdInput.value = selectedVariant.id;
 
+      const dynamicPrice = product.querySelector('[data-spx-dynamic-price] [data-spx-price-output]');
+      if (selectedVariant && dynamicPrice) {
+        const currency = window.Shopify?.currency?.active || 'EUR';
+        dynamicPrice.textContent = new Intl.NumberFormat(document.documentElement.lang || 'en', {
+          style: 'currency',
+          currency
+        }).format(selectedVariant.price / 100);
+      }
+
       optionGroups.forEach((group, optionIndex) => {
         group.querySelectorAll('[data-spx-variant-value]').forEach((control) => {
           const candidate = [...selectedValues];
