@@ -13,8 +13,8 @@
 @media(prefers-reduced-motion:reduce){.sprv .sprv__write-button,.sprv .sprv__write-button::before,.sprv .sprv__write-icon{transition:none}}
 
 /* Review navigation mirrors the source Stamped widget: tab and filter occupy separate rows. */
-.sprv .sprv__toolbar{display:block;height:94px;align-items:initial;border-bottom:1px solid #e0e0e0}
-.sprv .sprv__tab-row{position:relative;height:45px}
+.sprv .sprv__toolbar{display:block;height:94px;align-items:initial;border-bottom:0}
+.sprv .sprv__tab-row{position:relative;height:45px;border-bottom:1px solid #eee}
 .sprv .sprv__tab{display:inline-flex;width:126.71875px;height:44px;margin:0 15px 0 0;padding:6px 10px 10px;align-items:center;border-bottom:3px solid #000;font:700 14px/22.05px "Open Sans",Arial,sans-serif;white-space:nowrap}
 .sprv .sprv__tab span{margin-left:15px;padding:0 5px;background:#f8f9fa;font:inherit}
 .sprv .sprv__filter-row{position:relative;height:49px}
