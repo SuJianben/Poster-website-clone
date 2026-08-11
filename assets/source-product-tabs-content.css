@@ -379,12 +379,16 @@
 
   .spf-tabs__artist-media {
     width: 50%;
+    flex: 0 0 50%;
   }
 
   .spf-tabs__artist-copy {
     display: flex;
+    width: 50%;
+    flex: 0 0 50%;
     flex-direction: column;
     justify-content: center;
+    padding-left: 100px;
   }
 
   .spf-tabs__materials {
