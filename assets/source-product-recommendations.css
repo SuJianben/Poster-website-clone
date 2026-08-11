@@ -330,6 +330,8 @@
     overflow-x: auto;
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
+    scroll-padding-inline: 16px;
+    scroll-behavior: smooth;
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
   }
