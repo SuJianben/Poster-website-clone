@@ -1,0 +1,78 @@
+{%- liquid
+  assign card_product = block.settings.product
+  assign card_title = block.settings.fallback_title
+  assign card_material = block.settings.fallback_material
+  assign card_price = block.settings.fallback_price
+  assign card_url = block.settings.fallback_url
+  assign card_image = block.settings.fallback_image_url
+  assign card_hover_image = block.settings.fallback_hover_image_url
+
+  if card_product != blank
+    assign card_title = card_product.title
+    assign card_material = card_product.type
+    assign card_url = card_product.url
+    assign card_image = card_product.featured_image | image_url: width: 900
+    if card_product.images.size > 1
+      assign card_hover_image = card_product.images[1] | image_url: width: 900
+    endif
+    capture card_price
+      if card_product.price_varies
+        echo 'From '
+      endif
+      echo card_product.price_min | money
+    endcapture
+  endif
+-%}
+
+<article
+  class="spr-recs__card"
+  data-spr-recommendation-card
+  data-product-title="{{ card_title | escape }}"
+  data-product-position="{{ position }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="spr-recs__media">
+    <a class="spr-recs__media-link" href="{{ card_url }}" aria-label="{{ card_title | escape }}">
+      <img
+        class="spr-recs__image spr-recs__image--main"
+        src="{{ card_image }}"
+        alt="{{ card_title | escape }}"
+        width="900"
+        height="900"
+        loading="lazy"
+      >
+      {%- if card_hover_image != blank -%}
+        <img
+          class="spr-recs__image spr-recs__image--hover"
+          src="{{ card_hover_image }}"
+          alt=""
+          width="900"
+          height="900"
+          loading="lazy"
+          aria-hidden="true"
+        >
+      {%- endif -%}
+    </a>
+
+    {%- if block.settings.badge != blank -%}
+      <span class="spr-recs__trend">{{ block.settings.badge }}</span>
+    {%- endif -%}
+  </div>
+
+  <div class="spr-recs__info">
+    {%- if block.settings.edition_badge != blank -%}
+      <span class="spr-recs__edition">
+        {{ block.settings.edition_badge }}
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m9 18 6-6-6-6"></path>
+        </svg>
+      </span>
+    {%- endif -%}
+
+    <h3 class="spr-recs__title">
+      <a href="{{ card_url }}">{{ card_title }}</a>
+    </h3>
+    <p class="spr-recs__material">{{ card_material }}</p>
+    <p class="spr-recs__price">{{ card_price }}</p>
+  </div>
+</article>

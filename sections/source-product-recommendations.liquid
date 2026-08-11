@@ -1,0 +1,123 @@
+{{ 'source-product-recommendations.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'source-product-recommendations.js' | asset_url }}" defer="defer"></script>
+
+<section
+  class="spr-recs"
+  data-spr-recommendations
+  data-section-id="{{ section.id }}"
+  aria-labelledby="spr-recs-heading-{{ section.id }}"
+>
+  <div class="spr-recs__divider" aria-hidden="true"></div>
+
+  <div class="spr-recs__inner">
+    <h2 id="spr-recs-heading-{{ section.id }}" class="spr-recs__heading" data-spr-heading>
+      {{ section.settings.heading }}
+    </h2>
+
+    <div class="spr-recs__slider">
+      <div class="spr-recs__viewport" data-spr-viewport tabindex="0" aria-label="{{ section.settings.heading | escape }}">
+        <div class="spr-recs__track" data-spr-track>
+          {%- for block in section.blocks -%}
+            <div class="spr-recs__slide" data-spr-slide>
+              {% render 'source-product-recommendation-card', block: block, position: forloop.index %}
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+
+      <div class="spr-recs__controls" aria-label="Recommendation controls">
+        <div class="spr-recs__progress" aria-hidden="true">
+          <span class="spr-recs__progress-fill" data-spr-progress></span>
+        </div>
+
+        <button class="spr-recs__arrow spr-recs__arrow--prev" type="button" data-spr-prev aria-label="Previous products">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 16.25 6.25 10l6.25-6.25"></path></svg>
+        </button>
+        <button class="spr-recs__arrow spr-recs__arrow--next" type="button" data-spr-next aria-label="Next products">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 3.75 13.75 10 7.5 16.25"></path></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Source recommendations",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Recommendations for you"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product_card",
+      "name": "Product card",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Store product"
+        },
+        {
+          "type": "text",
+          "id": "fallback_title",
+          "label": "Fallback title"
+        },
+        {
+          "type": "text",
+          "id": "fallback_material",
+          "label": "Fallback material"
+        },
+        {
+          "type": "text",
+          "id": "fallback_price",
+          "label": "Fallback price"
+        },
+        {
+          "type": "url",
+          "id": "fallback_url",
+          "label": "Fallback product link"
+        },
+        {
+          "type": "text",
+          "id": "fallback_image_url",
+          "label": "Fallback image URL"
+        },
+        {
+          "type": "text",
+          "id": "fallback_hover_image_url",
+          "label": "Fallback hover image URL"
+        },
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "Top badge"
+        },
+        {
+          "type": "text",
+          "id": "edition_badge",
+          "label": "Edition badge",
+          "default": "ATELIER EXCLUSIVE"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Source recommendations",
+      "blocks": [
+        { "type": "product_card" },
+        { "type": "product_card" },
+        { "type": "product_card" },
+        { "type": "product_card" },
+        { "type": "product_card" }
+      ]
+    }
+  ]
+}
+{% endschema %}
