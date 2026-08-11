@@ -1,0 +1,7 @@
+<aside class="spx-product__panel" aria-label="Product purchase options" data-spx-purchase-panel>
+  <div class="spx-product__panel-content">
+    {% for block in section.blocks %}
+      {% render 'source-product-purchase-block', block: block, product: product %}
+    {% endfor %}
+  </div>
+</aside>

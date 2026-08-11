@@ -1,0 +1,112 @@
+{% case block.type %}
+  {% when 'top_badge' %}
+    <span class="spx-product__trend-badge" data-analytics-block-type="top_badge" {{ block.shopify_attributes }}>{{ block.settings.text }}</span>
+
+  {% when 'brand_banner' %}
+    <div class="spx-product__brands" data-analytics-block-type="brand_banner" {{ block.shopify_attributes }}>
+      <img src="{{ 'source-bauhaus-logo.png' | asset_url }}" alt="Bauhaus" width="82" height="16">
+      <span>,</span>
+      <img src="{{ 'source-xxxlutz-logo.png' | asset_url }}" alt="XXXLutz" width="54" height="13">
+      <span>{{ block.settings.text }}</span>
+    </div>
+
+  {% when 'reviews' %}
+    <p class="spx-product__reviews" aria-label="{{ block.settings.count }} verified reviews" data-analytics-block-type="reviews" {{ block.shopify_attributes }}>
+      <span aria-hidden="true">★★★★★</span> {{ block.settings.count }} {{ block.settings.label }}
+    </p>
+
+  {% when 'title' %}
+    {% assign panel_title = block.settings.heading %}
+    {% if block.settings.use_product_title and product != blank %}{% assign panel_title = product.title %}{% endif %}
+    <h1 data-analytics-block-type="title" {{ block.shopify_attributes }}>{{ panel_title }}</h1>
+
+  {% when 'artist' %}
+    {% assign artist_name = block.settings.name %}
+    {% if block.settings.use_product_vendor and product.vendor != blank %}{% assign artist_name = product.vendor %}{% endif %}
+    <p class="spx-product__artist" data-analytics-block-type="artist" {{ block.shopify_attributes }}>
+      {{ block.settings.label }} <a href="{{ block.settings.url }}">{{ artist_name }}</a>
+      {% if block.settings.show_atelier_badge %}
+        <button class="spx-product__atelier-badge" type="button" data-spx-atelier aria-label="Learn about {{ block.settings.atelier_text }}">
+          {{ block.settings.atelier_text }}
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+      {% endif %}
+    </p>
+
+  {% when 'price' %}
+    {% assign panel_price = block.settings.price_text %}
+    {% if block.settings.use_product_price and product != blank %}{% assign panel_price = product.selected_or_first_available_variant.price | money %}{% endif %}
+    <div data-analytics-block-type="price" {{ block.shopify_attributes }}>
+      <p class="spx-product__price">{{ panel_price }}</p>
+      <p class="spx-product__shipping">{{ block.settings.shipping_text }}</p>
+    </div>
+
+  {% when 'material_picker' %}
+    <div class="spx-product__option-group" data-analytics-block-type="material_picker" {{ block.shopify_attributes }}>
+      <p><strong>{{ block.settings.label }}:</strong> <span data-spx-material>{{ block.settings.option_1 }}</span></p>
+      <div class="spx-product__option-row" role="group" aria-label="{{ block.settings.label }}">
+        <button type="button" class="is-selected" data-spx-option="material" data-spx-value="{{ block.settings.option_1 | escape }}">{{ block.settings.option_1 }}</button>
+        <button type="button" data-spx-option="material" data-spx-value="{{ block.settings.option_2 | escape }}">{{ block.settings.option_2 }}</button>
+        <button type="button" data-spx-option="material" data-spx-value="{{ block.settings.option_3 | escape }}">{{ block.settings.option_3 }}</button>
+      </div>
+    </div>
+
+  {% when 'size_picker' %}
+    <div class="spx-product__option-group spx-product__size-group" data-analytics-block-type="size_picker" {{ block.shopify_attributes }}>
+      <p>
+        <strong>{{ block.settings.label }}:</strong>
+        <span data-spx-size>{{ block.settings.size_1_cm }}</span>
+        <span class="spx-product__size-tools">
+          <button type="button" data-spx-size-guide aria-haspopup="dialog">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 6v4m4-4v4m4-4v4m4-4v4"/></svg>
+            <span>{{ block.settings.guide_label }}</span>
+          </button>
+          <span class="spx-product__unit-toggle">
+            <button type="button" class="is-selected" data-spx-unit="cm">CM</button>
+            <button type="button" data-spx-unit="in">IN</button>
+          </span>
+        </span>
+      </p>
+      <div class="spx-product__option-grid" role="group" aria-label="{{ block.settings.label }}">
+        <button type="button" class="is-selected" data-spx-option="size" data-spx-size-cm="{{ block.settings.size_1_cm | escape }}" data-spx-size-in="{{ block.settings.size_1_in | escape }}"><span data-spx-size-label>{{ block.settings.size_1_in }}</span></button>
+        <button type="button" data-spx-option="size" data-spx-size-cm="{{ block.settings.size_2_cm | escape }}" data-spx-size-in="{{ block.settings.size_2_in | escape }}"><span data-spx-size-label>{{ block.settings.size_2_in }}</span></button>
+        <button type="button" data-spx-option="size" data-spx-size-cm="{{ block.settings.size_3_cm | escape }}" data-spx-size-in="{{ block.settings.size_3_in | escape }}"><span data-spx-size-label>{{ block.settings.size_3_in }}</span></button>
+        <button type="button" data-spx-option="size" data-spx-size-cm="{{ block.settings.size_4_cm | escape }}" data-spx-size-in="{{ block.settings.size_4_in | escape }}"><span data-spx-size-label>{{ block.settings.size_4_in }}</span><span class="spx-product__popular">{{ block.settings.popular_label }}</span></button>
+        <button type="button" data-spx-option="size" data-spx-size-cm="{{ block.settings.size_5_cm | escape }}" data-spx-size-in="{{ block.settings.size_5_in | escape }}"><span data-spx-size-label>{{ block.settings.size_5_in }}</span></button>
+      </div>
+    </div>
+
+  {% when 'buy_button' %}
+    <button class="spx-product__cart-button" type="button" data-spx-cart-button data-analytics-event="static_product_add_to_cart" data-analytics-block-type="buy_button" {{ block.shopify_attributes }}>
+      <span class="spx-product__cart-label" data-spx-cart-label>{{ block.settings.label }}</span>
+      <span class="spx-product__cart-spinner" aria-hidden="true"><svg viewBox="0 0 66 66" focusable="false"><circle cx="33" cy="33" r="30"></circle></svg></span>
+    </button>
+
+  {% when 'volume_discount' %}
+    <section class="spx-product__sale" aria-label="Quantity discount promotion" data-analytics-block-type="volume_discount" {{ block.shopify_attributes }}>
+      <p class="spx-product__sale-title">{{ block.settings.heading }}</p>
+      <p>{{ block.settings.note }}</p>
+      <div class="spx-product__discount-table" role="table" aria-label="Quantity discounts">
+        <div class="spx-product__discount-row spx-product__discount-row--head" role="row"><span role="columnheader">Buy quantity</span><span role="columnheader">Discount</span></div>
+        <div class="spx-product__discount-row" role="row"><span role="cell">Buy 1</span><span role="cell">Get 5% off</span></div>
+        <div class="spx-product__discount-row" role="row"><span role="cell">Buy 2</span><span role="cell">Get 10% off</span></div>
+        <div class="spx-product__discount-row" role="row"><span role="cell">Buy 3</span><span role="cell">Get 15% off</span></div>
+        <div class="spx-product__discount-row" role="row"><span role="cell">Buy 4</span><span role="cell">Get 20% off</span></div>
+        <div class="spx-product__discount-row" role="row"><span role="cell">Buy 5+</span><span role="cell">Get 25% off</span></div>
+      </div>
+    </section>
+
+  {% when 'benefits' %}
+    <ul class="spx-product__benefits" data-analytics-block-type="benefits" {{ block.shopify_attributes }}>
+      <li><span class="spx-product__benefit-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg></span>{{ block.settings.benefit_1 }}</li>
+      <li><span class="spx-product__benefit-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg></span>{{ block.settings.benefit_2 }}</li>
+      <li class="is-highlight"><span class="spx-product__benefit-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>{{ block.settings.benefit_3 }}</li>
+    </ul>
+
+  {% when 'payment_trust' %}
+    <div data-analytics-block-type="payment_trust" {{ block.shopify_attributes }}>
+      <div class="spx-product__payment-title"><span></span>{{ block.settings.heading }}<span></span></div>
+      <div class="spx-product__payment-methods" aria-label="Accepted payment methods"><span class="is-amex">AMEX</span><span>Pay</span><span class="is-blik">blik</span><span>G Pay</span><span class="is-maestro">●●</span><span class="is-mastercard">●●</span><span class="is-paypal">P</span><span class="is-visa">VISA</span><span class="is-klarna">Klarna.</span></div>
+      <p class="spx-product__payment-note"><svg aria-hidden="true" viewBox="0 0 20 20"><path d="M10 2.5 15.5 4v4.4c0 3.5-2.35 6.7-5.5 8.1-3.15-1.4-5.5-4.6-5.5-8.1V4L10 2.5Z"/></svg>{{ block.settings.note }}</p>
+    </div>
+{% endcase %}
