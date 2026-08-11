@@ -3,3 +3,4 @@
 @media(max-width:520px){.sprv__cards{grid-template-columns:1fr}.sprv__score strong{font-size:24px}.sprv__stars{font-size:14px}.sprv__ratings{font-size:10px}.sprv__filter>button{min-width:108px}.sprv-card__body{font-size:12px}.sprv__write p br{display:none}}
 @media(prefers-reduced-motion:reduce){.sprv__cards{transition:none}}
 .sprv .sprv-card__media button{height:auto!important;min-height:0!important;line-height:0;overflow:hidden}
+.sprv{font-size:14px;line-height:1.575}
