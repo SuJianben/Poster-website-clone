@@ -1,0 +1,181 @@
+{{ 'source-product-tabs-content.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'source-product-tabs-content.js' | asset_url }}" defer="defer"></script>
+
+<section class="spf-tabs" data-spf-tabs data-section-id="{{ section.id }}">
+  <div class="spf-tabs__component">
+    <div class="spf-tabs__header">
+      <div class="spf-tabs__nav-wrap">
+        <div class="spf-tabs__nav" role="tablist" aria-label="Product information">
+          {% assign tab_labels = 'Description|Fair Pricing|Artist Information|Material & Workmanship|Shipping and Returns|Security' | split: '|' %}
+          {% for label in tab_labels %}
+            {% assign tab_index = forloop.index0 %}
+            <button
+              class="spf-tabs__tab"
+              type="button"
+              role="tab"
+              id="spf-tab-{{ section.id }}-{{ tab_index }}"
+              aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+              aria-controls="spf-panel-{{ section.id }}-{{ tab_index }}"
+              tabindex="{% if forloop.first %}0{% else %}-1{% endif %}"
+              data-spf-tab="{{ tab_index }}"
+              data-analytics-event="product_information_tab"
+              data-analytics-label="{{ label | handleize }}"
+            >
+              <span>{{ label }}</span>
+            </button>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <div class="spf-tabs__panels">
+      <div class="spf-tabs__panel spf-tabs__rte" id="spf-panel-{{ section.id }}-0" role="tabpanel" aria-labelledby="spf-tab-{{ section.id }}-0" tabindex="0" data-spf-panel="0">
+        <h2>Canvas print</h2>
+        <p>DOTCOMCANVAS® Premium Duck Pop Art Comic Canvas Print Save Water Drink Champagne Motif with Premium Frame.</p>
+
+        <p><strong>➤ About the artwork</strong></p>
+        <ul>
+          <li><strong>Title:</strong> Save Water</li>
+          <li><strong>Release date:</strong> 2023</li>
+          <li><strong>Artist:</strong> Sabrina Seck</li>
+        </ul>
+
+        <p><strong>➤ Scope of delivery and assembly</strong></p>
+        <ul>
+          <li><strong>Ready to hang immediately:</strong> DOTCOMCANVAS® wall art is ready to hang.</li>
+          <li><strong>Securely packaged:</strong> The product will be securely packaged for fast and safe shipping.</li>
+        </ul>
+
+        <p><strong>➤ Money-back guarantee</strong></p>
+        <ul>
+          <li><strong>30-day return policy:</strong> Order without risk! Don't like it or have a complaint? Our friendly customer service team is here to help.</li>
+          <li><strong>100+ year guarantee:</strong> On every DOTCOMCANVAS® product, you receive a 100+ year product warranty.</li>
+        </ul>
+
+        <p><strong>➤ Quality</strong></p>
+        <ul>
+          <li><strong>Handmade in Germany:</strong> Each product is carefully handcrafted and stretched onto a 2cm stretcher frame in our German factory.</li>
+          <li><strong>UV-resistant:</strong> For permanently protected colors.</li>
+          <li><strong>Sustainable:</strong> Ecological printing process, odorless and FSC-certified real wood frame.</li>
+          <li><strong>More details:</strong> Razor-sharp details and lifelike colors.</li>
+        </ul>
+
+        <p><strong>Order risk-free with a 30-day return policy and a 100+ year product warranty. We look forward to your order and happy shopping!</strong></p>
+        <p>Best regards<br>DOTCOM CANVAS® Team</p>
+        <img class="spf-tabs__signature" src="https://cdn.shopify.com/s/files/1/0572/1256/7761/files/Final_4_Schwarz-1_883685f7-1054-45e6-a499-da670725efa5_160x160.png?v=1631784025" alt="DotComCanvas signature" width="160" height="160" loading="lazy">
+      </div>
+
+      <div class="spf-tabs__panel" id="spf-panel-{{ section.id }}-1" role="tabpanel" aria-labelledby="spf-tab-{{ section.id }}-1" tabindex="0" data-spf-panel="1" hidden>
+        <div class="spf-tabs__price-chart">
+          <div class="spf-tabs__price-bars" aria-label="Price comparison">
+            <div class="spf-tabs__price-column">
+              <strong class="spf-tabs__price-label">$1,000</strong>
+              <div class="spf-tabs__price-bar spf-tabs__price-bar--gallery">Traditional<br>Gallery</div>
+            </div>
+            <div class="spf-tabs__price-column">
+              <strong class="spf-tabs__price-label">$94</strong>
+              <div class="spf-tabs__price-bar spf-tabs__price-bar--dcc">
+                <img src="https://dotcomcanvas.de/cdn/shop/files/DCC-weiss-2_logo.png?v=14357811059166890315" alt="DOTCOMCANVAS®" width="1000" height="1000" loading="lazy">
+              </div>
+            </div>
+          </div>
+          <div class="spf-tabs__price-copy">
+            <h4>Fair Pricing</h4>
+            <p>The DOTCOMCANVAS® concept makes artworks by renowned artists accessible to you as canvas and acrylic glass prints in maximum quality &amp; exclusivity. The world's top artists usually sell their works for 10 to 100 times as much.</p>
+            <ul>
+              <li><span aria-hidden="true">✓</span> DOTCOMCANVAS® licenses the art directly from the artist.</li>
+              <li><span aria-hidden="true">✓</span> With every sale, the artist receives a portion of the purchase price.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="spf-tabs__panel" id="spf-panel-{{ section.id }}-2" role="tabpanel" aria-labelledby="spf-tab-{{ section.id }}-2" tabindex="0" data-spf-panel="2" hidden>
+        <div class="spf-tabs__artist">
+          <div class="spf-tabs__artist-media">
+            {% if section.settings.artist_image != blank %}
+              {{ section.settings.artist_image | image_url: width: 1900 | image_tag: widths: '375, 550, 750, 1100, 1500, 1856', sizes: '(min-width: 768px) 50vw, calc(100vw - 32px)', loading: 'lazy' }}
+            {% else %}
+              <img src="https://dotcomcanvas.de/cdn/shop/files/Sabrina_Seck_Profile.jpg?v=1774633175&width=1856" alt="Sabrina Seck" width="1856" height="2304" loading="lazy">
+            {% endif %}
+          </div>
+          <div class="spf-tabs__artist-copy spf-tabs__rte">
+            <h2>Sabrina Seck</h2>
+            <p>The abstract artworks impress not only with their remarkable size but also through their balanced proportions, vivid eyes, and fine details that captivate the observer. These expressive pieces reflect my passion for form and color. They also represent the connection between the abstract and the concrete that I have been searching for all these years. Over the past few years, a multitude of diverse artworks have been created, which are now offered by internationally renowned galleries.</p>
+            <p>Meanwhile, I have built a strong network within the art scene and am regularly present at exhibitions and art fairs. In addition to my personal website and various social media channels, my artworks are also offered by prestigious art galleries.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="spf-tabs__panel spf-tabs__rte" id="spf-panel-{{ section.id }}-3" role="tabpanel" aria-labelledby="spf-tab-{{ section.id }}-3" tabindex="0" data-spf-panel="3" hidden>
+        <div class="spf-tabs__materials">
+          <div class="spf-tabs__materials-media">
+            <img src="https://cdn.shopify.com/s/files/1/0601/1253/5810/files/Leinwand_Material_Closeup_Gemini_Generated_Image_u4i6gu4i6gu4i6gu.png?v=1775332508" alt="Canvas material close-up" width="2850" height="1472" loading="lazy">
+            <img class="spf-tabs__materials-secondary" src="https://cdn.shopify.com/s/files/1/0601/1253/5810/files/Material_Leinwand_R_ckseite_Keilrahmen_Closeup_Gemini_Generated_Image_nh3nn2nh3nn2nh3n.png?v=1774535416" alt="Canvas stretcher frame close-up" width="1483" height="1761" loading="lazy">
+          </div>
+          <div class="spf-tabs__materials-copy">
+            <h4><strong>Details about Canvas Prints:</strong></h4>
+            <p>💎 <strong>Crystal Clear Details</strong></p>
+            <ul><li>High-quality cotton blend (400 g/m²)</li><li>Fine canvas texture</li><li>8-color pigment print</li><li>State-of-the-art printing</li></ul>
+            <p>🍃 <strong>Sustainable Materials</strong></p>
+            <ul><li>FSC-certified real wood</li><li>PVC-free canvas</li><li>OEKO-TEX 100 Standard certified</li><li>Solid 2 cm spruce wood stretcher frame</li></ul>
+            <p>🔨 <strong>Ready to Hang</strong></p>
+            <ul><li>No assembly required | ready to hang</li></ul>
+            <p>🇩🇪 <strong>German Manufactory</strong></p>
+            <ul><li>Highest quality standards</li><li>Handcrafted assembly</li></ul>
+            <p>🚛 <strong>Lightning-Fast Delivery</strong></p>
+            <ul><li>Safely packaged & insured</li></ul>
+            <p><strong>If you have any questions, the trained DOTCOMCANVAS® team is always at your disposal:</strong> <a href="https://dotcomcanvas.de/en-us/pages/contact">&gt; <b>Contact us</b> &lt;</a></p>
+            <p><strong>We look forward to your order and hope you enjoy shopping with us.</strong></p>
+            <p>Best regards,<br>DOTCOM CANVAS® Team</p>
+            <img class="spf-tabs__signature" src="https://cdn.shopify.com/s/files/1/0572/1256/7761/files/Final_4_Schwarz-1_883685f7-1054-45e6-a499-da670725efa5_160x160.png?v=1631784025" alt="DotComCanvas signature" width="159" height="62" loading="lazy">
+          </div>
+        </div>
+      </div>
+
+      <div class="spf-tabs__panel spf-tabs__rte" id="spf-panel-{{ section.id }}-4" role="tabpanel" aria-labelledby="spf-tab-{{ section.id }}-4" tabindex="0" data-spf-panel="4" hidden>
+        <h3>Shipping & Delivery</h3>
+        <ul>
+          <li><strong>Shipping Costs:</strong> Free worldwide shipping on orders over <strong>€49</strong>.</li>
+          <li><strong>Security:</strong> Safe and fast shipping including tracking.</li>
+          <li><strong>Delivery Time:</strong> 2–5 business days worldwide (may vary depending on product size and material).</li>
+        </ul>
+        <p><strong>International Shipping:</strong> Please note that deliveries outside the EU may be subject to customs duties or import taxes. These costs are levied by the destination country and are the responsibility of the recipient.</p>
+        <h3>Returns & Exchanges</h3>
+        <p>You can return or exchange your order within <strong>30 days</strong> of receipt.</p>
+        <ul>
+          <li><strong>Notification:</strong> To ensure fast processing, please notify us in advance via email at <a href="mailto:service@dotcomcanvas.de"><strong>service@dotcomcanvas.de</strong></a> or through our <a href="https://dotcomcanvas.de/en-us/pages/contact"><strong>contact form</strong></a>.</li>
+          <li><strong>Exchange Policy:</strong> An exchange is only possible within 30 days of receiving the original order. A completed exchange does not extend this period again. Exchanges are limited to a maximum of two transactions per order.</li>
+          <li><strong>Return Address:</strong> Please send the goods exclusively to the address stated in the cancellation policy or the address provided by our support team.</li>
+          <li><strong>Costs:</strong> The direct costs of returning the goods are borne by the buyer.</li>
+          <li><strong>Refund:</strong> Upon receipt and inspection of the return, we will refund the purchase amount to your original payment method.</li>
+          <li><strong>Important:</strong> Returns without identification can only be processed once the sender is clearly identified.</li>
+          <li><strong>Exclusions:</strong> Personalized products that have been custom-made for you are excluded from exchange and refund.</li>
+        </ul>
+        <p>Further details are available in our <a href="https://dotcomcanvas.de/en-us/policies/refund-policy"><strong>Cancellation Policy</strong></a> and <a href="https://dotcomcanvas.de/en-us/policies/terms-of-service"><strong>Terms of Service</strong></a>.</p>
+      </div>
+
+      <div class="spf-tabs__panel spf-tabs__rte" id="spf-panel-{{ section.id }}-5" role="tabpanel" aria-labelledby="spf-tab-{{ section.id }}-5" tabindex="0" data-spf-panel="5" hidden>
+        <p>The responsible person for the EU is the economic operator established in the EU: DOTCOMCANVAS, owner Tim Schmidt, Palmstraße 17, 09130 Chemnitz, service@dotcomcanvas.de</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Source product tabs",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "artist_image",
+      "label": "Artist image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Source product tabs"
+    }
+  ]
+}
+{% endschema %}

@@ -24,7 +24,11 @@
     "source_known_from": {
       "type": "source-product-known-from",
       "settings": {}
+    },
+    "source_tabs": {
+      "type": "source-product-tabs-content",
+      "settings": {}
     }
   },
-  "order": ["main", "source_benefits", "source_showcase", "source_known_from"]
+  "order": ["main", "source_benefits", "source_showcase", "source_known_from", "source_tabs"]
 }
