@@ -1,6 +1,8 @@
 (() => {
-  const product = document.querySelector('[data-spx-product]');
-  if (!product) return;
+  const initProduct = (scope = document) => {
+  const product = scope.matches?.('[data-spx-product]') ? scope : scope.querySelector('[data-spx-product]');
+  if (!product || product.dataset.spxInitialized === 'true') return;
+  product.dataset.spxInitialized = 'true';
 
   const mainImage = product.querySelector('[data-spx-main-image]');
   const zoom = product.querySelector('[data-spx-zoom]');
@@ -253,4 +255,8 @@
       else openAccordion(accordion);
     });
   });
+  };
+
+  initProduct();
+  document.addEventListener('shopify:section:load', (event) => initProduct(event.target));
 })();
