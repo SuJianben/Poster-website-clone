@@ -4,7 +4,8 @@
 @media(prefers-reduced-motion:reduce){.sprv__cards{transition:none}}
 .sprv .sprv-card{border-radius:5px}
 .sprv .sprv-card__media button{height:auto!important;min-height:0!important;border-radius:0!important;line-height:0;overflow:hidden}
-.sprv .sprv-card__media img{border:1px solid #ccc}
+.sprv .sprv-card__media img{border:1px solid #ccc;transition:border-color .2s}
+.sprv .sprv-card__media button:hover img{border-color:#ffa500}
 .sprv .sprv-card__media--stack button:nth-child(n+2){margin-top:0}
 .sprv{font-size:14px;line-height:1.575}
 .sprv .sprv__write-button{position:relative;isolation:isolate;overflow:hidden;border:1px solid #000;color:#000!important;background:#fff;transition:color .3s ease,background-color .3s ease}
