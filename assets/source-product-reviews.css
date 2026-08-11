@@ -24,3 +24,4 @@
 .sprv .sprv__filter>button>span::before{content:"";width:6px;height:6px;margin-top:-3px;border-right:1px solid #607080;border-bottom:1px solid #607080;transform:rotate(45deg)}
 .sprv .sprv__filter-menu{top:35px;width:170px;border-color:#ccd6e0;border-radius:3px;font:400 11px/13.75px Arial,sans-serif}
 @media(max-width:520px){.sprv .sprv__filter>button{width:170px;min-width:170px}}
+@media(min-width:901px){.sprv .sprv__cards{margin-top:0}}
