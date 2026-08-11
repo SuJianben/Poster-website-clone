@@ -73,6 +73,7 @@
   color: var(--spf-tabs-muted);
   cursor: pointer;
   appearance: none;
+  transition: .2s;
 }
 
 .spf-tabs__tab span {
@@ -95,7 +96,6 @@
   height: 2px;
   background: currentColor;
   content: '';
-  transition: width .3s ease;
 }
 
 .spf-tabs__tab[aria-selected='true'] {
@@ -363,6 +363,10 @@
 }
 
 @media (hover: hover) {
+  .spf-tabs__tab:hover {
+    color: var(--spf-tabs-text);
+  }
+
   .spf-tabs__artist-media:hover img {
     transform: scale(1.03);
   }
