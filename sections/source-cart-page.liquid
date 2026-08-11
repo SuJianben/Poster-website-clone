@@ -10,6 +10,12 @@
       <h1>Your cart <span>({{ cart.item_count }})</span></h1>
       <p>Free shipping on orders over €49</p>
     </header>
+    <section class="scp-cart__tier-bar" aria-label="Volume discount">
+      <div class="scp-cart__tier-copy"><strong>Summer Sale: save more with every print</strong><span data-scp-tier-copy>Choose 1 print to unlock your first discount.</span></div>
+      <ol class="scp-cart__tiers" data-scp-tiers data-item-count="{{ cart.item_count }}">
+        <li data-tier="1"><b>1</b><span>5% off</span></li><li data-tier="2"><b>2</b><span>10% off</span></li><li data-tier="3"><b>3</b><span>15% off</span></li><li data-tier="4"><b>4</b><span>20% off</span></li><li data-tier="5"><b>5+</b><span>25% off</span></li>
+      </ol>
+    </section>
 
     <div class="scp-cart__layout">
       <div class="scp-cart__items" data-scp-items>
@@ -22,7 +28,7 @@
         {% else %}
           <div class="scp-cart__table-head"><span>Product</span><span>Quantity</span><span>Total</span></div>
           {% for item in cart.items %}
-            <article class="scp-cart__item" data-scp-item data-price-cents="{{ item.final_price }}" data-quantity="{{ item.quantity }}">
+            <article class="scp-cart__item" data-scp-item data-line-key="{{ item.key }}" data-quantity="{{ item.quantity }}">
               <a class="scp-cart__image" href="{{ item.url }}">
                 {% if item.image %}{{ item.image | image_url: width: 360 | image_tag: loading: 'lazy', widths: '180, 360', alt: item.title }}{% endif %}
               </a>
@@ -54,6 +60,10 @@
         <div class="scp-cart__subtotal"><span>Subtotal</span><strong data-scp-subtotal>{{ cart.total_price | money }}</strong></div>
         <p class="scp-cart__tax">Tax included. Shipping and discounts calculated at checkout.</p>
         <button type="button" class="scp-cart__checkout" data-scp-checkout>SECURE CHECKOUT <span>→</span></button>
+        <div class="scp-cart__wallets" aria-label="Express checkout options">
+          <button type="button" data-scp-wallet="paypal" aria-label="PayPal express checkout"><b>Pay</b>Pal</button>
+          <button type="button" data-scp-wallet="gpay" aria-label="Google Pay express checkout"><b>G</b> Pay</button>
+        </div>
         <p class="scp-cart__secure">♢ Order without risk - 100% money-back guarantee</p>
       </aside>
     </div>

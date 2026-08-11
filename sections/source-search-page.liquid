@@ -1,0 +1,164 @@
+{{ 'source-collection.css' | asset_url | stylesheet_tag }}
+{{ 'source-search-page.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'source-search-page.js' | asset_url }}" defer="defer"></script>
+
+{% liquid
+  assign has_query = false
+  if search.performed and search.terms != blank
+    assign has_query = true
+  endif
+%}
+
+<section class="sp-search" data-sp-search-section>
+  <div class="sp-search__container">
+    <header class="sp-search__header">
+      <h1 tabindex="-1">
+        {% if has_query %}
+          {{ section.settings.results_heading }}
+        {% else %}
+          {{ section.settings.search_heading }}
+        {% endif %}
+      </h1>
+
+      <form class="sp-search__form" action="{{ routes.search_url }}" method="get" role="search" data-sp-search-form>
+        <input type="hidden" name="type" value="product">
+        <input type="hidden" name="options[prefix]" value="last">
+        <label class="visually-hidden" for="SpSearchInput-{{ section.id }}">{{ section.settings.search_label }}</label>
+        <input
+          id="SpSearchInput-{{ section.id }}"
+          class="sp-search__input"
+          type="search"
+          name="q"
+          value="{{ search.terms | escape }}"
+          placeholder="{{ section.settings.placeholder | escape }}"
+          autocorrect="off"
+          autocomplete="off"
+          autocapitalize="off"
+          spellcheck="false"
+          data-sp-search-input
+        >
+        <button class="sp-search__reset" type="reset" aria-label="{{ section.settings.clear_label }}" data-sp-search-reset>
+          {{ section.settings.clear_label }}
+        </button>
+        <button class="sp-search__submit" type="submit" aria-label="{{ section.settings.search_label }}">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="10.875" cy="10.875" r="7.875"/>
+            <path d="m16.443 16.445 4.557 4.557"/>
+          </svg>
+        </button>
+      </form>
+    </header>
+
+    {% if has_query %}
+      <div class="sp-search__results" data-sp-search-results>
+        <div class="sp-search__toolbar">
+          <div class="sp-search__toolbar-left">
+            {% if search.filters.size > 0 %}
+              <button class="sp-search__filter-button" type="button" aria-expanded="false" aria-controls="SpSearchFacets-{{ section.id }}" data-sp-search-filter-toggle>
+                <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M2.662 4.795h14.676L11.873 10.625v4.582l-3.75 2.187v-6.769L2.662 4.795Z"/></svg>
+                <span>{{ section.settings.filter_label }}</span>
+              </button>
+            {% endif %}
+            <p role="status">{{ search.results_count }} {{ section.settings.results_count_label }}</p>
+          </div>
+
+          <div class="sp-search__toolbar-right">
+            <form class="sp-search__sort" action="{{ routes.search_url }}" method="get" data-sp-search-sort-form>
+              <input type="hidden" name="q" value="{{ search.terms | escape }}">
+              <input type="hidden" name="type" value="product">
+              <input type="hidden" name="options[prefix]" value="last">
+              <label for="SpSearchSort-{{ section.id }}">{{ section.settings.sort_label }}</label>
+              <select id="SpSearchSort-{{ section.id }}" name="sort_by" data-sp-search-sort>
+                {% for option in search.sort_options %}
+                  <option value="{{ option.value }}"{% if option.value == search.sort_by %} selected{% endif %}>{{ option.name }}</option>
+                {% endfor %}
+              </select>
+            </form>
+
+            <div class="sp-search__layout" aria-label="{{ section.settings.view_label }}">
+              <span>{{ section.settings.view_label }}</span>
+              <button type="button" class="is-active" data-sp-search-layout="grid" aria-label="{{ section.settings.grid_label }}" aria-pressed="true">
+                <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="3" y="3" width="5" height="5"/><rect x="12" y="3" width="5" height="5"/><rect x="3" y="12" width="5" height="5"/><rect x="12" y="12" width="5" height="5"/></svg>
+              </button>
+              <button type="button" data-sp-search-layout="list" aria-label="{{ section.settings.list_label }}" aria-pressed="false">
+                <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7.5 5h9.375M7.5 10h9.375M7.5 15h9.375M3.125 5h1.25M3.125 10h1.25M3.125 15h1.25"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="sp-search__body">
+          {% if search.filters.size > 0 %}
+            <aside id="SpSearchFacets-{{ section.id }}" class="sp-search__facets" data-sp-search-facet-panel>
+              <div class="sp-search__facet-heading">
+                <h2>{{ section.settings.filter_label }}</h2>
+                <button type="button" aria-label="{{ section.settings.close_label }}" data-sp-search-filter-close>
+                  <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15"/></svg>
+                </button>
+              </div>
+              {% render 'source-search-facets', search: search, scope: 'search', section: section %}
+            </aside>
+            <button class="sp-search__facet-overlay" type="button" aria-label="{{ section.settings.close_label }}" data-sp-search-filter-close tabindex="-1"></button>
+          {% endif %}
+
+          {% paginate search.results by section.settings.products_per_page %}
+            <div class="sp-search__grid-wrapper">
+              {% if search.results_count > 0 %}
+                <div class="sp-search__grid" data-sp-search-grid data-layout="grid">
+                  {% for item in search.results %}
+                    {% if item.object_type == 'product' %}
+                      {% render 'source-bestsellers-product-card', product: item %}
+                    {% else %}
+                      <article class="sp-search__content-result">
+                        <a href="{{ item.url }}">
+                          {% if item.image != blank %}
+                            {{ item.image | image_url: width: 800 | image_tag: loading: 'lazy', alt: item.title }}
+                          {% endif %}
+                          <h2>{{ item.title }}</h2>
+                          {% if item.content != blank %}<p>{{ item.content | strip_html | truncatewords: 24 }}</p>{% endif %}
+                        </a>
+                      </article>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+                {% if paginate.pages > 1 %}{% render 'source-collection-pagination', paginate: paginate %}{% endif %}
+              {% else %}
+                <div class="sp-search__empty">
+                  <h2>{{ section.settings.no_results_heading }}</h2>
+                  <p>{{ section.settings.no_results_text }}</p>
+                </div>
+              {% endif %}
+            </div>
+          {% endpaginate %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Source search page",
+  "settings": [
+    { "type": "text", "id": "search_heading", "label": "Empty search heading", "default": "Suchen" },
+    { "type": "text", "id": "results_heading", "label": "Results heading", "default": "Suchergebnisse" },
+    { "type": "text", "id": "search_label", "label": "Search label", "default": "Suchen" },
+    { "type": "text", "id": "placeholder", "label": "Search placeholder", "default": "Wonach suchst du?" },
+    { "type": "text", "id": "clear_label", "label": "Clear search label", "default": "Klar" },
+    { "type": "text", "id": "filter_label", "label": "Filter label", "default": "Filter" },
+    { "type": "text", "id": "results_count_label", "label": "Results count label", "default": "Ergebnisse" },
+    { "type": "text", "id": "sort_label", "label": "Sort label", "default": "Sortieren nach:" },
+    { "type": "text", "id": "view_label", "label": "View label", "default": "Anzeigen als:" },
+    { "type": "text", "id": "grid_label", "label": "Grid label", "default": "Als Raster anzeigen" },
+    { "type": "text", "id": "list_label", "label": "List label", "default": "Als Liste anzeigen" },
+    { "type": "text", "id": "close_label", "label": "Close label", "default": "Schließen" },
+    { "type": "text", "id": "apply_filters_label", "label": "Apply filters label", "default": "Anwenden" },
+    { "type": "text", "id": "clear_filters_label", "label": "Clear filters label", "default": "Zurücksetzen" },
+    { "type": "text", "id": "price_from_label", "label": "Minimum price label", "default": "Von" },
+    { "type": "text", "id": "price_to_label", "label": "Maximum price label", "default": "Bis" },
+    { "type": "text", "id": "no_results_heading", "label": "No results heading", "default": "Keine Ergebnisse gefunden" },
+    { "type": "textarea", "id": "no_results_text", "label": "No results text", "default": "Versuche es mit einem anderen Suchbegriff." },
+    { "type": "range", "id": "products_per_page", "label": "Products per page", "min": 8, "max": 48, "step": 4, "default": 24 }
+  ]
+}
+{% endschema %}

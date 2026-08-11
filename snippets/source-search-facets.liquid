@@ -1,0 +1,73 @@
+{% comment %}
+  Search-only facet form. Keeps Shopify search terms and product-only scope
+  while submitting native storefront filter parameters.
+{% endcomment %}
+<form class="sp-search__facet-form" method="get" action="{{ routes.search_url }}" data-sp-search-facets>
+  <input type="hidden" name="q" value="{{ search.terms | escape }}">
+  <input type="hidden" name="type" value="product">
+  <input type="hidden" name="options[prefix]" value="last">
+
+  <div class="sp-search__facet-scroll">
+    {% for filter in search.filters %}
+      {% assign filter_id = 'SpSearchFacet-' | append: scope | append: '-' | append: forloop.index %}
+      <details class="sp-search__facet"{% if filter.active_values.size > 0 %} open{% endif %}>
+        <summary class="sp-search__facet-summary">
+          <span>{{ filter.label }}</span>
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3.125 10h13.75M10 3.125v13.75"/></svg>
+        </summary>
+
+        <div class="sp-search__facet-content">
+          {% case filter.type %}
+            {% when 'boolean', 'list' %}
+              <ul class="sp-search__facet-values" role="list">
+                {% for value in filter.values %}
+                  <li>
+                    <input
+                      id="{{ filter_id }}-{{ forloop.index }}"
+                      type="checkbox"
+                      name="{{ value.param_name }}"
+                      value="{{ value.value }}"
+                      {% if value.active %}checked{% endif %}
+                      {% if value.count == 0 and value.active == false %}disabled{% endif %}
+                    >
+                    <label for="{{ filter_id }}-{{ forloop.index }}">
+                      <span>{{ value.label }}</span>
+                      <span>{{ value.count }}</span>
+                    </label>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% when 'price_range' %}
+              <div class="sp-search__price-range">
+                <label>
+                  <span>{{ section.settings.price_from_label }}</span>
+                  <input
+                    type="number"
+                    name="{{ filter.min_value.param_name }}"
+                    value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
+                    min="0"
+                    placeholder="0"
+                  >
+                </label>
+                <label>
+                  <span>{{ section.settings.price_to_label }}</span>
+                  <input
+                    type="number"
+                    name="{{ filter.max_value.param_name }}"
+                    value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
+                    min="0"
+                    placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                  >
+                </label>
+              </div>
+          {% endcase %}
+        </div>
+      </details>
+    {% endfor %}
+  </div>
+
+  <div class="sp-search__facet-actions">
+    <a href="{{ routes.search_url }}?q={{ search.terms | url_encode }}&type=product&options%5Bprefix%5D=last">{{ section.settings.clear_filters_label }}</a>
+    <button type="submit">{{ section.settings.apply_filters_label }}</button>
+  </div>
+</form>
