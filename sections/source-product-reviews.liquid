@@ -37,12 +37,16 @@
       </div>
 
       <div class="sprv__toolbar">
-        <div class="sprv__tab" aria-current="page">Reviews <span>{{ section.settings.review_count }}</span></div>
-        <div class="sprv__filter" data-sprv-filter>
-          <button type="button" aria-expanded="false" data-sprv-filter-button>With Photos <span aria-hidden="true">⌄</span></button>
-          <div class="sprv__filter-menu" hidden data-sprv-filter-menu>
-            <button type="button" data-value="photos">With Photos</button>
-            <button type="button" data-value="all">All Reviews</button>
+        <div class="sprv__tab-row">
+          <div class="sprv__tab" aria-current="page">Reviews <span>{{ section.settings.review_count }}</span></div>
+        </div>
+        <div class="sprv__filter-row">
+          <div class="sprv__filter" data-sprv-filter>
+            <button type="button" aria-expanded="false" data-sprv-filter-button>With Photos <span aria-hidden="true"></span></button>
+            <div class="sprv__filter-menu" hidden data-sprv-filter-menu>
+              <button type="button" data-value="photos">With Photos</button>
+              <button type="button" data-value="all">All Reviews</button>
+            </div>
           </div>
         </div>
       </div>

@@ -11,3 +11,16 @@
 @media(hover:hover){.sprv .sprv__write-button:hover{color:#fff!important}.sprv .sprv__write-button:hover::before{width:calc(100% + 2px)}.sprv .sprv__write-button:hover .sprv__write-icon{transform:translateX(3px)}}
 .sprv .sprv__write-button:focus-visible{color:#fff!important;outline:2px solid #000;outline-offset:3px}.sprv .sprv__write-button:focus-visible::before{width:calc(100% + 2px)}
 @media(prefers-reduced-motion:reduce){.sprv .sprv__write-button,.sprv .sprv__write-button::before,.sprv .sprv__write-icon{transition:none}}
+
+/* Review navigation mirrors the source Stamped widget: tab and filter occupy separate rows. */
+.sprv .sprv__toolbar{display:block;height:94px;align-items:initial;border-bottom:1px solid #e0e0e0}
+.sprv .sprv__tab-row{position:relative;height:45px}
+.sprv .sprv__tab{display:inline-flex;width:126.71875px;height:44px;margin:0 15px 0 0;padding:6px 10px 10px;align-items:center;border-bottom:3px solid #000;font:700 14px/22.05px "Open Sans",Arial,sans-serif;white-space:nowrap}
+.sprv .sprv__tab span{margin-left:15px;padding:0 5px;background:#f8f9fa;font:inherit}
+.sprv .sprv__filter-row{position:relative;height:49px}
+.sprv .sprv__filter{position:relative;float:right;margin:-1px 1px 15px 0}
+.sprv .sprv__filter>button{position:relative;width:170px;min-width:170px;height:35px;margin:0;padding:0 34px 0 12px;border:1px solid #ccd6e0;border-radius:3px;color:#333;background:#fff;text-align:left;font:400 11px/13.75px Arial,sans-serif;cursor:pointer}
+.sprv .sprv__filter>button>span{position:absolute;top:-1px;right:-1px;display:grid;float:none;width:34px;height:35px;place-items:center;border-left:1px solid #ccd6e0}
+.sprv .sprv__filter>button>span::before{content:"";width:6px;height:6px;margin-top:-3px;border-right:1px solid #607080;border-bottom:1px solid #607080;transform:rotate(45deg)}
+.sprv .sprv__filter-menu{top:35px;width:170px;border-color:#ccd6e0;border-radius:3px;font:400 11px/13.75px Arial,sans-serif}
+@media(max-width:520px){.sprv .sprv__filter>button{width:170px;min-width:170px}}
