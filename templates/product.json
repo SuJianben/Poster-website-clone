@@ -11,6 +11,101 @@
   "sections": {
     "main": {
       "type": "source-product-viewport",
+      "blocks": {
+        "top_badge": {
+          "type": "top_badge",
+          "settings": { "text": "Trending" }
+        },
+        "brand_banner": {
+          "type": "brand_banner",
+          "settings": { "text": "and 60,000+ customers love our premium wall art." }
+        },
+        "reviews": {
+          "type": "reviews",
+          "settings": { "count": "2,860", "label": "Verified Reviews" }
+        },
+        "title": {
+          "type": "title",
+          "settings": { "use_product_title": false, "heading": "Save Water - Poster" }
+        },
+        "artist": {
+          "type": "artist",
+          "settings": {
+            "label": "Artist:",
+            "use_product_vendor": false,
+            "name": "Sabrina Seck",
+            "url": "/collections/sabrina-seck",
+            "show_atelier_badge": true,
+            "atelier_text": "ATELIER EXCLUSIVE"
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": { "use_product_price": false, "price_text": "$29.00", "shipping_text": "Free Shipping." }
+        },
+        "material_picker": {
+          "type": "material_picker",
+          "settings": { "label": "Material", "option_1": "Poster", "option_2": "Canvas", "option_3": "Acrylic Glass" }
+        },
+        "size_picker": {
+          "type": "size_picker",
+          "settings": {
+            "label": "Sizes",
+            "guide_label": "SIZE GUIDE",
+            "popular_label": "MOST POPULAR",
+            "size_1_cm": "A4 (30 X 21 CM)",
+            "size_1_in": "12\" × 8\"",
+            "size_2_cm": "40 X 30 CM",
+            "size_2_in": "16\" × 12\"",
+            "size_3_cm": "76 X 51 CM",
+            "size_3_in": "30\" × 20\"",
+            "size_4_cm": "102 X 76 CM",
+            "size_4_in": "40\" × 30\"",
+            "size_5_cm": "119 X 81 CM",
+            "size_5_in": "47\" × 32\""
+          }
+        },
+        "buy_button": {
+          "type": "buy_button",
+          "settings": { "label": "Add To Cart" }
+        },
+        "volume_discount": {
+          "type": "volume_discount",
+          "settings": {
+            "heading": "🌞 SUMMER-SALE: Get more, save more! 🎉",
+            "note": "Can be combined with already discounted items!"
+          }
+        },
+        "benefits": {
+          "type": "benefits",
+          "settings": {
+            "benefit_1": "Immediately Ready to hang",
+            "benefit_2": "Free worldwide shipping over €49",
+            "benefit_3": "Estimated delivery: August 15 - August 17"
+          }
+        },
+        "payment_trust": {
+          "type": "payment_trust",
+          "settings": {
+            "heading": "SECURELY PACKAGED & PAID",
+            "note": "Special packaging for art galleries"
+          }
+        }
+      },
+      "block_order": [
+        "top_badge",
+        "brand_banner",
+        "reviews",
+        "title",
+        "artist",
+        "price",
+        "material_picker",
+        "size_picker",
+        "buy_button",
+        "volume_discount",
+        "benefits",
+        "payment_trust"
+      ],
       "settings": {}
     },
     "source_benefits": {
