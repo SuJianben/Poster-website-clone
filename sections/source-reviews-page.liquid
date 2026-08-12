@@ -36,7 +36,7 @@
         {% for rating in ratings %}
           {% assign row = rating | split: '|' %}
           <button type="button" data-srp-rating-filter="{{ row[0] }}" aria-pressed="false">
-            <span class="srp-widget__rating-stars srp-widget__rating-stars--{{ row[0] }}" aria-label="{{ row[0] }} out of 5 stars">{{ row[0] }} stars</span><i aria-hidden="true"><b style="width:{{ row[1] }}%"></b></i><em>({{ row[2] }})</em>
+            <span class="srp-widget__rating-stars srp-widget__rating-stars--{{ row[0] }}" aria-label="{{ row[0] }} out of 5 stars">{{ row[0] }} stars</span><i aria-hidden="true"><b style="width:{{ row[1] }}%"></b></i><em>{{ row[2] }}</em>
           </button>
         {% endfor %}
       </div>
@@ -70,4 +70,3 @@
 </section>
 
 {% schema %}{"name":"Source reviews page","settings":[]}{% endschema %}
-
