@@ -1,14 +1,6 @@
 Exit code: 0
 Wall time: 0.6 seconds
 Output:
-@font-face {
-  font-family: "srp-stamped-font";
-  src: url("https://cdn1.stamped.io/fonts/stamped-font.woff?rkevfi") format("woff");
-  font-display: swap;
-  font-style: normal;
-  font-weight: 400;
-}
-
 .srp-page .srp-widget__summary {
   display: block;
   width: min(1457px, calc(100vw - 40px));
@@ -64,16 +56,16 @@ Output:
 
 .srp-page .srp-widget__summary-stars i {
   display: inline;
-  font-family: "srp-stamped-font", FontAwesome, sans-serif;
-  margin-right: -1px;
-  font-size: 26px;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-right: 1px;
+  font-size: 23px;
   font-style: normal;
   font-weight: 400;
-  line-height: 26px;
+  line-height: 23px;
   color: #a39478;
 }
 
-.srp-page .srp-widget__summary-stars i::before { content: "\f005"; }
+.srp-page .srp-widget__summary-stars i::before { content: "★"; }
 
 .srp-page .srp-widget__overview small {
   display: inline-block;
@@ -103,7 +95,7 @@ Output:
 
 .srp-page .srp-widget__ratings button {
   display: grid;
-  grid-template-columns: 95px 130px 47px;
+  grid-template-columns: 95px 130px 42px;
   column-gap: 3px;
   align-items: start;
   width: 278px;
@@ -141,15 +133,15 @@ Output:
 .srp-page .srp-widget__rating-stars::before {
   display: inline-block;
   color: #777;
-  font: 700 17px/17px "srp-stamped-font";
-  letter-spacing: -1px;
+  font: 400 17px/17px Arial, Helvetica, sans-serif;
+  letter-spacing: 0;
 }
 .srp-page .srp-widget__rating-stars { margin-right: 0; }
-.srp-page .srp-widget__rating-stars--5::before { content: "\f005\f005\f005\f005\f005"; }
-.srp-page .srp-widget__rating-stars--4::before { content: "\f005\f005\f005\f005\f006"; }
-.srp-page .srp-widget__rating-stars--3::before { content: "\f005\f005\f005\f006\f006"; }
-.srp-page .srp-widget__rating-stars--2::before { content: "\f005\f005\f006\f006\f006"; }
-.srp-page .srp-widget__rating-stars--1::before { content: "\f005\f006\f006\f006\f006"; }
+.srp-page .srp-widget__rating-stars--5::before { content: "★★★★★"; }
+.srp-page .srp-widget__rating-stars--4::before { content: "★★★★☆"; }
+.srp-page .srp-widget__rating-stars--3::before { content: "★★★☆☆"; }
+.srp-page .srp-widget__rating-stars--2::before { content: "★★☆☆☆"; }
+.srp-page .srp-widget__rating-stars--1::before { content: "★☆☆☆☆"; }
 
 .srp-page .srp-widget__ratings i {
   display: inline-block;
@@ -178,10 +170,12 @@ Output:
   position: relative;
   top: 3px;
   display: inline-block;
-  width: 47px;
-  padding-left: 0;
+  width: 42px;
+  padding-left: 5px;
   color: #333;
+  font-family: Arial, Helvetica, sans-serif;
   font-style: normal;
+  font-weight: 400;
   line-height: 17px;
   text-align: left;
   vertical-align: top;
