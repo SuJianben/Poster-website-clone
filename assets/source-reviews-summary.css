@@ -36,35 +36,36 @@
 }
 
 .srp-page .srp-widget__score {
-  display: inline-block;
+  display: inline;
   float: left;
   margin-left: 2px;
   line-height: 0;
 }
 
 .srp-page .srp-widget__score strong {
-  display: inline-block;
+  display: inline;
   margin: 0 5px 0 0;
-  font-size: 30px;
+  font-size: 37px;
   font-weight: 700;
   line-height: 30px;
 }
 
 .srp-page .srp-widget__summary-stars {
-  display: block;
+  display: inline;
   float: left;
-  height: 30px;
+  height: auto;
   margin: 0;
   white-space: nowrap;
 }
 
 .srp-page .srp-widget__summary-stars i {
-  display: inline-block;
+  display: inline;
   font-family: "srp-stamped-font", FontAwesome, sans-serif;
-  font-size: 25px;
+  margin-right: -1px;
+  font-size: 26px;
   font-style: normal;
   font-weight: 400;
-  line-height: 30px;
+  line-height: 26px;
   color: #a39478;
 }
 
@@ -75,9 +76,9 @@
   float: left;
   clear: both;
   margin: 10px 0 0 2px;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 700;
-  line-height: 23.625px;
+  line-height: 22.05px;
   white-space: nowrap;
 }
 
@@ -124,7 +125,22 @@
   display: inline-block;
   width: 19%;
   color: #555;
+  overflow: hidden;
+  font-size: 0;
+  line-height: normal;
 }
+
+.srp-page .srp-widget__rating-stars::before {
+  display: inline-block;
+  color: #777;
+  font: 700 17px/17px "srp-stamped-font";
+  letter-spacing: -1px;
+}
+.srp-page .srp-widget__rating-stars--5::before { content: "\f005\f005\f005\f005\f005"; }
+.srp-page .srp-widget__rating-stars--4::before { content: "\f005\f005\f005\f005\f006"; }
+.srp-page .srp-widget__rating-stars--3::before { content: "\f005\f005\f005\f006\f006"; }
+.srp-page .srp-widget__rating-stars--2::before { content: "\f005\f005\f006\f006\f006"; }
+.srp-page .srp-widget__rating-stars--1::before { content: "\f005\f006\f006\f006\f006"; }
 
 .srp-page .srp-widget__ratings i {
   display: inline-block;
@@ -142,13 +158,16 @@
   display: flex;
   height: 15px;
   background: #000;
+  color: #fff;
+  font-size: 0;
+  line-height: 0;
 }
 
 .srp-page .srp-widget__ratings em {
   display: inline-block;
   width: 15%;
   padding-left: 5px;
-  color: #555;
+  color: #333;
   font-style: normal;
   text-align: left;
   white-space: nowrap;
@@ -202,14 +221,6 @@
   border-radius: 0;
   background: transparent;
   cursor: zoom-in;
-}
-
-.srp-page .srp-widget__photo-track button.is-video::after {
-  position: absolute;
-  inset: 0;
-  background: rgba(51, 51, 51, .3) url("https://cdn.shopify.com/s/files/1/0638/7747/files/icon_play_small_1bb286c7-bcdc-483c-b2d7-f8ad4e2691ba.png") center / 80px no-repeat;
-  content: "";
-  pointer-events: none;
 }
 
 .srp-page .srp-widget__photo-track img {
