@@ -28,9 +28,11 @@
 }
 
 .srp-page .srp-widget__overview {
+  display: block;
   float: left;
   width: 200px;
   margin: 0 0 20px;
+  text-align: left;
 }
 
 .srp-page .srp-widget__score {
@@ -79,6 +81,7 @@
 }
 
 .srp-page .srp-widget__ratings {
+  display: block;
   float: left;
   width: 300px;
   height: 115px;
