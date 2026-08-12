@@ -69,21 +69,22 @@
 
     {% if recommendation_collection.products_count > 0 %}
       <section class="scc-cart__recommendations" aria-label="Empfohlene Produkte">
-        <div class="scc-cart__recommendation-track" data-scc-recommendation-track>
-          {% for product in recommendation_collection.products limit: 3 %}
+        <div class="scc-cart__recommendation-viewport" data-scc-recommendation-viewport><div class="scc-cart__recommendation-track" data-scc-recommendation-track>
+          {% for product in recommendation_collection.products limit: section.settings.max_recommendations %}
             <a class="scc-cart__recommendation" href="{{ product.url }}">
               <span class="scc-cart__recommendation-image">{% if product.featured_image %}{{ product.featured_image | image_url: width: 720 | image_tag: loading: 'lazy', widths: '360, 540, 720', alt: product.title }}{% endif %}</span>
               {% if forloop.index == 1 %}<em>TRENDING</em>{% elsif forloop.index == 2 %}<em>PERSONALISIERBAR</em>{% elsif product.compare_at_price > product.price %}<em>-{{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price }}%</em>{% endif %}
               <small>{{ product.vendor | default: 'ATELIER EXCLUSIVE' }}</small><strong>{{ product.title }}</strong><b>Ab {{ product.price | money }}</b>
             </a>
           {% endfor %}
-        </div>
+        </div></div>
+        <div class="scc-cart__recommendation-nav"><button type="button" data-scc-recommendation-prev aria-label="Vorherige Empfehlungen">‹</button><button type="button" data-scc-recommendation-next aria-label="Nächste Empfehlungen">›</button></div>
       </section>
     {% endif %}
   </div>
 </section>
 
 {% schema %}
-{"name":"Source cart page","settings":[{"type":"collection","id":"recommendation_collection","label":"Recommendation collection"}]}
+{"name":"Source cart page","settings":[{"type":"collection","id":"recommendation_collection","label":"Recommendation collection"},{"type":"range","id":"max_recommendations","label":"Maximum recommendations","min":3,"max":8,"step":1,"default":6}]}
 {% endschema %}
 
