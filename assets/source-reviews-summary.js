@@ -25,7 +25,8 @@
         item.classList.toggle('is-active', selected);
         item.setAttribute('aria-pressed', String(selected));
       });
-      cards.forEach((card) => { card.hidden = !reset && card.dataset.srpRating !== rating; });
+      const matches = cards.filter((card) => card.dataset.srpRating === rating);
+      cards.forEach((card) => { card.hidden = !reset && matches.length > 0 && card.dataset.srpRating !== rating; });
 
       root.querySelector('[data-srp-grid]')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       emit('rating_filter', { rating: reset ? 'all' : rating });
@@ -108,10 +109,10 @@
     render();
     modal.hidden = false;
     document.documentElement.classList.add('srp-summary-modal-open');
-    requestAnimationFrame(() => requestAnimationFrame(() => {
+    window.setTimeout(() => {
       modal.classList.add('is-open');
       modal.querySelector('.srp-summary-modal__close').focus();
-    }));
+    }, 20);
     emit('photo_open', { index });
   };
 

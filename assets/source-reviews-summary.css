@@ -45,7 +45,7 @@
 .srp-page .srp-widget__score strong {
   display: inline-block;
   margin: 0 5px 0 0;
-  font-size: 37px;
+  font-size: 30px;
   font-weight: 700;
   line-height: 30px;
 }
@@ -61,7 +61,7 @@
 .srp-page .srp-widget__summary-stars i {
   display: inline-block;
   font-family: "srp-stamped-font", FontAwesome, sans-serif;
-  font-size: 26px;
+  font-size: 25px;
   font-style: normal;
   font-weight: 400;
   line-height: 30px;
@@ -78,6 +78,7 @@
   font-size: 15px;
   font-weight: 700;
   line-height: 23.625px;
+  white-space: nowrap;
 }
 
 .srp-page .srp-widget__ratings {
