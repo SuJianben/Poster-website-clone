@@ -1,0 +1,251 @@
+Exit code: 0
+Wall time: 0.6 seconds
+Output:
+/* Reviews list: isolated source-matched layout. */
+.srp-page .srp-widget__tabs,
+.srp-page .srp-widget__filters,
+.srp-page .srp-widget__review-grid,
+.srp-page .srp-widget__pagination {
+  width: min(1457px, calc(100vw - 40px));
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
+.srp-page .srp-widget__tabs {
+  gap: 0;
+  height: 45px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.srp-page .srp-widget__tabs button {
+  height: 45px;
+  margin: 0 24px 0 0;
+  padding: 0 8px 10px;
+  border-bottom: 0;
+  color: #111;
+  font-family: "Open Sans", Verdana, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 22.05px;
+}
+
+.srp-page .srp-widget__tabs button.is-active {
+  border-bottom: 3px solid #111;
+}
+
+.srp-page .srp-widget__tabs span {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 2px 5px;
+  background: #f7f7f7;
+  font-weight: 700;
+  line-height: 18px;
+}
+
+.srp-page .srp-widget__filters {
+  min-height: 55px;
+  gap: 0;
+  border-bottom: 0;
+  font-family: "Open Sans", Verdana, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.srp-page .srp-widget__filters label {
+  height: 33px;
+  padding: 0;
+  border: 1px solid #d9e0e7;
+}
+
+.srp-page .srp-widget__filters label::first-line { font-size: 0; }
+
+.srp-page .srp-widget__filters select {
+  min-width: 158px;
+  height: 31px;
+  padding: 0 38px 0 13px;
+  border: 0;
+  color: #222;
+  background-color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.srp-page .srp-widget__review-grid {
+  column-count: 4;
+  column-gap: 15px;
+  padding: 0;
+}
+
+.srp-page .srp-review {
+  display: inline-block;
+  width: 100%;
+  margin: 0 0 30px;
+  padding: 20px;
+  break-inside: avoid;
+  border: 1px solid #e0e0e0;
+  border-radius: 3px;
+  color: #111;
+  background: #fff;
+  font-family: "Open Sans", Verdana, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  vertical-align: top;
+}
+
+.srp-page .srp-review > img {
+  display: block;
+  width: calc(100% + 40px);
+  height: auto;
+  margin: -20px -20px 20px;
+  border: 0;
+  border-radius: 3px 3px 0 0;
+  object-fit: contain;
+  transition: box-shadow .18s ease, filter .18s ease;
+}
+
+.srp-page .srp-review > img:hover {
+  box-shadow: inset 0 0 0 1px #d99b28;
+  filter: saturate(1.035);
+}
+
+.srp-page .srp-review__meta {
+  display: flex;
+  min-height: 20px;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin: 0 0 15px;
+  font-size: 12px;
+  line-height: 20px;
+}
+
+.srp-page .srp-review__meta span {
+  color: #a39478;
+  font-size: 20px;
+  line-height: 20px;
+  letter-spacing: -1px;
+}
+
+.srp-page .srp-review__meta time {
+  color: #555;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.srp-page .srp-review dl {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 8px 16px;
+  margin: 0 0 20px;
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 17px;
+}
+
+.srp-page .srp-review dt,
+.srp-page .srp-review dd {
+  min-width: 0;
+  margin: 0;
+}
+
+.srp-page .srp-review dt { font-weight: 700; }
+.srp-page .srp-review dd { font-weight: 700; }
+
+.srp-page .srp-review dd i {
+  display: inline-block;
+  width: 112px;
+  height: 7px;
+  margin: 3px 5px 0;
+  overflow: hidden;
+  color: transparent;
+  background: repeating-linear-gradient(90deg,#555 0 20px,transparent 20px 23px);
+  font-size: 0;
+  line-height: 0;
+  vertical-align: top;
+}
+
+.srp-page .srp-review h3 {
+  margin: 5px 0 0;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.srp-page .srp-review p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.srp-page .srp-review > a {
+  display: block;
+  margin: 8px 0 0;
+  color: #111;
+  font-size: 14px;
+  line-height: 20px;
+  text-decoration: none;
+}
+
+.srp-page .srp-review footer {
+  display: grid;
+  gap: 1px;
+  margin: 25px 0 0;
+  padding: 0;
+  border: 0;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.srp-page .srp-review footer strong { font-size: 14px; }
+.srp-page .srp-review footer span { color: #8f8f8f; }
+
+.srp-page .srp-review > button {
+  margin: 25px 0 0;
+  padding: 0;
+  color: #555;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.srp-page .srp-widget__pagination {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 0;
+}
+
+.srp-page .srp-widget__pagination button {
+  min-width: 12px;
+  padding: 0;
+  color: #111;
+  font-family: "Open Sans", Verdana, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 22px;
+}
+
+.srp-page .srp-widget__pagination .is-current {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 989px) {
+  .srp-page .srp-widget__review-grid { column-count: 3; }
+}
+
+@media (max-width: 749px) {
+  .srp-page .srp-widget__tabs,
+  .srp-page .srp-widget__filters,
+  .srp-page .srp-widget__review-grid,
+  .srp-page .srp-widget__pagination {
+    width: calc(100vw - 32px);
+  }
+
+  .srp-page .srp-widget__review-grid { column-count: 1; }
+  .srp-page .srp-review { margin-bottom: 20px; }
+  .srp-page .srp-widget__pagination { gap: 13px; }
+}
+
