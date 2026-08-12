@@ -1,6 +1,3 @@
-Exit code: 0
-Wall time: 0.7 seconds
-Output:
 (() => {
   const root = document.querySelector('[data-srp-page]');
   if (!root) return;
