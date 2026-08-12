@@ -1,3 +1,6 @@
+Exit code: 0
+Wall time: 0.6 seconds
+Output:
 @font-face {
   font-family: "srp-stamped-font";
   src: url("https://cdn1.stamped.io/fonts/stamped-font.woff?rkevfi") format("woff");
@@ -176,7 +179,7 @@
   top: 3px;
   display: inline-block;
   width: 47px;
-  padding-left: 2px;
+  padding-left: 0;
   color: #333;
   font-style: normal;
   line-height: 17px;
@@ -415,3 +418,4 @@ html.srp-summary-modal-open body { overflow: hidden; }
   .srp-summary-modal,
   .srp-summary-modal__dialog { transition: none; }
 }
+
