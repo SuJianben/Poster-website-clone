@@ -7,9 +7,11 @@
       assign review_title = '7 beautiful acrylglas work in my home'
       assign review_body = 'I have ordered paintings over the years and i am very proud of the acrykglas work. They are my home decorations items. I have accumulated 7 of them over the year. Guests who visit my home are interested in them because acrylclas work are immediately noticeable.'
       assign product_name = 'Shit Happens - Acrylglas - 40 X 40 CM / Ohne Rahmen'
+      assign product_image = 'https://cdn1.stamped.io/uploads/productImages/228253_8264592785674.jpg'
       assign author = 'Tapio V.'
       assign country = 'Finland'
       assign helpful = '0'
+      assign verified_label = 'Verified Buyer'
     when 2
       assign image_urls = 'https://cdn.stamped.io/tr:w-350:/uploads/photos/228253_1_5c56274c_ee94_4dda_bee4_d0986a746823.jpg?' | split: '|'
       assign review_date = '07/06/2026'
@@ -20,6 +22,7 @@
       assign author = 'James C.'
       assign country = ''
       assign helpful = '0'
+      assign verified_label = ''
     when 3
       assign image_urls = 'https://cdn.stamped.io/tr:w-350:/uploads/photos/228253_8202634854666_e52e860b_9db8_4f3c_8a81_0cd68bfa9de8.jpg?' | split: '|'
       assign review_date = '06/06/2026'
@@ -30,6 +33,7 @@
       assign author = 'Tomi K.'
       assign country = 'Finland'
       assign helpful = '1'
+      assign verified_label = 'Verified Buyer'
     else
       assign image_urls = 'https://cdn.stamped.io/tr:w-350:/uploads/photos/228253_10484023623946_f6621af5_7a5c_4871_8105_f5465414762a_r1780202711687.jpg?v=1780202711' | split: '|'
       assign review_date = '29/05/2026'
@@ -40,13 +44,14 @@
       assign author = 'Daniel S.'
       assign country = 'Switzerland'
       assign helpful = '2'
+      assign verified_label = 'Verified Buyer'
   endcase
 -%}
 
 <article class="sprv-card" data-sprv-review-card data-has-photo="true">
   <div class="sprv-card__media{% if image_urls.size > 1 %} sprv-card__media--stack{% endif %}">
     {%- for image_url in image_urls -%}
-      <button type="button" data-sprv-photo="{{ image_url }}" aria-label="Open review photo {{ forloop.index }}">
+      <button type="button" data-srp-summary-photo data-sprv-photo="{{ image_url }}" data-reviewer="{{ author | escape }}" data-verified="{{ verified_label | escape }}" data-date="{{ review_date | escape }}" data-title="{{ review_title | escape }}" data-body="{{ review_body | escape }}" data-product="{{ product_name | escape }}"{% if product_image != blank %} data-product-image="{{ product_image | escape }}"{% endif %} data-helpful="{{ helpful }}" aria-label="Open review photo {{ forloop.index }}">
         <img src="{{ image_url }}" alt="Save Water customer review" width="700" height="525" loading="lazy">
       </button>
     {%- endfor -%}
@@ -68,7 +73,7 @@
     <h3>{{ review_title }}</h3>
     <p class="sprv-card__body">{{ review_body }}</p>
     {%- if product_name != blank -%}<p class="sprv-card__product">{{ product_name }}</p>{%- endif -%}
-    <p class="sprv-card__author"><strong>{{ author }}</strong>{% if index != 2 %} <span>Verified Buyer</span>{% endif %}</p>
+    <p class="sprv-card__author"><strong>{{ author }}</strong>{% if verified_label != blank %} <span>{{ verified_label }}</span>{% endif %}</p>
     {%- if country != blank -%}<p class="sprv-card__country">⚑ {{ country }}</p>{%- endif -%}
     <div class="sprv-card__helpful">Was this helpful?
       <button type="button" data-sprv-helpful="up" aria-label="Helpful">♥ <span>{{ helpful }}</span></button>
@@ -76,3 +81,4 @@
     </div>
   </div>
 </article>
+
