@@ -52,8 +52,6 @@
   border: 1px solid #d9e0e7;
 }
 
-.srp-page .srp-widget__filters label::first-line { font-size: 0; }
-
 .srp-page .srp-widget__filters select {
   min-width: 158px;
   height: 31px;
@@ -267,3 +265,4 @@
   .srp-page .srp-review { margin-bottom: 20px; }
   .srp-page .srp-widget__pagination { gap: 13px; }
 }
+
