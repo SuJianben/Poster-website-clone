@@ -99,7 +99,10 @@
 }
 
 .srp-page .srp-widget__ratings button {
-  display: block;
+  display: grid;
+  grid-template-columns: 95px 130px 47px;
+  column-gap: 3px;
+  align-items: start;
   width: 278px;
   height: 20px;
   margin: 0 0 3px;
@@ -125,6 +128,7 @@
 .srp-page .srp-widget__ratings span {
   display: inline-block;
   width: 95px;
+  margin-right: 0;
   color: #555;
   overflow: hidden;
   font-size: 0;
@@ -137,7 +141,7 @@
   font: 700 17px/17px "srp-stamped-font";
   letter-spacing: -1px;
 }
-.srp-page .srp-widget__rating-stars { margin-right: 3px; }
+.srp-page .srp-widget__rating-stars { margin-right: 0; }
 .srp-page .srp-widget__rating-stars--5::before { content: "\f005\f005\f005\f005\f005"; }
 .srp-page .srp-widget__rating-stars--4::before { content: "\f005\f005\f005\f005\f006"; }
 .srp-page .srp-widget__rating-stars--3::before { content: "\f005\f005\f005\f006\f006"; }
@@ -153,7 +157,7 @@
   font-style: normal;
   text-align: center;
   margin-top: 3px;
-  margin-right: 3px;
+  margin-right: 0;
   vertical-align: top;
   overflow: hidden;
 }
@@ -171,8 +175,8 @@
   position: relative;
   top: 3px;
   display: inline-block;
-  width: 42px;
-  padding-left: 5px;
+  width: 47px;
+  padding-left: 2px;
   color: #333;
   font-style: normal;
   line-height: 17px;
