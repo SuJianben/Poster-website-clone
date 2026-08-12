@@ -95,6 +95,7 @@
   grid-template-columns: 95px 130px 42px;
   column-gap: 3px;
   align-items: start;
+  justify-content: start;
   width: 278px;
   height: 20px;
   margin: 0 0 3px;
