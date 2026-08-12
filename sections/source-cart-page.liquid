@@ -1,84 +1,89 @@
 {{ 'source-cart-page.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'source-cart-page.js' | asset_url }}" defer="defer"></script>
 
-<section class="scp-cart" data-scp-cart data-cart-count="{{ cart.item_count }}">
-  <div class="scp-cart__wrap">
-    <nav class="scp-cart__crumbs" aria-label="Breadcrumb">
-      <a href="{{ routes.root_url }}">Home</a><span>/</span><span>Your Shopping Cart</span>
-    </nav>
-    <header class="scp-cart__heading">
-      <h1>Your cart <span>({{ cart.item_count }})</span></h1>
-      <p>Free shipping on orders over €49</p>
-    </header>
-    <section class="scp-cart__tier-bar" aria-label="Volume discount">
-      <div class="scp-cart__tier-copy"><strong>Summer Sale: save more with every print</strong><span data-scp-tier-copy>Choose 1 print to unlock your first discount.</span></div>
-      <ol class="scp-cart__tiers" data-scp-tiers data-item-count="{{ cart.item_count }}">
-        <li data-tier="1"><b>1</b><span>5% off</span></li><li data-tier="2"><b>2</b><span>10% off</span></li><li data-tier="3"><b>3</b><span>15% off</span></li><li data-tier="4"><b>4</b><span>20% off</span></li><li data-tier="5"><b>5+</b><span>25% off</span></li>
+{%- liquid
+  assign recommendation_collection = section.settings.recommendation_collection | default: collections.all
+  assign cart_quantity = cart.item_count
+  assign next_discount_count = 3
+  assign next_discount_percent = 15
+  if cart_quantity >= 3
+    assign next_discount_count = 4
+    assign next_discount_percent = 20
+  endif
+  if cart_quantity >= 4
+    assign next_discount_count = 5
+    assign next_discount_percent = 25
+  endif
+-%}
+
+<section class="scc-cart" data-scc-cart data-cart-count="{{ cart.item_count }}" data-section-id="{{ section.id }}">
+  <div class="scc-cart__wrap">
+    <nav class="scc-cart__crumbs" aria-label="Breadcrumb"><a href="{{ routes.root_url }}">Start</a><span>Dein Warenkorb</span></nav>
+
+    <section class="scc-cart__discount-track" aria-label="Mengenrabatt">
+      <p data-scc-tier-copy>{% if cart_quantity >= 5 %}Du hast dir 25% Rabatt 🏷️ gesichert.{% else %}Kaufen Sie {{ next_discount_count | minus: cart_quantity }} weitere Artikel, um {{ next_discount_percent }}% Rabatt 🏷️ zu erhalten.{% endif %}</p>
+      <ol data-scc-tiers>
+        {% assign discounts = '15|20|25' | split: '|' %}
+        {% assign quantities = '3|4|5' | split: '|' %}
+        {% for discount in discounts %}
+          {% assign quantity = quantities[forloop.index0] | plus: 0 %}
+          <li data-scc-tier="{{ quantity }}"{% if cart_quantity >= quantity %} class="is-reached"{% endif %}><span>{{ discount }}% Rabatt 🏷️</span><i aria-hidden="true">{% if cart_quantity >= quantity %}✓{% else %}✦{% endif %}</i><b>{{ quantity }} Artikel kaufen</b></li>
+        {% endfor %}
       </ol>
     </section>
 
-    <div class="scp-cart__layout">
-      <div class="scp-cart__items" data-scp-items>
-        {% if cart.item_count == 0 %}
-          <div class="scp-cart__empty" data-scp-empty>
-            <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M9 12h5l4 21h20l5-15H16"/><circle cx="20" cy="39" r="2"/><circle cx="36" cy="39" r="2"/></svg>
-            <h2>Your cart is currently empty.</h2>
-            <a href="{{ routes.all_products_collection_url }}" class="scp-cart__shop">Continue shopping <span>→</span></a>
+    <h1 class="scc-cart__title">Ihr Warenkorb <span>({{ cart.item_count }})</span></h1>
+
+    {% if cart.item_count == 0 %}
+      <div class="scc-cart__empty"><h2>Ihr Warenkorb ist derzeit leer.</h2><a href="{{ routes.all_products_collection_url }}">Weiter einkaufen <span>→</span></a></div>
+    {% else %}
+      <form action="{{ routes.cart_url }}" method="post" class="scc-cart__form" data-scc-form>
+        <div class="scc-cart__layout">
+          <div class="scc-cart__items" data-scc-items>
+            {% for item in cart.items %}
+              <article class="scc-cart__item" data-scc-item data-line-key="{{ item.key }}" data-quantity="{{ item.quantity }}">
+                <button class="scc-cart__remove" type="button" data-scc-remove aria-label="{{ item.title | escape }} entfernen">×</button>
+                <a class="scc-cart__image" href="{{ item.url }}">{% if item.image %}{{ item.image | image_url: width: 360 | image_tag: loading: 'lazy', widths: '180, 360', alt: item.title }}{% endif %}</a>
+                <div class="scc-cart__item-main">
+                  <a class="scc-cart__product-title" href="{{ item.url }}">{{ item.product.title }}</a>
+                  {% unless item.product.has_only_default_variant %}<p>{{ item.variant.title }}</p>{% endunless %}
+                  <div class="scc-cart__quantity" aria-label="Menge für {{ item.title | escape }}"><button type="button" data-scc-quantity="-1" aria-label="Menge verringern">−</button><input name="updates[]" value="{{ item.quantity }}" inputmode="numeric" aria-label="Menge" data-scc-quantity-input><button type="button" data-scc-quantity="1" aria-label="Menge erhöhen">+</button></div>
+                </div>
+                <div class="scc-cart__item-price">
+                  {% if item.line_level_discount_allocations.size > 0 %}<p class="scc-cart__discount-label">◇ {% for discount in item.line_level_discount_allocations %}{{ discount.discount_application.title }}{% unless forloop.last %}, {% endunless %}{% endfor %}</p>{% endif %}
+                  <strong>{{ item.final_line_price | money }}</strong>{% if item.original_line_price > item.final_line_price %}<s>{{ item.original_line_price | money }}</s>{% endif %}
+                </div>
+              </article>
+            {% endfor %}
           </div>
-        {% else %}
-          <div class="scp-cart__table-head"><span>Product</span><span>Quantity</span><span>Total</span></div>
-          {% for item in cart.items %}
-            <article class="scp-cart__item" data-scp-item data-line-key="{{ item.key }}" data-quantity="{{ item.quantity }}">
-              <a class="scp-cart__image" href="{{ item.url }}">
-                {% if item.image %}{{ item.image | image_url: width: 360 | image_tag: loading: 'lazy', widths: '180, 360', alt: item.title }}{% endif %}
-              </a>
-              <div class="scp-cart__product">
-                <a href="{{ item.url }}">{{ item.product.title }}</a>
-                {% unless item.product.has_only_default_variant %}<small>{{ item.variant.title }}</small>{% endunless %}
-                <strong>{{ item.final_price | money }}</strong>
-                <button type="button" data-scp-remove aria-label="Remove {{ item.title }}">Remove</button>
-              </div>
-              <div class="scp-cart__quantity" aria-label="Quantity selector">
-                <button type="button" data-scp-quantity="-1" aria-label="Decrease quantity">−</button><output data-scp-quantity-value>{{ item.quantity }}</output><button type="button" data-scp-quantity="1" aria-label="Increase quantity">+</button>
-              </div>
-              <strong class="scp-cart__line-total" data-scp-total>{{ item.final_line_price | money }}</strong>
-            </article>
+          <aside class="scc-cart__summary">
+            <div class="scc-cart__shipping"><strong>{% if cart.total_price >= 4900 %}Du hast Anspruch auf kostenlosen Versand.{% else %}Noch {{ 4900 | minus: cart.total_price | money }} bis zum kostenlosen Versand.{% endif %}</strong><span><i style="width:{% if cart.total_price >= 4900 %}100{% else %}{{ cart.total_price | times: 100 | divided_by: 4900 }}{% endif %}%"></i></span></div>
+            <div class="scc-cart__subtotal"><strong>Zwischensumme</strong><b>{{ cart.total_price | money }}</b></div>
+            <p>Steuer inbegriffen. <a href="{{ routes.cart_url }}">Versand</a> und Rabatte werden im nächsten Schritt berechnet.</p>
+            <button class="scc-cart__checkout" type="submit" name="checkout">Sicher Zur Kasse <span>›</span></button>
+            {% if additional_checkout_buttons %}<div class="scc-cart__express">{{ content_for_additional_checkout_buttons }}</div>{% endif %}
+          </aside>
+        </div>
+      </form>
+    {% endif %}
+
+    {% if recommendation_collection.products_count > 0 %}
+      <section class="scc-cart__recommendations" aria-label="Empfohlene Produkte">
+        <div class="scc-cart__recommendation-track" data-scc-recommendation-track>
+          {% for product in recommendation_collection.products limit: 3 %}
+            <a class="scc-cart__recommendation" href="{{ product.url }}">
+              <span class="scc-cart__recommendation-image">{% if product.featured_image %}{{ product.featured_image | image_url: width: 720 | image_tag: loading: 'lazy', widths: '360, 540, 720', alt: product.title }}{% endif %}</span>
+              {% if forloop.index == 1 %}<em>TRENDING</em>{% elsif forloop.index == 2 %}<em>PERSONALISIERBAR</em>{% elsif product.compare_at_price > product.price %}<em>-{{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price }}%</em>{% endif %}
+              <small>{{ product.vendor | default: 'ATELIER EXCLUSIVE' }}</small><strong>{{ product.title }}</strong><b>Ab {{ product.price | money }}</b>
+            </a>
           {% endfor %}
-        {% endif %}
-      </div>
-
-      <aside class="scp-cart__summary" data-scp-summary>
-        <div class="scp-cart__goal" data-scp-goal>
-          <div><span>Free shipping</span><strong data-scp-goal-text>{% if cart.total_price >= 4900 %}You are eligible for free shipping!{% else %}Spend {{ 4900 | minus: cart.total_price | money }} more to reach free shipping!{% endif %}</strong></div>
-          <span class="scp-cart__progress"><i data-scp-progress style="width:{% if cart.total_price >= 4900 %}100{% else %}{{ cart.total_price | times: 100 | divided_by: 4900 }}{% endif %}%"></i></span>
         </div>
-        <div class="scp-cart__discount">
-          <label for="scp-discount">Discount code</label>
-          <div><input id="scp-discount" type="text" placeholder="Enter discount code" data-scp-discount-input><button type="button" data-scp-discount>Apply</button></div>
-          <p data-scp-discount-message aria-live="polite"></p>
-        </div>
-        <div class="scp-cart__subtotal"><span>Subtotal</span><strong data-scp-subtotal>{{ cart.total_price | money }}</strong></div>
-        <p class="scp-cart__tax">Tax included. Shipping and discounts calculated at checkout.</p>
-        <button type="button" class="scp-cart__checkout" data-scp-checkout>SECURE CHECKOUT <span>→</span></button>
-        <div class="scp-cart__wallets" aria-label="Express checkout options">
-          <button type="button" data-scp-wallet="paypal" aria-label="PayPal express checkout"><b>Pay</b>Pal</button>
-          <button type="button" data-scp-wallet="gpay" aria-label="Google Pay express checkout"><b>G</b> Pay</button>
-        </div>
-        <p class="scp-cart__secure">♢ Order without risk - 100% money-back guarantee</p>
-      </aside>
-    </div>
-
-    <section class="scp-cart__offers" aria-labelledby="scp-offers-title">
-      <p>Save now with these exclusive offers</p><h2 id="scp-offers-title">Special offers <span>(3)</span></h2>
-      <div class="scp-cart__offer-grid">
-        <a href="{{ routes.root_url }}"><b>-10%</b><span>discount for newsletter signup</span><em>To Register →</em></a>
-        <a href="{{ routes.all_products_collection_url }}"><b>-20%</b><span>discount on new releases</span><em>New offers every week →</em></a>
-        <a href="{{ routes.all_products_collection_url }}"><b>-25%</b><span>discount on bundles</span><em>New bundles regularly →</em></a>
-      </div>
-    </section>
+      </section>
+    {% endif %}
   </div>
 </section>
 
 {% schema %}
-{"name":"Source cart page","settings":[]}
+{"name":"Source cart page","settings":[{"type":"collection","id":"recommendation_collection","label":"Recommendation collection"}]}
 {% endschema %}
+

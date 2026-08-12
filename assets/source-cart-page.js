@@ -1,61 +1,35 @@
 (() => {
-  const root = document.querySelector('[data-scp-cart]');
-  if (!root) return;
-
-  const setBusy = (item, busy) => {
-    item.classList.toggle('is-updating', busy);
-    item.querySelectorAll('button').forEach((button) => { button.disabled = busy; });
-  };
-
-  const changeLine = async (item, quantity) => {
-    setBusy(item, true);
-    try {
-      const response = await fetch('/cart/change.js', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({ id: item.dataset.lineKey, quantity })
-      });
-      if (!response.ok) throw new Error('Cart change failed');
-      await response.json();
-      window.location.reload();
-    } catch (error) {
-      setBusy(item, false);
-      const notice = root.querySelector('[data-scp-discount-message]');
-      if (notice) notice.textContent = 'We could not update your cart. Please try again.';
-    }
-  };
-
-  root.addEventListener('click', (event) => {
-    const quantityButton = event.target.closest('[data-scp-quantity]');
-    const removeButton = event.target.closest('[data-scp-remove]');
-    const discountButton = event.target.closest('[data-scp-discount]');
-    const restrictedCheckout = event.target.closest('[data-scp-checkout],[data-scp-wallet]');
-
-    if (quantityButton) {
-      const item = quantityButton.closest('[data-scp-item]');
-      changeLine(item, Math.max(1, Number(item.dataset.quantity) + Number(quantityButton.dataset.scpQuantity)));
-    }
-    if (removeButton) changeLine(removeButton.closest('[data-scp-item]'), 0);
-    if (discountButton) {
-      const input = root.querySelector('[data-scp-discount-input]');
-      const notice = root.querySelector('[data-scp-discount-message]');
-      const code = input.value.trim();
-      notice.textContent = code ? `${code.toUpperCase()} is saved for checkout.` : 'Enter a discount code first.';
-    }
-    if (restrictedCheckout) {
-      const notice = root.querySelector('[data-scp-discount-message]');
-      if (notice) notice.textContent = 'Checkout remains disabled in this visual implementation.';
-    }
+  document.querySelectorAll('[data-scc-cart]').forEach((root) => {
+    if (root.dataset.sccReady === 'true') return;
+    root.dataset.sccReady = 'true';
+    const emit = (action, detail = {}) => root.dispatchEvent(new CustomEvent('source_cart', { bubbles: true, detail: { action, sectionId: root.dataset.sectionId, ...detail } }));
+    const updateLine = async (item, quantity) => {
+      item.classList.add('is-updating');
+      try {
+        const response = await fetch('/cart/change.js', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify({ id: item.dataset.lineKey, quantity }) });
+        if (!response.ok) throw new Error('cart update failed');
+        emit(quantity === 0 ? 'remove' : 'quantity_change', { quantity });
+        window.location.reload();
+      } catch (error) {
+        item.classList.remove('is-updating');
+        emit('update_error');
+      }
+    };
+    root.addEventListener('click', (event) => {
+      const quantityButton = event.target.closest('[data-scc-quantity]');
+      const removeButton = event.target.closest('[data-scc-remove]');
+      if (quantityButton) {
+        const item = quantityButton.closest('[data-scc-item]');
+        updateLine(item, Math.max(1, Number(item.dataset.quantity) + Number(quantityButton.dataset.sccQuantity)));
+      }
+      if (removeButton) updateLine(removeButton.closest('[data-scc-item]'), 0);
+    });
+    root.querySelectorAll('[data-scc-quantity-input]').forEach((input) => input.addEventListener('change', () => {
+      const item = input.closest('[data-scc-item]');
+      const quantity = Math.max(1, Number(input.value || 1));
+      updateLine(item, quantity);
+    }));
+    root.querySelector('[data-scc-form]')?.addEventListener('submit', () => emit('checkout_click'));
   });
-
-  const tiers = root.querySelector('[data-scp-tiers]');
-  if (!tiers) return;
-  const quantity = Number(tiers.dataset.itemCount || 0);
-  const active = Math.min(5, quantity);
-  tiers.querySelectorAll('li').forEach((tier) => tier.classList.toggle('is-reached', Number(tier.dataset.tier) <= active));
-  const tierCopy = root.querySelector('[data-scp-tier-copy]');
-  if (tierCopy && quantity) {
-    const nextQuantity = active === 5 ? 5 : active + 1;
-    tierCopy.textContent = active === 5 ? 'You unlocked 25% off your cart.' : `Add ${nextQuantity - quantity} more print${nextQuantity - quantity === 1 ? '' : 's'} to unlock ${nextQuantity * 5}% off.`;
-  }
 })();
+
