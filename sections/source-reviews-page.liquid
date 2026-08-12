@@ -2,9 +2,11 @@
 {{ 'source-reviews-hero.css' | asset_url | stylesheet_tag }}
 {{ 'source-reviews-summary.css' | asset_url | stylesheet_tag }}
 {{ 'source-product-reviews.css' | asset_url | stylesheet_tag }}
+{{ 'source-reviews-community.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'source-product-reviews.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'source-reviews-hero.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'source-reviews-summary.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'source-reviews-community.js' | asset_url }}" defer="defer"></script>
 
 <section class="srp-page" data-srp-page data-analytics-page="reviews_fallback">
   <header class="srp-page__heading"><h1>Reviews</h1></header>
@@ -65,8 +67,90 @@
     </div></div>
   </section>
 
-  <section class="srp-community"><h2>Our community</h2><div class="srp-community__frame"><button type="button" data-srp-community-prev aria-label="Previous">‹</button><div data-srp-community-content></div><button type="button" data-srp-community-next aria-label="Next">›</button></div><button type="button" class="srp-community__more" data-srp-load-more>Load More</button></section>
+  {% assign srpc_fallback_images = 'https://cdn.stamped.io/uploads/videos/a81216b4654bdcfbd850b985640f44c5.jpg|https://cdn.stamped.io/uploads/photos/228253_8264592785674_bbcf5af6_6d4e_4392_8109_868d996fa81e.jpg|https://cdn.stamped.io/uploads/photos/228253_8264592785674_adfda815_b601_4a92_ab18_bcb336669c34.jpg|https://cdn.stamped.io/uploads/photos/228253_8264592785674_3cc4f078_0a80_4335_a599_175c3974ca6b.jpg|https://cdn.stamped.io/uploads/photos/228253_8264592785674_85af7e91_7171_4fd5_81c6_e48557cb06fc.jpg|https://cdn.stamped.io/uploads/photos/228253_8264592785674_6b62d13f_3bca_4491_b59f_9dd2d48a635a.jpg|https://cdn.stamped.io/uploads/photos/228253_1_5c56274c_ee94_4dda_bee4_d0986a746823.jpg|https://cdn.stamped.io/uploads/photos/228253_8202634854666_e52e860b_9db8_4f3c_8a81_0cd68bfa9de8.jpg|https://cdn.stamped.io/uploads/photos/228253_8282851967242_1222222d_0e82_4e1a_9dce_b3e70bcc5344.jpg|https://cdn.stamped.io/uploads/photos/228253_1_a05aa70a_44d4_4f9a_96f5_a95683634226.jpeg|https://cdn.stamped.io/uploads/photos/228253_1_debddc24_fde2_4dca_9147_468e10ef4d53.jpeg|https://cdn.stamped.io/uploads/photos/228253_1_960936d4_403e_44ea_848d_3346e07eeddb.jpeg' | split: '|' %}
+  <section class="srpc" data-srpc-community data-srpc-autoplay="{{ section.settings.community_autoplay }}" data-srpc-speed="{{ section.settings.community_speed }}" aria-labelledby="srpc-title-{{ section.id }}">
+    <div class="srpc__heading"><h2 id="srpc-title-{{ section.id }}">{{ section.settings.community_title }}</h2></div>
+    <div class="srpc__carousel">
+      <div class="srpc__viewport" data-srpc-viewport>
+        <div class="srpc__track" data-srpc-track>
+          {% for copy_index in (1..2) %}
+            <div class="srpc__group" data-srpc-group{% if copy_index == 2 %} aria-hidden="true"{% endif %}>
+              {% if section.blocks.size > 0 %}
+                {% for block in section.blocks %}
+                  {% if block.type == 'community_image' and block.settings.image != blank %}
+                    {% assign srpc_alt = block.settings.alt | default: 'Customer wall art inspiration' %}
+                    <button class="srpc__item" type="button"{% if copy_index == 1 %} data-srp-summary-photo data-reviewer="DOTCOMCANVAS® Community" data-verified="Verified Buyer" data-title="Customer inspiration" data-body="Shared by our community." data-product="DOTCOMCANVAS® wall art"{% else %} tabindex="-1"{% endif %} {{ block.shopify_attributes }}>
+                      {{ block.settings.image | image_url: width: 700 | image_tag: loading: 'lazy', widths: '252, 504, 700', sizes: '252px', alt: srpc_alt }}
+                      <span class="srpc__shade" aria-hidden="true"></span>
+                    </button>
+                  {% endif %}
+                {% endfor %}
+              {% else %}
+                {% for srpc_image in srpc_fallback_images %}
+                  <button class="srpc__item" type="button"{% if copy_index == 1 %} data-srp-summary-photo data-reviewer="DOTCOMCANVAS® Community" data-verified="Verified Buyer" data-title="Customer inspiration" data-body="Shared by our community." data-product="DOTCOMCANVAS® wall art"{% else %} tabindex="-1"{% endif %}>
+                    <img src="{{ srpc_image }}" width="252" height="252" loading="lazy" alt="Customer wall art inspiration {{ forloop.index }}">
+                    <span class="srpc__shade" aria-hidden="true"></span>
+                  </button>
+                {% endfor %}
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      <button class="srpc__nav srpc__nav--prev" type="button" data-srpc-prev aria-label="Previous community images"><span aria-hidden="true">‹</span></button>
+      <button class="srpc__nav srpc__nav--next" type="button" data-srpc-next aria-label="Next community images"><span aria-hidden="true">›</span></button>
+    </div>
+  </section>
   <section class="srp-instagram"><h2>Instagram</h2><div class="srp-instagram__empty" aria-label="Instagram feed fallback"></div></section>
 </section>
 
-{% schema %}{"name":"Source reviews page","settings":[]}{% endschema %}
+{% schema %}
+{
+  "name": "Source reviews page",
+  "settings": [
+    {
+      "type": "text",
+      "id": "community_title",
+      "label": "Community title",
+      "default": "Our community"
+    },
+    {
+      "type": "checkbox",
+      "id": "community_autoplay",
+      "label": "Auto-scroll community images",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "community_speed",
+      "label": "Community scroll speed",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 18
+    }
+  ],
+  "blocks": [
+    {
+      "type": "community_image",
+      "name": "Community image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "alt",
+          "label": "Image description",
+          "default": "Customer wall art inspiration"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 20
+}
+{% endschema %}
+
