@@ -362,7 +362,13 @@ html.srp-summary-modal-open body { overflow: hidden; }
     width: calc(100vw - 40px);
     min-height: 390px;
   }
-  .srp-page .srp-widget__overview { float: none; width: 100%; margin-bottom: 30px; }
+  .srp-page .srp-widget__overview {
+    display: flow-root;
+    float: none;
+    width: 100%;
+    min-height: 64px;
+    margin-bottom: 30px;
+  }
   .srp-page .srp-widget__ratings { float: none; width: 100%; margin: 0 0 20px; padding-left: 20px; }
   .srp-page .srp-widget__ratings button { width: 100%; }
   .srp-page .srp-widget__photos { display: block; margin: 0 auto 15px; }
