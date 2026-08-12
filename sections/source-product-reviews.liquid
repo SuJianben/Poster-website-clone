@@ -1,5 +1,7 @@
 {{ 'source-product-reviews.css' | asset_url | stylesheet_tag }}
+{{ 'source-reviews-summary.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'source-product-reviews.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'source-reviews-summary.js' | asset_url }}" defer="defer"></script>
 
 <section class="sprv" data-sprv-root data-section-id="{{ section.id }}" aria-labelledby="sprv-heading-{{ section.id }}">
   <div class="sprv__heading-wrap">
@@ -8,33 +10,7 @@
 
   <div class="sprv__widget">
     <div class="sprv__inner">
-      <div class="sprv__summary">
-        <div class="sprv__score">
-          <div><strong>4.9</strong> <span class="sprv__stars" aria-label="4.9 out of 5 stars">★★★★★</span></div>
-          <p>Based on {{ section.settings.review_count }} Reviews</p>
-        </div>
-
-        <div class="sprv__ratings" aria-label="Rating distribution">
-          {%- assign rating_counts = '2461,157,5,0,1' | split: ',' -%}
-          {%- assign rating_widths = '94,6,1,0,1' | split: ',' -%}
-          {%- for count in rating_counts -%}
-            <div class="sprv__rating-row">
-              <span class="sprv__rating-stars">★★★★★</span>
-              <span class="sprv__rating-bar"><i style="width: {{ rating_widths[forloop.index0] }}%"></i></span>
-              <span>({{ count }})</span>
-            </div>
-          {%- endfor -%}
-        </div>
-
-        <div class="sprv__summary-photos" aria-label="Customer photos">
-          {%- assign summary_photos = 'https://cdn.stamped.io/uploads/videos/a8e34717bc9fe2f9f83292b1af39b519.jpg|https://cdn.stamped.io/uploads/videos/6cab27b9e5a6e8abf7376643397e3aaf.jpg|https://cdn.stamped.io/uploads/videos/8c7e5f380f1f3173c8dd30029278b25a.jpg|https://cdn.stamped.io/uploads/videos/21a4e1daec458d792212652c1cf5085a.jpg|https://cdn.stamped.io/uploads/videos/8d136012af53db6d82ac7069af53cca7.jpg|https://cdn.stamped.io/uploads/videos/256ca76b86bd47423f1e89aa58eb9d08.jpg|https://cdn.stamped.io/uploads/videos/bef1f5c940fc5baa3a4fcc3ccd787683.jpg|https://cdn.stamped.io/uploads/videos/f57c1dc2ad9757b42d490e4bd7e96398.jpg' | split: '|' -%}
-          {%- for photo in summary_photos -%}
-            <button class="sprv__summary-photo" type="button" data-sprv-photo="{{ photo }}" aria-label="Open customer photo {{ forloop.index }}">
-              <img src="{{ photo }}" alt="Customer wall art photo" width="68" height="55" loading="lazy">
-            </button>
-          {%- endfor -%}
-        </div>
-      </div>
+      {% render 'source-reviews-summary', variant: 'product', review_count: section.settings.review_count %}
 
       {% render 'source-product-reviews-list',
         review_count: section.settings.review_count,
@@ -52,7 +28,7 @@
   "name": "Source product reviews",
   "settings": [
     { "type": "text", "id": "heading", "label": "Heading", "default": "Over 60,000 satisfied customers" },
-    { "type": "text", "id": "review_count", "label": "Review count", "default": "2624" },
+    { "type": "text", "id": "review_count", "label": "Review count", "default": "2627" },
     { "type": "text", "id": "write_heading", "label": "Write review heading", "default": "Write a review" },
     { "type": "url", "id": "contact_url", "label": "Write review link" }
   ],

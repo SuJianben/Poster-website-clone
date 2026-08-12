@@ -263,7 +263,7 @@
       "type": "source-product-reviews",
       "settings": {
         "heading": "Over 60,000 satisfied customers",
-        "review_count": "2624",
+        "review_count": "2627",
         "write_heading": "Write a review",
         "contact_url": "/pages/contact"
       }
@@ -271,3 +271,4 @@
   },
   "order": ["main", "source_benefits", "source_showcase", "source_known_from", "source_tabs", "source_recommendations", "source_reviews"]
 }
+
