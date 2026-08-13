@@ -25,18 +25,23 @@
             {% endif %}
           </motion-element>
         </a>
-        {% if product.tags contains 'Trending' or product.tags contains 'Limited Edition' or is_on_sale %}
+        {% if product.tags contains 'Trending' or product.tags contains 'Bestseller' or product.tags contains 'Limited Edition' or product.tags contains 'Personalisierbar' or product.tags contains 'Neuheiten' or is_on_sale %}
           <div class="product-card__badge">
             {% if product.tags contains 'Trending' %}<span class="f-badge f-badge--custom f-badge--trending">Trending</span>{% endif %}
+            {% if product.tags contains 'Bestseller' %}<span class="f-badge f-badge--custom f-badge--bestseller">Bestseller</span>{% endif %}
             {% if product.tags contains 'Limited Edition' %}<span class="f-badge f-badge--custom f-badge--limited-edition">Limited Edition</span>{% endif %}
+            {% if product.tags contains 'Personalisierbar' %}<span class="f-badge f-badge--custom f-badge--personalisierbar">Personalisierbar</span>{% endif %}
+            {% if product.tags contains 'Neuheiten' %}<span class="f-badge f-badge--custom f-badge--new">Neu</span>{% endif %}
             {% if is_on_sale %}<span class="f-badge f-badge--sale" aria-hidden="true">-{{ product.compare_at_price_max | minus: product.price_min | times: 100 | divided_by: product.compare_at_price_max }}%</span>{% endif %}
           </div>
         {% endif %}
       </div>
       <div class="product-card__info text-center">
-        <div class="product-card__atelier-badges" style="margin-bottom: 6px; display: flex; flex-wrap: wrap; gap: 4px; justify-content: center;">
-          <span class="atelier-badge js-open-atelier-drawer-card atelier-badge--silver">ATELIER EXCLUSIVE<svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="margin-left:3px;"><polyline points="9 18 15 12 9 6"></polyline></svg></span>
-        </div>
+        {% if product.tags contains 'Atelier Exclusive' or product.tags contains 'Limited Atelier Exclusive' %}
+          <div class="product-card__atelier-badges" style="margin-bottom: 6px; display: flex; flex-wrap: wrap; gap: 4px; justify-content: center;">
+            <span class="atelier-badge js-open-atelier-drawer-card{% if product.tags contains 'Limited Atelier Exclusive' %} atelier-badge--limited{% else %} atelier-badge--silver{% endif %}">{% if product.tags contains 'Limited Atelier Exclusive' %}LIMITED ATELIER EXCLUSIVE{% else %}ATELIER EXCLUSIVE{% endif %}<svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="margin-left:3px;"><polyline points="9 18 15 12 9 6"></polyline></svg></span>
+          </div>
+        {% endif %}
         <h3 class="product-card__title text-pcard-title" style="margin-bottom: 2px;"><a class="reversed-link block" href="{{ product.url }}"><span class="reversed-link__text">{{ product.title }}</span></a></h3>
         <p class="product-card__material" style="color: #555555; font-size: 13px; margin: 0 0 2px 0; line-height: 1.2; text-transform: uppercase;">{{ material }}</p>
         <div class="f-price f-price--center{% if is_on_sale %} f-price--on-sale{% endif %}"><div class="f-price__regular"><span class="f-price-item f-price-item--regular">{% if product.price_varies %}Ab {% endif %}{{ product.price_min | money }}</span>{% if is_on_sale %}<span class="f-price-item f-price-item--regular"><s>{{ product.compare_at_price_max | money }}</s></span>{% endif %}</div></div>

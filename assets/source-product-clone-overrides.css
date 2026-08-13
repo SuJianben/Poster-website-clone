@@ -227,6 +227,7 @@ product-info.source-product {
 .f-badge--bestseller { color: #000; border: 1px solid #b38728; background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c); background-size: 200% 200%; animation: source-product-gold-shine 4s ease infinite; }
 .f-badge--limited-edition,
 .f-badge--personalisierbar { color: #fff; border-color: #333; background: #000; box-shadow: 0 2px 5px rgba(0, 0, 0, .3); }
+.f-badge--new { color: #111; border: 1px solid #9fc8a5; background: #dcefdc; text-shadow: none; }
 
 @keyframes source-product-gold-shine {
   0%, 100% { background-position: 0 50%; }
