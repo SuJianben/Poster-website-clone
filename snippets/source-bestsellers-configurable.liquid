@@ -27,7 +27,7 @@
                   <div class="featured-collection__items products-list f-grid f-grid--gap-medium f-grid--row-gap-inherit swiper-wrapper swipe-mobile__inner">
                     {% render 'source-product-shelf-promo-card', image: block.settings.promo_image, heading: block.settings.promo_heading, button_label: block.settings.promo_button_label, link: block.settings.promo_link, fallback_link: block.settings.collection.url %}
                     {% if block.settings.collection != blank %}
-                      {% for product in block.settings.collection.products limit: 12 %}{% if product.featured_image != blank %}{% render 'source-bestsellers-product-card', product: product %}{% endif %}{% endfor %}
+                      {% for product in block.settings.collection.products %}{% if product.featured_image != blank %}{% render 'source-bestsellers-product-card', product: product %}{% endif %}{% endfor %}
                     {% endif %}
                   </div>
                 </featured-collection>
@@ -61,7 +61,7 @@
       <div class="source-mobile-bestsellers__panel{% if forloop.first %} is-active{% endif %}" data-mobile-panel="{{ forloop.index0 }}">
         <div class="source-mobile-bestsellers__track">
           {% if block.settings.collection != blank %}
-            {% for product in block.settings.collection.products limit: 12 %}
+            {% for product in block.settings.collection.products %}
               {% if product.featured_image != blank %}
                 {% render 'source-bestsellers-product-card', product: product %}
               {% endif %}
