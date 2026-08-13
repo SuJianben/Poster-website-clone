@@ -1,0 +1,122 @@
+/*
+ * Homepage best-seller rail.
+ * Kept under .source-bestsellers so other product carousels retain their
+ * existing desktop and mobile behaviour.
+ */
+.source-bestsellers {
+  --source-bestsellers-gap: 12px;
+  word-break: normal;
+  overflow-wrap: normal;
+}
+
+@media screen and (max-width: 767.98px) {
+  .source-bestsellers {
+    --source-bestsellers-card-width: calc((100vw - 48px) / 2);
+  }
+
+  .source-bestsellers .section__header {
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .source-bestsellers .rich-text__heading {
+    font-size: 30px;
+    letter-spacing: -0.035em;
+    line-height: 1.05;
+  }
+
+  .source-bestsellers .tabs-nav {
+    max-width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .source-bestsellers .tabs-nav::-webkit-scrollbar,
+  .source-bestsellers featured-collection::-webkit-scrollbar {
+    display: none;
+  }
+
+  .source-bestsellers .tabs-nav__inner {
+    flex-wrap: nowrap !important;
+    justify-content: flex-start !important;
+    width: max-content;
+    min-width: 100%;
+    gap: 18px;
+  }
+
+  .source-bestsellers .tabs__btn {
+    flex: 0 0 auto;
+    min-width: 18px;
+    padding-inline: 0;
+  }
+
+  /*
+   * The copied Swiper CSS lets the track calculate its width from its own
+   * percentage-based children at this breakpoint. Give the cards a viewport
+   * based width instead, so the rail cannot recursively grow beyond screen.
+   */
+  .source-bestsellers .source-tabs-ready featured-collection {
+    display: block;
+    overflow-x: auto !important;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+  }
+
+  .source-bestsellers .source-tabs-ready .featured-collection__items {
+    display: flex !important;
+    width: max-content !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    gap: var(--source-bestsellers-gap) !important;
+    padding-bottom: 4px;
+    transform: none !important;
+  }
+
+  .source-bestsellers .source-tabs-ready .featured-collection__items > .f-column.swiper-slide {
+    display: block !important;
+    box-sizing: border-box;
+    flex: 0 0 var(--source-bestsellers-card-width) !important;
+    width: var(--source-bestsellers-card-width) !important;
+    min-width: var(--source-bestsellers-card-width) !important;
+    max-width: var(--source-bestsellers-card-width) !important;
+    margin: 0 !important;
+    scroll-snap-align: start;
+  }
+
+  .source-bestsellers .product-card__image-wrapper,
+  .source-bestsellers .product-card__image,
+  .source-bestsellers .product-card__image img {
+    max-width: 100%;
+  }
+
+  .source-bestsellers .product-card__info {
+    min-width: 0;
+    padding-top: 10px;
+  }
+
+  .source-bestsellers .product-card__title,
+  .source-bestsellers .product-card__material,
+  .source-bestsellers .f-price {
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+
+  .source-bestsellers .product-card__title {
+    font-size: 13px;
+    line-height: 1.25;
+  }
+
+  .source-bestsellers .product-card__material {
+    font-size: 11px !important;
+  }
+
+  .source-bestsellers .f-price-item {
+    font-size: 13px;
+  }
+
+  .source-bestsellers .collection-action-bottom {
+    justify-content: center;
+    margin-top: 20px;
+  }
+}
