@@ -184,9 +184,14 @@
       scroll-snap-align: start;
     }
 
-    .source-mobile-canvas-deals .card-media--link,
-    .source-mobile-canvas-deals .card-media { height: 100%; }
-    .source-mobile-canvas-deals .card-media { min-height: 0; }
+    .source-mobile-canvas-deals .card-media--link {
+      display: block;
+      aspect-ratio: 0.58 / 1;
+    }
+    .source-mobile-canvas-deals .card-media {
+      height: 100%;
+      min-height: 0;
+    }
     .source-mobile-canvas-deals .card-media__content-wrapper { padding: 12px; }
     .source-mobile-canvas-deals .card-media__heading { font-size: 20px; line-height: 1.05; }
 
