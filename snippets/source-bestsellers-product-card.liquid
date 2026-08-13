@@ -2,7 +2,15 @@
   assign secondary_image = product.media[1].preview_image
   assign material = product.type | default: 'Leinwand'
   assign is_on_sale = false
+  assign display_price = product.price_min
+  assign display_compare_at_price = product.compare_at_price_max
   if product.compare_at_price_max > product.price_min
+    assign is_on_sale = true
+  endif
+  if promotion_discount != blank and promotion_discount > 0
+    assign promotion_multiplier = 100 | minus: promotion_discount
+    assign display_compare_at_price = product.price_min
+    assign display_price = product.price_min | times: promotion_multiplier | divided_by: 100
     assign is_on_sale = true
   endif
 %}
@@ -32,7 +40,7 @@
             {% if product.tags contains 'Limited Edition' %}<span class="f-badge f-badge--custom f-badge--limited-edition">Limited Edition</span>{% endif %}
             {% if product.tags contains 'Personalisierbar' %}<span class="f-badge f-badge--custom f-badge--personalisierbar">Personalisierbar</span>{% endif %}
             {% if product.tags contains 'Neuheiten' %}<span class="f-badge f-badge--custom f-badge--new">Neu</span>{% endif %}
-            {% if is_on_sale %}<span class="f-badge f-badge--sale" aria-hidden="true">-{{ product.compare_at_price_max | minus: product.price_min | times: 100 | divided_by: product.compare_at_price_max }}%</span>{% endif %}
+            {% if promotion_discount != blank and promotion_discount > 0 %}<span class="f-badge f-badge--sale" aria-hidden="true">-{{ promotion_discount }}%</span>{% elsif is_on_sale %}<span class="f-badge f-badge--sale" aria-hidden="true">-{{ product.compare_at_price_max | minus: product.price_min | times: 100 | divided_by: product.compare_at_price_max }}%</span>{% endif %}
           </div>
         {% endif %}
       </div>
@@ -42,7 +50,7 @@
         </div>
         <h3 class="product-card__title text-pcard-title" style="margin-bottom: 2px;"><a class="reversed-link block" href="{{ product.url }}"><span class="reversed-link__text">{{ product.title }}</span></a></h3>
         <p class="product-card__material" style="color: #555555; font-size: 13px; margin: 0 0 2px 0; line-height: 1.2; text-transform: uppercase;">{{ material }}</p>
-        <div class="f-price f-price--center{% if is_on_sale %} f-price--on-sale{% endif %}"><div class="f-price__regular"><span class="f-price-item f-price-item--regular">{% if product.price_varies %}Ab {% endif %}{{ product.price_min | money }}</span>{% if is_on_sale %}<span class="f-price-item f-price-item--regular"><s>{{ product.compare_at_price_max | money }}</s></span>{% endif %}</div></div>
+        <div class="f-price f-price--center{% if is_on_sale %} f-price--on-sale{% endif %}"><div class="f-price__regular"><span class="f-price-item f-price-item--regular">{% if product.price_varies %}Ab {% endif %}{{ display_price | money }}</span>{% if is_on_sale %}<span class="f-price-item f-price-item--regular"><s>{{ display_compare_at_price | money }}</s></span>{% endif %}</div></div>
       </div>
     </div>
   </div>

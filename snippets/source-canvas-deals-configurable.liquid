@@ -22,7 +22,7 @@
                 <featured-collection class="block relative swiper swiper-equal-height overflow-visible f-grid--gap-medium swipe-mobile swipe-mobile--2-cols" data-block-id="{{ block.id }}" data-enable-slider="true" data-items="5" data-tablet-items="3" data-laptop-items="4" data-pagination-type="progressbar" data-navigation-position="bottom" id="product-list-{{ block.id }}">
                   <div class="featured-collection__items products-list f-grid f-grid--gap-medium f-grid--row-gap-medium swiper-wrapper swipe-mobile__inner">
                     {% render 'source-product-shelf-promo-card', image: block.settings.promo_image, heading: block.settings.promo_heading, button_label: block.settings.promo_button_label, link: block.settings.promo_link, fallback_link: block.settings.collection.url %}
-                    {% if block.settings.collection != blank %}{% for product in block.settings.collection.products limit: 12 %}{% render 'source-bestsellers-product-card', product: product %}{% endfor %}{% endif %}
+                    {% if block.settings.collection != blank %}{% for product in block.settings.collection.products limit: 12 %}{% render 'source-bestsellers-product-card', product: product, promotion_discount: 20 %}{% endfor %}{% endif %}
                   </div>
                 </featured-collection>
                 <div class="swiper-controls swiper-controls--grouped swiper-controls--pagination-progressbar hidden md:flex"><button class="swiper-button swiper-button-prev btn" name="previous" aria-label="Nach links schieben"><span class="btn__text"><svg class="icon icon-caret-left rtl-flip-x icon--medium icon--thick" viewBox="0 0 20 20" fill="none"><path d="M12.5 16.25L6.25 10L12.5 3.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="swiper-pagination"></div><button class="swiper-button swiper-button-next btn" name="next" aria-label="Nach rechts schieben"><span class="btn__text"><svg class="icon icon-caret-right rtl-flip-x icon--medium icon--thick" viewBox="0 0 20 20" fill="none"><path d="M7.5 3.75L13.75 10L7.5 16.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
@@ -57,7 +57,7 @@
           {% if block.settings.collection != blank %}
             {% for product in block.settings.collection.products limit: 12 %}
               {% if product.featured_image != blank %}
-                {% render 'source-bestsellers-product-card', product: product %}
+                {% render 'source-bestsellers-product-card', product: product, promotion_discount: 20 %}
               {% endif %}
             {% endfor %}
           {% endif %}
