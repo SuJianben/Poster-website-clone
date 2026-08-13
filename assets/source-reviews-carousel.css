@@ -192,11 +192,11 @@
   }
 
   .source-reviews-carousel__button[data-source-reviews-prev] {
-    left: calc(50% - 110px);
+    left: max(8px, calc(50% - 145px));
   }
 
   .source-reviews-carousel__button[data-source-reviews-next] {
-    right: calc(50% - 110px);
+    right: max(8px, calc(50% - 145px));
   }
 
   .source-reviews-carousel__viewport {
