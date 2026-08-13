@@ -70,6 +70,29 @@ favorite-products.source-favorite-ready .swiper-button:disabled {
     min-height: 0 !important;
   }
 
+  favorite-products.source-favorite-ready .favorite-products__testimonials {
+    display: block !important;
+    flex: none !important;
+  }
+
+  favorite-products.source-favorite-ready .favorite-products__testimonials .swiper-wrapper {
+    display: flex !important;
+    transform: none !important;
+  }
+
+  favorite-products.source-favorite-ready .favorite-products__testimonials .swiper-slide:not(.source-favorite-active) {
+    display: none !important;
+  }
+
+  favorite-products.source-favorite-ready .favorite-products__testimonials .swiper-slide.source-favorite-active {
+    display: block !important;
+    height: auto !important;
+  }
+
+  favorite-products.source-favorite-ready .favorite-products__testimonials + * {
+    margin-top: 0 !important;
+  }
+
   favorite-products.source-favorite-ready,
   favorite-products.source-favorite-ready .favorite-products__testimonials,
   favorite-products.source-favorite-ready .favorite-products__testimonials .swiper,
