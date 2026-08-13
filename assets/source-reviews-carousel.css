@@ -47,6 +47,7 @@
   border: 0;
   color: #000;
   cursor: pointer;
+  display: none;
   font-size: 30px;
   height: 30px;
   line-height: 24px;
