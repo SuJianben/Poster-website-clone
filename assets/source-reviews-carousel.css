@@ -168,8 +168,9 @@
   .source-reviews-carousel__counter { display: block; left: 0; position: absolute; top: 2px; }
 
   .source-reviews-carousel__title {
-    font-size: 22px;
-    margin: 0 10px 0 0;
+    flex: 1 0 100%;
+    font-size: 25px;
+    margin: 0;
     order: 1;
     text-align: center;
   }
@@ -182,9 +183,20 @@
   }
 
   .source-reviews-carousel__button {
-    font-size: 28px;
-    order: 1;
-    width: 24px;
+    font-size: 22px;
+    height: 26px;
+    order: 2;
+    position: absolute;
+    top: 0;
+    width: 20px;
+  }
+
+  .source-reviews-carousel__button[data-source-reviews-prev] {
+    left: calc(50% - 110px);
+  }
+
+  .source-reviews-carousel__button[data-source-reviews-next] {
+    right: calc(50% - 110px);
   }
 
   .source-reviews-carousel__viewport {
