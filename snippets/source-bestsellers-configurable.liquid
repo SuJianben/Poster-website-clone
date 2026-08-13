@@ -243,7 +243,7 @@
     .source-mobile-bestsellers__progress {
       height: 2px;
       margin: 2px 0 20px;
-      background: #ddd;
+      background: transparent;
     }
 
     .source-mobile-bestsellers__progress span {
@@ -251,6 +251,7 @@
       width: 18%;
       height: 100%;
       background: #111;
+      transition: width 180ms linear;
     }
 
     .source-mobile-bestsellers__action {
@@ -314,11 +315,9 @@
         if (!track || !indicator) return;
 
         const maxScroll = Math.max(track.scrollWidth - track.clientWidth, 0);
-        const visibleRatio = Math.min(track.clientWidth / Math.max(track.scrollWidth, 1), 1);
-        const indicatorWidth = Math.max(visibleRatio * 100, 18);
         const progress = maxScroll ? track.scrollLeft / maxScroll : 0;
-        indicator.style.width = `${indicatorWidth}%`;
-        indicator.style.transform = `translateX(${progress * (100 / indicatorWidth * 100 - 100)}%)`;
+        indicator.style.width = `${18 + progress * 82}%`;
+        indicator.style.transform = 'none';
       };
 
       section.querySelectorAll('[data-mobile-panel]').forEach((panel) => {
