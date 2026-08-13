@@ -554,7 +554,11 @@ details[open] .source-product-accordion-icon::after { transform: translate(-50%,
   .source-product .product__info-wrapper { width: 100%; max-width: none; padding: 0; }
   .source-product .product__media-gallery-viewer-wrap { margin-inline: 0 !important; padding-inline: 0 !important; }
   .source-product .product__media-item-container { background: #fff; }
-  .source-product .product__media-image { object-fit: contain; transform: scale(1.18); transform-origin: center; }
+  .source-product .product__media-image {
+    object-fit: contain;
+    transform: none;
+    transform-origin: center;
+  }
   .source-product .product__media-gallery-thumbails { position: static !important; width: 100% !important; height: auto !important; margin-top: 18px !important; }
   .source-product .product__media-gallery-thumbails .swiper-wrapper { flex-direction: row !important; overflow-x: auto; }
   .source-product .product__media-gallery-thumbails .swiper-slide { width: 70px !important; flex: 0 0 70px; margin: 0 9px 0 0 !important; }
