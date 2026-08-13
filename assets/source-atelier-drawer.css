@@ -51,6 +51,22 @@
 }
 .product-card__atelier-badges button.atelier-badge { appearance: none; }
 .product-card__atelier-badges .atelier-badge:focus-visible { outline: 2px solid #111; outline-offset: 2px; }
+.product-card__atelier-badges {
+  margin-bottom: 2px !important;
+}
+.product-card__atelier-badges .atelier-badge {
+  box-sizing: border-box;
+  font-size: 6px !important;
+  letter-spacing: 0.035em !important;
+  line-height: 10px !important;
+  min-height: 14px;
+  padding: 1px 4px !important;
+}
+.product-card__atelier-badges .atelier-badge svg {
+  height: 6px;
+  margin-left: 2px !important;
+  width: 6px;
+}
 
 @media screen and (max-width: 768px) {
   .atelier-drawer { border-radius: 12px 12px 0 0; bottom: 0; height: auto; max-height: 85vh; top: auto; transform: translateY(100%); width: 100%; }
