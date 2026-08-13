@@ -48,6 +48,43 @@
   .source-tabs-ready .featured-collection__items > .f-column {
     flex-basis: calc((100% - var(--f-column-gap, 0px)) / 2);
   }
+
+  /* Keep the Best sellers carousel inside the mobile viewport. */
+  .source-bestsellers-section {
+    min-width: 0;
+  }
+
+  .source-bestsellers-section .tabs-nav {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .source-bestsellers-section .tabs-nav__inner {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    width: max-content;
+  }
+
+  .source-bestsellers-section featured-collection {
+    max-width: 100%;
+    overflow: hidden !important;
+  }
+
+  .source-bestsellers-section .featured-collection__items {
+    gap: 12px;
+  }
+
+  .source-bestsellers-section .featured-collection__items > .f-column {
+    box-sizing: border-box;
+    flex: 0 0 calc((100% - 12px) / 2);
+    max-width: calc((100% - 12px) / 2);
+    min-width: 0;
+  }
+
+  .source-bestsellers-section .rich-text__heading {
+    font-size: clamp(2rem, 9vw, 2.75rem);
+    line-height: 1.08;
+  }
 }
 
 .source-tabs-ready .swiper-pagination {
