@@ -101,10 +101,20 @@
     }
 
     .source-mobile-bestsellers__header h2 span {
+      position: relative;
       display: block;
-      text-decoration: underline;
-      text-decoration-thickness: 2px;
-      text-underline-offset: 5px;
+      isolation: isolate;
+    }
+
+    .source-mobile-bestsellers__header h2 span::after {
+      position: absolute;
+      right: -4px;
+      bottom: 5px;
+      left: -4px;
+      z-index: -1;
+      height: 6px;
+      background: #e6d9c5;
+      content: "";
     }
 
     .source-mobile-bestsellers__tabs {
@@ -128,7 +138,7 @@
       background: transparent;
       color: #666;
       font: inherit;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 500;
     }
 
