@@ -162,24 +162,29 @@
     justify-content: center;
     min-height: 0;
     padding: 0 0 8px;
+    position: relative;
   }
 
   .source-reviews-carousel__counter { display: block; left: 0; position: absolute; top: 2px; }
 
   .source-reviews-carousel__title {
-    flex: 1 0 100%;
     font-size: 22px;
-    margin: 0 0 2px;
+    margin: 0 10px 0 0;
+    order: 1;
     text-align: center;
   }
 
   .source-reviews-carousel__summary {
-    margin: 0 8px;
-    order: 2;
+    flex: 1 0 100%;
+    justify-content: center;
+    margin: 2px 0 0;
+    order: 3;
   }
 
   .source-reviews-carousel__button {
+    font-size: 28px;
     order: 1;
+    width: 24px;
   }
 
   .source-reviews-carousel__viewport {
