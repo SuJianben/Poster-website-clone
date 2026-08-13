@@ -208,6 +208,7 @@
         count.hidden = isEmpty;
         count.setAttribute('aria-label', `${cart.item_count} Artikel`);
       });
+      document.documentElement.classList.add('cart-count-ready');
       document.documentElement.classList.toggle('cart-has-items', !isEmpty);
       document.dispatchEvent(new CustomEvent('cart:updated', { detail: { cart } }));
     }

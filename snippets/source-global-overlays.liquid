@@ -1,5 +1,5 @@
 {% render 'source-cart-drawer-1' %}
-<style>.cart-icon cart-count { visibility: hidden; } .cart-icon cart-count:not([hidden]) { visibility: visible; }</style>
+<style>html:not(.cart-count-ready) .cart-icon cart-count { visibility: hidden !important; } html.cart-count-ready .cart-icon cart-count:not([hidden]) { visibility: visible; }</style>
 <script src="{{ 'source-cart-drawer.js' | asset_url }}" defer="defer"></script>
 {% render 'source-product-compare-1' %}
 {% render 'source-spotlight-picks-1' %}
