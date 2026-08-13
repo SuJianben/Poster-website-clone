@@ -55,12 +55,18 @@
   margin-bottom: 2px !important;
 }
 .product-card__atelier-badges .atelier-badge {
+  appearance: none;
   box-sizing: border-box;
   font-size: 6px !important;
+  height: 14px !important;
   letter-spacing: 0.035em !important;
   line-height: 10px !important;
-  min-height: 14px;
+  margin: 0 !important;
+  max-height: 14px !important;
+  min-height: 14px !important;
+  min-width: 0 !important;
   padding: 1px 4px !important;
+  vertical-align: middle;
 }
 .product-card__atelier-badges .atelier-badge svg {
   height: 6px;
