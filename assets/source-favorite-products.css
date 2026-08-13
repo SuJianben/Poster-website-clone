@@ -55,6 +55,21 @@ favorite-products.source-favorite-ready .swiper-button:disabled {
 }
 
 @media (max-width: 767px) {
+  .section-favorite-products,
+  .section-favorite-products .section__container,
+  favorite-products.source-favorite-ready,
+  favorite-products.source-favorite-ready .favorite-products__products,
+  favorite-products.source-favorite-ready .favorite-products__media,
+  favorite-products.source-favorite-ready .favorite-products__testimonials,
+  favorite-products.source-favorite-ready .favorite-products__testimonials > motion-element,
+  favorite-products.source-favorite-ready .favorite-products__testimonials .swiper,
+  favorite-products.source-favorite-ready .favorite-products__products .swiper,
+  favorite-products.source-favorite-ready .favorite-products__media .swiper {
+    height: auto !important;
+    max-height: none !important;
+    min-height: 0 !important;
+  }
+
   favorite-products.source-favorite-ready,
   favorite-products.source-favorite-ready .favorite-products__testimonials,
   favorite-products.source-favorite-ready .favorite-products__testimonials .swiper,
@@ -66,5 +81,9 @@ favorite-products.source-favorite-ready .swiper-button:disabled {
 
   favorite-products.source-favorite-ready .favorite-products__testimonials .swiper-slide {
     align-self: flex-start;
+  }
+
+  favorite-products.source-favorite-ready .favorite-products__testimonials .swiper-wrapper {
+    height: auto !important;
   }
 }
