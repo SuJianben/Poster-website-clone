@@ -94,13 +94,3 @@
 [id$="__canvas-deals"] .featured-collection__items > .f-column:has(.card-media) .card-media {
   height: 100%;
 }
-
-/* Optimization branch test: highlight only the header cart icon. */
-.header__icons .cart-drawer-button {
-  color: #dc2626;
-}
-
-.header__icons .cart-drawer-button:hover,
-.header__icons .cart-drawer-button:focus-visible {
-  color: #b91c1c;
-}
