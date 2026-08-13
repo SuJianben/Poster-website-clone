@@ -19,6 +19,8 @@
   margin: 0 0 10px;
 }
 
+.source-reviews-carousel__counter { color: #222; display: none; font-size: 13px; min-width: 30px; }
+
 .source-reviews-carousel__summary {
   align-items: center;
   color: #000;
@@ -64,6 +66,8 @@
   transition: transform 1s ease;
   will-change: transform;
 }
+
+.source-reviews-carousel__track.is-dragging { cursor: grabbing; transition: none; }
 
 .source-reviews-carousel__page {
   display: grid;
@@ -160,6 +164,8 @@
     padding: 0 0 8px;
   }
 
+  .source-reviews-carousel__counter { display: block; left: 0; position: absolute; top: 2px; }
+
   .source-reviews-carousel__title {
     flex: 1 0 100%;
     font-size: 22px;
@@ -177,7 +183,9 @@
   }
 
   .source-reviews-carousel__viewport {
+    cursor: grab;
     padding-top: 14px;
+    touch-action: pan-y;
   }
 
   .source-reviews-carousel__track {
