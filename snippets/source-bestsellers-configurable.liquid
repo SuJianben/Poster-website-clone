@@ -59,16 +59,24 @@
 
     {% for block in section.blocks %}
       <div class="source-mobile-bestsellers__panel{% if forloop.first %} is-active{% endif %}" data-mobile-panel="{{ forloop.index0 }}">
-        <div class="source-mobile-bestsellers__track">
-          {% if block.settings.collection != blank %}
-            {% for product in block.settings.collection.products %}
-              {% if product.featured_image != blank %}
-                {% render 'source-bestsellers-product-card', product: product %}
-              {% endif %}
-            {% endfor %}
-          {% endif %}
+        <div class="source-mobile-bestsellers__carousel">
+          <button class="source-mobile-bestsellers__arrow source-mobile-bestsellers__arrow--previous" type="button" aria-label="Vorherige Produkte" data-mobile-scroll="previous" disabled>
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 16.25 6.25 10 12.5 3.75" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/></svg>
+          </button>
+          <div class="source-mobile-bestsellers__track" data-mobile-track>
+            {% if block.settings.collection != blank %}
+              {% for product in block.settings.collection.products %}
+                {% if product.featured_image != blank %}
+                  {% render 'source-bestsellers-product-card', product: product %}
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+          </div>
+          <button class="source-mobile-bestsellers__arrow source-mobile-bestsellers__arrow--next" type="button" aria-label="Nächste Produkte" data-mobile-scroll="next">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 16.25 13.75 10 7.5 3.75" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/></svg>
+          </button>
         </div>
-        <div class="source-mobile-bestsellers__progress" aria-hidden="true"><span></span></div>
+        <div class="source-mobile-bestsellers__progress" aria-hidden="true"><span data-mobile-progress></span></div>
         {% if block.settings.collection != blank %}
           <a class="source-mobile-bestsellers__action" href="{{ block.settings.collection.url }}">{{ section.settings.collection_label }} <span aria-hidden="true">→</span></a>
         {% endif %}
@@ -182,6 +190,45 @@
       scrollbar-width: none;
     }
 
+    .source-mobile-bestsellers__carousel {
+      position: relative;
+    }
+
+    .source-mobile-bestsellers__arrow {
+      position: absolute;
+      top: 50%;
+      z-index: 2;
+      display: flex;
+      width: 30px;
+      height: 30px;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #d4d4d4;
+      border-radius: 50%;
+      background: #fff;
+      color: #111;
+      opacity: 0.96;
+      transform: translateY(-50%);
+    }
+
+    .source-mobile-bestsellers__arrow svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .source-mobile-bestsellers__arrow--previous {
+      left: -7px;
+    }
+
+    .source-mobile-bestsellers__arrow--next {
+      right: -7px;
+    }
+
+    .source-mobile-bestsellers__arrow:disabled {
+      opacity: 0;
+      pointer-events: none;
+    }
+
     .source-mobile-bestsellers__track::-webkit-scrollbar {
       display: none;
     }
@@ -248,9 +295,11 @@
 
     .source-mobile-bestsellers__progress span {
       display: block;
-      width: 18%;
+      width: 20%;
       height: 100%;
       background: #111;
+      transform: translateX(0);
+      transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .source-mobile-bestsellers__action {
@@ -308,6 +357,41 @@
 <script>
   (() => {
     document.querySelectorAll('[data-mobile-bestsellers]').forEach((section) => {
+      const updateCarousel = (panel) => {
+        const track = panel.querySelector('[data-mobile-track]');
+        const progress = panel.querySelector('[data-mobile-progress]');
+        const previous = panel.querySelector('[data-mobile-scroll="previous"]');
+        const next = panel.querySelector('[data-mobile-scroll="next"]');
+        if (!track || !progress || !previous || !next) return;
+
+        const maxScroll = Math.max(track.scrollWidth - track.clientWidth, 0);
+        const ratio = maxScroll ? track.scrollLeft / maxScroll : 0;
+        const progressWidth = Math.min(track.clientWidth / Math.max(track.scrollWidth, 1), 1);
+        progress.style.width = `${Math.max(progressWidth * 100, 18)}%`;
+        progress.style.transform = `translateX(${ratio * (100 / Math.max(progressWidth, 0.18) - 100)}%)`;
+        previous.disabled = track.scrollLeft <= 1;
+        next.disabled = track.scrollLeft >= maxScroll - 1;
+      };
+
+      const bindCarousel = (panel) => {
+        if (panel.dataset.mobileCarouselBound === 'true') return;
+        panel.dataset.mobileCarouselBound = 'true';
+        const track = panel.querySelector('[data-mobile-track]');
+        if (!track) return;
+        panel.querySelectorAll('[data-mobile-scroll]').forEach((button) => {
+          button.addEventListener('click', () => {
+            const firstCard = track.querySelector('.f-column');
+            const gap = Number.parseFloat(window.getComputedStyle(track).gap) || 14;
+            const amount = (firstCard?.getBoundingClientRect().width || track.clientWidth / 2) * 2 + gap;
+            track.scrollBy({ left: button.dataset.mobileScroll === 'next' ? amount : -amount, behavior: 'smooth' });
+          });
+        });
+        track.addEventListener('scroll', () => updateCarousel(panel), { passive: true });
+        window.addEventListener('resize', () => updateCarousel(panel));
+        requestAnimationFrame(() => updateCarousel(panel));
+      };
+
+      section.querySelectorAll('[data-mobile-panel]').forEach(bindCarousel);
       section.querySelectorAll('[data-mobile-tab]').forEach((tab) => {
         tab.addEventListener('click', () => {
           const index = tab.dataset.mobileTab;
@@ -317,7 +401,9 @@
             item.setAttribute('aria-selected', String(active));
           });
           section.querySelectorAll('[data-mobile-panel]').forEach((panel) => {
-            panel.classList.toggle('is-active', panel.dataset.mobilePanel === index);
+            const active = panel.dataset.mobilePanel === index;
+            panel.classList.toggle('is-active', active);
+            if (active) requestAnimationFrame(() => updateCarousel(panel));
           });
         });
       });
