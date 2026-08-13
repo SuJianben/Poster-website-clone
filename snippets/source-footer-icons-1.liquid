@@ -1,5 +1,5 @@
 {% raw %}
-<section id="shopify-section-sections--28031812927754__multicolumn_icon_rTKNUF" class="shopify-section shopify-section-group-footer-group section"><link href="https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-2c0d6c869a7c-component-multicolumn-card.css?v=53433550452750083841780837036" rel="stylesheet" type="text/css" media="all" />
+<section id="shopify-section-sections--28031812927754__multicolumn_icon_rTKNUF" class="shopify-section shopify-section-group-footer-group section source-footer-icons-promise"><link href="https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-2c0d6c869a7c-component-multicolumn-card.css?v=53433550452750083841780837036" rel="stylesheet" type="text/css" media="all" />
 <div class="section-divider page-width">
     <div class="border-top no-empty"></div>
   </div>
@@ -235,5 +235,81 @@ Freundlicher Kundenservice
   </div>
 </div>
 
-<style> #shopify-section-sections--28031812927754__multicolumn_icon_rTKNUF .rich-text__text {--text-margin-top: 0.4rem;} </style></section>
+<style>
+  #shopify-section-sections--28031812927754__multicolumn_icon_rTKNUF .rich-text__text {--text-margin-top: 0.4rem;}
+
+  /* Keep the promise list compact and legible on small screens, matching the reference layout. */
+  @media screen and (max-width: 767.98px) {
+    #shopify-section-sections--28031812927754__multicolumn_icon_rTKNUF {
+      --section-padding-top: 24px;
+      --section-padding-bottom: 26px;
+    }
+
+    #shopify-section-sections--28031812927754__multicolumn_icon_rTKNUF .section__container {
+      padding-inline: 20px;
+    }
+
+    #shopify-section-sections--28031812927754__multicolumn_icon_rTKNUF .section__heading {
+      margin-bottom: 18px;
+    }
+
+    #shopify-section-sections--28031812927754__multicolumn_icon_rTKNUF .section__heading h2 {
+      font-size: 24px;
+      line-height: 1.15;
+      letter-spacing: 0;
+      font-weight: 700;
+    }
+
+    #shopify-section-sections--28031812927754__multicolumn_icon_rTKNUF .section__heading .highlight-text {
+      text-decoration: none;
+      z-index: 0;
+    }
+
+    #shopify-section-sections--28031812927754__multicolumn_icon_rTKNUF .section__heading .highlight-text::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset-inline: 0;
+      bottom: 1px;
+      height: 6px;
+      background: rgba(222, 207, 188, 0.9);
+    }
+
+    #shopify-section-sections--28031812927754__multicolumn_icon_rTKNUF .multicolumn__items {
+      row-gap: 14px;
+    }
+
+    #shopify-section-sections--28031812927754__multicolumn_icon_rTKNUF .multicolumn-card {
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    #shopify-section-sections--28031812927754__multicolumn_icon_rTKNUF .multicolumn-card__image {
+      width: 22px;
+      min-width: 22px;
+      margin-top: 1px;
+    }
+
+    #shopify-section-sections--28031812927754__multicolumn_icon_rTKNUF .multicolumn-card__image svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    #shopify-section-sections--28031812927754__multicolumn_icon_rTKNUF .multicolumn-card__info {
+      gap: 2px;
+    }
+
+    #shopify-section-sections--28031812927754__multicolumn_icon_rTKNUF .multicolumn-card__title {
+      font-size: 13px;
+      line-height: 1.35;
+      font-weight: 700;
+    }
+
+    #shopify-section-sections--28031812927754__multicolumn_icon_rTKNUF .multicolumn-card__text {
+      color: rgba(var(--color-foreground), 0.62);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+  }
+</style></section>
 {% endraw %}
