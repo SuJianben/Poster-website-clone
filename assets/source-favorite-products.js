@@ -52,6 +52,33 @@
       render(root, Number(root.dataset.sourceFavoriteIndex || 0) + 1);
     });
 
+    let dragStartX = 0;
+    let dragStartY = 0;
+    let dragging = false;
+
+    root.addEventListener('pointerdown', (event) => {
+      if (event.pointerType === 'mouse' && event.button !== 0) return;
+      dragStartX = event.clientX;
+      dragStartY = event.clientY;
+      dragging = true;
+      root.setPointerCapture?.(event.pointerId);
+    }, { passive: true });
+
+    root.addEventListener('pointerup', (event) => {
+      if (!dragging) return;
+      dragging = false;
+      const deltaX = event.clientX - dragStartX;
+      const deltaY = event.clientY - dragStartY;
+      if (Math.abs(deltaX) < 40 || Math.abs(deltaX) < Math.abs(deltaY)) return;
+
+      const current = Number(root.dataset.sourceFavoriteIndex || 0);
+      render(root, current + (deltaX < 0 ? 1 : -1));
+    }, { passive: true });
+
+    root.addEventListener('pointercancel', () => {
+      dragging = false;
+    }, { passive: true });
+
     render(root, 0);
   }
 

@@ -2,6 +2,11 @@ favorite-products.source-favorite-ready .swiper {
   overflow: hidden;
 }
 
+favorite-products.source-favorite-ready {
+  touch-action: pan-y;
+  user-select: none;
+}
+
 favorite-products.source-favorite-ready .swiper-wrapper {
   display: flex;
   flex-wrap: nowrap;
