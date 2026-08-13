@@ -373,8 +373,8 @@
         "collection_tab_zDyKbU": {
           "type": "collection_tab",
           "settings": {
-            "collection": "all",
-            "label": "",
+            "collection": "noxy-studio",
+            "label": "Nox'Y Studio",
             "promo_heading": "",
             "promo_button_label": "",
             "promo_link": ""
@@ -383,9 +383,38 @@
         "collection_tab_AgyaRt": {
           "type": "collection_tab",
           "settings": {
-            "collection": "all",
-            "label": "",
-            "promo_image": "shopify://shop_images/Screenshot_2026-02-01_000936.webp",
+            "collection": "ricardoquexo",
+            "label": "Ricardoquexo",
+            "promo_heading": "",
+            "promo_button_label": "",
+            "promo_link": ""
+          }
+        },
+        "collection_tab_stefan": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "stefan-bammert",
+            "label": "Stefan Bammert",
+            "promo_heading": "",
+            "promo_button_label": "",
+            "promo_link": ""
+          }
+        },
+        "collection_tab_sabrina": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "sabrina-seck",
+            "label": "Sabrina Seck",
+            "promo_heading": "",
+            "promo_button_label": "",
+            "promo_link": ""
+          }
+        },
+        "collection_tab_petra": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "petra-meikle-de-vlas",
+            "label": "Petra Meikle de Vlas",
             "promo_heading": "",
             "promo_button_label": "",
             "promo_link": ""
@@ -394,7 +423,10 @@
       },
       "block_order": [
         "collection_tab_zDyKbU",
-        "collection_tab_AgyaRt"
+        "collection_tab_AgyaRt",
+        "collection_tab_stefan",
+        "collection_tab_sabrina",
+        "collection_tab_petra"
       ],
       "settings": {
         "enabled": true,
