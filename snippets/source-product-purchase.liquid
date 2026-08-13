@@ -66,7 +66,7 @@
 
       <div class="product__block product__block--meta flex flex-wrap gap-x-3 gap-y-2 text-subtext">
         {% if product.vendor != blank %}
-          <p class="product__meta product__vendor m-0"><span>Artist:</span> <a href="{{ routes.collections_url }}/{{ product.vendor | handleize }}" class="btn--link font-body-bolder text-body">{{ product.vendor }}</a></p>
+          <p class="product__meta product__vendor m-0"><span>K&uuml;nstler:</span> <a href="{{ routes.collections_url }}/{{ product.vendor | handleize }}" class="btn--link font-body-bolder text-body">{{ product.vendor }}</a></p>
         {% endif %}
         {% if atelier_label != blank %}<button type="button" class="atelier-badge js-open-atelier-drawer-card atelier-badge--silver">{{ atelier_label }} <span aria-hidden="true">›</span></button>{% endif %}
       </div>
@@ -74,7 +74,7 @@
       <div id="price-{{ section.id }}" class="product__block product__block--price" data-source-product-price>
         <span class="source-product-price" data-source-product-current-price>{{ current_variant.price | money }}</span>
         <s class="source-product-compare-price" data-source-product-compare-price{% unless current_variant.compare_at_price > current_variant.price %} hidden{% endunless %}>{% if current_variant.compare_at_price > current_variant.price %}{{ current_variant.compare_at_price | money }}{% endif %}</s>
-        <p class="source-product-shipping">Free Shipping.</p>
+        <p class="source-product-shipping">Kostenloser Versand.</p>
       </div>
 
       <div class="product__block product__block--variant_picker">
@@ -92,7 +92,7 @@
                 <div class="form__label">
                   <div class="flex flex-wrap gap-2"><span class="font-body-bolder">{{ option.name }}:</span><span class="text-subtext" data-source-product-option-label>{{ option.selected_value }}</span></div>
                   {% if is_size %}
-                    <span class="source-size-tools"><button type="button" class="size-guide-btn" data-source-product-size-guide><span aria-hidden="true">▤</span><span>SIZE GUIDE</span></button><span class="unit-toggle" role="group" aria-label="Unit"><button type="button" class="unit-btn active" data-unit="cm">CM</button><button type="button" class="unit-btn" data-unit="in">IN</button></span></span>
+                    <span class="source-size-tools"><button type="button" class="size-guide-btn" data-source-product-size-guide><span aria-hidden="true">▤</span><span>GR&Ouml;SSENTABELLE</span></button><span class="unit-toggle" role="group" aria-label="Einheit"><button type="button" class="unit-btn active" data-unit="cm">CM</button><button type="button" class="unit-btn" data-unit="in">IN</button></span></span>
                   {% endif %}
                 </div>
               </legend>
@@ -133,7 +133,7 @@
             <input id="Quantity-{{ section.id }}" class="quantity__input" type="number" name="quantity" value="1" min="1" data-min="1" step="1" data-cart-quantity="0" data-quantity-variant-id="{{ current_variant.id }}" inputmode="numeric" autocomplete="off" form="{{ product_form_id }}">
             <button class="quantity__button" type="button" name="plus"><span class="visually-hidden">Increase quantity</span><span aria-hidden="true">+</span></button>
           </quantity-input>
-          <button id="ProductSubmitButton-{{ section.id }}" class="source-product-submit product-form__submit btn btn--primary" type="submit" name="add" {% unless current_variant.available %}disabled{% endunless %}><span class="btn__text">{% if current_variant.available %}Add to cart{% else %}Sold out{% endif %}</span></button>
+          <button id="ProductSubmitButton-{{ section.id }}" class="source-product-submit product-form__submit btn btn--primary" type="submit" name="add" {% unless current_variant.available %}disabled{% endunless %}><span class="btn__text">{% if current_variant.available %}In den Warenkorb{% else %}Ausverkauft{% endif %}</span></button>
         </div>
         <div class="product-form__error-message blocks-radius-md alert alert--error" role="alert" hidden></div>
       {% endform %}
