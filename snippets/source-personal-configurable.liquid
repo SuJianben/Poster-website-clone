@@ -3,7 +3,7 @@
   <style data-shopify>
     .section-{{ section.id }} { --section-padding-top: 30px; --section-padding-bottom: 30px; --f-columns-mobile: 2; --f-columns-lg: 5; --f-columns-md: 3; --f-columns-xl: 5; }
   </style>
-  <div class="section section-{{ section.id }} featured-collection section--padding color-scheme-1" data-id="{{ section.id }}">
+  <div class="section section-{{ section.id }} featured-collection source-personal-section section--padding color-scheme-1" data-id="{{ section.id }}">
     <div class="section__container page-width page-width--full">
       <div class="section__wrapper" is="product-tabs" data-section-id="{{ section.id }}">
         <div class="section__header s__header rich-text rich-text--tight md:text-center text-center flex flex-col md:items-center">
@@ -37,4 +37,115 @@
       </div>
     </div>
   </div>
+  <section class="source-mobile-personal" data-mobile-personal>
+    <header class="source-mobile-personal__header">
+      {% if section.settings.eyebrow != blank %}<p>{{ section.settings.eyebrow }}</p>{% endif %}
+      <h2>{{ section.settings.heading_prefix }} <span>{{ section.settings.heading_highlight }}</span></h2>
+      {% if section.settings.link_label != blank %}<a href="{% if section.settings.link != blank %}{{ section.settings.link }}{% else %}/collections/personalisierbare-wandbilder{% endif %}">{{ section.settings.link_label }} <span aria-hidden="true">›</span></a>{% endif %}
+      <div class="source-mobile-personal__tabs" role="tablist">
+        {% for block in section.blocks %}
+          {% assign tab_label = block.settings.label | default: block.settings.collection.title %}
+          <button class="source-mobile-personal__tab{% if forloop.first %} is-active{% endif %}" type="button" data-personal-tab="{{ forloop.index0 }}" role="tab" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">{{ tab_label }}</button>
+        {% endfor %}
+      </div>
+    </header>
+
+    {% for block in section.blocks %}
+      <div class="source-mobile-personal__panel{% if forloop.first %} is-active{% endif %}" data-personal-panel="{{ forloop.index0 }}">
+        <div class="source-mobile-personal__track">
+          {% if block.settings.collection != blank %}
+            {% for product in block.settings.collection.products limit: 12 %}
+              {% if product.featured_image != blank %}{% render 'source-bestsellers-product-card', product: product %}{% endif %}
+            {% endfor %}
+          {% endif %}
+        </div>
+        <div class="source-mobile-personal__progress" aria-hidden="true"><span></span></div>
+        {% if block.settings.collection != blank %}<a class="source-mobile-personal__action" href="{{ block.settings.collection.url }}">{{ section.settings.collection_label }} <span aria-hidden="true">→</span></a>{% endif %}
+      </div>
+    {% endfor %}
+  </section>
 </div>
+<style>
+  @media screen and (max-width: 767.98px) {
+    .source-personal-section { display: none !important; }
+    .source-mobile-personal { display: block; padding: 28px 16px 32px; background: #fff; color: #111; }
+    .source-mobile-personal__header { text-align: center; }
+    .source-mobile-personal__header > p { max-width: 280px; margin: 0 auto 11px; font-size: 12px; font-weight: 600; line-height: 1.4; }
+    .source-mobile-personal__header h2 { margin: 0; font-size: 31px; font-weight: 800; line-height: 1.1; }
+    .source-mobile-personal__header h2 span { position: relative; display: block; isolation: isolate; }
+    .source-mobile-personal__header h2 span::after { position: absolute; right: -4px; bottom: 5px; left: -4px; z-index: -1; height: 6px; background: #e6d9c5; content: ""; }
+    .source-mobile-personal__header > a { display: inline-flex; align-items: center; gap: 6px; margin-top: 14px; color: #111; font-size: 13px; font-weight: 700; text-decoration: none; }
+    .source-mobile-personal__header > a::after { position: absolute; }
+    .source-mobile-personal__header > a { border-bottom: 1px solid #111; padding-bottom: 2px; }
+    .source-mobile-personal__header > a span { font-size: 20px; line-height: 0.7; }
+    .source-mobile-personal__tabs { display: flex; gap: 26px; overflow-x: auto; padding: 17px 0 11px; scrollbar-width: none; white-space: nowrap; }
+    .source-mobile-personal__tabs::-webkit-scrollbar, .source-mobile-personal__track::-webkit-scrollbar { display: none; }
+    .source-mobile-personal__tab { position: relative; flex: 0 0 auto; padding: 0; border: 0; background: transparent; color: #666; font: inherit; font-size: 14px; font-weight: 500; line-height: 1; }
+    .source-mobile-personal__tab::after { position: absolute; right: 0; bottom: -8px; left: 0; height: 1px; background: currentColor; content: ""; transform: scaleX(0); transform-origin: left center; transition: transform 650ms cubic-bezier(0.22, 1, 0.36, 1); }
+    .source-mobile-personal__tab.is-active { color: #111; font-weight: 600; }
+    .source-mobile-personal__tab.is-active::after { transform: scaleX(1); }
+    .source-mobile-personal__panel { display: none; }
+    .source-mobile-personal__panel.is-active { display: block; }
+    .source-mobile-personal__panel.source-mobile-personal__panel--entering .source-mobile-personal__track > .f-column { animation: source-mobile-personal-rise 820ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+    .source-mobile-personal__panel.source-mobile-personal__panel--entering .source-mobile-personal__track > .f-column:nth-child(2) { animation-delay: 110ms; }
+    .source-mobile-personal__panel.source-mobile-personal__panel--entering .source-mobile-personal__track > .f-column:nth-child(3) { animation-delay: 180ms; }
+    @keyframes source-mobile-personal-rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+    .source-mobile-personal__track { display: flex; gap: 14px; overflow-x: auto; padding: 18px 0 16px; scroll-snap-type: x mandatory; scrollbar-width: none; }
+    .source-mobile-personal__track > .f-column { display: block !important; box-sizing: border-box !important; flex: 0 0 calc((100% - 14px) / 2) !important; width: calc((100% - 14px) / 2) !important; max-width: calc((100% - 14px) / 2) !important; min-width: 0 !important; scroll-snap-align: start; }
+    .source-mobile-personal .product-card__image-wrapper, .source-mobile-personal .product-card__image, .source-mobile-personal .product-card__image img { aspect-ratio: 1 / 1 !important; }
+    .source-mobile-personal .product-card__image-wrapper, .source-mobile-personal .product-card__image { height: auto !important; overflow: hidden !important; }
+    .source-mobile-personal .product-card__image img { display: block !important; width: 100% !important; height: 100% !important; object-fit: cover !important; }
+    .source-mobile-personal .product-card__info { padding-top: 9px; }
+    .source-mobile-personal .product-card__atelier-badges { margin-bottom: 7px !important; }
+    .source-mobile-personal .atelier-badge { max-width: 100%; font-size: 7px; white-space: nowrap; }
+    .source-mobile-personal .product-card__title { font-size: 12px; line-height: 1.35; text-transform: uppercase; }
+    .source-mobile-personal .product-card__material, .source-mobile-personal .f-price-item { font-size: 12px !important; }
+    .source-mobile-personal__progress { height: 2px; margin: 2px 0 20px; background: transparent; }
+    .source-mobile-personal__progress span { display: block; width: 18%; height: 100%; background: #111; transition: width 180ms linear; }
+    .source-mobile-personal__action { display: flex; width: max-content; min-width: 160px; min-height: 40px; align-items: center; justify-content: center; gap: 7px; margin: 0 auto; padding: 0 18px; border-radius: 8px; background: #000; color: #fff; font-size: 13px; font-weight: 700; text-decoration: none; }
+    .source-mobile-personal__action span { font-size: 20px; line-height: 1; }
+  }
+  @media screen and (min-width: 768px) { .source-mobile-personal { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .source-mobile-personal__panel.source-mobile-personal__panel--entering .source-mobile-personal__track > .f-column { animation: none; } }
+</style>
+<script>
+  (() => {
+    document.querySelectorAll('[data-mobile-personal]').forEach((section) => {
+      const syncProgress = (panel) => {
+        const track = panel.querySelector('.source-mobile-personal__track');
+        const indicator = panel.querySelector('.source-mobile-personal__progress span');
+        if (!track || !indicator) return;
+        const maxScroll = Math.max(track.scrollWidth - track.clientWidth, 0);
+        const progress = maxScroll ? track.scrollLeft / maxScroll : 0;
+        indicator.style.width = `${18 + progress * 82}%`;
+      };
+      section.querySelectorAll('[data-personal-panel]').forEach((panel) => {
+        const track = panel.querySelector('.source-mobile-personal__track');
+        if (!track) return;
+        track.addEventListener('scroll', () => syncProgress(panel), { passive: true });
+        window.addEventListener('resize', () => syncProgress(panel));
+        requestAnimationFrame(() => syncProgress(panel));
+      });
+      section.querySelectorAll('[data-personal-tab]').forEach((tab) => {
+        tab.addEventListener('click', () => {
+          const index = tab.dataset.personalTab;
+          section.querySelectorAll('[data-personal-tab]').forEach((item) => {
+            const active = item === tab;
+            item.classList.toggle('is-active', active);
+            item.setAttribute('aria-selected', String(active));
+          });
+          section.querySelectorAll('[data-personal-panel]').forEach((panel) => {
+            const active = panel.dataset.personalPanel === index;
+            panel.classList.toggle('is-active', active);
+            if (active) {
+              panel.classList.remove('source-mobile-personal__panel--entering');
+              void panel.offsetWidth;
+              panel.classList.add('source-mobile-personal__panel--entering');
+              requestAnimationFrame(() => syncProgress(panel));
+            }
+          });
+        });
+      });
+    });
+  })();
+</script>
