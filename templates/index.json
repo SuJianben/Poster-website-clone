@@ -190,7 +190,7 @@
           "type": "collection_tab",
           "settings": {
             "collection": "time-series-posters",
-            "label": "",
+            "label": "Neuheiten Sale -20%",
             "promo_image": "shopify://shop_images/Screenshot_2026-02-01_000936.webp",
             "promo_heading": "ALLE NEUHEITEN -20%",
             "promo_button_label": "ZUSCHLAGEN",
@@ -201,7 +201,7 @@
           "type": "collection_tab",
           "settings": {
             "collection": "all",
-            "label": "1",
+            "label": "Bundles -15%",
             "promo_image": "shopify://shop_images/Screenshot_2026-02-01_000936.webp",
             "promo_heading": "ALLE NEUHEITEN -20%",
             "promo_button_label": "ZUSCHLAGEN",
