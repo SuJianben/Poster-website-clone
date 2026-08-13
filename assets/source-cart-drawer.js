@@ -115,6 +115,7 @@
         FoxTheme.pubsub.PUB_SUB_EVENTS.cartUpdate,
         this.onCartUpdate
       );
+      this.refreshCart();
     }
 
     disconnectedCallback() {
@@ -204,6 +205,7 @@
       document.querySelectorAll('cart-count').forEach((count) => {
         count.textContent = count.dataset.type === 'blank' ? `(${cart.item_count})` : cart.item_count;
         count.classList.toggle('cart-count--blank', isEmpty);
+        count.hidden = isEmpty;
         count.setAttribute('aria-label', `${cart.item_count} Artikel`);
       });
       document.documentElement.classList.toggle('cart-has-items', !isEmpty);
