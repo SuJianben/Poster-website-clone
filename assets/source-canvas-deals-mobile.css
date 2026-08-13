@@ -1,0 +1,100 @@
+/* Mobile-only layout for the homepage Leinwand Deals promotion rail. */
+.source-canvas-deals {
+  word-break: normal;
+  overflow-wrap: normal;
+}
+
+@media screen and (max-width: 767.98px) {
+  .source-canvas-deals {
+    --source-canvas-deals-gap: 12px;
+    --source-canvas-deals-card-width: calc((100vw - 64px) / 2);
+  }
+
+  .source-canvas-deals .section__header {
+    gap: 12px;
+    margin-bottom: 22px;
+  }
+
+  .source-canvas-deals .rich-text__heading {
+    font-size: 32px;
+    letter-spacing: -0.04em;
+    line-height: 1.08;
+  }
+
+  .source-canvas-deals .rich-text__button .btn {
+    font-size: 13px;
+    line-height: 1.25;
+  }
+
+  .source-canvas-deals .tabs-nav {
+    max-width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .source-canvas-deals .tabs-nav::-webkit-scrollbar,
+  .source-canvas-deals featured-collection::-webkit-scrollbar {
+    display: none;
+  }
+
+  .source-canvas-deals .tabs-nav__inner {
+    align-items: center;
+    flex-wrap: nowrap !important;
+    justify-content: flex-start !important;
+    width: max-content;
+    min-width: 0;
+    gap: 20px;
+  }
+
+  .source-canvas-deals .tabs__btn {
+    flex: 0 0 auto;
+    min-width: 0;
+    padding-inline: 0;
+  }
+
+  /* Promotion and products share one intentional peek-ahead rail on mobile. */
+  .source-canvas-deals .source-tabs-ready featured-collection {
+    display: block;
+    overflow-x: auto !important;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+  }
+
+  .source-canvas-deals .source-tabs-ready .featured-collection__items {
+    display: flex !important;
+    width: max-content !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    gap: var(--source-canvas-deals-gap) !important;
+    padding-bottom: 4px;
+    transform: none !important;
+  }
+
+  .source-canvas-deals .source-tabs-ready .featured-collection__items > .f-column.swiper-slide {
+    box-sizing: border-box;
+    flex: 0 0 var(--source-canvas-deals-card-width) !important;
+    width: var(--source-canvas-deals-card-width) !important;
+    min-width: var(--source-canvas-deals-card-width) !important;
+    max-width: var(--source-canvas-deals-card-width) !important;
+    margin: 0 !important;
+    scroll-snap-align: start;
+  }
+
+  .source-canvas-deals .card-media--link,
+  .source-canvas-deals .card-media,
+  .source-canvas-deals .product-card__image-wrapper,
+  .source-canvas-deals .product-card__image {
+    max-width: 100%;
+  }
+
+  .source-canvas-deals .card-media__heading {
+    font-size: 22px;
+    line-height: 1.1;
+  }
+
+  .source-canvas-deals .collection-action-bottom {
+    justify-content: center;
+    margin-top: 20px;
+  }
+}

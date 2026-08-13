@@ -1,4 +1,5 @@
 {% if section.settings.enabled %}
+  {{ 'source-canvas-deals-mobile.css' | asset_url | stylesheet_tag }}
   {% if section.blocks.size > 0 %}
     {% render 'source-canvas-deals-configurable', section:section %}
   {% else %}
