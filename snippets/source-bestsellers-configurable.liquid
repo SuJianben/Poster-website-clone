@@ -47,3 +47,28 @@
     </div>
   </div>
 </div>
+<style>
+  @media screen and (max-width: 767.98px) {
+    .source-bestsellers-section .featured-collection__items > .f-column {
+      flex: 0 0 calc((100% - 12px) / 2) !important;
+      width: calc((100% - 12px) / 2) !important;
+      max-width: calc((100% - 12px) / 2) !important;
+    }
+
+    .source-bestsellers-section .product-card__image-wrapper,
+    .source-bestsellers-section .product-card__image {
+      aspect-ratio: 1 / 1 !important;
+      height: auto !important;
+      overflow: hidden !important;
+    }
+
+    .source-bestsellers-section .product-card__image img {
+      display: block !important;
+      width: 100% !important;
+      height: 100% !important;
+      min-height: 0 !important;
+      max-height: none !important;
+      object-fit: cover !important;
+    }
+  }
+</style>
