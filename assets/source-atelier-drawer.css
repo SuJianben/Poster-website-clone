@@ -42,6 +42,15 @@
 .drawer-section:last-child { margin-bottom: 0; }
 .drawer-section h4 { color: #000; font-size: 13px; font-weight: 800; margin: 0 0 8px; text-transform: uppercase; }
 .drawer-separator { color: #ccc; letter-spacing: -2px; margin-bottom: 10px; }
+.product-card__atelier-badges .atelier-badge {
+  align-items: center;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: inherit;
+  justify-content: center;
+}
+.product-card__atelier-badges button.atelier-badge { appearance: none; }
+.product-card__atelier-badges .atelier-badge:focus-visible { outline: 2px solid #111; outline-offset: 2px; }
 
 @media screen and (max-width: 768px) {
   .atelier-drawer { border-radius: 12px 12px 0 0; bottom: 0; height: auto; max-height: 85vh; top: auto; transform: translateY(100%); width: 100%; }

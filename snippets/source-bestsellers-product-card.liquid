@@ -39,7 +39,7 @@
       <div class="product-card__info text-center">
         {% if product.tags contains 'Atelier Exclusive' or product.tags contains 'Limited Atelier Exclusive' %}
           <div class="product-card__atelier-badges" style="margin-bottom: 6px; display: flex; flex-wrap: wrap; gap: 4px; justify-content: center;">
-            <span class="atelier-badge js-open-atelier-drawer-card{% if product.tags contains 'Limited Atelier Exclusive' %} atelier-badge--limited{% else %} atelier-badge--silver{% endif %}">{% if product.tags contains 'Limited Atelier Exclusive' %}LIMITED ATELIER EXCLUSIVE{% else %}ATELIER EXCLUSIVE{% endif %}<svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="margin-left:3px;"><polyline points="9 18 15 12 9 6"></polyline></svg></span>
+            <button class="atelier-badge js-open-atelier-drawer-card{% if product.tags contains 'Limited Atelier Exclusive' %} atelier-badge--limited{% else %} atelier-badge--silver{% endif %}" type="button" aria-haspopup="dialog" aria-controls="atelier-drawer-title">{% if product.tags contains 'Limited Atelier Exclusive' %}LIMITED ATELIER EXCLUSIVE{% else %}ATELIER EXCLUSIVE{% endif %}<svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="margin-left:3px;"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
           </div>
         {% endif %}
         <h3 class="product-card__title text-pcard-title" style="margin-bottom: 2px;"><a class="reversed-link block" href="{{ product.url }}"><span class="reversed-link__text">{{ product.title }}</span></a></h3>
