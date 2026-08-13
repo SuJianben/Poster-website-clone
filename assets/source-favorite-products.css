@@ -53,3 +53,18 @@ favorite-products.source-favorite-ready .swiper-button:disabled {
     transition: none;
   }
 }
+
+@media (max-width: 767px) {
+  favorite-products.source-favorite-ready,
+  favorite-products.source-favorite-ready .favorite-products__testimonials,
+  favorite-products.source-favorite-ready .favorite-products__testimonials .swiper,
+  favorite-products.source-favorite-ready .favorite-products__testimonials .swiper-wrapper,
+  favorite-products.source-favorite-ready .favorite-products__testimonials .swiper-slide {
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  favorite-products.source-favorite-ready .favorite-products__testimonials .swiper-slide {
+    align-self: flex-start;
+  }
+}
