@@ -1,3 +1,0 @@
-export const STOREFRONT_API_VERSION = "2026-04";
-export const CUSTOMER_ACCOUNT_API_VERSION = "2026-04";
-export const DEFAULT_TIMEOUT_IN_MS = 30_000;
