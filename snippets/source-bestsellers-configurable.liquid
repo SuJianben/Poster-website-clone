@@ -173,6 +173,30 @@
       display: block;
     }
 
+    .source-mobile-bestsellers__panel.source-mobile-bestsellers__panel--entering .source-mobile-bestsellers__track > .f-column {
+      animation: source-mobile-bestsellers-rise 560ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .source-mobile-bestsellers__panel.source-mobile-bestsellers__panel--entering .source-mobile-bestsellers__track > .f-column:nth-child(2) {
+      animation-delay: 70ms;
+    }
+
+    .source-mobile-bestsellers__panel.source-mobile-bestsellers__panel--entering .source-mobile-bestsellers__track > .f-column:nth-child(3) {
+      animation-delay: 120ms;
+    }
+
+    @keyframes source-mobile-bestsellers-rise {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     .source-mobile-bestsellers__track {
       display: flex;
       gap: 14px;
@@ -305,6 +329,12 @@
       display: none;
     }
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .source-mobile-bestsellers__panel.source-mobile-bestsellers__panel--entering .source-mobile-bestsellers__track > .f-column {
+      animation: none;
+    }
+  }
 </style>
 <script>
   (() => {
@@ -339,7 +369,12 @@
           section.querySelectorAll('[data-mobile-panel]').forEach((panel) => {
             const active = panel.dataset.mobilePanel === index;
             panel.classList.toggle('is-active', active);
-            if (active) requestAnimationFrame(() => syncProgress(panel));
+            if (active) {
+              panel.classList.remove('source-mobile-bestsellers__panel--entering');
+              void panel.offsetWidth;
+              panel.classList.add('source-mobile-bestsellers__panel--entering');
+              requestAnimationFrame(() => syncProgress(panel));
+            }
           });
         });
       });
