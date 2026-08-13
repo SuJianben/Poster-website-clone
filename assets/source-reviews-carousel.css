@@ -19,7 +19,7 @@
   margin: 0 0 10px;
 }
 
-.source-reviews-carousel__counter { color: #222; display: none; font-size: 13px; min-width: 30px; }
+.source-reviews-carousel__counter { display: none; }
 
 .source-reviews-carousel__summary {
   align-items: center;
@@ -165,8 +165,6 @@
     padding: 0 0 8px;
     position: relative;
   }
-
-  .source-reviews-carousel__counter { display: block; left: 0; position: absolute; top: 2px; }
 
   .source-reviews-carousel__title {
     flex: 1 0 100%;
