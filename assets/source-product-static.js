@@ -12,6 +12,7 @@
   const previousButtons = [...product.querySelectorAll('[data-spx-previous]')];
   const nextButtons = [...product.querySelectorAll('[data-spx-next]')];
   const thumbScrollButtons = [...product.querySelectorAll('[data-spx-thumb-scroll]')];
+  const backToTopButton = product.querySelector('[data-spx-back-to-top]');
   const thumbWindow = thumbTrack?.closest('.spx-product__thumb-window');
   let activeIndex = 0;
   let thumbOffset = 0;
@@ -237,6 +238,15 @@
       else openAccordion(accordion);
     });
   });
+
+  if (backToTopButton) {
+    const syncBackToTopVisibility = () => {
+      backToTopButton.classList.toggle('is-visible', window.scrollY > window.innerHeight * 0.65);
+    };
+    backToTopButton.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    window.addEventListener('scroll', syncBackToTopVisibility, { passive: true });
+    syncBackToTopVisibility();
+  }
   };
 
   initProduct();
