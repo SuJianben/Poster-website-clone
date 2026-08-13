@@ -181,6 +181,8 @@
   }
 
   .source-reviews-carousel__track {
+    align-items: stretch;
+    flex-wrap: nowrap;
     width: 600%;
   }
 
@@ -192,6 +194,7 @@
     flex: 0 0 16.666667%;
     min-height: 250px;
     padding: 0 4px 20px;
+    width: 16.666667%;
   }
 
   .source-reviews-card__title {
