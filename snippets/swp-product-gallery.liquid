@@ -1,0 +1,24 @@
+{% assign swp_images = 'PosterSaveWaterDrinkChampagneOriginalPopArtBildFront-Vertical.jpg?v=1737392893|PosterSaveWaterDrinkChampagneOriginalPopArtBildBeton-Wall-Vertical.jpg?v=1737392893|PosterSaveWaterDrinkChampagneOriginalPopArtBildCertificat-Vertical.jpg?v=1737392893|PosterSaveWaterDrinkChampagneOriginalPopArtBildCorner-Detail-Vertical-2.jpg?v=1737392893|PosterSaveWaterDrinkChampagneOriginalPopArtBildCorner-Detail-Vertical.jpg?v=1737392893|PosterSaveWaterDrinkChampagneOriginalPopArtBildRoll-up-Poster-Vertical.jpg?v=1737392864|PosterSaveWaterDrinkChampagneOriginalPopArtBildTube-Roll-Vertical.jpg?v=1737392864' | split: '|' %}
+<div class="swp-gallery" aria-label="Save Water product gallery">
+  <div class="swp-gallery__thumbnails">
+    <button class="swp-gallery__scroll-control swp-gallery__scroll-control--up" type="button" aria-label="Show previous thumbnails" data-swp-thumb-scroll="-1">⌃</button>
+    <div class="swp-gallery__thumb-window" data-swp-thumb-window>
+      <div class="swp-gallery__thumb-track" role="tablist" aria-label="Product images" data-swp-thumb-track>
+        {% for image in swp_images %}
+          <button class="swp-gallery__thumb{% if forloop.first %} is-active{% endif %}" type="button" role="tab" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" data-swp-media-index="{{ forloop.index0 }}" data-swp-media-url="https://dotcomcanvas.de/cdn/shop/files/{{ image }}&amp;width=1946" data-analytics-event="save_water_gallery_thumbnail">
+            <img src="https://dotcomcanvas.de/cdn/shop/files/{{ image }}&amp;width=168" alt="Save Water image {{ forloop.index }}" width="168" height="168" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}">
+          </button>
+        {% endfor %}
+      </div>
+    </div>
+    <button class="swp-gallery__scroll-control swp-gallery__scroll-control--down" type="button" aria-label="Show more thumbnails" data-swp-thumb-scroll="1">⌄</button>
+  </div>
+  <div class="swp-gallery__viewer" data-swp-viewer>
+    <button class="swp-gallery__main-image" type="button" aria-label="Zoom Save Water poster" data-swp-open-zoom data-analytics-event="save_water_gallery_zoom">
+      <img src="https://dotcomcanvas.de/cdn/shop/files/PosterSaveWaterDrinkChampagneOriginalPopArtBildFront-Vertical.jpg?v=1737392893&amp;width=1946" alt="Save Water - Poster" width="1946" height="1946" data-swp-main-image>
+      <span class="swp-gallery__zoom-icon" aria-hidden="true">⌕</span>
+    </button>
+    <button class="swp-gallery__viewer-arrow swp-gallery__viewer-arrow--previous" type="button" aria-label="Previous image" data-swp-previous>‹</button>
+    <button class="swp-gallery__viewer-arrow swp-gallery__viewer-arrow--next" type="button" aria-label="Next image" data-swp-next>›</button>
+  </div>
+</div>

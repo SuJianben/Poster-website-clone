@@ -44,4 +44,3 @@
 }
 .sprv .sprv__write-icon{display:inline-block;width:14px;height:14px;font-size:0;flex:0 0 14px}
 .sprv .sprv__write-icon::before{content:"";position:absolute;top:3px;left:2px;width:7px;height:7px;border-top:1.5px solid currentColor;border-right:1.5px solid currentColor;transform:rotate(45deg)}
-

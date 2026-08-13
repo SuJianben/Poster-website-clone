@@ -1,0 +1,42 @@
+{{ 'swp-product-detail.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'swp-product-detail.js' | asset_url }}" defer="defer"></script>
+
+<section class="swp-product" data-swp-product data-swp-active-media="0">
+  <div class="swp-product__shell">
+    <div class="swp-product__layout">
+      <div class="swp-product__media-column">
+        {% render 'swp-product-gallery' %}
+        <div class="swp-product__desktop-accordions">
+          {% render 'swp-product-accordions', placement: 'desktop' %}
+        </div>
+      </div>
+      <aside class="swp-product__purchase-column">
+        {% render 'swp-product-purchase' %}
+        <div class="swp-product__mobile-accordions">
+          {% render 'swp-product-accordions', placement: 'mobile' %}
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <dialog class="swp-product__zoom" data-swp-zoom aria-label="Expanded product image">
+    <button class="swp-product__zoom-close" type="button" aria-label="Close image" data-swp-close-zoom>×</button>
+    <button class="swp-product__zoom-arrow swp-product__zoom-arrow--previous" type="button" aria-label="Previous image" data-swp-previous>‹</button>
+    <img src="https://dotcomcanvas.de/cdn/shop/files/PosterSaveWaterDrinkChampagneOriginalPopArtBildFront-Vertical.jpg?v=1737392893&amp;width=1946" alt="Save Water - Poster" width="1946" height="1946" data-swp-zoom-image>
+    <button class="swp-product__zoom-arrow swp-product__zoom-arrow--next" type="button" aria-label="Next image" data-swp-next>›</button>
+  </dialog>
+
+  <dialog class="swp-product__size-guide" data-swp-size-guide aria-label="Size guide">
+    <button type="button" class="swp-product__modal-close" aria-label="Close size guide" data-swp-close-size-guide>×</button>
+    <h2>Size Guide</h2>
+    <p>Choose the size that best fits your wall. Measurements update between centimetres and inches with the unit switcher.</p>
+    <table><thead><tr><th>Format</th><th>CM</th><th>IN</th></tr></thead><tbody><tr><td>Small</td><td>30 × 21</td><td>12 × 8</td></tr><tr><td>Medium</td><td>40 × 30</td><td>16 × 12</td></tr><tr><td>Large</td><td>76 × 51</td><td>30 × 20</td></tr></tbody></table>
+  </dialog>
+</section>
+
+{% schema %}
+{
+  "name": "Save Water product detail",
+  "settings": []
+}
+{% endschema %}

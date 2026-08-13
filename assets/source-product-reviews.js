@@ -61,4 +61,3 @@
     root.querySelector('[data-sprv-write]')?.addEventListener('click', () => emit(root, 'source_product_review_write_click'));
   });
 })();
-

@@ -157,4 +157,3 @@
     createModal(host, summary, emit);
   });
 })();
-

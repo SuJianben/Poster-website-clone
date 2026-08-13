@@ -1,11 +1,25 @@
 {%- liquid
-  assign card_product = block.settings.product
-  assign card_title = block.settings.fallback_title
-  assign card_material = block.settings.fallback_material
-  assign card_price = block.settings.fallback_price
-  assign card_url = block.settings.fallback_url
-  assign card_image = block.settings.fallback_image_url
-  assign card_hover_image = block.settings.fallback_hover_image_url
+  assign card_product = product
+  assign card_title = ''
+  assign card_material = ''
+  assign card_price = ''
+  assign card_url = ''
+  assign card_image = ''
+  assign card_hover_image = ''
+  assign card_badge = badge
+  assign card_edition_badge = edition_badge
+
+  if card_product == blank and block != blank
+    assign card_product = block.settings.product
+    assign card_title = block.settings.fallback_title
+    assign card_material = block.settings.fallback_material
+    assign card_price = block.settings.fallback_price
+    assign card_url = block.settings.fallback_url
+    assign card_image = block.settings.fallback_image_url
+    assign card_hover_image = block.settings.fallback_hover_image_url
+    assign card_badge = block.settings.badge
+    assign card_edition_badge = block.settings.edition_badge
+  endif
 
   if card_product != blank
     assign card_title = card_product.title
@@ -54,15 +68,15 @@
       {%- endif -%}
     </a>
 
-    {%- if block.settings.badge != blank -%}
-      <span class="spr-recs__trend">{{ block.settings.badge }}</span>
+    {%- if card_badge != blank -%}
+      <span class="spr-recs__trend">{{ card_badge }}</span>
     {%- endif -%}
   </div>
 
   <div class="spr-recs__info">
-    {%- if block.settings.edition_badge != blank -%}
+    {%- if card_edition_badge != blank -%}
       <span class="spr-recs__edition">
-        {{ block.settings.edition_badge }}
+        {{ card_edition_badge }}
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="m9 18 6-6-6-6"></path>
         </svg>

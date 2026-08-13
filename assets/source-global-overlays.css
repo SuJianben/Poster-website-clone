@@ -1,0 +1,10 @@
+/* Keep the rotated offers trigger clear of the viewport scrollbar and clipping edge. */
+.toggle-spotlight-drawer {
+  inset-inline-start: calc(100% - 16px) !important;
+}
+
+@media (max-width: 749px) {
+  .toggle-spotlight-drawer {
+    inset-inline-start: 100vw !important;
+  }
+}
