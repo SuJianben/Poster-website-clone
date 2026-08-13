@@ -27,7 +27,7 @@
                   <div class="featured-collection__items products-list f-grid f-grid--gap-medium f-grid--row-gap-inherit swiper-wrapper swipe-mobile__inner">
                     {% render 'source-product-shelf-promo-card', image: block.settings.promo_image, heading: block.settings.promo_heading, button_label: block.settings.promo_button_label, link: block.settings.promo_link, fallback_link: block.settings.collection.url %}
                     {% if block.settings.collection != blank %}
-                      {% for product in block.settings.collection.products %}{% if product.featured_image != blank %}{% render 'source-bestsellers-product-card', product: product %}{% endif %}{% endfor %}
+                      {% for product in block.settings.collection.products limit: 12 %}{% if product.featured_image != blank %}{% render 'source-bestsellers-product-card', product: product %}{% endif %}{% endfor %}
                     {% endif %}
                   </div>
                 </featured-collection>
@@ -61,7 +61,7 @@
       <div class="source-mobile-bestsellers__panel{% if forloop.first %} is-active{% endif %}" data-mobile-panel="{{ forloop.index0 }}">
         <div class="source-mobile-bestsellers__track">
           {% if block.settings.collection != blank %}
-            {% for product in block.settings.collection.products %}
+            {% for product in block.settings.collection.products limit: 12 %}
               {% if product.featured_image != blank %}
                 {% render 'source-bestsellers-product-card', product: product %}
               {% endif %}
@@ -308,6 +308,27 @@
 <script>
   (() => {
     document.querySelectorAll('[data-mobile-bestsellers]').forEach((section) => {
+      const syncProgress = (panel) => {
+        const track = panel.querySelector('.source-mobile-bestsellers__track');
+        const indicator = panel.querySelector('.source-mobile-bestsellers__progress span');
+        if (!track || !indicator) return;
+
+        const maxScroll = Math.max(track.scrollWidth - track.clientWidth, 0);
+        const visibleRatio = Math.min(track.clientWidth / Math.max(track.scrollWidth, 1), 1);
+        const indicatorWidth = Math.max(visibleRatio * 100, 18);
+        const progress = maxScroll ? track.scrollLeft / maxScroll : 0;
+        indicator.style.width = `${indicatorWidth}%`;
+        indicator.style.transform = `translateX(${progress * (100 / indicatorWidth * 100 - 100)}%)`;
+      };
+
+      section.querySelectorAll('[data-mobile-panel]').forEach((panel) => {
+        const track = panel.querySelector('.source-mobile-bestsellers__track');
+        if (!track) return;
+        track.addEventListener('scroll', () => syncProgress(panel), { passive: true });
+        window.addEventListener('resize', () => syncProgress(panel));
+        requestAnimationFrame(() => syncProgress(panel));
+      });
+
       section.querySelectorAll('[data-mobile-tab]').forEach((tab) => {
         tab.addEventListener('click', () => {
           const index = tab.dataset.mobileTab;
@@ -317,7 +338,9 @@
             item.setAttribute('aria-selected', String(active));
           });
           section.querySelectorAll('[data-mobile-panel]').forEach((panel) => {
-            panel.classList.toggle('is-active', panel.dataset.mobilePanel === index);
+            const active = panel.dataset.mobilePanel === index;
+            panel.classList.toggle('is-active', active);
+            if (active) requestAnimationFrame(() => syncProgress(panel));
           });
         });
       });
