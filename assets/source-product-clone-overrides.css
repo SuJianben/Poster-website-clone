@@ -242,6 +242,12 @@ product-info.source-product {
   font-size: 12px;
   font-weight: 600;
 }
+.product__block--@app {
+  margin: -5px 0 15px !important;
+  padding-block: 0 !important;
+  cursor: pointer;
+}
+.product__block--@app + .product__block--title { margin-top: -15px !important; }
 .source-product-stars { color: #a39478; font-size: 17px; letter-spacing: 0; }
 .product__block--title { margin-top: 0 !important; padding-top: 0; }
 .product__title { margin: 0 !important; font-size: 32px; line-height: 1.28; letter-spacing: 0; }
