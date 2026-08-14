@@ -1,6 +1,11 @@
 .spx-product { --spx-ink:#090909; --spx-muted:#666; --spx-line:#dedede; --spx-panel:#fff; padding:0 max(15px,calc((100vw - 1430px) / 2)) 50px; color:var(--spx-ink); font-family:Arial,Helvetica,sans-serif; font-size:14px; line-height:1.4; }
 .spx-product *, .spx-product *::before, .spx-product *::after { box-sizing:border-box; }
 .spx-product button, .spx-product a { font:inherit; }
+@media (prefers-reduced-motion:no-preference) {
+  [data-spx-reveal] { opacity:0; transform:translate3d(0,18px,0); will-change:opacity,transform; }
+  [data-spx-reveal].is-revealed { animation:spx-module-reveal .7s cubic-bezier(.3,1,.3,1) var(--spx-reveal-delay,0ms) both; }
+  @keyframes spx-module-reveal { from { opacity:0; transform:translate3d(0,18px,0); } to { opacity:1; transform:translate3d(0,0,0); } }
+}
 .spx-product__shell { width:100%; margin:0; }
 .spx-product__breadcrumbs { display:flex; align-items:center; gap:10px; min-height:28px; margin:0 0 8px; color:#555; font-size:14px; }
 .spx-product__breadcrumbs a { color:#111; font-weight:700; text-decoration:none; }

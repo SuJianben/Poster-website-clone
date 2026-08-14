@@ -121,6 +121,39 @@
     }, true);
   };
 
+  const initRevealMotion = () => {
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
+
+    const revealables = [
+      product.querySelector('.spx-product__gallery'),
+      ...product.querySelectorAll('[data-analytics-block-type]'),
+      product.querySelector('.spx-product__accordions')
+    ].filter(Boolean);
+
+    const reveal = (element) => {
+      element.classList.add('is-revealed');
+    };
+
+    if (!('IntersectionObserver' in window)) {
+      revealables.forEach(reveal);
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        reveal(entry.target);
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -5% 0px' });
+
+    revealables.forEach((element, index) => {
+      element.dataset.spxReveal = '';
+      element.style.setProperty('--spx-reveal-delay', `${Math.min(index * 70, 420)}ms`);
+      observer.observe(element);
+    });
+  };
+
   viewer?.addEventListener('click', (event) => {
     if (!suppressViewerClick) return;
     event.preventDefault();
@@ -169,6 +202,7 @@
 
   syncViewerControls();
   requestAnimationFrame(syncThumbControls);
+  initRevealMotion();
 
   const variantPicker = product.querySelector('[data-spx-variant-picker]');
   if (variantPicker) {
