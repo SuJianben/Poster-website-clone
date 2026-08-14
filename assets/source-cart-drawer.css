@@ -456,6 +456,7 @@ cart-drawer[hidden] {
   height: 100%;
   padding: 0 30px;
   text-align: center;
+  transform: translateY(-1px);
   width: 100%;
 }
 
