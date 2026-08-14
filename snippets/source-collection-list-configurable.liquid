@@ -46,10 +46,16 @@
 
   @media screen and (max-width: 767.98px) {
     #shopify-section-{{ section.id }} .collection-list__items {
+      display: flex !important;
+      flex-wrap: nowrap !important;
+      grid-template-columns: none !important;
       gap: 12px !important;
+      width: 100% !important;
     }
 
     #shopify-section-{{ section.id }} .collection-list__items > .f-column {
+      display: block !important;
+      box-sizing: border-box;
       flex: 0 0 calc((100% - 12px) / 2) !important;
       width: calc((100% - 12px) / 2) !important;
       max-width: calc((100% - 12px) / 2) !important;
