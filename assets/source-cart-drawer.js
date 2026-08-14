@@ -241,10 +241,17 @@
       const threshold = Number(goal.dataset.minimumAmount || 49) * 100;
       const progress = threshold ? Math.min(1, Math.max(0, Number(subtotal || 0) / threshold)) : 1;
       const remaining = Math.max(0, threshold - Number(subtotal || 0));
+      const progressBar = goal.querySelector('progress-bar');
 
       goal.style.setProperty('--source-cart-shipping-progress', String(progress));
+      goal.dataset.cartTotal = String(subtotal || 0);
       goal.classList.toggle('is-reached', remaining === 0);
       goal.querySelector('[data-left-to-spend]')?.replaceChildren(document.createTextNode(money(remaining)));
+      if (progressBar) {
+        progressBar.dataset.value = String(Number(subtotal || 0) / 100);
+        progressBar.dataset.max = String(threshold / 100);
+        progressBar.style.setProperty('--percent', `${progress * 100}%`);
+      }
     }
 
     renderPromotion(itemCount) {

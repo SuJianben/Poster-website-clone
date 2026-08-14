@@ -142,17 +142,18 @@ cart-drawer[hidden] {
 }
 
 .cart-drawer .free-shipping-goal {
-  display: block;
-  margin: 0 0 26px;
-  min-height: 52px;
+  display: grid;
+  gap: 8px;
+  margin: 0 0 16px;
+  min-height: 0;
 }
 
 .cart-drawer .free-shipping-goal__label {
-  color: #0d7451;
+  color: #0d8756;
   display: block;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
-  line-height: 1.45;
+  line-height: 1.575;
 }
 
 .cart-drawer .free-shipping-goal__label--success {
@@ -168,24 +169,24 @@ cart-drawer[hidden] {
 }
 
 .cart-drawer .progress-bar {
-  background: #e8e8e8;
+  background: #f2f2f2;
   border-radius: 999px;
   display: block;
   height: 6px;
-  margin-top: 8px;
+  margin: 0;
   overflow: hidden;
   position: relative;
 }
 
 .cart-drawer .progress-bar::before {
-  background: var(--source-cart-accent);
+  background: #0d8756;
   border-radius: inherit;
   content: "";
   inset: 0;
   position: absolute;
-  transform: scaleX(var(--source-cart-shipping-progress, 0));
-  transform-origin: left center;
-  transition: transform 250ms ease;
+  transform: none;
+  transition: width 250ms ease;
+  width: var(--percent, 0%);
 }
 
 .source-cart-promotion {
