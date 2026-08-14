@@ -1,5 +1,5 @@
 @keyframes source-home-reveal-up-forced {
-  from { opacity: 0; transform: translate3d(0, 28px, 0); }
+  from { opacity: 0; transform: translate3d(0, 52px, 0); }
   to { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 
@@ -15,12 +15,12 @@
 @media (prefers-reduced-motion: no-preference) {
   [data-source-home-text-reveal] {
     opacity: 0;
-    transform: translate3d(0, 24px, 0);
+    transform: translate3d(0, 52px, 0);
     will-change: opacity, transform;
   }
 
   [data-source-home-text-reveal].is-revealed {
-    animation: source-home-reveal-up .7s cubic-bezier(.3, 1, .3, 1) var(--source-home-reveal-delay, 0ms) both;
+    animation: source-home-reveal-up 1.25s cubic-bezier(.3, 1, .3, 1) var(--source-home-reveal-delay, 0ms) both;
   }
 
   #MainContent .section__header--text,
@@ -29,13 +29,13 @@
   #MainContent .slideshow-with-product__product .product-card__info,
   #MainContent [class*="source-mobile-"][class*="__header"] h2,
   #MainContent [class*="source-mobile-"][class*="__tabs"] {
-    animation: source-home-reveal-up .7s cubic-bezier(.3, 1, .3, 1) both;
+    animation: source-home-reveal-up 1.25s cubic-bezier(.3, 1, .3, 1) both;
   }
 
   @keyframes source-home-reveal-up {
     from {
       opacity: 0;
-      transform: translate3d(0, 24px, 0);
+      transform: translate3d(0, 52px, 0);
     }
 
     to {
