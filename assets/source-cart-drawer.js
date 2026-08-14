@@ -104,6 +104,7 @@
       this.onProductAdded = this.onProductAdded.bind(this);
       this.onDrawerClick = this.onDrawerClick.bind(this);
       this.onQuantityChange = this.onQuantityChange.bind(this);
+      this.onCartRefresh = this.onCartRefresh.bind(this);
     }
 
     connectedCallback() {
@@ -111,6 +112,7 @@
       this.addEventListener('click', this.onDrawerClick);
       this.addEventListener('change', this.onQuantityChange);
       document.addEventListener('spx:cart-added', this.onProductAdded);
+      document.addEventListener('cart:refresh', this.onCartRefresh);
       this.unsubscribe = window.FoxTheme?.pubsub?.subscribe(
         FoxTheme.pubsub.PUB_SUB_EVENTS.cartUpdate,
         this.onCartUpdate
@@ -123,13 +125,14 @@
       this.removeEventListener('click', this.onDrawerClick);
       this.removeEventListener('change', this.onQuantityChange);
       document.removeEventListener('spx:cart-added', this.onProductAdded);
+      document.removeEventListener('cart:refresh', this.onCartRefresh);
       this.unsubscribe?.();
     }
 
     get requiresBodyAppended() { return false; }
 
     show(focusElement = null, animate = true) {
-      if (!this.cartLoaded) this.refreshCart();
+      this.refreshCart();
       return super.show(focusElement, animate);
     }
 
@@ -156,6 +159,10 @@
       this.show(source || null);
     }
 
+    onCartRefresh() {
+      this.refreshCart();
+    }
+
     async changeLine(line, quantity) {
       this.classList.add('is-loading');
       try {
@@ -167,7 +174,7 @@
         const cart = await response.json();
         if (!response.ok) throw new Error(cart.description || 'Cart update failed');
         this.renderCart(cart);
-        FoxTheme.pubsub.publish(FoxTheme.pubsub.PUB_SUB_EVENTS.cartUpdate, { cart });
+        window.FoxTheme?.pubsub?.publish?.(FoxTheme.pubsub.PUB_SUB_EVENTS.cartUpdate, { cart });
       } catch (error) {
         console.error('Unable to update cart line', error);
       } finally {
@@ -180,6 +187,18 @@
       if (removeButton) {
         event.preventDefault();
         this.changeLine(Number(removeButton.dataset.sourceCartRemove), 0);
+        return;
+      }
+
+      const quantityButton = event.target.closest('.cart-quantity .quantity__button');
+      if (quantityButton) {
+        event.preventDefault();
+        const quantity = quantityButton.closest('quantity-input');
+        const input = quantity?.querySelector('[data-source-cart-quantity]');
+        if (!input) return;
+        const delta = quantityButton.name === 'minus' ? -1 : 1;
+        const nextQuantity = Math.max(0, Number(input.value || 0) + delta);
+        this.changeLine(Number(input.dataset.sourceCartQuantity), nextQuantity);
       }
     }
 
@@ -201,7 +220,9 @@
       const total = this.querySelector('[data-source-cart-total]');
       if (total) total.textContent = money(cart.total_price);
 
-      this.querySelector('free-shipping-goal')?.setAttribute('data-cart-total', cart.items_subtotal_price);
+      this.renderShipping(cart.items_subtotal_price);
+      this.renderPromotion(cart.item_count);
+      this.renderDiscounts(cart.cart_level_discount_applications || []);
       document.querySelectorAll('cart-count').forEach((count) => {
         count.textContent = count.dataset.type === 'blank' ? `(${cart.item_count})` : cart.item_count;
         count.classList.toggle('cart-count--blank', isEmpty);
@@ -211,6 +232,80 @@
       document.documentElement.classList.add('cart-count-ready');
       document.documentElement.classList.toggle('cart-has-items', !isEmpty);
       document.dispatchEvent(new CustomEvent('cart:updated', { detail: { cart } }));
+    }
+
+    renderShipping(subtotal) {
+      const goal = this.querySelector('free-shipping-goal');
+      if (!goal) return;
+
+      const threshold = Number(goal.dataset.minimumAmount || 49) * 100;
+      const progress = threshold ? Math.min(1, Math.max(0, Number(subtotal || 0) / threshold)) : 1;
+      const remaining = Math.max(0, threshold - Number(subtotal || 0));
+
+      goal.style.setProperty('--source-cart-shipping-progress', String(progress));
+      goal.classList.toggle('is-reached', remaining === 0);
+      goal.querySelector('[data-left-to-spend]')?.replaceChildren(document.createTextNode(money(remaining)));
+    }
+
+    renderPromotion(itemCount) {
+      const body = this.querySelector('[data-source-cart-body]');
+      if (!body) return;
+
+      let promotion = body.querySelector('[data-source-cart-promotion]');
+      if (!promotion) {
+        promotion = document.createElement('section');
+        promotion.className = 'source-cart-promotion';
+        promotion.dataset.sourceCartPromotion = '';
+        promotion.setAttribute('aria-label', 'Mengenangebote');
+        promotion.innerHTML = '<p class="source-cart-promotion__copy"></p><ol class="source-cart-promotion__tiers"></ol>';
+        body.prepend(promotion);
+      }
+
+      const tiers = [5, 10, 15, 20, 25];
+      const copy = promotion.querySelector('.source-cart-promotion__copy');
+      const next = Math.min(5, Number(itemCount || 0) + 1);
+      if (copy) {
+        copy.textContent = itemCount >= 5
+          ? 'Das groesste Mengenangebot ist erreicht.'
+          : 'Noch ' + Math.max(1, next - itemCount) + ' Artikel bis zum naechsten Angebot.';
+      }
+
+      const list = promotion.querySelector('.source-cart-promotion__tiers');
+      if (list) {
+        list.innerHTML = tiers.map((discount, index) => {
+          const quantity = index + 1;
+          const reached = itemCount >= quantity;
+          return '<li class="source-cart-promotion__tier' + (reached ? ' is-reached' : '') + '">' +
+            '<strong>' + discount + '% Rabatt</strong>' +
+            '<i>' + (reached ? 'OK' : quantity) + '</i>' +
+            '<span>' + quantity + ' Artikel</span>' +
+            '</li>';
+        }).join('');
+      }
+    }
+
+    renderDiscounts(discounts) {
+      const footer = this.querySelector('[data-source-cart-footer] .drawer__footer-body');
+      if (!footer) return;
+
+      let list = footer.querySelector('[data-source-cart-discounts]');
+      if (!discounts.length) {
+        list?.remove();
+        return;
+      }
+
+      if (!list) {
+        list = document.createElement('div');
+        list.className = 'source-cart-discounts';
+        list.dataset.sourceCartDiscounts = '';
+        footer.prepend(list);
+      }
+
+      list.innerHTML = discounts.map((discount) => {
+        const title = escapeHtml(discount.title || 'Rabatt');
+        const amount = money(discount.total_allocated_amount || 0);
+        return '<span>' + title + '</span><strong>-' + amount + '</strong>';
+      }).join('');
     }
 
     itemMarkup(item, line) {
