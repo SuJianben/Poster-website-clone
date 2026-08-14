@@ -25,13 +25,6 @@
         </div>
       </div>
 
-      <div id="CartDrawerEmpty-source-cart-drawer" class="drawer__body flex-grow v-scrollable{% if cart.item_count > 0 %} hidden{% endif %}" data-source-cart-empty>
-        <div class="cart-drawer__empty text-center flex flex-col gap-6 md:gap-8">
-          <div class="grid gap-3"><p class="h4">Ihr Warenkorb ist derzeit leer.</p></div>
-          <a class="btn btn--primary self-center" href="{{ routes.all_products_collection_url }}"><span class="btn__text">Weiter einkaufen</span></a>
-        </div>
-      </div>
-
       <div class="drawer__body flex-grow v-scrollable flex flex-col{% if cart.item_count == 0 %} hidden{% endif %}" data-source-cart-body>
         <free-shipping-goal data-cart-total="{{ cart.items_subtotal_price }}" data-minimum-amount="49" class="free-shipping-goal grid gap-2 w-full no-js-hidden">
           <span class="free-shipping-goal__label free-shipping-goal__label--success">Du hast Anspruch auf kostenlosen Versand.</span>
