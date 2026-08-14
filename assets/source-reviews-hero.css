@@ -12,7 +12,21 @@
     left: 50%;
     width: min(310px, calc(100% - 32px));
     margin: 0;
+    font-size: 32px;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    overflow: visible;
     transform: translate(-50%, -50%);
+  }
+
+  .srp-page__hero-highlight {
+    display: inline-block;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  .srp-page__hero-highlight-svg {
+    display: none;
   }
 
   .srp-page__hero-copy p {
@@ -22,6 +36,8 @@
     bottom: auto;
     left: 16px;
     margin: 0;
+    font-size: 12px;
+    white-space: nowrap;
     transform: translateY(-50%);
   }
 }
