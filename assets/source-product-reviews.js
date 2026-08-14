@@ -11,7 +11,22 @@
     const filterButton = root.querySelector('[data-sprv-filter-button]');
     const filterMenu = root.querySelector('[data-sprv-filter-menu]');
     const cards = root.querySelector('[data-sprv-cards]');
+    const carouselProgress = root.querySelector('[data-sprv-carousel-progress]');
     let currentPage = 1;
+
+    const updateCarouselProgress = () => {
+      if (!cards || !carouselProgress) return;
+      const maxScroll = cards.scrollWidth - cards.clientWidth;
+      const visibleRatio = Math.min(100, (cards.clientWidth / cards.scrollWidth) * 100);
+      const progress = maxScroll > 0
+        ? visibleRatio + (cards.scrollLeft / maxScroll) * (100 - visibleRatio)
+        : 100;
+      carouselProgress.style.width = `${progress}%`;
+    };
+
+    cards?.addEventListener('scroll', () => window.requestAnimationFrame(updateCarouselProgress), { passive: true });
+    window.addEventListener('resize', updateCarouselProgress);
+    updateCarouselProgress();
 
     filterButton?.addEventListener('click', () => {
       const isOpen = filterButton.getAttribute('aria-expanded') === 'true';

@@ -28,6 +28,9 @@
     {% render 'source-product-review-card', index: index %}
   {%- endfor -%}
 </div>
+<div class="sprv__carousel-progress" aria-hidden="true">
+  <span data-sprv-carousel-progress></span>
+</div>
 
 <nav class="sprv__pagination" aria-label="Reviews pagination">
   <button type="button" data-sprv-page="previous" aria-label="Previous page">&lt;</button>

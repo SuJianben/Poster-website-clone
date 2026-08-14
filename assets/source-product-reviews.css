@@ -81,3 +81,19 @@
   .sprv .sprv__cards{grid-template-columns:1fr}
 }
 
+/* Mobile reviews use a touch carousel so photo-heavy entries do not make the page excessively tall. */
+.sprv .sprv__carousel-progress{display:none}
+@media(max-width:749px){
+  .sprv .sprv__cards{display:flex;gap:12px;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x mandatory;scrollbar-width:none}
+  .sprv .sprv__cards::-webkit-scrollbar{display:none}
+  .sprv .sprv-card{flex:0 0 calc(100% - 38px);scroll-snap-align:start;scroll-snap-stop:always}
+  .sprv .sprv-card__media--stack{display:flex;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x mandatory;scrollbar-width:none}
+  .sprv .sprv-card__media--stack::-webkit-scrollbar{display:none}
+  .sprv .sprv-card__media--stack button{flex:0 0 100%;scroll-snap-align:start;scroll-snap-stop:always}
+  .sprv .sprv__carousel-progress{display:block;height:2px;margin:13px 0 0;background:#e2e2e2;overflow:hidden}
+  .sprv .sprv__carousel-progress span{display:block;width:25%;height:100%;background:#111;transition:width .2s ease-out}
+}
+@media(prefers-reduced-motion:reduce){
+  .sprv .sprv__carousel-progress span{transition:none}
+}
+
