@@ -40,7 +40,7 @@
   <section class="source-mobile-personal" data-mobile-personal>
     <header class="source-mobile-personal__header">
       {% if section.settings.eyebrow != blank %}<p>{{ section.settings.eyebrow }}</p>{% endif %}
-      <h2>{{ section.settings.heading_prefix }} <span>{{ section.settings.heading_highlight }}</span></h2>
+      <h2>{{ section.settings.heading_prefix }} <em is="highlight-text" class="highlight-text relative inline-block font-normal highlight-text--thick-underline animate" style="--hl-style-color: 230, 217, 197, 1.0;">{{ section.settings.heading_highlight }}</em></h2>
       {% if section.settings.link_label != blank %}<a href="{% if section.settings.link != blank %}{{ section.settings.link }}{% else %}/collections/personalisierbare-wandbilder{% endif %}">{{ section.settings.link_label }} <span aria-hidden="true">›</span></a>{% endif %}
       <div class="source-mobile-personal__tabs" role="tablist">
         {% for block in section.blocks %}
@@ -72,8 +72,8 @@
     .source-mobile-personal__header { text-align: center; }
     .source-mobile-personal__header > p { max-width: 280px; margin: 0 auto 11px; font-size: 12px; font-weight: 600; line-height: 1.4; }
     .source-mobile-personal__header h2 { margin: 0; font-size: 31px; font-weight: 800; line-height: 1.1; }
-    .source-mobile-personal__header h2 span { position: relative; display: block; isolation: isolate; }
-    .source-mobile-personal__header h2 span::after { position: absolute; right: -4px; bottom: 5px; left: -4px; z-index: -1; height: 6px; background: #e6d9c5; content: ""; }
+    .source-mobile-personal__header h2 .highlight-text { position: relative; display: table; width: fit-content; margin: 0 auto; isolation: isolate; }
+    .source-mobile-personal__header h2 .highlight-text::after { position: absolute; right: -2px; bottom: 5px; left: -2px; z-index: -1; height: 6px; background: rgba(var(--hl-style-color)); content: ""; }
     .source-mobile-personal__header > a { display: inline-flex; align-items: center; gap: 6px; margin-top: 14px; color: #111; font-size: 13px; font-weight: 700; text-decoration: none; }
     .source-mobile-personal__header > a::after { position: absolute; }
     .source-mobile-personal__header > a { border-bottom: 1px solid #111; padding-bottom: 2px; }

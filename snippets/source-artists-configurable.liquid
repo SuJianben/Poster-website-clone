@@ -44,7 +44,7 @@
   <section class="source-mobile-artists" data-mobile-artists>
     <header class="source-mobile-artists__header">
       {% if section.settings.eyebrow != blank %}<p>{{ section.settings.eyebrow }}</p>{% endif %}
-      <h2>{{ section.settings.heading_prefix }} <span>{{ section.settings.heading_highlight }}</span></h2>
+      <h2>{{ section.settings.heading_prefix }} <em is="highlight-text" class="highlight-text relative inline-block font-normal highlight-text--thick-underline animate" style="--hl-style-color: 230, 217, 197, 1.0;">{{ section.settings.heading_highlight }}</em></h2>
       {% if section.settings.link_label != blank %}<a href="{{ section.settings.link }}">{{ section.settings.link_label }} <span aria-hidden="true">›</span></a>{% endif %}
       <div class="source-mobile-artists__tabs" role="tablist">
         {% for block in section.blocks %}
@@ -77,8 +77,8 @@
     .source-mobile-artists__header { text-align: center; }
     .source-mobile-artists__header p { margin: 0 0 12px; font-size: 12px; font-weight: 600; }
     .source-mobile-artists__header h2 { margin: 0; font-size: 31px; font-weight: 800; line-height: 1.08; }
-    .source-mobile-artists__header h2 span { position: relative; display: block; isolation: isolate; }
-    .source-mobile-artists__header h2 span::after { position: absolute; right: -4px; bottom: 5px; left: -4px; z-index: -1; height: 6px; background: #e6d9c5; content: ""; }
+    .source-mobile-artists__header h2 .highlight-text { position: relative; display: table; width: fit-content; margin: 0 auto; isolation: isolate; }
+    .source-mobile-artists__header h2 .highlight-text::after { position: absolute; right: -2px; bottom: 5px; left: -2px; z-index: -1; height: 6px; background: rgba(var(--hl-style-color)); content: ""; }
     .source-mobile-artists__header > a { display: inline-flex; align-items: center; gap: 6px; margin-top: 14px; padding-bottom: 4px; border-bottom: 1px solid #111; color: #111; font-size: 13px; font-weight: 700; text-decoration: none; }
     .source-mobile-artists__header > a span { font-size: 22px; line-height: .6; }
     .source-mobile-artists__tabs { position: relative; display: flex; gap: 28px; overflow-x: auto; margin-top: 18px; padding: 0 4px 9px; scrollbar-width: none; white-space: nowrap; }
