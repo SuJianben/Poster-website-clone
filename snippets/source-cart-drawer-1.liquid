@@ -84,7 +84,6 @@
               <span class="totals__subtotal font-body-bolder">Zwischensumme</span>
               <span class="font-body-bolder" data-source-cart-total>{{ cart.total_price | money }}</span>
             </div>
-            <div class="totals flex justify-between items-center"><span>Versand</span><span class="font-body-bolder">Kostenlos</span></div>
             <div class="tax-note">Steuer inbegriffen. Versand und Rabatte werden im nächsten Schritt berechnet.</div>
           </div>
           <form action="{{ routes.cart_url }}" method="post" class="drawer__footer-buttons w-full">

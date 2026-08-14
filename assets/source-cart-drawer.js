@@ -266,8 +266,8 @@
       const next = Math.min(5, Number(itemCount || 0) + 1);
       if (copy) {
         copy.textContent = itemCount >= 5
-          ? 'Das groesste Mengenangebot ist erreicht.'
-          : 'Noch ' + Math.max(1, next - itemCount) + ' Artikel bis zum naechsten Angebot.';
+          ? 'Sie haben sich den maximalen Mengenrabatt gesichert.'
+          : 'Kaufen Sie ' + Math.max(1, next - itemCount) + ' weitere Artikel, um ' + tiers[next - 1] + '% Rabatt zu erhalten.';
       }
 
       const list = promotion.querySelector('.source-cart-promotion__tiers');
@@ -278,7 +278,7 @@
           return '<li class="source-cart-promotion__tier' + (reached ? ' is-reached' : '') + '">' +
             '<strong>' + discount + '% Rabatt</strong>' +
             '<i>' + (reached ? 'OK' : quantity) + '</i>' +
-            '<span>' + quantity + ' Artikel</span>' +
+            '<span>' + quantity + ' Artikel kaufen</span>' +
             '</li>';
         }).join('');
       }
