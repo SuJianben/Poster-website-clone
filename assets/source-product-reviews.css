@@ -97,3 +97,14 @@
   .sprv .sprv__carousel-progress span{transition:none}
 }
 
+/* Keep review cards tidy and aligned until a customer chooses to expand a long comment. */
+.sprv .sprv__cards{align-items:stretch}
+.sprv .sprv-card{display:flex;height:100%;flex-direction:column}
+.sprv .sprv-card__content{display:flex;flex:1;flex-direction:column}
+.sprv .sprv-card__body{min-height:6.3em;max-height:6.3em;overflow:hidden}
+.sprv .sprv-card__body.is-expanded{max-height:none}
+.sprv .sprv-card__expand{align-self:flex-start;margin:-4px 0 14px;padding:0;border:0;color:#222;background:transparent;font-size:12px;font-weight:700;line-height:1.4;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.sprv .sprv-card__expand:hover{color:#7e6d52}
+.sprv .sprv-card__expand:focus-visible{outline:2px solid #000;outline-offset:3px}
+.sprv .sprv-card__helpful{margin-top:auto}
+

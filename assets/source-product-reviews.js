@@ -28,6 +28,27 @@
     window.addEventListener('resize', updateCarouselProgress);
     updateCarouselProgress();
 
+    const updateReviewExpanders = () => {
+      root.querySelectorAll('[data-sprv-review-expand]').forEach((button) => {
+        const card = button.closest('[data-sprv-review-card]');
+        const body = card?.querySelector('[data-sprv-review-body]');
+        if (!body || body.classList.contains('is-expanded')) return;
+        button.hidden = body.scrollHeight <= body.clientHeight + 1;
+      });
+    };
+
+    root.querySelectorAll('[data-sprv-review-expand]').forEach((button) => button.addEventListener('click', () => {
+      const card = button.closest('[data-sprv-review-card]');
+      const body = card?.querySelector('[data-sprv-review-body]');
+      if (!body) return;
+      const isExpanded = body.classList.toggle('is-expanded');
+      button.setAttribute('aria-expanded', String(isExpanded));
+      button.textContent = isExpanded ? 'Weniger anzeigen' : 'Mehr anzeigen';
+    }));
+
+    window.addEventListener('resize', updateReviewExpanders);
+    window.requestAnimationFrame(updateReviewExpanders);
+
     filterButton?.addEventListener('click', () => {
       const isOpen = filterButton.getAttribute('aria-expanded') === 'true';
       filterButton.setAttribute('aria-expanded', String(!isOpen));

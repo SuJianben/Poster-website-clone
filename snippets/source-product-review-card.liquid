@@ -71,7 +71,8 @@
       {%- endfor -%}
     </div>
     <h3>{{ review_title }}</h3>
-    <p class="sprv-card__body">{{ review_body }}</p>
+    <p class="sprv-card__body" data-sprv-review-body>{{ review_body }}</p>
+    <button class="sprv-card__expand" type="button" data-sprv-review-expand aria-expanded="false" hidden>Mehr anzeigen</button>
     {%- if product_name != blank -%}<p class="sprv-card__product">{{ product_name }}</p>{%- endif -%}
     <p class="sprv-card__author"><strong>{{ author }}</strong>{% if verified_label != blank %} <span>{{ verified_label }}</span>{% endif %}</p>
     {%- if country != blank -%}<p class="sprv-card__country">⚑ {{ country }}</p>{%- endif -%}
