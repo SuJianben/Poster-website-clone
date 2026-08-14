@@ -48,7 +48,7 @@
   </div>
   <section class="source-mobile-bestsellers" data-mobile-bestsellers>
     <header class="source-mobile-bestsellers__header">
-      <h2>{{ section.settings.heading_prefix }} <span>{{ section.settings.heading_highlight }}</span></h2>
+      <h2>{{ section.settings.heading_prefix }} <em is="highlight-text" class="highlight-text relative inline-block font-normal highlight-text--thick-underline animate" style="--hl-style-color: 230, 217, 197, 1.0;">{{ section.settings.heading_highlight }}</em></h2>
       <div class="source-mobile-bestsellers__tabs" role="tablist">
         {% for block in section.blocks %}
           {% assign tab_label = block.settings.label | default: block.settings.collection.title %}
@@ -100,20 +100,22 @@
       line-height: 1.1;
     }
 
-    .source-mobile-bestsellers__header h2 span {
+    .source-mobile-bestsellers__header h2 .highlight-text {
       position: relative;
-      display: block;
+      display: table;
+      width: fit-content;
+      margin: 0 auto;
       isolation: isolate;
     }
 
-    .source-mobile-bestsellers__header h2 span::after {
+    .source-mobile-bestsellers__header h2 .highlight-text::after {
       position: absolute;
-      right: -4px;
+      right: -2px;
       bottom: 5px;
-      left: -4px;
+      left: -2px;
       z-index: -1;
       height: 6px;
-      background: #e6d9c5;
+      background: rgba(var(--hl-style-color));
       content: "";
     }
 
