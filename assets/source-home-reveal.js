@@ -1,8 +1,8 @@
 (() => {
   const initHomeReveal = () => {
-    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
-
-    const sectionRoot = document.querySelector('#MainContent') || document.querySelector('main');
+    const sectionRoot = document.querySelector('[data-source-home-reveal-anchor]')?.closest('.site-wrapper')
+      || document.querySelector('.site-wrapper')
+      || document.body;
     if (!sectionRoot || sectionRoot.dataset.sourceHomeRevealInitialized === 'true') return;
 
     const textSelector = [
