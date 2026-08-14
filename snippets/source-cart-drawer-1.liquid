@@ -62,11 +62,23 @@
                       </div>
                       <div class="cart-item__action flex items-center justify-between gap-3">
                         <quantity-input class="cart-quantity quantity self-end">
-                          <button type="button" name="minus" class="quantity__button" aria-label="Menge verringern"><span aria-hidden="true">−</span></button>
+                          <button type="button" name="minus" class="quantity__button" aria-label="Menge verringern"><svg aria-hidden="true" focusable="false" viewBox="0 0 16 16" fill="none"><path d="M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
                           <input class="quantity__input" type="number" value="{{ item.quantity }}" min="0" step="1" data-source-cart-quantity="{{ forloop.index }}" aria-label="Menge für {{ item.product.title | escape }}">
-                          <button type="button" name="plus" class="quantity__button" aria-label="Menge erhöhen"><span aria-hidden="true">+</span></button>
+                          <button type="button" name="plus" class="quantity__button" aria-label="Menge erhöhen"><svg aria-hidden="true" focusable="false" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M8 3v10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
                         </quantity-input>
-                        <div class="cart-item__prices text-right flex flex-col gap-2"><span class="price__regular">{{ item.final_line_price | money }}</span></div>
+                        <div class="cart-item__prices text-right flex flex-col gap-2">
+                          {% if item.line_level_discount_allocations.size > 0 %}
+                            <ul class="cart-item__discounts flex flex-wrap" role="list" aria-label="Rabatt">
+                              {% for discount_allocation in item.line_level_discount_allocations %}
+                                <li class="cart-item__discount"><svg aria-hidden="true" focusable="false" viewBox="0 0 16 16" fill="none"><path d="M2.75 8.1a.75.75 0 0 1-.22-.53V2.75h4.82c.2 0 .39.08.53.22l5.15 5.15a.75.75 0 0 1 0 1.06l-3.85 3.85a.75.75 0 0 1-1.06 0L2.75 8.1Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="5.25" cy="5.25" r=".8" fill="currentColor"/></svg><span>{{ discount_allocation.discount_application.title }}</span></li>
+                              {% endfor %}
+                            </ul>
+                          {% endif %}
+                          <div class="price{% if item.original_line_price > item.final_line_price %} price--on-sale{% endif %}">
+                            {% if item.original_line_price > item.final_line_price %}<s>{{ item.original_line_price | money }}</s>{% endif %}
+                            <span class="price__regular">{{ item.final_line_price | money }}</span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -90,7 +102,16 @@
             <button class="btn btn--primary w-full flex items-center justify-center gap-2" type="submit" name="checkout"><span class="btn__text">JETZT SICHER ZUR KASSE</span></button>
           </form>
         </div>
-        <div class="cart-trust-badges text-center w-full"><p>Bestelle ohne Risiko - 100% Geld-zurück-Garantie</p></div>
+        <div class="cart-trust-badges text-center w-full">
+          <p>Bestelle ohne Risiko - 100% Geld-zurück-Garantie</p>
+          {% if shop.enabled_payment_types.size > 0 %}
+            <div class="payment-icons">
+              {% for type in shop.enabled_payment_types %}
+                <span>{{ type | payment_type_svg_tag: class: 'icon' }}</span>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
       </div>
     </div>
   </div>

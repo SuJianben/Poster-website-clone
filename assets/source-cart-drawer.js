@@ -340,6 +340,14 @@
       const image = item.image
         ? `<img src="${escapeHtml(imageUrl(item.image))}" alt="${escapeHtml(item.product_title)}" width="200" height="200" loading="lazy">`
         : '';
+      const discounts = (item.line_level_discount_allocations || []).map((discount) => {
+        const title = discount.discount_application?.title || discount.title || 'Rabatt';
+        return '<li class="cart-item__discount"><svg aria-hidden="true" focusable="false" viewBox="0 0 16 16" fill="none"><path d="M2.75 8.1a.75.75 0 0 1-.22-.53V2.75h4.82c.2 0 .39.08.53.22l5.15 5.15a.75.75 0 0 1 0 1.06l-3.85 3.85a.75.75 0 0 1-1.06 0L2.75 8.1Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="5.25" cy="5.25" r=".8" fill="currentColor"/></svg><span>' + escapeHtml(title) + '</span></li>';
+      }).join('');
+      const isOnSale = Number(item.original_line_price) > Number(item.final_line_price);
+      const pricing = '<div class="price' + (isOnSale ? ' price--on-sale' : '') + '">' +
+        (isOnSale ? '<s>' + money(item.original_line_price) + '</s>' : '') +
+        '<span class="price__regular">' + money(item.final_line_price) + '</span></div>';
 
       return `<li class="cart-item flex flex-col" data-source-cart-line="${line}">
         <div class="cart-item__product flex items-start gap-3">
@@ -350,15 +358,15 @@
                 <div class="block"><a href="${escapeHtml(item.url)}" class="cart-item__title text-pcard-title reversed-link">${escapeHtml(item.product_title)}</a></div>
                 <div class="cart-item__options">${options}${properties}</div>
               </div>
-              <button type="button" class="cart-item__remove flex items-center justify-center relative btn-remove" data-source-cart-remove="${line}" aria-label="${escapeHtml(item.product_title)} entfernen">×</button>
+              <button type="button" class="cart-item__remove flex items-center justify-center relative btn-remove" data-source-cart-remove="${line}" aria-label="${escapeHtml(item.product_title)} entfernen"><svg aria-hidden="true" focusable="false" fill="none" viewBox="0 0 24 24"><path d="M18.75 5.13 5.25 18.85M18.75 18.85 5.25 5.13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
             </div>
             <div class="cart-item__action flex items-center justify-between gap-3">
               <quantity-input class="cart-quantity quantity self-end">
-                <button type="button" name="minus" class="quantity__button" aria-label="Menge verringern"><span aria-hidden="true">−</span></button>
+                <button type="button" name="minus" class="quantity__button" aria-label="Menge verringern"><svg aria-hidden="true" focusable="false" viewBox="0 0 16 16" fill="none"><path d="M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
                 <input class="quantity__input" type="number" value="${item.quantity}" min="0" step="1" data-source-cart-quantity="${line}" aria-label="Menge für ${escapeHtml(item.product_title)}">
-                <button type="button" name="plus" class="quantity__button" aria-label="Menge erhöhen"><span aria-hidden="true">+</span></button>
+                <button type="button" name="plus" class="quantity__button" aria-label="Menge erhöhen"><svg aria-hidden="true" focusable="false" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M8 3v10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
               </quantity-input>
-              <div class="cart-item__prices text-right flex flex-col gap-2"><span class="price__regular">${money(item.final_line_price)}</span></div>
+              <div class="cart-item__prices text-right flex flex-col gap-2">${discounts ? '<ul class="cart-item__discounts flex flex-wrap" role="list" aria-label="Rabatt">' + discounts + '</ul>' : ''}${pricing}</div>
             </div>
           </div>
         </div>
