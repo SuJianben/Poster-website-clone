@@ -250,6 +250,7 @@
     width: 100%;
     margin: 26px 0 0;
     border-radius: 6px;
+    clip-path: inset(-16px 0 0 0 round 6px);
   }
   .spx-product__panel-content { padding: 12px 14px 24px; }
   .spx-product__top-badges { left: 12px; gap: 6px; }
