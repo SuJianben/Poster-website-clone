@@ -6,7 +6,7 @@
   assign secondary_badge = section.settings.secondary_badge | default: 'Limited Edition'
 %}
 
-<div id="shopify-section-{{ section.id }}" class="shopify-section">
+<div id="shopify-section-{{ section.id }}" class="shopify-section" data-source-home-reveal-anchor>
   <style data-shopify>
     #shopify-section-{{ section.id }} .page-width--full { --page-padding: 0; }
   </style>

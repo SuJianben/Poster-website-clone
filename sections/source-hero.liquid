@@ -1,3 +1,6 @@
+{{ 'source-home-reveal.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'source-home-reveal.js' | asset_url }}" defer="defer"></script>
+
 {% if section.settings.enabled %}
 {% render 'source-hero-1', section: section %}
 {% endif %}

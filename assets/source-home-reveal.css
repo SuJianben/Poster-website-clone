@@ -1,0 +1,23 @@
+@media (prefers-reduced-motion: no-preference) {
+  [data-source-home-reveal] {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+    will-change: opacity, transform;
+  }
+
+  [data-source-home-reveal].is-revealed {
+    animation: source-home-reveal-up .7s cubic-bezier(.3, 1, .3, 1) var(--source-home-reveal-delay, 0ms) both;
+  }
+
+  @keyframes source-home-reveal-up {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 24px, 0);
+    }
+
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+}
