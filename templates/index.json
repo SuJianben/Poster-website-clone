@@ -488,40 +488,71 @@
     "collection-list": {
       "type": "source-collection-list",
       "blocks": {
-        "collection_Y8UYgX": {
+        "collection_motivation": {
           "type": "collection",
           "settings": {
-            "collection": "",
-            "label": ""
+            "collection": "wandbilder-motivation",
+            "image_url": "https://dotcomcanvas.de/cdn/shop/files/Website-Banner-1_663fc90c-e0b3-4c18-8f76-5d0422e49f57.jpg?v=1686995856&width=1920",
+            "label": "Motivierende Wandbilder"
           }
         },
-        "collection_CCiKzW": {
+        "collection_religion": {
+          "type": "collection",
+          "settings": {
+            "collection": "wandbilder-spiritualitat-religion",
+            "image_url": "https://dotcomcanvas.de/cdn/shop/files/J6.jpg?v=1768759398&width=1080",
+            "label": "Religiöse Wandbilder"
+          }
+        },
+        "collection_crypto": {
+          "type": "collection",
+          "settings": {
+            "collection": "wandbild-bitcoin-crypto",
+            "image_url": "https://dotcomcanvas.de/cdn/shop/files/lifestyle-crypto-duck-customer.jpg?v=1678373273&width=1080",
+            "label": "Crypto Wandbilder"
+          }
+        },
+        "collection_auto": {
+          "type": "collection",
+          "settings": {
+            "collection": "auto-wandbilder-und-poster",
+            "image_url": "https://dotcomcanvas.de/cdn/shop/files/Ferrari-car---1x1.jpg?v=1768755109&width=1350",
+            "label": "Auto Wandbilder"
+          }
+        },
+        "collection_abstract": {
           "type": "collection",
           "settings": {
             "collection": "abstract-posters",
-            "label": ""
+            "image_url": "https://dotcomcanvas.de/cdn/shop/files/LeinwandbildWarriorInsideKunstdruckWandbildRoom1.jpg?v=1747583285&width=1080",
+            "label": "Abstrakte Wandbilder"
           }
         },
-        "collection_tNejmj": {
+        "collection_pop_art": {
           "type": "collection",
           "settings": {
-            "collection": "figurative-posters",
-            "label": ""
+            "collection": "pop-art",
+            "image_url": "https://dotcomcanvas.de/cdn/shop/collections/Leinwandbild_Fast_Bunny_Kunstwerk_Banner_Square_Gemini_48035e33-d324-4b0c-9a7a-60ab3be8e8a0.png?v=1773375338&width=971",
+            "label": "Pop Art Wandbilder"
           }
         },
-        "collection_RHtHCw": {
+        "collection_blattgold": {
           "type": "collection",
           "settings": {
-            "collection": "all",
-            "label": ""
+            "collection": "blattgold-bilder",
+            "image_url": "https://dotcomcanvas.de/cdn/shop/files/AcrylglasbildMoreMoneyDuck2.0ComicCartoonWandbildKunstdruck5_da8ded98-af72-4dcb-90e2-f8c75a76f07a.jpg?v=1768385239&width=1080",
+            "label": "Blattgold Wandbilder"
           }
         }
       },
       "block_order": [
-        "collection_Y8UYgX",
-        "collection_CCiKzW",
-        "collection_tNejmj",
-        "collection_RHtHCw"
+        "collection_motivation",
+        "collection_religion",
+        "collection_crypto",
+        "collection_auto",
+        "collection_abstract",
+        "collection_pop_art",
+        "collection_blattgold"
       ],
       "settings": {
         "enabled": true,
