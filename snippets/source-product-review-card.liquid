@@ -57,7 +57,7 @@
     {%- endfor -%}
   </div>
   <div class="sprv-card__content">
-    <div class="sprv-card__meta"><span class="sprv__stars">★★★★★</span><time>{{ review_date }}</time></div>
+    <div class="sprv-card__meta"><time>{{ review_date }}</time><span class="sprv__stars" aria-label="5 out of 5 stars">★★★★★</span></div>
     <dl class="sprv-card__details">
       {%- for row in detail_rows -%}
         {%- assign columns = row | split: '::' -%}

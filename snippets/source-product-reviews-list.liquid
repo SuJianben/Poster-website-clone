@@ -1,19 +1,24 @@
 {%- liquid
   assign shared_review_count = review_count | default: '2624'
-  assign shared_write_heading = write_heading | default: 'Write a review'
+  assign shared_write_heading = write_heading | default: 'Eine Bewertung schreiben'
   assign shared_contact_url = contact_url | default: '/pages/write-a-review'
 -%}
 
 <div class="sprv__toolbar">
   <div class="sprv__tab-row">
-    <div class="sprv__tab" aria-current="page">Reviews <span>{{ shared_review_count }}</span></div>
+    <div class="sprv__tab" aria-current="page">Bewertungen <span>{{ shared_review_count }}</span></div>
+    <button type="button" class="sprv__tab sprv__tab--secondary" data-sprv-question-tab>Fragen <span>0</span></button>
   </div>
   <div class="sprv__filter-row">
+    <span class="sprv__filter-label">Filter Bewertungen:</span>
     <div class="sprv__filter" data-sprv-filter>
-      <button type="button" aria-expanded="false" data-sprv-filter-button>With Photos <span aria-hidden="true"></span></button>
+      <button type="button" aria-expanded="false" data-sprv-filter-button>Sort <span aria-hidden="true"></span></button>
       <div class="sprv__filter-menu" hidden data-sprv-filter-menu>
-        <button type="button" data-value="photos">With Photos</button>
-        <button type="button" data-value="all">All Reviews</button>
+        <button type="button" data-value="photos">Mit Fotos</button>
+        <button type="button" data-value="recent">Neueste</button>
+        <button type="button" data-value="highest-rating">Höchste Bewertung</button>
+        <button type="button" data-value="lowest-rating">Niedrigste Bewertung</button>
+        <button type="button" data-value="most-votes">Hilfreichste</button>
       </div>
     </div>
   </div>

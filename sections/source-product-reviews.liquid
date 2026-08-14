@@ -10,11 +10,11 @@
 
   <div class="sprv__widget">
     <div class="sprv__inner">
-      {% render 'source-reviews-summary', variant: 'product', review_count: section.settings.review_count %}
+      {% render 'source-reviews-summary', variant: 'product', review_count: section.settings.review_count, write_heading: section.settings.write_heading, contact_url: section.settings.contact_url %}
 
       {% render 'source-product-reviews-list',
         review_count: section.settings.review_count,
-        show_write: true,
+        show_write: false,
         write_heading: section.settings.write_heading,
         contact_url: section.settings.contact_url
       %}
@@ -27,7 +27,7 @@
 {
   "name": "Source product reviews",
   "settings": [
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Over 60,000 satisfied customers" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Kundenbewertungen" },
     { "type": "text", "id": "review_count", "label": "Review count", "default": "2627" },
     { "type": "text", "id": "write_heading", "label": "Write review heading", "default": "Write a review" },
     { "type": "url", "id": "contact_url", "label": "Write review link" }

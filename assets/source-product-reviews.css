@@ -45,3 +45,33 @@
 .sprv .sprv__write-icon{display:inline-block;width:14px;height:14px;font-size:0;flex:0 0 14px}
 .sprv .sprv__write-icon::before{content:"";position:absolute;top:3px;left:2px;width:7px;height:7px;border-top:1.5px solid currentColor;border-right:1.5px solid currentColor;transform:rotate(45deg)}
 
+/* Product review widget follows the two-column Stamped masonry layout. */
+@media(min-width:750px){
+  .sprv .sprv__cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;margin-top:0}
+}
+
+.sprv .sprv__tab-row{display:flex;align-items:flex-end}
+.sprv .sprv__tab--secondary{width:auto;border:0;color:#555;background:transparent;cursor:pointer}
+.sprv .sprv__tab--secondary:hover{color:#111}
+.sprv .sprv__filter-row{display:flex;align-items:center;justify-content:flex-end}
+.sprv .sprv__filter-label{margin-right:10px;color:#555;font:400 12px/15px Arial,sans-serif}
+.sprv .sprv__filter{float:none;margin:-1px 1px 15px 0}
+.sprv .sprv-card{border-color:#ddd;border-radius:0}
+.sprv .sprv-card__content{padding:20px}
+.sprv .sprv-card__meta{display:block;margin-bottom:18px}
+.sprv .sprv-card__meta time{display:block;margin-bottom:5px;color:#555;font-size:12px;line-height:16px}
+.sprv .sprv-card__meta .sprv__stars{display:block;color:#a39478;font-size:17px;letter-spacing:1px;line-height:18px}
+.sprv .sprv-card__details{display:block;margin:0 0 15px}
+.sprv .sprv-card__details div{display:flex;gap:6px;margin:0 0 5px}
+.sprv .sprv-card__details dt{flex:0 0 auto}
+.sprv .sprv-card__details dd{margin:0}
+.sprv .sprv-card__meters{margin-bottom:22px}
+.sprv .sprv-card__helpful{padding-top:16px;border-top:1px solid #eee}
+
+@media(max-width:749px){
+  .sprv .sprv__toolbar{height:94px}
+  .sprv .sprv__filter-label{display:none}
+  .sprv .sprv__cards{grid-template-columns:1fr;gap:15px;margin-top:0}
+  .sprv .sprv-card__content{padding:16px}
+}
+
