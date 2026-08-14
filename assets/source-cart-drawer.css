@@ -559,6 +559,12 @@ cart-drawer[hidden] {
   pointer-events: none;
 }
 
+@media (max-width: 767px) {
+  .cart-drawer .drawer__inner {
+    width: 100vw;
+  }
+}
+
 @media (max-width: 480px) {
   .cart-drawer .drawer__header {
     padding-inline: 15px;
