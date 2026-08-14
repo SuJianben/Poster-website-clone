@@ -17,17 +17,22 @@
         </div>
         <div class="section__content tabs__panels">
           {% for block in section.blocks %}
+            {% assign display_collection = block.settings.collection %}
+            {% if display_collection == blank or display_collection.products_count == 0 %}
+              {% assign display_collection = collections.all %}
+            {% endif %}
+            {% assign product_offset = forloop.index0 | times: 6 %}
             {% capture panel %}
               <div class="tabs__panel featured-collection__content" data-index="{{ forloop.index0 }}" data-id="{{ block.id }}">
                 <featured-collection class="block relative swiper swiper-equal-height overflow-visible f-grid--gap-medium swipe-mobile swipe-mobile--2-cols" data-block-id="{{ block.id }}" data-enable-slider="true" data-items="5" data-tablet-items="3" data-laptop-items="4" data-pagination-type="progressbar" data-navigation-position="bottom" id="product-list-{{ block.id }}">
                   <div class="featured-collection__items products-list f-grid f-grid--gap-medium f-grid--row-gap-medium swiper-wrapper swipe-mobile__inner">
-                    {% if block.settings.promo_image != blank %}{% render 'source-product-shelf-promo-card', image: block.settings.promo_image, heading: block.settings.promo_heading, button_label: block.settings.promo_button_label, link: block.settings.promo_link, fallback_link: block.settings.collection.url %}{% endif %}
-                    {% if block.settings.collection != blank %}{% for product in block.settings.collection.products limit: 12 %}{% render 'source-bestsellers-product-card', product: product, promotion_discount: 20 %}{% endfor %}{% endif %}
+                    {% if block.settings.promo_image != blank %}{% render 'source-product-shelf-promo-card', image: block.settings.promo_image, heading: block.settings.promo_heading, button_label: block.settings.promo_button_label, link: block.settings.promo_link, fallback_link: display_collection.url %}{% endif %}
+                    {% if display_collection != blank %}{% for product in display_collection.products limit: 12 offset: product_offset %}{% render 'source-bestsellers-product-card', product: product, promotion_discount: 20 %}{% endfor %}{% endif %}
                   </div>
                 </featured-collection>
                 <div class="swiper-controls swiper-controls--grouped swiper-controls--pagination-progressbar hidden md:flex"><button class="swiper-button swiper-button-prev btn" name="previous" aria-label="Nach links schieben"><span class="btn__text"><svg class="icon icon-caret-left rtl-flip-x icon--medium icon--thick" viewBox="0 0 20 20" fill="none"><path d="M12.5 16.25L6.25 10L12.5 3.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="swiper-pagination"></div><button class="swiper-button swiper-button-next btn" name="next" aria-label="Nach rechts schieben"><span class="btn__text"><svg class="icon icon-caret-right rtl-flip-x icon--medium icon--thick" viewBox="0 0 20 20" fill="none"><path d="M7.5 3.75L13.75 10L7.5 16.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
                 <scroll-progress-bar class="md:hidden" target="product-list-{{ block.id }}"><div class="progress-container"><div class="progress-bar no-empty"></div></div></scroll-progress-bar>
-                {% if block.settings.collection != blank %}<div class="collection-action-bottom flex justify-end"><a class="btn btn--primary btn--with-icon" href="{{ block.settings.collection.url }}"><span class="btn__text">{{ section.settings.collection_label }}</span><span class="btn__icon order-last svg-icon svg-icon--arrow-right icon--small icon--thick inline-flex"><svg class="icon icon-arrow-right" viewBox="0 0 18 18" fill="none"><path d="M2.8125 9H15.1875" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M10.125 3.9375L15.1875 9L10.125 14.0625" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></div>{% endif %}
+                {% if display_collection != blank %}<div class="collection-action-bottom flex justify-end"><a class="btn btn--primary btn--with-icon" href="{{ display_collection.url }}"><span class="btn__text">{{ section.settings.collection_label }}</span><span class="btn__icon order-last svg-icon svg-icon--arrow-right icon--small icon--thick inline-flex"><svg class="icon icon-arrow-right" viewBox="0 0 18 18" fill="none"><path d="M2.8125 9H15.1875" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M10.125 3.9375L15.1875 9L10.125 14.0625" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></div>{% endif %}
               </div>
             {% endcapture %}
             {% if forloop.first %}{{ panel }}{% else %}<template data-index="{{ forloop.index0 }}">{{ panel }}</template>{% endif %}
@@ -51,11 +56,16 @@
     </header>
 
     {% for block in section.blocks %}
+      {% assign display_collection = block.settings.collection %}
+      {% if display_collection == blank or display_collection.products_count == 0 %}
+        {% assign display_collection = collections.all %}
+      {% endif %}
+      {% assign product_offset = forloop.index0 | times: 6 %}
       <div class="source-mobile-canvas-deals__panel{% if forloop.first %} is-active{% endif %}" data-canvas-panel="{{ forloop.index0 }}">
         <div class="source-mobile-canvas-deals__track">
-          {% if block.settings.promo_image != blank %}{% render 'source-product-shelf-promo-card', image: block.settings.promo_image, heading: block.settings.promo_heading, button_label: block.settings.promo_button_label, link: block.settings.promo_link, fallback_link: block.settings.collection.url %}{% endif %}
-          {% if block.settings.collection != blank %}
-            {% for product in block.settings.collection.products limit: 12 %}
+          {% if block.settings.promo_image != blank %}{% render 'source-product-shelf-promo-card', image: block.settings.promo_image, heading: block.settings.promo_heading, button_label: block.settings.promo_button_label, link: block.settings.promo_link, fallback_link: display_collection.url %}{% endif %}
+          {% if display_collection != blank %}
+            {% for product in display_collection.products limit: 12 offset: product_offset %}
               {% if product.featured_image != blank %}
                 {% render 'source-bestsellers-product-card', product: product, promotion_discount: 20 %}
               {% endif %}
@@ -63,8 +73,8 @@
           {% endif %}
         </div>
         <div class="source-mobile-canvas-deals__progress" aria-hidden="true"><span></span></div>
-        {% if block.settings.collection != blank %}
-          <a class="source-mobile-canvas-deals__action" href="{{ block.settings.collection.url }}">{{ section.settings.collection_label }} <span aria-hidden="true">→</span></a>
+        {% if display_collection != blank %}
+          <a class="source-mobile-canvas-deals__action" href="{{ display_collection.url }}">{{ section.settings.collection_label }} <span aria-hidden="true">→</span></a>
         {% endif %}
       </div>
     {% endfor %}
