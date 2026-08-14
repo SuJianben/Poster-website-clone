@@ -338,7 +338,8 @@ html.srp-summary-modal-open,html.srp-summary-modal-open body { overflow:hidden; 
   .src-review-summary .srp-widget__ratings { float:none; width:100%; margin:0 0 20px; padding-left:20px; }
   .src-review-summary .srp-widget__ratings button { width:100%; }
   .src-review-summary .srp-widget__photos { display:block; margin:0 auto 15px; }
-  .src-review-summary .srp-widget__actions { float:none; margin:0 auto 20px; align-items:center; }
+  .src-review-summary .srp-widget__actions { display:none; }
+  .src-review-summary .srp-widget__summary { border-bottom:0; }
   .srp-summary-modal { overflow-y:auto; }
   .srp-summary-modal__dialog { display:block; width:100%; height:auto; max-height:none; min-height:100vh; margin:0; transform:translateY(12px); }
   .srp-summary-modal__media { height:55vh; padding:54px 12px 12px; }

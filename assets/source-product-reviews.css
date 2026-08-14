@@ -71,7 +71,13 @@
 @media(max-width:749px){
   .sprv .sprv__toolbar{height:94px}
   .sprv .sprv__filter-label{display:none}
-  .sprv .sprv__cards{grid-template-columns:1fr;gap:15px;margin-top:0}
+  .sprv .sprv__filter>button{width:132px;min-width:132px}
+  .sprv .sprv__filter-menu{width:132px}
+  .sprv .sprv__cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;margin-top:0}
   .sprv .sprv-card__content{padding:16px}
+}
+
+@media(max-width:420px){
+  .sprv .sprv__cards{grid-template-columns:1fr}
 }
 
