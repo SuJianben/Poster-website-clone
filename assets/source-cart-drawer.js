@@ -257,7 +257,15 @@
         promotion.className = 'source-cart-promotion';
         promotion.dataset.sourceCartPromotion = '';
         promotion.setAttribute('aria-label', 'Mengenangebote');
-        promotion.innerHTML = '<p class="source-cart-promotion__copy"></p><ol class="source-cart-promotion__tiers"></ol>';
+        promotion.innerHTML = '<div class="source-cart-promotion__container">' +
+          '<div class="source-cart-promotion__text-wrapper"><span class="source-cart-promotion__copy"></span></div>' +
+          '<div class="source-cart-promotion__bar-wrapper">' +
+          '<ol class="source-cart-promotion__goal-list source-cart-promotion__title-list"></ol>' +
+          '<div class="source-cart-promotion__bar" role="progressbar" aria-valuemin="0" aria-valuemax="5">' +
+          '<ol class="source-cart-promotion__goal-list source-cart-promotion__markers" aria-hidden="true"></ol>' +
+          '<span class="source-cart-promotion__indicator"></span></div>' +
+          '<ol class="source-cart-promotion__goal-list source-cart-promotion__value-list"></ol>' +
+          '</div></div>';
         body.prepend(promotion);
       }
 
@@ -270,17 +278,29 @@
           : 'Kaufen Sie ' + Math.max(1, next - itemCount) + ' weitere Artikel, um ' + tiers[next - 1] + '% Rabatt zu erhalten.';
       }
 
-      const list = promotion.querySelector('.source-cart-promotion__tiers');
-      if (list) {
-        list.innerHTML = tiers.map((discount, index) => {
-          const quantity = index + 1;
-          const reached = itemCount >= quantity;
-          return '<li class="source-cart-promotion__tier' + (reached ? ' is-reached' : '') + '">' +
-            '<strong>' + discount + '% Rabatt</strong>' +
-            '<i>' + (reached ? 'OK' : quantity) + '</i>' +
-            '<span>' + quantity + ' Artikel kaufen</span>' +
-            '</li>';
-        }).join('');
+      const goals = tiers.map((discount, index) => {
+        const quantity = index + 1;
+        const reached = itemCount >= quantity;
+        return { discount, quantity, reached };
+      });
+
+      promotion.querySelector('.source-cart-promotion__title-list').innerHTML = goals.map((goal) =>
+        '<li class="source-cart-promotion__goal"><span class="source-cart-promotion__goal-title">' + goal.discount + '% Rabatt</span></li>'
+      ).join('');
+
+      promotion.querySelector('.source-cart-promotion__markers').innerHTML = goals.map((goal) =>
+        '<li class="source-cart-promotion__goal"><span class="source-cart-promotion__marker' + (goal.reached ? ' is-reached' : '') + '">%</span></li>'
+      ).join('');
+
+      promotion.querySelector('.source-cart-promotion__value-list').innerHTML = goals.map((goal) =>
+        '<li class="source-cart-promotion__goal"><span class="source-cart-promotion__goal-value">' + goal.quantity + ' Artikel kaufen</span></li>'
+      ).join('');
+
+      const bar = promotion.querySelector('.source-cart-promotion__bar');
+      const progress = itemCount >= 5 ? 100 : Math.max(0, Number(itemCount || 0) * 20 - 10);
+      if (bar) {
+        bar.setAttribute('aria-valuenow', String(itemCount));
+        bar.style.setProperty('--source-cart-promotion-progress', progress + '%');
       }
     }
 
