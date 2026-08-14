@@ -54,6 +54,9 @@
     });
 
     drawer.querySelector('.fixed-overlay')?.addEventListener('click', () => closeDrawer(drawer));
+    drawer.addEventListener('click', (event) => {
+      if (event.target === drawer) closeDrawer(drawer);
+    });
     drawer.querySelectorAll('.menu-drawer__item-back-link').forEach((button) => {
       button.addEventListener('click', () => {
         const details = button.closest('details[is="menu-drawer-details"]');
