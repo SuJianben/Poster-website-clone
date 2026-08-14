@@ -278,22 +278,26 @@
         body.prepend(promotion);
       }
 
-      const tiers = [5, 10, 15, 20, 25];
+      const tiers = [
+        { quantity: 3, discount: 15 },
+        { quantity: 4, discount: 20 },
+        { quantity: 5, discount: 25 }
+      ];
       const copy = promotion.querySelector('.source-cart-promotion__copy');
-      const next = Math.min(5, Number(itemCount || 0) + 1);
+      const nextGoal = tiers.find((tier) => itemCount < tier.quantity);
       if (copy) {
-        copy.textContent = itemCount >= 5
+        copy.textContent = !nextGoal
           ? 'Sie haben sich den maximalen Mengenrabatt gesichert.'
-          : 'Kaufen Sie ' + Math.max(1, next - itemCount) + ' weitere Artikel, um ' + tiers[next - 1] + '% Rabatt 🏷️ zu erhalten.';
+          : 'Kaufen Sie ' + Math.max(1, nextGoal.quantity - itemCount) + ' weitere Artikel, um ' + nextGoal.discount + '% Rabatt 🏷️ zu erhalten.';
       }
 
-      const allGoals = tiers.map((discount, index) => {
-        const quantity = index + 1;
-        const reached = itemCount >= quantity;
-        return { discount, quantity, reached };
+      const goals = tiers.map((tier) => {
+        return {
+          discount: tier.discount,
+          quantity: tier.quantity,
+          reached: itemCount >= tier.quantity
+        };
       });
-      const firstVisibleQuantity = Math.min(5, Math.max(1, Number(itemCount || 0)));
-      const goals = allGoals.filter((goal) => goal.quantity >= firstVisibleQuantity);
       promotion.style.setProperty('--source-cart-promotion-columns', String(goals.length));
 
       promotion.querySelector('.source-cart-promotion__title-list').innerHTML = goals.map((goal) =>
@@ -310,7 +314,7 @@
 
       const bar = promotion.querySelector('.source-cart-promotion__bar');
       const reachedGoals = goals.filter((goal) => goal.reached).length;
-      const progress = itemCount >= 5 ? 100 : (reachedGoals / goals.length) * 50;
+      const progress = !nextGoal ? 100 : reachedGoals ? ((reachedGoals - 0.5) / goals.length) * 100 : 0;
       if (bar) {
         bar.setAttribute('aria-valuenow', String(itemCount));
         bar.setAttribute('aria-valuetext', `${Math.min(itemCount, 5)} von 5 Artikeln`);
