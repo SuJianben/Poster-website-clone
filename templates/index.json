@@ -230,6 +230,9 @@
           "type": "gallery_item",
           "settings": {
             "image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg",
+            "image_url": "https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-2f6c3ae69b2d-Mo-vlog-dotcomcanvas-1_d62ed114-44da-486c-9971-fac32e52ca02.jpg?v=1771097240&width=1100",
+            "avatar_url": "https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-ddce8e063798-Screenshot_2026-02-14_202843.png?v=1771097345&width=80",
+            "reference_name": "Mo Vlogs",
             "name": "哇哇哇哇",
             "link": ""
           }
@@ -238,6 +241,9 @@
           "type": "gallery_item",
           "settings": {
             "image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg",
+            "image_url": "https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-c6eef3ba785a-GeissensFeedbackvip.jpg?v=1762863812&width=1100",
+            "avatar_url": "https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-c6eef3ba785a-GeissensFeedbackvip.jpg?v=1762863812&width=80",
+            "reference_name": "Die Geissens",
             "name": "哇哇哇哇",
             "link": ""
           }
@@ -246,6 +252,9 @@
           "type": "gallery_item",
           "settings": {
             "image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg",
+            "image_url": "https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-260f8304bf7b-knossi_93156580_680586532743168_4863580538485880894_n.webp?v=1771097100&width=1100",
+            "avatar_url": "https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-534bb7e89ee7-Screenshot_2026-02-13_054717.png?v=1770958655&width=80",
+            "reference_name": "Knossi",
             "name": "哇哇哇哇",
             "link": ""
           }
@@ -254,6 +263,9 @@
           "type": "gallery_item",
           "settings": {
             "image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg",
+            "image_url": "https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-b57f8f2593cb-Jeremy_Fragrance.jpg?v=1683058694&width=1100",
+            "avatar_url": "https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-b57f8f2593cb-Jeremy_Fragrance.jpg?v=1683058694&width=80",
+            "reference_name": "Jeremy Fragrance",
             "name": "哇哇哇哇",
             "link": ""
           }
@@ -262,6 +274,9 @@
           "type": "gallery_item",
           "settings": {
             "image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg",
+            "image_url": "https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-0a53e89a8f81-vip25_1_torben_platzer_dotcomcanvas_auftragsarbeit.jpg?v=1665234527&width=1100",
+            "avatar_url": "https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-0a53e89a8f81-vip25_1_torben_platzer_dotcomcanvas_auftragsarbeit.jpg?v=1665234527&width=80",
+            "reference_name": "Torben Platzer",
             "name": "哇哇哇哇",
             "link": ""
           }
@@ -270,6 +285,8 @@
           "type": "gallery_item",
           "settings": {
             "image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg",
+            "image_url": "https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-baea5a668323-Philip-Hopf-Auftragsarbeit_889de7b8-5f82-401d-b4bd-27146f3eb2f8.jpg?v=1762863374&width=1100",
+            "reference_name": "Philip Hopf",
             "name": "哇哇哇哇",
             "link": ""
           }
@@ -305,10 +322,7 @@
         "gallery_item_jnFVEL",
         "gallery_item_BhpiPC",
         "gallery_item_HbJn8k",
-        "gallery_item_hwhTay",
-        "gallery_item_ijNTUj",
-        "gallery_item_BxcGgU",
-        "gallery_item_XJDfQ9"
+        "gallery_item_hwhTay"
       ],
       "settings": {
         "enabled": true,
