@@ -1,6 +1,14 @@
 {% case block.type %}
   {% when 'top_badge' %}
-    <span class="spx-product__trend-badge" data-analytics-block-type="top_badge" {{ block.shopify_attributes }}>{{ block.settings.text }}</span>
+    {% assign top_badge_text = blank %}
+    {% if product.tags contains 'Trending' %}
+      {% assign top_badge_text = 'Trending' %}
+    {% elsif product.tags contains 'Bestseller' %}
+      {% assign top_badge_text = 'Bestseller' %}
+    {% elsif product.tags contains 'Neuheiten' %}
+      {% assign top_badge_text = 'Neu' %}
+    {% endif %}
+    {% if top_badge_text != blank %}<span class="spx-product__trend-badge" data-analytics-block-type="top_badge" {{ block.shopify_attributes }}>{{ top_badge_text }}</span>{% endif %}
 
   {% when 'brand_banner' %}
     <div class="spx-product__brands" data-analytics-block-type="brand_banner" {{ block.shopify_attributes }}>
@@ -11,9 +19,13 @@
     </div>
 
   {% when 'reviews' %}
-    <p class="spx-product__reviews" aria-label="{{ block.settings.count }} verified reviews" data-analytics-block-type="reviews" {{ block.shopify_attributes }}>
-      <span aria-hidden="true">★★★★★</span> {{ block.settings.count }} {{ block.settings.label }}
-    </p>
+    {% assign review_rating = product.metafields.reviews.rating.value.rating | default: product.metafields.reviews.rating.value %}
+    {% assign review_count = product.metafields.reviews.rating_count.value %}
+    {% if review_rating != blank and review_count != blank %}
+      <p class="spx-product__reviews" aria-label="{{ review_rating }} out of 5 stars, {{ review_count }} {{ block.settings.label }}" data-analytics-block-type="reviews" {{ block.shopify_attributes }}>
+        <span aria-hidden="true">★★★★★</span> {{ review_count }} {{ block.settings.label }}
+      </p>
+    {% endif %}
 
   {% when 'title' %}
     {% assign panel_title = block.settings.heading %}

@@ -9,10 +9,10 @@
       <a href="{{ card_url }}" class="collection-card__wrapper relative flex flex-col items-center justify-start focus-inset btn-hover-wrapper">
         <div class="collection-card__image media-wrapper hover-wrapper">
           <motion-element data-motion="zoom-out-sm" class="block" style="--aspect-ratio: 1/1;">
-            {% if image_url != blank %}
-              <img src="{{ image_url }}" alt="{{ card_title | escape }}" loading="lazy" class="motion-reduce hover-scale-up" sizes="(max-width: 767px) 45vw, 14vw">
-            {% elsif card_image != blank %}
+            {% if card_image != blank %}
               {{ card_image | image_url: width: 720 | image_tag: alt: card_title, loading: 'lazy', class: 'motion-reduce hover-scale-up', sizes: '(max-width: 767px) 45vw, 14vw', is: 'image-lazy' }}
+            {% elsif image_url != blank %}
+              <img src="{{ image_url }}" alt="{{ card_title | escape }}" loading="lazy" class="motion-reduce hover-scale-up" sizes="(max-width: 767px) 45vw, 14vw">
             {% endif %}
           </motion-element>
         </div>

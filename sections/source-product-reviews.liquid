@@ -10,14 +10,22 @@
 
   <div class="sprv__widget">
     <div class="sprv__inner">
-      {% render 'source-reviews-summary', variant: 'product', review_count: section.settings.review_count, write_heading: section.settings.write_heading, contact_url: section.settings.contact_url %}
+      {% if section.blocks.size > 0 %}
+        <div class="sprv__app-blocks">
+          {% for block in section.blocks %}
+            {% if block.type == '@app' %}{% render block %}{% endif %}
+          {% endfor %}
+        </div>
+      {% else %}
+        {% render 'source-reviews-summary', variant: 'product', review_count: section.settings.review_count, write_heading: section.settings.write_heading, contact_url: section.settings.contact_url %}
 
-      {% render 'source-product-reviews-list',
-        review_count: section.settings.review_count,
-        show_write: false,
-        write_heading: section.settings.write_heading,
-        contact_url: section.settings.contact_url
-      %}
+        {% render 'source-product-reviews-list',
+          review_count: section.settings.review_count,
+          show_write: false,
+          write_heading: section.settings.write_heading,
+          contact_url: section.settings.contact_url
+        %}
+      {% endif %}
     </div>
   </div>
 
@@ -32,6 +40,7 @@
     { "type": "text", "id": "write_heading", "label": "Write review heading", "default": "Write a review" },
     { "type": "url", "id": "contact_url", "label": "Write review link" }
   ],
+  "blocks": [{ "type": "@app" }],
   "presets": [{ "name": "Source product reviews" }]
 }
 {% endschema %}
