@@ -13,6 +13,12 @@
     assign display_price = product.price_min | times: promotion_multiplier | divided_by: 100
     assign is_on_sale = true
   endif
+  assign is_trending = false
+  if product.tags contains 'Trending'
+    assign is_trending = true
+  elsif promotion_discount != blank and promotion_discount > 0
+    assign is_trending = true
+  endif
 %}
 
 <div class="f-column swiper-slide">
@@ -33,14 +39,14 @@
             {% endif %}
           </motion-element>
         </a>
-        {% if product.tags contains 'Trending' or product.tags contains 'Bestseller' or product.tags contains 'Limited Edition' or product.tags contains 'Personalisierbar' or product.tags contains 'Neuheiten' or is_on_sale %}
+        {% if is_trending or product.tags contains 'Bestseller' or product.tags contains 'Limited Edition' or product.tags contains 'Personalisierbar' or product.tags contains 'Neuheiten' or is_on_sale %}
           <div class="product-card__badge">
-            {% if product.tags contains 'Trending' %}<span class="f-badge f-badge--custom f-badge--trending">Trending</span>{% endif %}
+            {% if promotion_discount != blank and promotion_discount > 0 %}<span class="f-badge f-badge--sale" aria-hidden="true">-{{ promotion_discount }}%</span>{% elsif is_on_sale %}<span class="f-badge f-badge--sale" aria-hidden="true">-{{ product.compare_at_price_max | minus: product.price_min | times: 100 | divided_by: product.compare_at_price_max }}%</span>{% endif %}
+            {% if is_trending %}<span class="f-badge f-badge--custom f-badge--trending">Trending</span>{% endif %}
             {% if product.tags contains 'Bestseller' %}<span class="f-badge f-badge--custom f-badge--bestseller">Bestseller</span>{% endif %}
             {% if product.tags contains 'Limited Edition' %}<span class="f-badge f-badge--custom f-badge--limited-edition">Limited Edition</span>{% endif %}
             {% if product.tags contains 'Personalisierbar' %}<span class="f-badge f-badge--custom f-badge--personalisierbar">Personalisierbar</span>{% endif %}
             {% if product.tags contains 'Neuheiten' %}<span class="f-badge f-badge--custom f-badge--new">Neu</span>{% endif %}
-            {% if promotion_discount != blank and promotion_discount > 0 %}<span class="f-badge f-badge--sale" aria-hidden="true">-{{ promotion_discount }}%</span>{% elsif is_on_sale %}<span class="f-badge f-badge--sale" aria-hidden="true">-{{ product.compare_at_price_max | minus: product.price_min | times: 100 | divided_by: product.compare_at_price_max }}%</span>{% endif %}
           </div>
         {% endif %}
       </div>
