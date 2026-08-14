@@ -5,17 +5,22 @@
     const sectionRoot = document.querySelector('#MainContent') || document.querySelector('main');
     if (!sectionRoot || sectionRoot.dataset.sourceHomeRevealInitialized === 'true') return;
 
-    let sections = [...sectionRoot.children].filter((element) => element.classList?.contains('shopify-section'));
-    if (!sections.length) {
-      sections = [...sectionRoot.querySelectorAll('.shopify-section')];
-    }
-    if (!sections.length) return;
+    const textSelector = [
+      '.section__header--text',
+      '.section__header--buttons',
+      '.slideshow-with-product__text',
+      '.slideshow-with-product__product .product-card__info',
+      '[class*="source-mobile-"][class*="__header"] h2',
+      '[class*="source-mobile-"][class*="__tabs"]'
+    ].join(',');
+    const textNodes = [...sectionRoot.querySelectorAll(textSelector)];
+    if (!textNodes.length) return;
     sectionRoot.dataset.sourceHomeRevealInitialized = 'true';
 
-    const reveal = (section) => section.classList.add('is-revealed');
+    const reveal = (element) => element.classList.add('is-revealed');
 
     if (!('IntersectionObserver' in window)) {
-      sections.forEach(reveal);
+      textNodes.forEach(reveal);
       return;
     }
 
@@ -27,10 +32,10 @@
       });
     }, { threshold: 0.06, rootMargin: '0px 0px -6% 0px' });
 
-    sections.forEach((section, index) => {
-      section.dataset.sourceHomeReveal = '';
-      section.style.setProperty('--source-home-reveal-delay', `${Math.min(index * 70, 350)}ms`);
-      observer.observe(section);
+    textNodes.forEach((element, index) => {
+      element.dataset.sourceHomeTextReveal = '';
+      element.style.setProperty('--source-home-reveal-delay', `${Math.min(index * 70, 350)}ms`);
+      observer.observe(element);
     });
   };
 

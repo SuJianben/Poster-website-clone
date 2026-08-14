@@ -1,12 +1,21 @@
 @media (prefers-reduced-motion: no-preference) {
-  [data-source-home-reveal] {
+  [data-source-home-text-reveal] {
     opacity: 0;
     transform: translate3d(0, 24px, 0);
     will-change: opacity, transform;
   }
 
-  [data-source-home-reveal].is-revealed {
+  [data-source-home-text-reveal].is-revealed {
     animation: source-home-reveal-up .7s cubic-bezier(.3, 1, .3, 1) var(--source-home-reveal-delay, 0ms) both;
+  }
+
+  #MainContent .section__header--text,
+  #MainContent .section__header--buttons,
+  #MainContent .slideshow-with-product__text,
+  #MainContent .slideshow-with-product__product .product-card__info,
+  #MainContent [class*="source-mobile-"][class*="__header"] h2,
+  #MainContent [class*="source-mobile-"][class*="__tabs"] {
+    animation: source-home-reveal-up .7s cubic-bezier(.3, 1, .3, 1) both;
   }
 
   @keyframes source-home-reveal-up {
