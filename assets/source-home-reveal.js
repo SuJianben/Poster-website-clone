@@ -5,7 +5,10 @@
     const sectionRoot = document.querySelector('#MainContent') || document.querySelector('main');
     if (!sectionRoot || sectionRoot.dataset.sourceHomeRevealInitialized === 'true') return;
 
-    const sections = [...sectionRoot.children].filter((element) => element.classList?.contains('shopify-section'));
+    let sections = [...sectionRoot.children].filter((element) => element.classList?.contains('shopify-section'));
+    if (!sections.length) {
+      sections = [...sectionRoot.querySelectorAll('.shopify-section')];
+    }
     if (!sections.length) return;
     sectionRoot.dataset.sourceHomeRevealInitialized = 'true';
 
