@@ -275,7 +275,7 @@
       if (copy) {
         copy.textContent = itemCount >= 5
           ? 'Sie haben sich den maximalen Mengenrabatt gesichert.'
-          : 'Kaufen Sie ' + Math.max(1, next - itemCount) + ' weitere Artikel, um ' + tiers[next - 1] + '% Rabatt \u{1F3F7} zu erhalten.';
+          : 'Kaufen Sie ' + Math.max(1, next - itemCount) + ' weitere Artikel, um ' + tiers[next - 1] + '% Rabatt 🏷️ zu erhalten.';
       }
 
       const goals = tiers.map((discount, index) => {
@@ -285,7 +285,7 @@
       });
 
       promotion.querySelector('.source-cart-promotion__title-list').innerHTML = goals.map((goal) =>
-        '<li class="source-cart-promotion__goal"><span class="source-cart-promotion__goal-title"><span>' + goal.discount + '% <span class="source-cart-promotion__tag" aria-hidden="true">&#127991;</span></span><span>Rabatt</span></span></li>'
+        '<li class="source-cart-promotion__goal"><span class="source-cart-promotion__goal-title"><span>' + goal.discount + '% <span class="source-cart-promotion__tag" aria-hidden="true">🏷️</span></span><span>Rabatt</span></span></li>'
       ).join('');
 
       promotion.querySelector('.source-cart-promotion__markers').innerHTML = goals.map((goal) =>
