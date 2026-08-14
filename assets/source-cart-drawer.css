@@ -241,7 +241,22 @@ cart-drawer[hidden] {
 
 .source-cart-promotion__goal-title {
   color: var(--source-cart-ink);
+  display: grid;
   font-size: 12px;
+  gap: 1px;
+  line-height: 1.1;
+  min-height: 28px;
+}
+
+.source-cart-promotion__goal-title > span {
+  display: block;
+  white-space: nowrap;
+}
+
+.source-cart-promotion__tag {
+  font-size: 10px;
+  line-height: 1;
+  vertical-align: baseline;
 }
 
 .source-cart-promotion__value-list {
