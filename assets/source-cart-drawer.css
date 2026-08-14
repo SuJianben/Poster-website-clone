@@ -264,14 +264,22 @@ cart-drawer[hidden] {
 }
 
 .source-cart-promotion__goal-value {
+  align-items: start;
   display: grid;
+  font-variant-numeric: tabular-nums;
+  grid-template-rows: repeat(2, 12px);
   justify-items: center;
   min-height: 24px;
+  transform: none;
+  width: 100%;
 }
 
 .source-cart-promotion__goal-value span {
   display: block;
+  line-height: 12px;
+  text-align: center;
   white-space: nowrap;
+  width: 100%;
 }
 
 .source-cart-promotion__bar {
