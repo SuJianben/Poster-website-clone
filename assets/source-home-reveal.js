@@ -1,16 +1,13 @@
 (() => {
   const initHomeReveal = () => {
-    const anchor = document.querySelector('[data-source-home-reveal-anchor]');
-    if (!anchor || anchor.dataset.sourceHomeRevealInitialized === 'true') return;
-    anchor.dataset.sourceHomeRevealInitialized = 'true';
-
     if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
 
-    const sectionRoot = anchor.closest('main') || document.querySelector('#MainContent') || anchor.closest('.shopify-section')?.parentElement;
-    if (!sectionRoot) return;
+    const sectionRoot = document.querySelector('#MainContent') || document.querySelector('main');
+    if (!sectionRoot || sectionRoot.dataset.sourceHomeRevealInitialized === 'true') return;
 
     const sections = [...sectionRoot.children].filter((element) => element.classList?.contains('shopify-section'));
     if (!sections.length) return;
+    sectionRoot.dataset.sourceHomeRevealInitialized = 'true';
 
     const reveal = (section) => section.classList.add('is-revealed');
 
@@ -36,4 +33,5 @@
 
   document.addEventListener('DOMContentLoaded', initHomeReveal);
   document.addEventListener('shopify:section:load', initHomeReveal);
+  window.setTimeout(initHomeReveal, 120);
 })();
