@@ -26,7 +26,7 @@
       </div>
 
       <div class="drawer__body flex-grow v-scrollable flex flex-col{% if cart.item_count == 0 %} hidden{% endif %}" data-source-cart-body>
-        <free-shipping-goal data-cart-total="{{ cart.items_subtotal_price }}" data-minimum-amount="49" class="free-shipping-goal grid gap-2 w-full no-js-hidden">
+        <free-shipping-goal data-cart-total="{{ cart.total_price }}" data-minimum-amount="49" class="free-shipping-goal grid gap-2 w-full no-js-hidden">
           <span class="free-shipping-goal__label free-shipping-goal__label--success">Du hast Anspruch auf kostenlosen Versand.</span>
           <span class="free-shipping-goal__label free-shipping-goal__label--default">Geben Sie <strong data-left-to-spend></strong> mehr aus, um kostenlosen Versand zu erhalten!</span>
           <progress-bar class="progress-bar"></progress-bar>

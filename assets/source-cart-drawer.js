@@ -220,7 +220,7 @@
       const total = this.querySelector('[data-source-cart-total]');
       if (total) total.textContent = money(cart.total_price);
 
-      this.renderShipping(cart.items_subtotal_price);
+      this.renderShipping(cart.total_price);
       this.renderPromotion(cart.item_count);
       this.renderDiscounts(cart.cart_level_discount_applications || []);
       document.querySelectorAll('cart-count').forEach((count) => {
