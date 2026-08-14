@@ -182,7 +182,7 @@ cart-drawer[hidden] {
   background: #0d8756;
   border-radius: inherit;
   content: "";
-  inset: 0;
+  inset: 0 auto 0 0;
   position: absolute;
   transform: none;
   transition: width 250ms ease;
