@@ -31,10 +31,12 @@
 
   {% when 'brand_banner' %}
     <div class="spx-product__brands" data-analytics-block-type="brand_banner" {{ block.shopify_attributes }}>
-      <img src="{{ 'source-bauhaus-logo.png' | asset_url }}" alt="Bauhaus" width="82" height="16">
-      <span>,</span>
-      <img src="{{ 'source-xxxlutz-logo.png' | asset_url }}" alt="XXXLutz" width="54" height="13">
-      <span>{{ block.settings.text }}</span>
+      <span class="spx-product__brand-logos">
+        <img src="{{ 'source-bauhaus-logo.png' | asset_url }}" alt="Bauhaus" width="82" height="16">
+        <span class="spx-product__brand-comma">,</span>
+        <img src="{{ 'source-xxxlutz-logo.png' | asset_url }}" alt="XXXLutz" width="54" height="13">
+      </span>
+      <span class="spx-product__brands-copy">{{ block.settings.text }}</span>
     </div>
 
   {% when 'reviews' %}
