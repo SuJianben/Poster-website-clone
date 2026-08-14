@@ -26,10 +26,18 @@
       </div>
 
       <div class="drawer__body flex-grow v-scrollable flex flex-col{% if cart.item_count == 0 %} hidden{% endif %}" data-source-cart-body>
-        <free-shipping-goal data-cart-total="{{ cart.total_price }}" data-minimum-amount="49" class="free-shipping-goal grid gap-2 w-full no-js-hidden">
+        {% assign source_free_shipping_threshold = 4900 %}
+        {% assign source_free_shipping_remaining = source_free_shipping_threshold | minus: cart.total_price %}
+        {% if source_free_shipping_remaining < 0 %}{% assign source_free_shipping_remaining = 0 %}{% endif %}
+        {% if cart.total_price >= source_free_shipping_threshold %}
+          {% assign source_free_shipping_percent = 100 %}
+        {% else %}
+          {% assign source_free_shipping_percent = cart.total_price | times: 100.0 | divided_by: source_free_shipping_threshold %}
+        {% endif %}
+        <free-shipping-goal data-cart-total="{{ cart.total_price }}" data-minimum-amount="49" class="free-shipping-goal grid gap-2 w-full no-js-hidden{% if cart.total_price >= source_free_shipping_threshold %} is-reached{% endif %}">
           <span class="free-shipping-goal__label free-shipping-goal__label--success">Du hast Anspruch auf kostenlosen Versand.</span>
-          <span class="free-shipping-goal__label free-shipping-goal__label--default">Geben Sie <strong data-left-to-spend></strong> mehr aus, um kostenlosen Versand zu erhalten!</span>
-          <progress-bar class="progress-bar"></progress-bar>
+          <span class="free-shipping-goal__label free-shipping-goal__label--default">Geben Sie <strong data-left-to-spend>{{ source_free_shipping_remaining | money }}</strong> mehr aus, um kostenlosen Versand zu erhalten!</span>
+          <progress-bar class="progress-bar" data-value="{{ cart.total_price | divided_by: 100.0 }}" data-max="49" style="--percent: {{ source_free_shipping_percent }}%;"><span class="progress-bar__indicator" data-source-cart-shipping-indicator style="width: {{ source_free_shipping_percent }}%;"></span></progress-bar>
         </free-shipping-goal>
         <div id="CartDrawerBody-source-cart-drawer" class="flex flex-col gap-4 flex-grow">
           <cart-items class="flex-grow">

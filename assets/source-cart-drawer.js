@@ -242,6 +242,7 @@
       const progress = threshold ? Math.min(1, Math.max(0, Number(subtotal || 0) / threshold)) : 1;
       const remaining = Math.max(0, threshold - Number(subtotal || 0));
       const progressBar = goal.querySelector('progress-bar');
+      const indicator = goal.querySelector('[data-source-cart-shipping-indicator]');
 
       goal.style.setProperty('--source-cart-shipping-progress', String(progress));
       goal.dataset.cartTotal = String(subtotal || 0);
@@ -252,6 +253,7 @@
         progressBar.dataset.max = String(threshold / 100);
         progressBar.style.setProperty('--percent', `${progress * 100}%`);
       }
+      if (indicator) indicator.style.width = `${progress * 100}%`;
     }
 
     renderPromotion(itemCount) {
