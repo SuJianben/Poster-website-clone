@@ -22,9 +22,14 @@
 
   {% when 'artist' %}
     {% assign artist_name = block.settings.name %}
-    {% if block.settings.use_product_vendor and product.vendor != blank %}{% assign artist_name = product.vendor %}{% endif %}
+    {% assign artist_url = block.settings.url %}
+    {% if block.settings.use_product_vendor and product.vendor != blank %}
+      {% assign artist_name = product.vendor %}
+      {% assign artist_handle = product.vendor | handleize %}
+      {% assign artist_url = routes.collections_url | append: '/' | append: artist_handle %}
+    {% endif %}
     <p class="spx-product__artist" data-analytics-block-type="artist" {{ block.shopify_attributes }}>
-      {{ block.settings.label }} <a href="{{ block.settings.url }}">{{ artist_name }}</a>
+      {{ block.settings.label }} <a href="{{ artist_url }}">{{ artist_name }}</a>
       {% if block.settings.show_atelier_badge %}
         <button class="spx-product__atelier-badge" type="button" data-spx-atelier aria-label="Learn about {{ block.settings.atelier_text }}">
           {{ block.settings.atelier_text }}

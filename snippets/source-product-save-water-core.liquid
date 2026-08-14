@@ -1,28 +1,39 @@
+{% liquid
+  assign primary_collection = product.collections.first
+  assign selected_media = product.selected_or_first_available_variant.featured_media | default: product.featured_media
+  assign selected_image = selected_media.preview_image | default: product.featured_image
+%}
+
 <section class="spx-product" data-spx-product>
   <div class="spx-product__shell">
     <nav class="spx-product__breadcrumbs" aria-label="Breadcrumb">
-      <a href="/">Home</a><span aria-hidden="true"></span><a href="/collections/all">All posters</a><span aria-hidden="true"></span><span>Save Water - Poster</span>
+      <a href="{{ routes.root_url }}">Home</a><span aria-hidden="true"></span>
+      {% if primary_collection != blank %}<a href="{{ primary_collection.url }}">{{ primary_collection.title }}</a>{% else %}<a href="{{ routes.collections_url }}/all">All products</a>{% endif %}
+      <span aria-hidden="true"></span><span>{{ product.title }}</span>
     </nav>
+
     <div class="spx-product__layout">
       <div class="spx-product__media-column">
-        <div class="spx-product__gallery" aria-label="Save Water product gallery">
+        <div class="spx-product__gallery" aria-label="{{ product.title | escape }} product gallery">
           <div class="spx-product__thumb-rail">
             <button class="spx-product__thumb-control spx-product__thumb-control--up" type="button" aria-label="Show previous product images" data-spx-thumb-scroll="-1"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m7 14 5-5 5 5"/></svg></button>
             <div class="spx-product__thumb-window">
               <div class="spx-product__thumbs" role="tablist" aria-label="Product images" data-spx-thumb-track>
-            <button class="spx-product__thumb is-active" type="button" role="tab" aria-selected="true" data-spx-image="https://dotcomcanvas.de/cdn/shop/files/PosterSaveWaterDrinkChampagneOriginalPopArtBildFront-Vertical.jpg?v=1737392893&amp;width=1620" data-analytics-event="product_gallery_thumbnail"><img src="https://dotcomcanvas.de/cdn/shop/files/PosterSaveWaterDrinkChampagneOriginalPopArtBildFront-Vertical.jpg?v=1737392893&amp;width=168" alt="Save Water poster front"></button>
-            <button class="spx-product__thumb" type="button" role="tab" aria-selected="false" data-spx-image="https://dotcomcanvas.de/cdn/shop/files/PosterSaveWaterDrinkChampagneOriginalPopArtBildBeton-Wall-Vertical.jpg?v=1737392893&amp;width=1620" data-analytics-event="product_gallery_thumbnail"><img src="https://dotcomcanvas.de/cdn/shop/files/PosterSaveWaterDrinkChampagneOriginalPopArtBildBeton-Wall-Vertical.jpg?v=1737392893&amp;width=168" alt="Save Water poster in room"></button>
-            <button class="spx-product__thumb" type="button" role="tab" aria-selected="false" data-spx-image="https://dotcomcanvas.de/cdn/shop/files/PosterSaveWaterDrinkChampagneOriginalPopArtBildCertificat-Vertical.jpg?v=1737392893&amp;width=1620" data-analytics-event="product_gallery_thumbnail"><img src="https://dotcomcanvas.de/cdn/shop/files/PosterSaveWaterDrinkChampagneOriginalPopArtBildCertificat-Vertical.jpg?v=1737392893&amp;width=168" alt="Certificate detail"></button>
-            <button class="spx-product__thumb" type="button" role="tab" aria-selected="false" data-spx-image="https://dotcomcanvas.de/cdn/shop/files/PosterSaveWaterDrinkChampagneOriginalPopArtBildCorner-Detail-Vertical-2.jpg?v=1737392893&amp;width=1620" data-analytics-event="product_gallery_thumbnail"><img src="https://dotcomcanvas.de/cdn/shop/files/PosterSaveWaterDrinkChampagneOriginalPopArtBildCorner-Detail-Vertical-2.jpg?v=1737392893&amp;width=168" alt="Poster corner detail"></button>
-            <button class="spx-product__thumb" type="button" role="tab" aria-selected="false" data-spx-image="https://dotcomcanvas.de/cdn/shop/files/PosterSaveWaterDrinkChampagneOriginalPopArtBildCorner-Detail-Vertical.jpg?v=1737392893&amp;width=1620" data-analytics-event="product_gallery_thumbnail"><img src="https://dotcomcanvas.de/cdn/shop/files/PosterSaveWaterDrinkChampagneOriginalPopArtBildCorner-Detail-Vertical.jpg?v=1737392893&amp;width=168" alt="Poster detail"></button>
-            <button class="spx-product__thumb" type="button" role="tab" aria-selected="false" data-spx-image="https://dotcomcanvas.de/cdn/shop/files/PosterSaveWaterDrinkChampagneOriginalPopArtBildRoll-up-Poster-Vertical.jpg?v=1737392864&amp;width=1620" data-analytics-event="product_gallery_thumbnail"><img src="https://dotcomcanvas.de/cdn/shop/files/PosterSaveWaterDrinkChampagneOriginalPopArtBildRoll-up-Poster-Vertical.jpg?v=1737392864&amp;width=168" alt="Rolled poster"></button>
-            <button class="spx-product__thumb" type="button" role="tab" aria-selected="false" data-spx-image="https://dotcomcanvas.de/cdn/shop/files/PosterSaveWaterDrinkChampagneOriginalPopArtBildTube-Roll-Vertical.jpg?v=1737392864&amp;width=1620" data-analytics-event="product_gallery_thumbnail"><img src="https://dotcomcanvas.de/cdn/shop/files/PosterSaveWaterDrinkChampagneOriginalPopArtBildTube-Roll-Vertical.jpg?v=1737392864&amp;width=168" alt="Poster tube"></button>
+                {% for media in product.media %}
+                  {% assign media_alt = media.alt | default: product.title %}
+                  <button class="spx-product__thumb{% if media.id == selected_media.id %} is-active{% endif %}" type="button" role="tab" aria-selected="{% if media.id == selected_media.id %}true{% else %}false{% endif %}" data-spx-image="{{ media.preview_image | image_url: width: 1620 }}" data-analytics-event="product_gallery_thumbnail">{{ media.preview_image | image_url: width: 168 | image_tag: alt: media_alt, loading: 'lazy' }}</button>
+                {% else %}
+                  <button class="spx-product__thumb is-active" type="button" role="tab" aria-selected="true" data-spx-image=""><span class="visually-hidden">{{ product.title }}</span></button>
+                {% endfor %}
               </div>
             </div>
-            <button class="spx-product__thumb-control spx-product__thumb-control--down" type="button" aria-label="Show more product images" data-spx-thumb-scroll="1"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m7 10 5 5 5-5"/></svg></button>
+            <button class="spx-product__thumb-control spx-product__thumb-control--down" type="button" aria-label="Show more product images" data-spx-thumb-scroll="1"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m7 10 5 5-5 5"/></svg></button>
           </div>
+
           <div class="spx-product__main-image" data-spx-viewer>
-            <button class="spx-product__main-image-button" type="button" aria-label="Expand Save Water poster" data-spx-open-zoom><img data-spx-main-image src="https://dotcomcanvas.de/cdn/shop/files/PosterSaveWaterDrinkChampagneOriginalPopArtBildFront-Vertical.jpg?v=1737392893&amp;width=1620" alt="Save Water - Poster"></button>
+            <button class="spx-product__main-image-button" type="button" aria-label="Expand {{ product.title | escape }}" data-spx-open-zoom>
+              {% if selected_image != blank %}<img data-spx-main-image src="{{ selected_image | image_url: width: 1620 }}" alt="{{ product.title | escape }}">{% else %}{{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}{% endif %}
+            </button>
             <button class="spx-product__zoom-button" type="button" aria-label="Expand image" data-spx-open-zoom><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="5.5"/><path d="m15 15 4 4"/></svg></button>
             <button class="spx-product__viewer-control spx-product__viewer-control--previous is-disabled" type="button" aria-label="Previous image" aria-disabled="true" disabled data-spx-previous><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m14.5 5-7 7 7 7"/></svg></button>
             <button class="spx-product__viewer-control spx-product__viewer-control--next" type="button" aria-label="Next image" data-spx-next><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9.5 5 7 7-7 7"/></svg></button>
@@ -33,19 +44,14 @@
           <details class="spx-product__accordion" data-spx-accordion>
             <summary><span>Product Details</span><svg class="spx-product__accordion-icon" aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M3.125 10H16.875"/><path class="spx-product__accordion-icon-vertical" d="M10 3.125V16.875"/></svg></summary>
             <div class="spx-product__accordion-content"><div class="spx-product__accordion-body spx-product__accordion-product-details">
-              <p class="spx-product__accordion-intro">High-resolution DOTCOMCANVAS® Premium Poster. Razor-sharp details and lifelike colors, printed on sustainable materials.</p>
-              <h3>Materials</h3><ul><li>High-quality premium poster paper</li><li>High-resolution print surface</li></ul>
-              <h3>Quality</h3><ul><li>Ecological and odorless printing process</li><li>Rich and vibrant colors</li><li>UV-resistant for protected colors</li></ul>
-              <h3>Details</h3><ul><li>Safely packaged for secure shipping</li><li>30-day money-back guarantee</li><li>Made in Germany</li></ul>
-              <p class="spx-product__accordion-care">Care: Handle with clean hands. Protect from direct moisture and continuous direct sunlight.</p>
+              {% if product.description != blank %}{{ product.description }}{% else %}<p class="spx-product__accordion-intro">Premium wall art made with high-resolution printing and durable materials.</p>{% endif %}
             </div></div>
           </details>
           <details class="spx-product__accordion" data-spx-accordion>
             <summary><span>Shipping and Returns</span><svg class="spx-product__accordion-icon" aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M3.125 10H16.875"/><path class="spx-product__accordion-icon-vertical" d="M10 3.125V16.875"/></svg></summary>
             <div class="spx-product__accordion-content"><div class="spx-product__accordion-body">
-              <h3>Shipping &amp; Delivery</h3><ul><li><strong>Shipping Costs:</strong> Free worldwide shipping on orders over €49.</li><li><strong>Security:</strong> Safe and fast shipping including tracking.</li><li><strong>Delivery Time:</strong> 2–5 business days worldwide (may vary depending on product size and material).</li></ul>
-              <p><strong>International Shipping:</strong> Please note that deliveries outside the EU may be subject to customs duties or import taxes. These costs are levied by the destination country and are the responsibility of the recipient.</p>
-              <h3>Returns &amp; Exchanges</h3><p>Returns are accepted according to the store return policy.</p>
+              <h3>Shipping &amp; Delivery</h3><ul><li><strong>Shipping Costs:</strong> Free worldwide shipping on orders over 99 EUR.</li><li><strong>Security:</strong> Safe and fast shipping including tracking.</li><li><strong>Delivery Time:</strong> 2-7 business days worldwide.</li></ul>
+              <h3>Returns &amp; Exchanges</h3><p>You can return or exchange your order within 30 days of receipt. Personalized products are excluded from return unless defective.</p>
             </div></div>
           </details>
         </div>
@@ -54,16 +60,18 @@
       {% render 'source-product-purchase-panel', section: section, product: product %}
     </div>
   </div>
+
   <dialog class="spx-product__zoom-dialog" data-spx-zoom aria-label="Expanded product image">
     <div class="spx-product__zoom-stage">
-      <img src="https://dotcomcanvas.de/cdn/shop/files/PosterSaveWaterDrinkChampagneOriginalPopArtBildFront-Vertical.jpg?v=1737392893&amp;width=1946" alt="Save Water - Poster" data-spx-zoom-image>
+      {% if selected_image != blank %}<img src="{{ selected_image | image_url: width: 1946 }}" alt="{{ product.title | escape }}" data-spx-zoom-image>{% else %}<img src="" alt="{{ product.title | escape }}" data-spx-zoom-image>{% endif %}
       <div class="spx-product__zoom-actions" aria-label="Expanded image controls">
-        <button class="spx-product__zoom-action" type="button" aria-label="Previous image" data-spx-previous><svg aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M12.5 3.75 6.25 10l6.25 6.25"/></svg></button>
-        <button class="spx-product__zoom-action" type="button" aria-label="Close expanded image" data-spx-close-zoom><svg aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="m5.5 5.5 9 9M14.5 5.5l-9 9"/></svg></button>
-        <button class="spx-product__zoom-action" type="button" aria-label="Next image" data-spx-next><svg aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M7.5 3.75 13.75 10 7.5 16.25"/></svg></button>
+        <button class="spx-product__zoom-action" type="button" aria-label="Previous image" data-spx-previous><svg aria-hidden="true" viewBox="0 0 20 20"><path d="M12.5 3.75 6.25 10l6.25 6.25"/></svg></button>
+        <button class="spx-product__zoom-action" type="button" aria-label="Close expanded image" data-spx-close-zoom><svg aria-hidden="true" viewBox="0 0 20 20"><path d="m5.5 5.5 9 9M14.5 5.5l-9 9"/></svg></button>
+        <button class="spx-product__zoom-action" type="button" aria-label="Next image" data-spx-next><svg aria-hidden="true" viewBox="0 0 20 20"><path d="M7.5 3.75 13.75 10 7.5 16.25"/></svg></button>
       </div>
     </div>
   </dialog>
+
   <dialog class="spx-product__size-guide-dialog" data-spx-size-guide-dialog aria-label="Size guide">
     <div class="spx-product__size-guide-card"><div class="spx-product__size-guide-header"><span>SIZE GUIDE</span><button type="button" data-spx-close-size-guide aria-label="Close size guide"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m18 6-12 12M6 6l12 12"/></svg></button></div><div class="spx-product__size-guide-image"><img src="https://dotcomcanvas.de/cdn/shop/files/Groessen_Size_en_Guide_NA_inches.png?v=10709032047291710906" alt="Size guide in inches"></div></div>
   </dialog>

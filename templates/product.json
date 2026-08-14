@@ -26,13 +26,13 @@
         },
         "title": {
           "type": "title",
-          "settings": { "use_product_title": false, "heading": "Save Water - Poster" }
+          "settings": { "use_product_title": true, "heading": "Save Water - Poster" }
         },
         "artist": {
           "type": "artist",
           "settings": {
             "label": "Artist:",
-            "use_product_vendor": false,
+            "use_product_vendor": true,
             "name": "Sabrina Seck",
             "url": "/collections/sabrina-seck",
             "show_atelier_badge": true,
@@ -41,7 +41,7 @@
         },
         "price": {
           "type": "price",
-          "settings": { "use_product_price": false, "price_text": "$29.00", "shipping_text": "Free Shipping." }
+          "settings": { "use_product_price": true, "price_text": "$29.00", "shipping_text": "Free Shipping." }
         },
         "variant_picker": {
           "type": "variant_picker",
