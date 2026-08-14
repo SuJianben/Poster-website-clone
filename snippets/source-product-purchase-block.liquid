@@ -1,14 +1,33 @@
 {% case block.type %}
   {% when 'top_badge' %}
-    {% assign top_badge_text = blank %}
-    {% if product.tags contains 'Trending' %}
-      {% assign top_badge_text = 'Trending' %}
-    {% elsif product.tags contains 'Bestseller' %}
-      {% assign top_badge_text = 'Bestseller' %}
-    {% elsif product.tags contains 'Neuheiten' %}
-      {% assign top_badge_text = 'Neu' %}
+    {% assign has_trending_badge = false %}
+    {% assign has_bestseller_badge = false %}
+    {% assign has_new_badge = false %}
+    {% assign has_limited_badge = false %}
+    {% assign has_personalizable_badge = false %}
+    {% for tag in product.tags %}
+      {% assign normalized_tag = tag | downcase | strip %}
+      {% if normalized_tag == 'trending' %}{% assign has_trending_badge = true %}{% endif %}
+      {% if normalized_tag == 'bestseller' or normalized_tag == 'best seller' %}{% assign has_bestseller_badge = true %}{% endif %}
+      {% if normalized_tag == 'neuheiten' or normalized_tag == 'new' %}{% assign has_new_badge = true %}{% endif %}
+      {% if normalized_tag contains 'limited' %}{% assign has_limited_badge = true %}{% endif %}
+      {% if normalized_tag contains 'personal' or normalized_tag contains 'custom' %}{% assign has_personalizable_badge = true %}{% endif %}
+    {% endfor %}
+    {% assign has_product_badge = false %}
+    {% if has_trending_badge or has_bestseller_badge or has_new_badge or has_limited_badge or has_personalizable_badge %}
+      {% assign has_product_badge = true %}
     {% endif %}
-    {% if top_badge_text != blank %}<span class="spx-product__trend-badge" data-analytics-block-type="top_badge" {{ block.shopify_attributes }}>{{ top_badge_text }}</span>{% endif %}
+    <div class="spx-product__top-badges" data-analytics-block-type="top_badge" {{ block.shopify_attributes }}>
+      {% if has_product_badge %}
+        {% if has_trending_badge %}<span class="spx-product__top-badge spx-product__top-badge--trending">Trending</span>{% endif %}
+        {% if has_bestseller_badge %}<span class="spx-product__top-badge spx-product__top-badge--bestseller">Bestseller</span>{% endif %}
+        {% if has_new_badge %}<span class="spx-product__top-badge spx-product__top-badge--new">New</span>{% endif %}
+        {% if has_limited_badge %}<span class="spx-product__top-badge spx-product__top-badge--limited">Limited Edition</span>{% endif %}
+        {% if has_personalizable_badge %}<span class="spx-product__top-badge spx-product__top-badge--personalizable">Personalizable</span>{% endif %}
+      {% elsif block.settings.text != blank %}
+        <span class="spx-product__top-badge spx-product__top-badge--trending">{{ block.settings.text }}</span>
+      {% endif %}
+    </div>
 
   {% when 'brand_banner' %}
     <div class="spx-product__brands" data-analytics-block-type="brand_banner" {{ block.shopify_attributes }}>
