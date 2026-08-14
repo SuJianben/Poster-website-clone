@@ -1,0 +1,173 @@
+.sr-policy {
+  --sr-policy-ink: #101010;
+  --sr-policy-copy: #272727;
+  --sr-policy-line: #dedede;
+  box-sizing: border-box;
+  width: 100%;
+  padding: clamp(48px, 6vw, 88px) 24px clamp(72px, 9vw, 132px);
+  background: #fff;
+  color: var(--sr-policy-ink);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.sr-policy *,
+.sr-policy *::before,
+.sr-policy *::after {
+  box-sizing: border-box;
+}
+
+.sr-policy__inner {
+  width: min(100%, 920px);
+  margin: 0 auto;
+}
+
+.sr-policy__title {
+  max-width: 800px;
+  margin: 0 0 clamp(34px, 5vw, 58px);
+  color: var(--sr-policy-ink);
+  font-size: clamp(34px, 4.25vw, 54px);
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.08;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+.sr-policy__content {
+  max-width: 780px;
+  color: var(--sr-policy-copy);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+.sr-policy__content h2 {
+  margin: clamp(38px, 5vw, 58px) 0 17px;
+  padding-top: clamp(32px, 4vw, 48px);
+  border-top: 1px solid var(--sr-policy-line);
+  color: var(--sr-policy-ink);
+  font-size: clamp(25px, 3vw, 34px);
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.sr-policy__content > h2:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.sr-policy__content p {
+  max-width: 74ch;
+  margin: 0 0 25px;
+}
+
+.sr-policy__content ul {
+  display: grid;
+  gap: 14px;
+  max-width: 74ch;
+  margin: 0 0 28px;
+  padding: 0;
+  list-style: none;
+}
+
+.sr-policy__content li {
+  position: relative;
+  padding-inline-start: 18px;
+}
+
+.sr-policy__content li::before {
+  position: absolute;
+  top: 0.77em;
+  inset-inline-start: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  content: '';
+}
+
+.sr-policy__content strong {
+  color: var(--sr-policy-ink);
+  font-weight: 700;
+}
+
+.sr-policy__content a {
+  color: inherit;
+  font-weight: 700;
+  text-decoration-color: currentColor;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.sr-policy__content a:hover,
+.sr-policy__content a:focus-visible {
+  text-decoration-thickness: 2px;
+}
+
+@media screen and (max-width: 767.98px) {
+  .sr-policy {
+    padding: 32px 16px 76px;
+  }
+
+  .sr-policy__inner {
+    /* The fixed vertical offers toggle sits over the inline end of the page. */
+    padding-inline-end: 3.25rem;
+  }
+
+  .sr-policy__title {
+    margin-bottom: 30px;
+    font-size: 30px;
+    line-height: 1.13;
+  }
+
+  .sr-policy__content {
+    font-size: 16px;
+    line-height: 1.68;
+  }
+
+  .sr-policy__content h2 {
+    margin-top: 34px;
+    margin-bottom: 14px;
+    padding-top: 28px;
+    font-size: 24px;
+    line-height: 1.16;
+  }
+
+  .sr-policy__content p {
+    margin-bottom: 22px;
+  }
+
+  .sr-policy__content ul {
+    gap: 13px;
+    margin-bottom: 25px;
+  }
+
+  .sr-policy__content li {
+    padding-inline-start: 15px;
+  }
+
+  .sr-policy__content li::before {
+    top: 0.77em;
+    width: 4px;
+    height: 4px;
+  }
+}
+
+@media screen and (max-width: 374px) {
+  .sr-policy__inner {
+    padding-inline-end: 2.75rem;
+  }
+
+  .sr-policy__title {
+    font-size: 28px;
+  }
+
+  .sr-policy__content {
+    font-size: 15px;
+  }
+}
