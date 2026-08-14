@@ -2,6 +2,9 @@
   case index
     when 1
       assign image_urls = 'https://cdn.stamped.io/tr:w-350:/uploads/photos/228253_8264592785674_bbcf5af6_6d4e_4392_8109_868d996fa81e.jpg?|https://cdn.stamped.io/tr:w-350:/uploads/photos/228253_8264592785674_85af7e91_7171_4fd5_81c6_e48557cb06fc.jpg?|https://cdn.stamped.io/tr:w-350:/uploads/photos/228253_8264592785674_6b62d13f_3bca_4491_b59f_9dd2d48a635a.jpg?' | split: '|'
+      assign has_photo = true
+      assign review_timestamp = '2026-06-16'
+      assign rating = 5
       assign review_date = '16/06/2026'
       assign detail_rows = 'Was hast du bestellt?::Acrylglasbild, Blattgoldbild|Wie alt bist du?::60|Was machst du beruflich?::Entrepreneur|Wo hängt das Wandbild?::Livingroom, kitchen, toilet' | split: '|'
       assign review_title = '7 beautiful acrylglas work in my home'
@@ -13,7 +16,10 @@
       assign helpful = '0'
       assign verified_label = 'Verified Buyer'
     when 2
-      assign image_urls = 'https://cdn.stamped.io/tr:w-350:/uploads/photos/228253_1_5c56274c_ee94_4dda_bee4_d0986a746823.jpg?' | split: '|'
+      assign image_urls = '' | split: '|'
+      assign has_photo = false
+      assign review_timestamp = '2026-06-07'
+      assign rating = 4
       assign review_date = '07/06/2026'
       assign detail_rows = 'Bestellung::Acrylglasbild|Alter::52|Beruf::Carpenter|Anwendung::Will be the living room' | split: '|'
       assign review_title = 'Awesome company'
@@ -25,6 +31,9 @@
       assign verified_label = ''
     when 3
       assign image_urls = 'https://cdn.stamped.io/tr:w-350:/uploads/photos/228253_8202634854666_e52e860b_9db8_4f3c_8a81_0cd68bfa9de8.jpg?' | split: '|'
+      assign has_photo = true
+      assign review_timestamp = '2026-06-06'
+      assign rating = 5
       assign review_date = '06/06/2026'
       assign detail_rows = 'Was hast du bestellt?::Acrylglasbild' | split: '|'
       assign review_title = '5/5'
@@ -36,6 +45,9 @@
       assign verified_label = 'Verified Buyer'
     else
       assign image_urls = 'https://cdn.stamped.io/tr:w-350:/uploads/photos/228253_10484023623946_f6621af5_7a5c_4871_8105_f5465414762a_r1780202711687.jpg?v=1780202711' | split: '|'
+      assign has_photo = true
+      assign review_timestamp = '2026-05-29'
+      assign rating = 3
       assign review_date = '29/05/2026'
       assign detail_rows = 'Was hast du bestellt?::Leinwandbild|Wie alt bist du?::24|Was machst du beruflich?::Sales|Wo hängt das Wandbild?::Living Room' | split: '|'
       assign review_title = 'Bild'
@@ -48,7 +60,8 @@
   endcase
 -%}
 
-<article class="sprv-card" data-sprv-review-card data-has-photo="true">
+<article class="sprv-card" data-sprv-review-card data-has-photo="{{ has_photo }}" data-sprv-has-photo="{{ has_photo }}" data-sprv-date="{{ review_timestamp }}" data-sprv-rating="{{ rating }}" data-sprv-helpful="{{ helpful }}">
+  {%- if has_photo -%}
   <div class="sprv-card__media{% if image_urls.size > 1 %} sprv-card__media--stack{% endif %}">
     {%- for image_url in image_urls -%}
       <button type="button" data-srp-summary-photo data-sprv-photo="{{ image_url }}" data-reviewer="{{ author | escape }}" data-verified="{{ verified_label | escape }}" data-date="{{ review_date | escape }}" data-title="{{ review_title | escape }}" data-body="{{ review_body | escape }}" data-product="{{ product_name | escape }}"{% if product_image != blank %} data-product-image="{{ product_image | escape }}"{% endif %} data-helpful="{{ helpful }}" aria-label="Open review photo {{ forloop.index }}">
@@ -56,8 +69,9 @@
       </button>
     {%- endfor -%}
   </div>
+  {%- endif -%}
   <div class="sprv-card__content">
-    <div class="sprv-card__meta"><time>{{ review_date }}</time><span class="sprv__stars" aria-label="5 out of 5 stars">★★★★★</span></div>
+    <div class="sprv-card__meta"><time datetime="{{ review_timestamp }}">{{ review_date }}</time><span class="sprv__stars" aria-label="{{ rating }} out of 5 stars">{% for star in (1..5) %}{% if star <= rating %}★{% else %}☆{% endif %}{% endfor %}</span></div>
     <dl class="sprv-card__details">
       {%- for row in detail_rows -%}
         {%- assign columns = row | split: '::' -%}

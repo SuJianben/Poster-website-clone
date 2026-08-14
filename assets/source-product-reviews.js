@@ -13,6 +13,25 @@
     const cards = root.querySelector('[data-sprv-cards]');
     const carouselProgress = root.querySelector('[data-sprv-carousel-progress]');
     let currentPage = 1;
+    let activeFilter = filterButton?.dataset.sprvFilter || 'photos';
+
+    const getReviewCards = () => cards
+      ? [...cards.querySelectorAll('[data-sprv-review-card]')]
+      : [];
+
+    const getHelpfulCount = (card) => Number(
+      card.querySelector('[data-sprv-helpful="up"] span')?.textContent
+        || card.dataset.sprvHelpful
+        || 0
+    );
+
+    const setFilterButtonLabel = (label) => {
+      if (!filterButton) return;
+      const labelNode = [...filterButton.childNodes].find((node) => node.nodeType === Node.TEXT_NODE);
+      if (labelNode) labelNode.textContent = `${label} `;
+      else filterButton.insertBefore(document.createTextNode(`${label} `), filterButton.firstChild);
+      filterButton.setAttribute('aria-label', `Filter reviews: ${label}`);
+    };
 
     const updateCarouselProgress = () => {
       if (!cards || !carouselProgress) return;
@@ -27,6 +46,46 @@
     cards?.addEventListener('scroll', () => window.requestAnimationFrame(updateCarouselProgress), { passive: true });
     window.addEventListener('resize', updateCarouselProgress);
     updateCarouselProgress();
+
+    const applyFilter = (value, label, shouldAnimate = true) => {
+      if (!cards) return;
+
+      activeFilter = value;
+      const reviewCards = getReviewCards();
+      const visibleCards = reviewCards.filter((card) => value !== 'photos' || card.dataset.sprvHasPhoto === 'true');
+      const comparators = {
+        recent: (a, b) => Date.parse(b.dataset.sprvDate) - Date.parse(a.dataset.sprvDate),
+        'highest-rating': (a, b) => Number(b.dataset.sprvRating) - Number(a.dataset.sprvRating),
+        'lowest-rating': (a, b) => Number(a.dataset.sprvRating) - Number(b.dataset.sprvRating),
+        'most-votes': (a, b) => getHelpfulCount(b) - getHelpfulCount(a)
+      };
+      const compare = comparators[value] || comparators.recent;
+
+      cards.classList.toggle('is-loading', shouldAnimate);
+      reviewCards.forEach((card) => {
+        card.hidden = !visibleCards.includes(card);
+      });
+      visibleCards.sort(compare).forEach((card) => cards.appendChild(card));
+      cards.scrollTo({
+        left: 0,
+        behavior: shouldAnimate && !window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'smooth' : 'auto'
+      });
+      window.requestAnimationFrame(() => {
+        updateCarouselProgress();
+        cards.classList.remove('is-loading');
+      });
+
+      if (label) setFilterButtonLabel(label);
+      filterButton?.setAttribute('data-sprv-filter', value);
+      filterMenu?.querySelectorAll('button[data-value]').forEach((option) => {
+        const isActive = option.dataset.value === value;
+        if (isActive) option.setAttribute('aria-current', 'true');
+        else option.removeAttribute('aria-current');
+      });
+      root.querySelector('[data-sprv-filter-status]')?.replaceChildren(
+        document.createTextNode(`${visibleCards.length} reviews shown. ${label || ''}`.trim())
+      );
+    };
 
     const updateReviewExpanders = () => {
       root.querySelectorAll('[data-sprv-review-expand]').forEach((button) => {
@@ -58,7 +117,7 @@
     filterMenu?.addEventListener('click', (event) => {
       const option = event.target.closest('button[data-value]');
       if (!option) return;
-      filterButton.firstChild.textContent = `${option.textContent.trim()} `;
+      applyFilter(option.dataset.value, option.textContent.trim());
       filterButton.setAttribute('aria-expanded', 'false');
       filterMenu.hidden = true;
       emit(root, 'source_product_review_filter', { filter: option.dataset.value });
@@ -91,9 +150,11 @@
       button.dataset.voted = 'true';
       const count = button.querySelector('span');
       count.textContent = String(Number(count.textContent) + 1);
+      if (activeFilter === 'most-votes') applyFilter(activeFilter, filterButton?.textContent.trim(), false);
       emit(root, 'source_product_review_helpful', { vote: button.dataset.sprvHelpful });
     }));
 
+    applyFilter(activeFilter, filterButton?.textContent.trim(), false);
     root.querySelector('[data-sprv-write]')?.addEventListener('click', () => emit(root, 'source_product_review_write_click'));
   });
 })();
