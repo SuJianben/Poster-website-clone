@@ -189,23 +189,23 @@
         "collection_tab_PVM3UY": {
           "type": "collection_tab",
           "settings": {
-            "collection": "time-series-posters",
+            "collection": "wandbild-neuheiten-sale",
             "label": "Neuheiten Sale -20%",
             "promo_image": "shopify://shop_images/Screenshot_2026-02-01_000936.webp",
             "promo_heading": "ALLE NEUHEITEN -20%",
             "promo_button_label": "ZUSCHLAGEN",
-            "promo_link": ""
+            "promo_link": "shopify://collections/wandbild-neuheiten-sale"
           }
         },
         "collection_tab_qyNi99": {
           "type": "collection_tab",
           "settings": {
-            "collection": "all",
+            "collection": "wandbilder-bundles",
             "label": "Bundles -15%",
-            "promo_image": "shopify://shop_images/Screenshot_2026-02-01_000936.webp",
-            "promo_heading": "ALLE NEUHEITEN -20%",
-            "promo_button_label": "ZUSCHLAGEN",
-            "promo_link": "shopify://collections/all"
+            "promo_image": "",
+            "promo_heading": "",
+            "promo_button_label": "",
+            "promo_link": "shopify://collections/wandbilder-bundles"
           }
         }
       },
