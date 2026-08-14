@@ -1,45 +1,112 @@
+.srp-page__hero-copy.image-with-text-ovelay__content-wrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  max-width: none;
+  margin: 0;
+  padding: var(--padding-y, 2.4rem) var(--padding-x, 2.4rem);
+  color: #fff;
+  text-align: center;
+  background: transparent;
+}
+
+.srp-page__hero-rich-text {
+  width: min(100%, 700px);
+  color: inherit;
+}
+
+.srp-page__hero-copy .srp-page__hero-heading {
+  position: static;
+  display: block;
+  width: auto;
+  margin: 0;
+  overflow: visible;
+  color: inherit !important;
+  font-size: 52px;
+  font-weight: 700;
+  line-height: 65px;
+  letter-spacing: -2.6px;
+  white-space: normal;
+  text-shadow: none;
+  animation: none;
+  transform: none;
+}
+
+.srp-page__hero-copy .srp-page__hero-heading::after {
+  content: none;
+}
+
+.srp-page__hero-highlight {
+  position: relative;
+  z-index: 0;
+  display: inline-block;
+  max-inline-size: 100%;
+  overflow: visible;
+  font-style: normal;
+  color: inherit;
+  isolation: isolate;
+}
+
+.srp-page__hero-highlight-svg.highlight-text__svg {
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: calc(100% + 52px);
+  height: calc(100% + 38px);
+  max-width: none;
+  overflow: visible;
+  color: rgba(var(--hl-style-color, 161, 141, 52, 1));
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+.srp-page__hero-subtitle {
+  display: block;
+  margin-top: 12px;
+  animation: none;
+}
+
+.srp-page__hero-subtitle p {
+  position: static;
+  margin: 0;
+  color: inherit !important;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 22.05px;
+  white-space: normal;
+  animation: none;
+  transform: none;
+}
+
 @media screen and (max-width: 749px) {
-  .srp-page__hero-copy {
-    display: block;
-    width: 100%;
-    max-width: none;
-    margin: 0;
+  .srp-page__hero-copy.image-with-text-ovelay__content-wrapper {
+    padding: 24px 16px;
   }
 
-  .srp-page__hero-copy h2 {
-    position: absolute;
-    top: 46%;
-    left: 50%;
-    width: min(310px, calc(100% - 32px));
-    margin: 0;
-    font-size: 32px;
-    line-height: 1.1;
-    letter-spacing: -1px;
-    overflow: visible;
+  .srp-page__hero-rich-text {
+    width: min(100%, 310px);
+  }
+
+  .srp-page__hero-copy .srp-page__hero-heading {
+    font-size: 36.4px;
+    line-height: 45.5px;
+    letter-spacing: -1.82px;
+  }
+
+  .srp-page__hero-highlight-svg.highlight-text__svg {
+    width: calc(100% + 34px);
+    height: calc(100% + 28px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .srp-page__hero-copy motion-element {
     animation: none !important;
-    opacity: 1 !important;
-    transform: translate(-50%, -50%) !important;
-  }
-
-  .srp-page__hero-highlight {
-    display: inline-block;
-    max-width: 100%;
-    overflow-wrap: anywhere;
-  }
-
-  .srp-page__hero-highlight-svg {
-    display: none;
-  }
-
-  .srp-page__hero-copy p {
-    position: absolute;
-    right: 16px;
-    top: 68%;
-    bottom: auto;
-    left: 16px;
-    margin: 0;
-    font-size: 12px;
-    white-space: nowrap;
-    transform: translateY(-50%);
   }
 }

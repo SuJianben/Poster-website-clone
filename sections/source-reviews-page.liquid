@@ -3,23 +3,21 @@
 {{ 'source-reviews-summary.css' | asset_url | stylesheet_tag }}
 {{ 'source-product-reviews.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'source-product-reviews.js' | asset_url }}" defer="defer"></script>
-<script src="{{ 'source-reviews-hero.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'source-reviews-summary.js' | asset_url }}" defer="defer"></script>
 
 <section class="srp-page" data-srp-page data-analytics-page="reviews_fallback">
   <header class="srp-page__heading"><h1>Bewertungen</h1></header>
   <section class="srp-page__hero" aria-label="Unsere Glücklichen Kunden">
     <img src="https://dotcomcanvas.de/cdn/shop/files/Trustpilot_Kunden_Bewertungen_Reviews_Fotos_Banner.png?v=1773373385&width=2400" width="3584" height="1184" alt="DOTCOMCANVAS customer artwork and reviews">
-    <div class="srp-page__hero-copy" data-srp-hero-copy>
-      <h2 data-srp-hero-heading>
-        <em class="srp-page__hero-highlight" data-srp-hero-highlight>
-          Unsere Glücklichen<br>Kunden
-          <svg viewBox="0 -55 800 420" class="srp-page__hero-highlight-svg" stroke="currentColor" fill="none" role="presentation" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-            <path transform="matrix(0.9791300296783447,0,0,0.9791300296783447,400,179)" stroke-linejoin="miter" stroke-miterlimit="4" stroke-width="16" pathLength="1" d=" M253,-161 C253,-161 -284.78900146484375,-201.4600067138672 -376,-21 C-469,163 67.62300109863281,174.2100067138672 256,121 C564,34 250.82899475097656,-141.6929931640625 19.10700035095215,-116.93599700927734"/>
-          </svg>
-        </em>
-      </h2>
-      <p data-srp-hero-subtitle>Echte Bewertungen. Echte Inspiration</p>
+    <div class="srp-page__hero-copy image-with-text-ovelay__content-wrapper content-overlay content-overlay--middle-center-mobile content-overlay--middle-center color-scheme-inverse" data-srp-hero-copy>
+      <div class="srp-page__hero-rich-text relative z-1 rich-text text-center md:text-center">
+        <h2 class="srp-page__hero-heading rich-text__heading hd2" data-srp-hero-heading>
+          <motion-element data-motion="fade-up" data-motion-delay="50" class="block">
+            <em is="highlight-text" class="srp-page__hero-highlight highlight-text relative inline-block font-normal highlight-text--hand-drawn-circle animate" data-srp-hero-highlight style="--hl-style-color: 161, 141, 52, 1.0;">Unsere Glücklichen Kunden<svg viewBox="0 -55 800 420" class="srp-page__hero-highlight-svg absolute highlight-text__svg" stroke="currentColor" fill="none" role="presentation" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path transform="matrix(0.9791300296783447,0,0,0.9791300296783447,400,179)" stroke-linejoin="miter" stroke-miterlimit="4" stroke-width="16" pathLength="1" d=" M253,-161 C253,-161 -284.78900146484375,-201.4600067138672 -376,-21 C-469,163 67.62300109863281,174.2100067138672 256,121 C564,34 250.82899475097656,-141.6929931640625 19.10700035095215,-116.93599700927734"/></svg></em>
+          </motion-element>
+        </h2>
+        <motion-element data-motion="fade-up" data-motion-delay="100" class="srp-page__hero-subtitle block rich-text__text rte text-base"><p data-srp-hero-subtitle>Echte Bewertungen, Echte Inspiration</p></motion-element>
+      </div>
     </div>
   </section>
 
