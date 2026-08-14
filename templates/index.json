@@ -337,7 +337,7 @@
         "collection_tab_Xii4M7": {
           "type": "collection_tab",
           "settings": {
-            "collection": "dein-eigenes-foto",
+            "collection": "abstract-posters",
             "label": "Dein Eigenes Foto",
             "promo_heading": "",
             "promo_button_label": "",
@@ -347,7 +347,7 @@
         "collection_tab_i9WCWA": {
           "type": "collection_tab",
           "settings": {
-            "collection": "dein-haustier-portrait",
+            "collection": "space-posters",
             "label": "Dein Haustier Portrait",
             "promo_heading": "",
             "promo_button_label": "",
@@ -357,7 +357,7 @@
         "collection_tab_MPLQ8Y": {
           "type": "collection_tab",
           "settings": {
-            "collection": "amex-edition",
+            "collection": "all",
             "label": "Amex Edition",
             "promo_image": "",
             "promo_heading": "",
@@ -368,7 +368,7 @@
         "collection_tab_magazine": {
           "type": "collection_tab",
           "settings": {
-            "collection": "magazin-edition",
+            "collection": "abstract-posters",
             "label": "Magazin Edition",
             "promo_heading": "",
             "promo_button_label": "",
@@ -378,7 +378,7 @@
         "collection_tab_starter": {
           "type": "collection_tab",
           "settings": {
-            "collection": "starter-pack-edition",
+            "collection": "space-posters",
             "label": "Starter Pack Edition",
             "promo_heading": "",
             "promo_button_label": "",
@@ -388,7 +388,7 @@
         "collection_tab_commission": {
           "type": "collection_tab",
           "settings": {
-            "collection": "auftragsarbeit-bestellen",
+            "collection": "all",
             "label": "Auftragsarbeit bestellen",
             "promo_heading": "",
             "promo_button_label": "",
