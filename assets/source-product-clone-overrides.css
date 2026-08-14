@@ -554,6 +554,10 @@ details[open] .source-product-accordion-icon::after { transform: translate(-50%,
   .source-product .product { display: block; }
   .source-product .product__media-wrapper,
   .source-product .product__info-wrapper { width: 100%; max-width: none; padding: 0; }
+  .source-product .product__media-gallery .swiper-controls,
+  .source-product .swiper-button-prev-thumb,
+  .source-product .swiper-button-next-thumb { display: none !important; }
+  .source-product .product__media-gallery-viewer { touch-action: pan-y; }
   .source-product .product__media-gallery-viewer-wrap { margin-inline: 0 !important; padding-inline: 0 !important; }
   .source-product .product__media-item-container { background: #fff; }
   .source-product .product__media-image {
