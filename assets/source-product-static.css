@@ -91,8 +91,8 @@
 .spx-product__brands > span:last-child { font-size:12px; font-weight:400; line-height:16.8px; }
 .spx-product__panel-content { padding:12px 30px 28px; }
 .spx-product__panel-content > .spx-product__brands { margin:8px -30px 32px; }
-.spx-product__reviews { display:flex; align-items:center; gap:5px; margin:0 0 7px; color:#111; font-size:12px; font-weight:700; line-height:1.2; }
-.spx-product__review-stars { color:#a39478; font-size:15px; letter-spacing:-1px; line-height:1; }
+.spx-product__reviews { display:flex; align-items:center; gap:6px; margin:0 0 7px; color:#111; font-size:13px; font-weight:700; line-height:1.25; }
+.spx-product__review-stars { color:#a39478; font-size:17px; letter-spacing:-1px; line-height:1; }
 .spx-product h1 { margin:0 0 12px; font-size:31px; line-height:1.2; letter-spacing:-.6px; }
 .spx-product__artist { display:flex; align-items:center; gap:0; margin:0 0 14px; color:#666; font-weight:700; }
 .spx-product__artist a { display:inline-block; margin-left:5px; color:#111; font-weight:700; text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:2px; }
@@ -266,8 +266,8 @@
   .spx-product__brands img:nth-of-type(2) { width: 42px; height: auto; }
   .spx-product__brands > span:first-of-type { font-size: 11px; }
   .spx-product__brands > span:last-child { font-size: 11px; }
-  .spx-product__reviews { margin-bottom: 6px; font-size: 11px; }
-  .spx-product__review-stars { font-size: 14px; }
+  .spx-product__reviews { margin-bottom: 6px; font-size: 13px; }
+  .spx-product__review-stars { font-size: 17px; }
   .spx-product h1 {
     margin-bottom: 6px;
     font-size: 23px;
