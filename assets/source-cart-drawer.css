@@ -487,14 +487,18 @@ cart-drawer[hidden] {
 
 .cart-drawer .cart-item__discount {
   align-items: center;
+  background: #fff0ef;
+  border-radius: 999px;
   display: inline-flex;
+  font-size: 10px;
   font-weight: 700;
   gap: 3px;
+  padding: 4px 7px;
 }
 
 .cart-drawer .cart-item__discount svg {
-  height: 13px;
-  width: 13px;
+  height: 12px;
+  width: 12px;
 }
 
 .cart-drawer .price--on-sale s {
