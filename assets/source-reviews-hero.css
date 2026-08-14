@@ -16,7 +16,9 @@
     line-height: 1.1;
     letter-spacing: -1px;
     overflow: visible;
-    transform: translate(-50%, -50%);
+    animation: none !important;
+    opacity: 1 !important;
+    transform: translate(-50%, -50%) !important;
   }
 
   .srp-page__hero-highlight {
