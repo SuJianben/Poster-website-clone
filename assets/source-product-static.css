@@ -259,11 +259,11 @@
     clip-path: inset(-16px 0 0 0 round 6px);
   }
   .spx-product__panel-content { padding: 0 14px 24px; }
-  .spx-product__top-badges { left: 12px; gap: 5px; transform: translateY(-50%) !important; }
+  .spx-product__top-badges { top: 4px; left: 12px; gap: 5px; transform: translateY(-50%) !important; }
   .spx-product__top-badge { min-height: 16px; padding: 2px 6px; font-size: 9px; line-height: 10px; }
   .spx-product__brands {
     min-height: 0;
-    margin: 0 -14px 19px;
+    margin: 0 -14px 8px;
     padding: 15px 12px 9px;
     font-size: 11px;
     line-height: 1.35;
@@ -307,6 +307,7 @@
     min-height: 42px;
     font-size: 13px;
   }
+  .spx-product__size-tools { margin-right: 30px; }
   .spx-product .spx-product__size-tools > button { height: 22px; padding: 1px 7px; font-size: 10px; }
   .spx-product__size-tools > button svg { width: 14px; height: 14px; }
   .spx-product__unit-toggle { height: 22px; }
