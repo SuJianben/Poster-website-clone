@@ -14,9 +14,12 @@
   const thumbScrollButtons = [...product.querySelectorAll('[data-spx-thumb-scroll]')];
   const backToTopButton = product.querySelector('[data-spx-back-to-top]');
   const thumbWindow = thumbTrack?.closest('.spx-product__thumb-window');
+  const viewer = product.querySelector('[data-spx-viewer]');
+  const zoomStage = product.querySelector('.spx-product__zoom-stage');
   let activeIndex = 0;
   let thumbOffset = 0;
   let zoomCloseTimer;
+  let suppressViewerClick = false;
 
   const setDisabled = (buttons, disabled) => buttons.forEach((button) => {
     button.disabled = disabled;
@@ -73,6 +76,60 @@
   thumbs.forEach((thumb, index) => thumb.addEventListener('click', () => setActiveImage(index)));
   nextButtons.forEach((button) => button.addEventListener('click', () => setActiveImage(activeIndex + 1, 1)));
   previousButtons.forEach((button) => button.addEventListener('click', () => setActiveImage(activeIndex - 1, -1)));
+
+  const addSwipeNavigation = (element, suppressClick = false) => {
+    if (!element || thumbs.length < 2) return;
+    let pointerStart;
+    let isHorizontalSwipe = false;
+
+    element.addEventListener('pointerdown', (event) => {
+      if (!event.isPrimary) return;
+      pointerStart = { id: event.pointerId, x: event.clientX, y: event.clientY };
+      isHorizontalSwipe = false;
+      element.setPointerCapture?.(event.pointerId);
+    });
+
+    element.addEventListener('pointermove', (event) => {
+      if (!pointerStart || event.pointerId !== pointerStart.id) return;
+      const deltaX = event.clientX - pointerStart.x;
+      const deltaY = event.clientY - pointerStart.y;
+      isHorizontalSwipe = Math.abs(deltaX) > 12 && Math.abs(deltaX) > Math.abs(deltaY);
+    });
+
+    element.addEventListener('pointerup', (event) => {
+      if (!pointerStart || event.pointerId !== pointerStart.id) return;
+      const deltaX = event.clientX - pointerStart.x;
+      const deltaY = event.clientY - pointerStart.y;
+      pointerStart = null;
+      element.releasePointerCapture?.(event.pointerId);
+
+      if (Math.abs(deltaX) < 42 || Math.abs(deltaX) <= Math.abs(deltaY)) return;
+      if (suppressClick) suppressViewerClick = true;
+      setActiveImage(activeIndex + (deltaX < 0 ? 1 : -1), deltaX < 0 ? 1 : -1);
+    });
+
+    element.addEventListener('pointercancel', () => {
+      pointerStart = null;
+      isHorizontalSwipe = false;
+    });
+
+    element.addEventListener('click', (event) => {
+      if (!isHorizontalSwipe) return;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      isHorizontalSwipe = false;
+    }, true);
+  };
+
+  viewer?.addEventListener('click', (event) => {
+    if (!suppressViewerClick) return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    suppressViewerClick = false;
+  }, true);
+
+  addSwipeNavigation(viewer, true);
+  addSwipeNavigation(zoomStage);
   const openZoom = () => {
     window.clearTimeout(zoomCloseTimer);
     if (!zoom.open) zoom.showModal();
