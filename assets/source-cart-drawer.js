@@ -287,11 +287,14 @@
           : 'Kaufen Sie ' + Math.max(1, next - itemCount) + ' weitere Artikel, um ' + tiers[next - 1] + '% Rabatt 🏷️ zu erhalten.';
       }
 
-      const goals = tiers.map((discount, index) => {
+      const allGoals = tiers.map((discount, index) => {
         const quantity = index + 1;
         const reached = itemCount >= quantity;
         return { discount, quantity, reached };
       });
+      const firstVisibleQuantity = Math.min(5, Math.max(1, Number(itemCount || 0)));
+      const goals = allGoals.filter((goal) => goal.quantity >= firstVisibleQuantity);
+      promotion.style.setProperty('--source-cart-promotion-columns', String(goals.length));
 
       promotion.querySelector('.source-cart-promotion__title-list').innerHTML = goals.map((goal) =>
         '<li class="source-cart-promotion__goal"><span class="source-cart-promotion__goal-title"><span>' + goal.discount + '% <span class="source-cart-promotion__tag" aria-hidden="true">🏷️</span></span><span>Rabatt</span></span></li>'
@@ -306,9 +309,11 @@
       ).join('');
 
       const bar = promotion.querySelector('.source-cart-promotion__bar');
-      const progress = itemCount >= 5 ? 100 : Math.max(0, Number(itemCount || 0) * 20 - 10);
+      const reachedGoals = goals.filter((goal) => goal.reached).length;
+      const progress = itemCount >= 5 ? 100 : (reachedGoals / goals.length) * 50;
       if (bar) {
         bar.setAttribute('aria-valuenow', String(itemCount));
+        bar.setAttribute('aria-valuetext', `${Math.min(itemCount, 5)} von 5 Artikeln`);
         bar.style.setProperty('--source-cart-promotion-progress', progress + '%');
       }
     }
