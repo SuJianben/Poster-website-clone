@@ -18,11 +18,11 @@
         },
         "brand_banner": {
           "type": "brand_banner",
-          "settings": { "text": "and 60,000+ customers love our premium wall art." }
+          "settings": { "text": "und 60.000+ Kunden lieben unsere Premium Wandbilder." }
         },
         "reviews": {
           "type": "reviews",
-          "settings": { "count": "2,860", "label": "Verified Reviews" }
+          "settings": { "count": "2,861", "label": "Verifizierte Bewertungen" }
         },
         "title": {
           "type": "title",
@@ -31,7 +31,7 @@
         "artist": {
           "type": "artist",
           "settings": {
-            "label": "Artist:",
+            "label": "Künstler:",
             "use_product_vendor": true,
             "name": "Sabrina Seck",
             "url": "/collections/sabrina-seck",
@@ -41,7 +41,7 @@
         },
         "price": {
           "type": "price",
-          "settings": { "use_product_price": true, "price_text": "$29.00", "shipping_text": "Free Shipping." }
+          "settings": { "use_product_price": true, "price_text": "$29.00", "shipping_text": "Kostenloser Versand." }
         },
         "variant_picker": {
           "type": "variant_picker",
