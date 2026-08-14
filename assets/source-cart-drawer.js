@@ -279,6 +279,8 @@
       }
 
       const tiers = [
+        { quantity: 1, discount: 5 },
+        { quantity: 2, discount: 10 },
         { quantity: 3, discount: 15 },
         { quantity: 4, discount: 20 },
         { quantity: 5, discount: 25 }
