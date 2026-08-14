@@ -3,6 +3,7 @@
 {% render 'source-header-1' %}
 {% render 'source-header-2' %}
 {% render 'source-header-config', section: section %}
+{{ 'source-menu-drawer.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'source-header-config.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'source-menu-drawer.js' | asset_url }}" defer="defer"></script>
 {% endif %}

@@ -1,7 +1,7 @@
 (() => {
   const DRAWER_SELECTOR = '#MenuDrawer';
   const OPEN_CLASS = 'source-menu-drawer-open';
-  const CLOSE_DELAY = 300;
+  const CLOSE_DELAY = 340;
 
   const getTriggers = (drawer) => [...document.querySelectorAll('.menu-drawer-button')]
     .filter((button) => button.getAttribute('aria-controls') === drawer.id);
