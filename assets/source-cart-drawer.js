@@ -293,7 +293,7 @@
       ).join('');
 
       promotion.querySelector('.source-cart-promotion__value-list').innerHTML = goals.map((goal) =>
-        '<li class="source-cart-promotion__goal"><span class="source-cart-promotion__goal-value">' + goal.quantity + ' Artikel kaufen</span></li>'
+        '<li class="source-cart-promotion__goal"><span class="source-cart-promotion__goal-value"><span>' + goal.quantity + ' Artikel</span><span>kaufen</span></span></li>'
       ).join('');
 
       const bar = promotion.querySelector('.source-cart-promotion__bar');
