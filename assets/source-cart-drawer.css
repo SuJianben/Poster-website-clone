@@ -559,7 +559,7 @@ cart-drawer[hidden] {
   pointer-events: none;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1024px) {
   .cart-drawer .drawer__inner {
     width: 100vw;
   }
