@@ -323,8 +323,8 @@
         "collection_tab_Xii4M7": {
           "type": "collection_tab",
           "settings": {
-            "collection": "abstract-posters",
-            "label": "",
+            "collection": "dein-eigenes-foto",
+            "label": "Dein Eigenes Foto",
             "promo_heading": "",
             "promo_button_label": "",
             "promo_link": ""
@@ -333,8 +333,8 @@
         "collection_tab_i9WCWA": {
           "type": "collection_tab",
           "settings": {
-            "collection": "space-posters",
-            "label": "",
+            "collection": "dein-haustier-portrait",
+            "label": "Dein Haustier Portrait",
             "promo_heading": "",
             "promo_button_label": "",
             "promo_link": ""
@@ -343,11 +343,41 @@
         "collection_tab_MPLQ8Y": {
           "type": "collection_tab",
           "settings": {
-            "collection": "all",
-            "label": "",
-            "promo_image": "shopify://shop_images/Screenshot_2026-02-01_000936.webp",
-            "promo_heading": "123",
-            "promo_button_label": "44444",
+            "collection": "amex-edition",
+            "label": "Amex Edition",
+            "promo_image": "",
+            "promo_heading": "",
+            "promo_button_label": "",
+            "promo_link": ""
+          }
+        },
+        "collection_tab_magazine": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "magazin-edition",
+            "label": "Magazin Edition",
+            "promo_heading": "",
+            "promo_button_label": "",
+            "promo_link": ""
+          }
+        },
+        "collection_tab_starter": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "starter-pack-edition",
+            "label": "Starter Pack Edition",
+            "promo_heading": "",
+            "promo_button_label": "",
+            "promo_link": ""
+          }
+        },
+        "collection_tab_commission": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "auftragsarbeit-bestellen",
+            "label": "Auftragsarbeit bestellen",
+            "promo_heading": "",
+            "promo_button_label": "",
             "promo_link": ""
           }
         }
@@ -355,7 +385,10 @@
       "block_order": [
         "collection_tab_Xii4M7",
         "collection_tab_i9WCWA",
-        "collection_tab_MPLQ8Y"
+        "collection_tab_MPLQ8Y",
+        "collection_tab_magazine",
+        "collection_tab_starter",
+        "collection_tab_commission"
       ],
       "settings": {
         "enabled": true,
