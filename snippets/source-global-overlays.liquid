@@ -1,35 +1,14 @@
 {% render 'source-cart-drawer-1' %}
 <style>
-  /* The source header contains a generic theme cart badge. Keep its quantity as plain text on every viewport. */
+  html:not(.cart-count-ready) .cart-icon cart-count { visibility: hidden !important; }
+  html.cart-count-ready .cart-icon cart-count:not([hidden]) { visibility: visible; }
+
+  /* Preserve the theme's absolute badge placement while removing its red fill. */
   .cart-icon > cart-count.cart-count--absolute {
     background: transparent !important;
-    border: 0 !important;
-    border-radius: 0 !important;
+    border-color: transparent !important;
     box-shadow: none !important;
     color: currentColor !important;
-    display: inline !important;
-    font: inherit !important;
-    height: auto !important;
-    line-height: inherit !important;
-    margin: 0 !important;
-    min-height: 0 !important;
-    min-width: 0 !important;
-    padding: 0 !important;
-    position: static !important;
-    transform: none !important;
-    visibility: visible !important;
-    width: auto !important;
-  }
-
-  .cart-icon > cart-count.cart-count--absolute::before,
-  .cart-icon > cart-count.cart-count--absolute::after {
-    content: none !important;
-    display: none !important;
-  }
-
-  .cart-icon > cart-count.cart-count--absolute[hidden],
-  html:not(.cart-count-ready) .cart-icon > cart-count.cart-count--absolute {
-    display: none !important;
   }
 </style>
 <script src="{{ 'source-cart-drawer.js' | asset_url }}" defer="defer"></script>
