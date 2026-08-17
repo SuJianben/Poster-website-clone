@@ -760,7 +760,3 @@ cart-drawer[hidden] {
   content: none !important;
   display: none !important;
 }
-
-.cart-drawer .drawer__heading > .cart-count--drawer-heading[hidden] {
-  display: none !important;
-}

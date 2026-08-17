@@ -249,9 +249,10 @@
       this.renderPromotion(cart.item_count);
       this.renderDiscounts(cart.cart_level_discount_applications || []);
       document.querySelectorAll('cart-count').forEach((count) => {
-        count.textContent = count.dataset.type === 'blank' ? `(${cart.item_count})` : cart.item_count;
-        count.classList.toggle('cart-count--blank', isEmpty);
-        count.hidden = isEmpty;
+        const isDrawerHeading = count.classList.contains('cart-count--drawer-heading') || count.dataset.type === 'blank';
+        count.textContent = isDrawerHeading ? `(${cart.item_count})` : cart.item_count;
+        count.classList.toggle('cart-count--blank', isDrawerHeading || isEmpty);
+        count.hidden = isDrawerHeading ? false : isEmpty;
         count.setAttribute('aria-label', `${cart.item_count} Artikel`);
       });
       document.documentElement.classList.add('cart-count-ready');
