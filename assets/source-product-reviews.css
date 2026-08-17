@@ -121,3 +121,21 @@
   .sprv .sprv__pagination button:disabled{color:#aaa;cursor:default}
 }
 
+/* Desktop Stamped-style review wall: four natural-height columns inside the source width. */
+@media(min-width:750px){
+  .sprv__heading-wrap,
+  .sprv__widget{width:100%}
+
+  .sprv__heading,
+  .sprv__inner{width:85%;max-width:none}
+
+  .sprv .sprv__cards{
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    align-items:start;
+    gap:15px;
+  }
+
+  .sprv .sprv-card{height:auto}
+  .sprv .sprv-card__content{min-height:0}
+}
+
