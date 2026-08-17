@@ -262,8 +262,8 @@
     "source_reviews": {
       "type": "source-product-reviews",
       "settings": {
-        "heading": "Kundenbewertungen",
-        "review_count": "2627",
+        "heading": "Über 60.000 zufriedene Kunden",
+        "review_count": "2626",
         "write_heading": "Eine Bewertung schreiben",
         "contact_url": "/pages/contact"
       }

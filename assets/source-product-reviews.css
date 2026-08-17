@@ -109,3 +109,7 @@
 .sprv .sprv-card__helpful{margin-top:auto}
 .sprv .sprv-card[hidden]{display:none!important}
 
+@media(max-width:749px){
+  .sprv .sprv__heading{width:100%;font:700 20px/25px Helvetica,Arial,sans-serif}
+}
+

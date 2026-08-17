@@ -355,3 +355,127 @@ html.srp-summary-modal-open,html.srp-summary-modal-open body { overflow:hidden; 
   .srp-summary-modal__dialog { transition: none; }
 }
 
+/* Product-page summary mirrors the compact, centered source review widget. */
+@media (max-width: 749px) {
+.src-review-summary--product .srp-widget__summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(100%, 300px);
+  min-height: 0;
+  margin: 0 auto;
+  padding: 0 0 24px;
+  border: 0;
+}
+
+.src-review-summary--product .srp-widget__overview {
+  display: flex;
+  float: none;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 0;
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.src-review-summary--product .srp-widget__score,
+.src-review-summary--product .srp-widget__summary-stars {
+  display: inline-flex;
+  align-items: center;
+}
+
+.src-review-summary--product .srp-widget__score strong {
+  margin-right: 8px;
+  font-size: 34px;
+  line-height: 40px;
+}
+
+.src-review-summary--product .srp-widget__summary-stars i {
+  margin-right: 1px;
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.src-review-summary--product .srp-widget__overview small {
+  display: block;
+  flex: 0 0 100%;
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  white-space: normal;
+}
+
+.src-review-summary--product .srp-widget__ratings {
+  float: none;
+  width: 232px;
+  height: auto;
+  margin: 0 auto 20px;
+  padding: 0;
+  border: 0;
+}
+
+.src-review-summary--product .srp-widget__ratings button {
+  grid-template-columns: 75px 110px 37px;
+  width: 232px;
+  height: 20px;
+  margin-bottom: 2px;
+}
+
+.src-review-summary--product .srp-widget__ratings span {
+  width: 75px;
+}
+
+.src-review-summary--product .srp-widget__ratings i,
+.src-review-summary--product .srp-widget__ratings b {
+  height: 14px;
+}
+
+.src-review-summary--product .srp-widget__ratings i {
+  width: 110px;
+  margin-top: 3px;
+}
+
+.src-review-summary--product .srp-widget__ratings em {
+  top: 2px;
+  width: 37px;
+  padding-left: 4px;
+}
+
+.src-review-summary--product .srp-widget__photos {
+  display: block;
+  width: 255px;
+  min-width: 255px;
+  max-width: 255px;
+  height: 94px;
+  margin: 0 auto;
+}
+
+.src-review-summary--product .srp-widget__photo-viewport {
+  height: 94px;
+}
+
+.src-review-summary--product .srp-widget__photo-track {
+  width: 255px;
+}
+
+.src-review-summary--product .srp-widget__photo-track button {
+  flex-basis: 60px;
+  width: 60px;
+  height: 45px;
+  margin: 0 3px 4px 0;
+}
+
+.src-review-summary--product .srp-widget__photo-track img {
+  width: 60px;
+  height: 45px;
+}
+
+.src-review-summary--product .srp-widget__actions {
+  display: none;
+}
+
+}
+
