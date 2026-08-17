@@ -5,6 +5,7 @@
     if (header.dataset.sourceMobileSearchReady === 'true') return;
 
     const panel = header.querySelector('.header__search');
+    const trigger = header.querySelector('.custom-search .search__icon-search');
     const input = panel?.querySelector('input[type="search"]');
     const reset = panel?.querySelector('.search__reset');
 
@@ -24,6 +25,25 @@
       });
     });
 
+    const setOpen = (isOpen) => {
+      panel.classList.toggle('mobile-search-active', isOpen);
+      trigger?.setAttribute('aria-expanded', String(isOpen));
+    };
+
+    trigger?.setAttribute('aria-expanded', String(panel.classList.contains('mobile-search-active')));
+    trigger?.addEventListener('click', (event) => {
+      if (!mobileQuery.matches) return;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      setOpen(!panel.classList.contains('mobile-search-active'));
+    });
+
+    input.addEventListener('keydown', (event) => {
+      if (event.key !== 'Escape' || !mobileQuery.matches) return;
+      setOpen(false);
+      trigger?.focus({ preventScroll: true });
+    });
+
     new MutationObserver(() => {
       if (mobileQuery.matches && panel.classList.contains('mobile-search-active')) {
         window.requestAnimationFrame(() => input.focus({ preventScroll: true }));
@@ -31,7 +51,7 @@
     }).observe(panel, { attributes: true, attributeFilter: ['class'] });
 
     mobileQuery.addEventListener('change', (event) => {
-      if (!event.matches) panel.classList.remove('mobile-search-active');
+      if (!event.matches) setOpen(false);
     });
 
     syncReset();
