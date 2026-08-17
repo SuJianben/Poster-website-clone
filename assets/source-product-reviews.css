@@ -119,6 +119,10 @@
   .sprv .sprv__pagination button{width:26px;height:28px;flex:0 0 26px}
   .sprv .sprv__pagination button[hidden]{display:none!important}
   .sprv .sprv__pagination button:disabled{color:#aaa;cursor:default}
+  .sprv .sprv__write{padding:16px 0 28px}
+  .sprv .sprv__write h3{margin:0 0 12px;font:700 20px/25px Helvetica,Arial,sans-serif}
+  .sprv .sprv__write p{max-width:340px;margin:0 auto 18px;color:#666;font:600 14px/20px Helvetica,Arial,sans-serif}
+  .sprv .sprv__write-button{width:170px;min-width:170px;height:41px;padding:0 24px;gap:6px;border-radius:10px;font:700 13px/30px Helvetica,Arial,sans-serif}
 }
 
 /* Desktop Stamped-style review wall: four natural-height columns inside the source width. */

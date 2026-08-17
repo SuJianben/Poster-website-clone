@@ -19,11 +19,12 @@
       {% else %}
         {% render 'source-reviews-summary', variant: 'product', review_count: section.settings.review_count, write_heading: section.settings.write_heading, contact_url: section.settings.contact_url %}
 
+        {% assign review_write_url = section.settings.contact_url | default: '/a/review/write' %}
         {% render 'source-product-reviews-list',
           review_count: section.settings.review_count,
-          show_write: false,
+          show_write: true,
           write_heading: section.settings.write_heading,
-          contact_url: section.settings.contact_url
+          contact_url: review_write_url
         %}
       {% endif %}
     </div>
