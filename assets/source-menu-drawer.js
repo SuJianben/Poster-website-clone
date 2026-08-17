@@ -1,7 +1,6 @@
 (() => {
   const DRAWER_SELECTOR = '#MenuDrawer';
   const OPEN_CLASS = 'source-menu-drawer-open';
-  const HOST_OPEN_CLASS = 'source-menu-drawer-host-active';
   const CLOSE_DELAY = 340;
   const CLOSE_ICON = '<svg class="source-menu-drawer__close-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M18.75 5.25 5.25 18.75M18.75 18.75 5.25 5.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>';
 
@@ -10,20 +9,10 @@
 
   const getHostHeader = (drawer) => drawer.closest('header');
 
-  const getTopbar = () => document.querySelector('.topbar-section');
-
   const syncHeaderHeight = (drawer) => {
-    const header = getHostHeader(drawer);
-    const topbar = getTopbar();
-    const headerTop = header?.querySelector('.header__top');
-    const topbarHeight = Math.ceil(topbar?.getBoundingClientRect().height || 0);
-    const headerHeight = Math.ceil(headerTop?.getBoundingClientRect().height || 56);
-
-    header?.style.setProperty('--source-menu-drawer-topbar-height', `${topbarHeight}px`);
-    drawer.style.setProperty(
-      '--source-menu-drawer-header-height',
-      `${topbarHeight + headerHeight}px`
-    );
+    const headerTop = getHostHeader(drawer)?.querySelector('.header__top');
+    const headerBottom = Math.ceil(headerTop?.getBoundingClientRect().bottom || 56);
+    drawer.style.setProperty('--source-menu-drawer-header-height', `${headerBottom}px`);
   };
 
   const updateTriggerState = (drawer, isOpen) => {
@@ -45,10 +34,7 @@
   };
 
   const updateHostState = (drawer, isOpen) => {
-    const header = getHostHeader(drawer);
-    header?.classList.toggle(HOST_OPEN_CLASS, isOpen);
     if (isOpen) syncHeaderHeight(drawer);
-    else header?.style.removeProperty('--source-menu-drawer-topbar-height');
     updateTriggerState(drawer, isOpen);
   };
 
