@@ -67,7 +67,7 @@
 
     if (titleList) {
       titleList.innerHTML = goals.map((goal) => (
-        '<li class="source-spotlight-promotion__goal"><span class="source-spotlight-promotion__goal-title">' + goal.discount + '% Rabatt <span class="source-spotlight-promotion__tag" aria-hidden="true">&#127991;&#65039;</span></span></li>'
+        '<li class="source-spotlight-promotion__goal"><span class="source-spotlight-promotion__goal-title"><span>' + goal.discount + '%</span><span>Rabatt <span class="source-spotlight-promotion__tag" aria-hidden="true">&#127991;&#65039;</span></span></span></li>'
       )).join('');
     }
 

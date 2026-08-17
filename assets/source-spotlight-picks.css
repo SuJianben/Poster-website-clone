@@ -46,10 +46,17 @@
 
 .drawer--spotlight .source-spotlight-promotion__goal-title {
   color: inherit;
-  display: block;
-  font-size: 12px;
+  display: grid;
+  font-size: 14px;
   font-weight: 400;
-  line-height: normal;
+  grid-template-rows: repeat(2, min-content);
+  line-height: 1.1;
+  min-height: 31px;
+}
+
+.drawer--spotlight .source-spotlight-promotion__goal-title > span {
+  display: block;
+  white-space: nowrap;
 }
 
 .drawer--spotlight .source-spotlight-promotion__tag {
@@ -122,13 +129,13 @@
   box-sizing: border-box;
   color: inherit;
   display: block;
-  font-size: 10px;
+  font-size: 14px;
   font-variant-numeric: tabular-nums;
   font-weight: 400;
   line-height: normal;
   max-width: 100%;
   overflow: hidden;
-  padding: 0 1px;
+  padding: 0 2px;
   text-overflow: clip;
   width: 100%;
   white-space: nowrap;
