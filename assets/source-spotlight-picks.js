@@ -7,6 +7,15 @@
     { quantity: 5, discount: 25 }
   ];
 
+  const markerIcon = [
+    '<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">',
+    '<path d="M3.85 8.62a4 4 0 0 1 4.77-4.77 4 4 0 0 1 6.76 0 4 4 0 0 1 4.77 4.77 4 4 0 0 1 0 6.76 4 4 0 0 1-4.77 4.77 4 4 0 0 1-6.76 0 4 4 0 0 1-4.77-4.77 4 4 0 0 1 0-6.76Z"/>',
+    '<path d="m15 9-6 6"/>',
+    '<path d="M9 9h.01"/>',
+    '<path d="M15 15h.01"/>',
+    '</svg>'
+  ].join('');
+
   const createPromotion = (drawer) => {
     const body = drawer.querySelector('.drawer__body');
     const list = body?.querySelector('.spotlight__list');
@@ -58,19 +67,19 @@
 
     if (titleList) {
       titleList.innerHTML = goals.map((goal) => (
-        '<li class="source-spotlight-promotion__goal"><span class="source-spotlight-promotion__goal-title"><span>' + goal.discount + '% <span class="source-spotlight-promotion__tag" aria-hidden="true">&#127991;&#65039;</span></span><span>Rabatt</span></span></li>'
+        '<li class="source-spotlight-promotion__goal"><span class="source-spotlight-promotion__goal-title">' + goal.discount + '% Rabatt <span class="source-spotlight-promotion__tag" aria-hidden="true">&#127991;&#65039;</span></span></li>'
       )).join('');
     }
 
     if (markerList) {
       markerList.innerHTML = goals.map((goal) => (
-        '<li class="source-spotlight-promotion__goal"><span class="source-spotlight-promotion__marker' + (goal.reached ? ' is-reached' : '') + '">%</span></li>'
+        '<li class="source-spotlight-promotion__goal"><span class="source-spotlight-promotion__marker' + (goal.reached ? ' is-reached' : '') + '">' + markerIcon + '</span></li>'
       )).join('');
     }
 
     if (valueList) {
       valueList.innerHTML = goals.map((goal) => (
-        '<li class="source-spotlight-promotion__goal"><span class="source-spotlight-promotion__goal-value"><span>' + goal.quantity + ' Artikel</span><span>kaufen</span></span></li>'
+        '<li class="source-spotlight-promotion__goal"><span class="source-spotlight-promotion__goal-value" aria-label="Goal title: ' + goal.quantity + ' Artikel kaufen">' + goal.quantity + ' Artikel kaufen</span></li>'
       )).join('');
     }
 
