@@ -9,7 +9,7 @@
   endif
 %}
 
-<section class="sp-search" data-sp-search-section>
+<section class="sp-search{% unless has_query %} sp-search--empty{% endunless %}" data-sp-search-section>
   <div class="sp-search__container">
     <header class="sp-search__header">
       <h1 tabindex="-1">
@@ -37,7 +37,7 @@
           spellcheck="false"
           data-sp-search-input
         >
-        <button class="sp-search__reset" type="reset" aria-label="{{ section.settings.clear_label }}" data-sp-search-reset>
+        <button class="sp-search__reset" type="reset" aria-label="{{ section.settings.clear_label }}" data-sp-search-reset{% if search.terms == blank %} hidden{% endif %}>
           {{ section.settings.clear_label }}
         </button>
         <button class="sp-search__submit" type="submit" aria-label="{{ section.settings.search_label }}">
