@@ -10,32 +10,19 @@
 
   const getHostHeader = (drawer) => drawer.closest('header');
 
-  const ensureAnnouncement = (drawer) => {
-    const header = getHostHeader(drawer);
-    if (!header) return null;
-
-    let announcement = header.querySelector(':scope > .source-menu-drawer__announcement');
-    if (announcement) return announcement;
-
-    announcement = document.createElement('div');
-    announcement.className = 'source-menu-drawer__announcement';
-    announcement.setAttribute('aria-label', 'Versandhinweis');
-    announcement.innerHTML = '<span class="source-menu-drawer__announcement-badge">Neu</span><span>Kostenloser Versand ab 49&euro;</span>';
-    header.prepend(announcement);
-    return announcement;
-  };
+  const getTopbar = () => document.querySelector('.topbar-section');
 
   const syncHeaderHeight = (drawer) => {
     const header = getHostHeader(drawer);
-    const announcement = ensureAnnouncement(drawer);
+    const topbar = getTopbar();
     const headerTop = header?.querySelector('.header__top');
-    const announcementHeight = Math.ceil(announcement?.getBoundingClientRect().height || 28);
+    const topbarHeight = Math.ceil(topbar?.getBoundingClientRect().height || 0);
     const headerHeight = Math.ceil(headerTop?.getBoundingClientRect().height || 56);
 
-    header?.style.setProperty('--source-menu-drawer-announcement-height', `${announcementHeight}px`);
+    header?.style.setProperty('--source-menu-drawer-topbar-height', `${topbarHeight}px`);
     drawer.style.setProperty(
       '--source-menu-drawer-header-height',
-      `${announcementHeight + headerHeight}px`
+      `${topbarHeight + headerHeight}px`
     );
   };
 
@@ -59,10 +46,9 @@
 
   const updateHostState = (drawer, isOpen) => {
     const header = getHostHeader(drawer);
-    if (isOpen) ensureAnnouncement(drawer);
     header?.classList.toggle(HOST_OPEN_CLASS, isOpen);
     if (isOpen) syncHeaderHeight(drawer);
-    else header?.style.removeProperty('--source-menu-drawer-announcement-height');
+    else header?.style.removeProperty('--source-menu-drawer-topbar-height');
     updateTriggerState(drawer, isOpen);
   };
 
