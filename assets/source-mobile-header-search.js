@@ -8,10 +8,12 @@
     const trigger = header.querySelector('.custom-search .search__icon-search');
     const input = panel?.querySelector('input[type="search"]');
     const reset = panel?.querySelector('.search__reset');
+    const close = panel?.querySelector('.header__search-close');
 
-    if (!panel || !input || !reset) return;
+    if (!panel || !input) return;
 
     const syncReset = () => {
+      if (!reset) return;
       const hasValue = input.value.trim().length > 0;
       reset.hidden = !hasValue;
       panel.classList.toggle('source-mobile-search-filled', hasValue);
@@ -28,6 +30,9 @@
     const setOpen = (isOpen) => {
       panel.classList.toggle('mobile-search-active', isOpen);
       trigger?.setAttribute('aria-expanded', String(isOpen));
+      if (isOpen && mobileQuery.matches) {
+        window.requestAnimationFrame(() => input.focus({ preventScroll: true }));
+      }
     };
 
     trigger?.setAttribute('aria-expanded', String(panel.classList.contains('mobile-search-active')));
@@ -38,17 +43,17 @@
       setOpen(!panel.classList.contains('mobile-search-active'));
     });
 
+    close?.addEventListener('click', (event) => {
+      if (!mobileQuery.matches) return;
+      event.preventDefault();
+      setOpen(false);
+    });
+
     input.addEventListener('keydown', (event) => {
       if (event.key !== 'Escape' || !mobileQuery.matches) return;
       setOpen(false);
       trigger?.focus({ preventScroll: true });
     });
-
-    new MutationObserver(() => {
-      if (mobileQuery.matches && panel.classList.contains('mobile-search-active')) {
-        window.requestAnimationFrame(() => input.focus({ preventScroll: true }));
-      }
-    }).observe(panel, { attributes: true, attributeFilter: ['class'] });
 
     mobileQuery.addEventListener('change', (event) => {
       if (!event.matches) setOpen(false);
