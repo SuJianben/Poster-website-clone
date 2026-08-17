@@ -1,4 +1,5 @@
 {{ 'source-review-write.css' | asset_url | stylesheet_tag }}
+{{ 'source-review-write-layout.css' | asset_url | stylesheet_tag }}
 {{ 'source-product-reviews.css' | asset_url | stylesheet_tag }}
 {{ 'source-reviews-summary.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'source-review-write.js' | asset_url }}" defer="defer"></script>
@@ -13,7 +14,6 @@
     <fieldset class="srw-form__contact">
       <div class="srw-field"><label for="srw-author-{{ section.id }}">Name</label><input id="srw-author-{{ section.id }}" name="author" type="text" placeholder="Gib deinen Namen ein" autocomplete="name" required></div>
       <div class="srw-field"><label for="srw-email-{{ section.id }}">E-Mail</label><input id="srw-email-{{ section.id }}" name="email" type="email" placeholder="john.smith@example.com" autocomplete="email" required></div>
-      <div class="srw-field"><label for="srw-location-{{ section.id }}">Ja</label><input id="srw-location-{{ section.id }}" name="location" type="text" placeholder="z.B. Paris, Frankreich" autocomplete="shipping country"></div>
     </fieldset>
 
     <fieldset class="srw-rating"><legend class="srw-field__label">Bewertung</legend><input data-srw-rating-input name="review_rating" type="text" required hidden>

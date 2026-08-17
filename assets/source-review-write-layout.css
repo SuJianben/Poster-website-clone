@@ -1,0 +1,36 @@
+.srw-page h1.srw-page__title {
+  margin-bottom: 40px;
+}
+
+.srw-page h2.srw-page__heading {
+  margin-bottom: 35px;
+}
+
+@media (max-width: 749px) {
+  .srw-page h1.srw-page__title {
+    font-size: 22px;
+    margin-bottom: 40px;
+  }
+
+  .srw-page h2.srw-page__heading {
+    font-size: 24px;
+    margin-bottom: 0;
+    text-align: center;
+  }
+
+  .srw-page .srw-form {
+    border: 0;
+    border-top: 1px solid #eee;
+    padding: 15px;
+  }
+
+  .srw-page .srw-field {
+    gap: 4px;
+    margin-bottom: 7px;
+  }
+
+  .srw-page .srw-field input {
+    height: 30px;
+    padding: 5px 8px;
+  }
+}
