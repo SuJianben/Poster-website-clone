@@ -1,7 +1,7 @@
 .drawer--spotlight .source-spotlight-promotion {
   box-sizing: border-box;
   color: #050505;
-  margin: -10px -15px 15px;
+  margin: -15px -15px 15px;
   overflow: visible;
   padding: 4px 2px;
   position: relative;
@@ -11,11 +11,14 @@
 .drawer--spotlight .source-spotlight-promotion__copy {
   color: inherit;
   display: block;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 400;
-  line-height: normal;
+  line-height: 1.25;
   margin: 0 8px;
+  overflow: hidden;
   text-align: left;
+  text-overflow: clip;
+  white-space: nowrap;
 }
 
 .drawer--spotlight .source-spotlight-promotion__bar-wrapper {
@@ -44,7 +47,7 @@
 .drawer--spotlight .source-spotlight-promotion__goal-title {
   color: inherit;
   display: block;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 400;
   line-height: normal;
 }
@@ -116,11 +119,17 @@
 }
 
 .drawer--spotlight .source-spotlight-promotion__goal-value {
+  box-sizing: border-box;
   color: inherit;
   display: block;
-  font-size: 14px;
+  font-size: 10px;
   font-variant-numeric: tabular-nums;
   font-weight: 400;
   line-height: normal;
+  max-width: 100%;
+  overflow: hidden;
+  padding: 0 1px;
+  text-overflow: clip;
+  width: 100%;
   white-space: nowrap;
 }
