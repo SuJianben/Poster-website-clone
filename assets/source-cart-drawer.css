@@ -143,9 +143,9 @@ cart-drawer[hidden] {
 
 .cart-drawer .free-shipping-goal {
   display: grid;
+  flex: 0 0 auto;
   gap: 8px;
   margin: 0 0 16px;
-  min-height: 0;
 }
 
 .cart-drawer .free-shipping-goal__label {
