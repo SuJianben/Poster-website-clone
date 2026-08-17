@@ -1,10 +1,17 @@
 {% case block.type %}
   {% when 'top_badge' %}
+    {% assign selected_variant = product.selected_or_first_available_variant %}
+    {% assign has_sale_badge = false %}
+    {% assign sale_percentage = 0 %}
     {% assign has_trending_badge = false %}
     {% assign has_bestseller_badge = false %}
     {% assign has_new_badge = false %}
     {% assign has_limited_badge = false %}
     {% assign has_personalizable_badge = false %}
+    {% if selected_variant.compare_at_price > selected_variant.price %}
+      {% assign has_sale_badge = true %}
+      {% assign sale_percentage = selected_variant.compare_at_price | minus: selected_variant.price | times: 100 | divided_by: selected_variant.compare_at_price | round %}
+    {% endif %}
     {% for tag in product.tags %}
       {% assign normalized_tag = tag | downcase | strip %}
       {% if normalized_tag == 'trending' %}{% assign has_trending_badge = true %}{% endif %}
@@ -14,11 +21,12 @@
       {% if normalized_tag contains 'personal' or normalized_tag contains 'custom' %}{% assign has_personalizable_badge = true %}{% endif %}
     {% endfor %}
     {% assign has_product_badge = false %}
-    {% if has_trending_badge or has_bestseller_badge or has_new_badge or has_limited_badge or has_personalizable_badge %}
+    {% if has_sale_badge or has_trending_badge or has_bestseller_badge or has_new_badge or has_limited_badge or has_personalizable_badge %}
       {% assign has_product_badge = true %}
     {% endif %}
     <div class="spx-product__top-badges" data-analytics-block-type="top_badge" {{ block.shopify_attributes }}>
       {% if has_product_badge %}
+        {% if has_sale_badge %}<span class="spx-product__top-badge spx-product__top-badge--sale">SPARE {{ sale_percentage }}%</span>{% endif %}
         {% if has_trending_badge %}<span class="spx-product__top-badge spx-product__top-badge--trending">Trending</span>{% endif %}
         {% if has_bestseller_badge %}<span class="spx-product__top-badge spx-product__top-badge--bestseller">Bestseller</span>{% endif %}
         {% if has_new_badge %}<span class="spx-product__top-badge spx-product__top-badge--new">New</span>{% endif %}
