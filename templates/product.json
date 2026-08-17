@@ -48,12 +48,23 @@
           "settings": {
             "picker_type": "button",
             "show_size_guide": true,
-            "size_guide_label": "SIZE GUIDE"
+            "size_guide_label": "SIZE GUIDE",
+            "popular_size": "",
+            "popular_size_label": "Bestseller"
           }
         },
         "buy_button": {
           "type": "buy_button",
-          "settings": { "label": "Add To Cart" }
+          "settings": {
+            "label": "Add To Cart",
+            "show_hanging_kit": true,
+            "hanging_kit_heading": "Optional",
+            "hanging_kit_label": "Hanging kit",
+            "hanging_kit_note": "",
+            "hanging_kit_property_name": "Hanging kit",
+            "hanging_kit_property_value": "Yes",
+            "hanging_kit_variant_id": ""
+          }
         },
         "volume_discount": {
           "type": "volume_discount",

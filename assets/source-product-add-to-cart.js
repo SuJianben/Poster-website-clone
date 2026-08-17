@@ -21,6 +21,7 @@
     request.open(options.method || 'GET', url, true);
     request.withCredentials = true;
     request.setRequestHeader('Accept', 'application/json');
+    Object.entries(options.headers || {}).forEach(([name, value]) => request.setRequestHeader(name, value));
     request.onload = () => {
       try {
         const payload = parsePayload(request.responseText);
@@ -61,9 +62,41 @@
 
     onVariantChange(event) {
       const variant = event.detail?.variant;
-      if (variant?.id) this.variantInput.value = variant.id;
+      this.variantInput.value = variant?.id || '';
       this.variantAvailable = Boolean(variant?.available);
       this.button.disabled = !this.variantAvailable;
+    }
+
+    buildAddRequest() {
+      const formData = new FormData(this.form);
+      const addonToggle = this.form.querySelector('[data-spx-addon-toggle]');
+      const addonVariantId = Number(addonToggle?.dataset.spxAddonVariantId || 0);
+
+      if (!addonToggle?.checked || !Number.isInteger(addonVariantId) || addonVariantId < 1) {
+        return { body: formData };
+      }
+
+      const properties = {};
+      formData.forEach((value, key) => {
+        const propertyMatch = key.match(/^properties\[(.+)\]$/);
+        if (propertyMatch) properties[propertyMatch[1]] = value;
+      });
+
+      const primaryItem = {
+        id: Number(this.variantInput.value),
+        quantity: Number(formData.get('quantity')) || 1
+      };
+      if (Object.keys(properties).length) primaryItem.properties = properties;
+
+      return {
+        body: JSON.stringify({
+          items: [
+            primaryItem,
+            { id: addonVariantId, quantity: 1 }
+          ]
+        }),
+        headers: { 'Content-Type': 'application/json' }
+      };
     }
 
     setLoading(loading) {
@@ -93,9 +126,10 @@
       this.publish('started');
 
       try {
+        const addRequestOptions = this.buildAddRequest();
         const addRequest = requestJson(this.addUrl, {
           method: 'POST',
-          body: new FormData(this.form)
+          ...addRequestOptions
         });
         const [added] = await Promise.all([addRequest, wait(minimumLoadingTime)]);
         const cart = await requestJson(this.cartUrl);

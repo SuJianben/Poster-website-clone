@@ -84,7 +84,9 @@
           "default": "button"
         },
         { "type": "checkbox", "id": "show_size_guide", "label": "Show size guide for size options", "default": true },
-        { "type": "text", "id": "size_guide_label", "label": "Size guide label", "default": "SIZE GUIDE" }
+        { "type": "text", "id": "size_guide_label", "label": "Size guide label", "default": "SIZE GUIDE" },
+        { "type": "text", "id": "popular_size", "label": "Popular size value", "default": "" },
+        { "type": "text", "id": "popular_size_label", "label": "Popular size label", "default": "Bestseller" }
       ]
     },
     {
@@ -92,7 +94,14 @@
       "name": "Buy button",
       "limit": 1,
       "settings": [
-        { "type": "text", "id": "label", "label": "Button label", "default": "Add To Cart" }
+        { "type": "text", "id": "label", "label": "Button label", "default": "Add To Cart" },
+        { "type": "checkbox", "id": "show_hanging_kit", "label": "Show optional hanging kit", "default": false },
+        { "type": "text", "id": "hanging_kit_heading", "label": "Optional item heading", "default": "Optional" },
+        { "type": "text", "id": "hanging_kit_label", "label": "Hanging kit label", "default": "Hanging kit" },
+        { "type": "text", "id": "hanging_kit_note", "label": "Hanging kit note", "default": "" },
+        { "type": "text", "id": "hanging_kit_property_name", "label": "Cart property name", "default": "Hanging kit" },
+        { "type": "text", "id": "hanging_kit_property_value", "label": "Cart property value", "default": "Yes" },
+        { "type": "text", "id": "hanging_kit_variant_id", "label": "Optional add-on variant ID", "default": "" }
       ]
     },
     {

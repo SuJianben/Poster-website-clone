@@ -222,7 +222,7 @@
 
     const syncVariantState = () => {
       const selectedVariant = variants.find((variant) => optionValuesForVariant(variant).every((value, index) => value === selectedValues[index]));
-      if (selectedVariant && variantIdInput) variantIdInput.value = selectedVariant.id;
+      if (variantIdInput) variantIdInput.value = selectedVariant?.id || '';
 
       const dynamicPrice = product.querySelector('[data-spx-dynamic-price] [data-spx-price-output]');
       if (selectedVariant && dynamicPrice) {
