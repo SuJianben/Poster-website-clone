@@ -2,6 +2,10 @@
   assign shared_review_count = review_count | default: '2624'
   assign shared_write_heading = write_heading | default: 'Eine Bewertung schreiben'
   assign shared_contact_url = contact_url | default: '/pages/write-a-review'
+  assign shared_review_app_url = false
+  if shared_contact_url contains '/a/review/'
+    assign shared_review_app_url = true
+  endif
 -%}
 
 <div class="sprv__toolbar">
@@ -45,7 +49,7 @@
   <div class="sprv__write">
     <h3>{{ shared_write_heading }}</h3>
     <p>We would appreciate feedback via the <a href="{{ shared_contact_url }}">contact form</a><br>or look forward to an official review after placing an order!</p>
-    <a class="sprv__write-button" href="{{ shared_contact_url }}" data-sprv-write>
+    <a class="sprv__write-button" href="{{ shared_contact_url }}"{% if request.design_mode and shared_review_app_url %} target="_blank" rel="noopener"{% endif %} data-sprv-write>
       <span class="sprv__write-label">Write A Review</span>
       <span class="sprv__write-icon" aria-hidden="true">›</span>
     </a>
