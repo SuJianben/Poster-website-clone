@@ -1,5 +1,15 @@
 {%- liquid
-  case index
+  assign review_index = index | modulo: 4
+  if review_index == 0
+    assign review_index = 4
+  endif
+
+  assign is_desktop_extra = false
+  if index > 4
+    assign is_desktop_extra = true
+  endif
+
+  case review_index
     when 1
       assign image_urls = 'https://cdn.stamped.io/tr:w-350:/uploads/photos/228253_8264592785674_bbcf5af6_6d4e_4392_8109_868d996fa81e.jpg?|https://cdn.stamped.io/tr:w-350:/uploads/photos/228253_8264592785674_85af7e91_7171_4fd5_81c6_e48557cb06fc.jpg?|https://cdn.stamped.io/tr:w-350:/uploads/photos/228253_8264592785674_6b62d13f_3bca_4491_b59f_9dd2d48a635a.jpg?' | split: '|'
       assign has_photo = true
@@ -60,7 +70,7 @@
   endcase
 -%}
 
-<article class="sprv-card" data-sprv-review-card data-has-photo="{{ has_photo }}" data-sprv-has-photo="{{ has_photo }}" data-sprv-date="{{ review_timestamp }}" data-sprv-rating="{{ rating }}" data-sprv-helpful="{{ helpful }}">
+<article class="sprv-card{% if is_desktop_extra %} sprv-card--desktop-extra{% endif %}" data-sprv-review-card data-has-photo="{{ has_photo }}" data-sprv-has-photo="{{ has_photo }}" data-sprv-date="{{ review_timestamp }}" data-sprv-rating="{{ rating }}" data-sprv-helpful="{{ helpful }}">
   {%- if has_photo -%}
   <div class="sprv-card__media{% if image_urls.size > 1 %} sprv-card__media--stack{% endif %}">
     {%- for image_url in image_urls -%}
