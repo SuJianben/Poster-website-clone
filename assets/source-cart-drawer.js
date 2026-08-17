@@ -105,6 +105,7 @@
       this.onDrawerClick = this.onDrawerClick.bind(this);
       this.onQuantityChange = this.onQuantityChange.bind(this);
       this.onCartRefresh = this.onCartRefresh.bind(this);
+      this.onViewportChange = this.onViewportChange.bind(this);
     }
 
     connectedCallback() {
@@ -113,6 +114,10 @@
       this.addEventListener('change', this.onQuantityChange);
       document.addEventListener('spx:cart-added', this.onProductAdded);
       document.addEventListener('cart:refresh', this.onCartRefresh);
+      this.viewport = window.visualViewport;
+      this.viewport?.addEventListener('resize', this.onViewportChange);
+      this.viewport?.addEventListener('scroll', this.onViewportChange);
+      this.onViewportChange();
       this.unsubscribe = window.FoxTheme?.pubsub?.subscribe(
         FoxTheme.pubsub.PUB_SUB_EVENTS.cartUpdate,
         this.onCartUpdate
@@ -126,10 +131,30 @@
       this.removeEventListener('change', this.onQuantityChange);
       document.removeEventListener('spx:cart-added', this.onProductAdded);
       document.removeEventListener('cart:refresh', this.onCartRefresh);
+      this.viewport?.removeEventListener('resize', this.onViewportChange);
+      this.viewport?.removeEventListener('scroll', this.onViewportChange);
+      window.cancelAnimationFrame(this.viewportFrame);
+      this.viewportFrame = null;
+      this.style.removeProperty('--source-cart-drawer-viewport-height');
+      this.removeAttribute('data-source-cart-compact-height');
       this.unsubscribe?.();
     }
 
     get requiresBodyAppended() { return false; }
+
+    onViewportChange() {
+      if (this.viewportFrame) return;
+
+      this.viewportFrame = window.requestAnimationFrame(() => {
+        this.viewportFrame = null;
+        const viewportHeight = window.visualViewport?.height;
+        if (!Number.isFinite(viewportHeight) || viewportHeight <= 0) return;
+
+        this.style.setProperty('--source-cart-drawer-viewport-height', `${Math.round(viewportHeight)}px`);
+        const isLandscape = window.matchMedia?.('(orientation: landscape)').matches;
+        this.toggleAttribute('data-source-cart-compact-height', viewportHeight <= 440 || (isLandscape && viewportHeight <= 520));
+      });
+    }
 
     show(focusElement = null, animate = true) {
       this.refreshCart();
