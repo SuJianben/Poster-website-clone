@@ -9,7 +9,7 @@
     overflow: hidden;
   }
 
-  #MenuDrawer.source-menu-drawer-open > .fixed-overlay {
+  #MenuDrawer > .fixed-overlay {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -17,7 +17,13 @@
     opacity: 0;
     pointer-events: none;
     background: transparent;
-    transition: opacity 0.9s cubic-bezier(.3, 1, .3, 1);
+    transition: opacity 0.78s cubic-bezier(.22, 1, .36, 1);
+  }
+
+  #MenuDrawer .drawer__inner {
+    backface-visibility: hidden;
+    transition: transform 0.78s cubic-bezier(.22, 1, .36, 1);
+    will-change: transform;
   }
 
   #MenuDrawer.source-menu-drawer-open .drawer__inner {
@@ -30,8 +36,6 @@
     background: rgb(var(--color-background, 255, 255, 255));
     box-shadow: none;
     transform: translate3d(0, 0, 0) !important;
-    transition: transform 0.9s cubic-bezier(.3, 1, .3, 1);
-    will-change: transform;
   }
 
   #MenuDrawer:not(.source-menu-drawer-open) .drawer__inner {
@@ -43,7 +47,7 @@
   }
 
   body.source-menu-drawer-active .shopify-section-group-header-group .section--scrolling-promotion {
-    display: none !important;
+    visibility: hidden !important;
   }
 
   .source-menu-drawer__close-icon {
