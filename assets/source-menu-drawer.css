@@ -41,6 +41,10 @@
     overflow: hidden;
   }
 
+  body.source-menu-drawer-active .shopify-section-group-header-group .section--scrolling-promotion {
+    display: none !important;
+  }
+
   .source-menu-drawer__close-icon {
     height: 18px;
     pointer-events: none;
