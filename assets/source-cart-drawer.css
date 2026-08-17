@@ -734,25 +734,33 @@ cart-drawer[hidden] {
   }
 }
 
-/* Keep the cart quantity in the mobile drawer header as plain heading text. */
-@media (max-width: 767px) {
-  .cart-drawer .cart-count--drawer-heading {
-    background: transparent !important;
-    border: 0 !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    color: inherit !important;
-    display: inline !important;
-    font: inherit !important;
-    height: auto !important;
-    line-height: inherit !important;
-    margin: 0 !important;
-    min-height: 0 !important;
-    min-width: 0 !important;
-    padding: 0 !important;
-    position: static !important;
-    transform: none !important;
-    vertical-align: baseline;
-    width: auto !important;
-  }
+/* Keep the drawer quantity as heading text at every responsive breakpoint. */
+.cart-drawer .drawer__heading > .cart-count--drawer-heading {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  color: inherit !important;
+  display: inline !important;
+  font: inherit !important;
+  height: auto !important;
+  line-height: inherit !important;
+  margin: 0 !important;
+  min-height: 0 !important;
+  min-width: 0 !important;
+  padding: 0 !important;
+  position: static !important;
+  transform: none !important;
+  vertical-align: baseline;
+  width: auto !important;
+}
+
+.cart-drawer .drawer__heading > .cart-count--drawer-heading::before,
+.cart-drawer .drawer__heading > .cart-count--drawer-heading::after {
+  content: none !important;
+  display: none !important;
+}
+
+.cart-drawer .drawer__heading > .cart-count--drawer-heading[hidden] {
+  display: none !important;
 }
