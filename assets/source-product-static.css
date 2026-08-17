@@ -114,10 +114,13 @@
 .spx-product__variant-picker > .spx-product__option-group { order:var(--spx-option-order,10); }
 .spx-product__linked-materials { --spx-option-order:1; }
 .spx-product__size-group p { display:flex; align-items:center; flex-wrap:wrap; gap:7px; }
-.spx-product__size-tools { display:inline-flex; align-items:center; margin-left:auto; }
-.spx-product .spx-product__size-tools > button { display:inline-flex; width:27px; min-width:27px; min-height:0; height:27px; align-items:center; justify-content:center; padding:0; border:1px solid #c2c2c2; border-radius:5px; background:#fff; box-shadow:0 1px 2px rgba(0,0,0,.05); color:#333; cursor:pointer; }
+.spx-product__size-tools { display:inline-flex; align-items:center; gap:5px; margin-left:auto; }
+.spx-product .spx-product__size-tools > button { display:inline-flex; min-height:0; height:24px; align-items:center; gap:6px; padding:2px 10px; border:1px solid #c2c2c2; border-radius:4px; background:#fff; box-shadow:0 1px 2px rgba(0,0,0,.05); color:#333; font-size:11px; font-weight:700; line-height:1; cursor:pointer; }
 .spx-product .spx-product__size-tools > button:hover { border-color:#000; color:#000; }
-.spx-product__size-tools > button svg { width:15px; height:15px; fill:none; stroke:currentColor; stroke-linecap:round; stroke-linejoin:round; stroke-width:2; }
+.spx-product__size-tools > button svg { width:16px; height:16px; fill:none; stroke:currentColor; stroke-linecap:round; stroke-linejoin:round; stroke-width:2; }
+.spx-product__unit-toggle { display:inline-flex; height:20px; align-items:center; gap:2px; padding:1px; border:1px solid #eaeaea; border-radius:4px; background:#f4f4f4; }
+.spx-product .spx-product__unit-toggle button { display:flex; min-height:0; height:16px; align-items:center; justify-content:center; padding:0 8px; border:0; border-radius:3px; background:transparent; color:#888; font-size:11px; font-weight:800; line-height:1.1; cursor:pointer; }
+.spx-product .spx-product__unit-toggle button.is-selected { background:#000; box-shadow:0 1px 2px rgba(0,0,0,.15); color:#fff; }
 .spx-product__option-group strong { color:#111; }
 .spx-product__option-row, .spx-product__option-grid { display:flex; flex-wrap:wrap; gap:10px; }
 .spx-product__option-row button, .spx-product__option-grid button { min-height:42px; padding:8px 14px; border:1px solid #c9c9c9; border-radius:0; background:#fff; color:#333; font-size:14px; font-weight:700; cursor:pointer; }
@@ -352,8 +355,10 @@
     min-height: 42px;
     font-size: 13px;
   }
-  .spx-product__size-tools { margin-right: 14px; }
-  .spx-product .spx-product__size-tools > button { width:26px; min-width:26px; height:26px; }
+  .spx-product__size-tools { gap:0; margin-right:14px; }
+  .spx-product .spx-product__size-tools > button { width:26px; min-width:26px; height:26px; padding:0; border-radius:5px; }
+  .spx-product__size-tools > button span,
+  .spx-product__unit-toggle { display:none; }
   .spx-product__size-tools > button svg { width:14px; height:14px; }
   .spx-product .spx-product__cart-button {
     height: 48px;

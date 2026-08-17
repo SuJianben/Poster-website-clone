@@ -149,8 +149,13 @@
                   {% if block.settings.show_size_guide %}
                     <button type="button" data-spx-size-guide aria-haspopup="dialog" aria-label="{{ block.settings.size_guide_label | default: 'Size guide' }}" title="{{ block.settings.size_guide_label | default: 'Size guide' }}">
                       <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 6v4m4-4v4m4-4v4m4-4v4"/></svg>
+                      <span>{{ block.settings.size_guide_label }}</span>
                     </button>
                   {% endif %}
+                  <span class="spx-product__unit-toggle" role="group" aria-label="Size unit">
+                    <button type="button" data-spx-size-unit="cm" aria-pressed="false" data-analytics-event="product_size_unit_change">CM</button>
+                    <button type="button" class="is-selected" data-spx-size-unit="in" aria-pressed="true" data-analytics-event="product_size_unit_change">IN</button>
+                  </span>
                 </span>
               {% endif %}
             </p>

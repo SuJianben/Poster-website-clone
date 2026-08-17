@@ -1,6 +1,7 @@
-{% comment %} Source product viewport render revision: compact-size-guide {% endcomment %}
+{% comment %} Source product viewport render revision: 2026-08-11 native-variant-unit-toggle {% endcomment %}
 {{ 'source-product-static.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'source-product-static.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'source-product-unit-toggle.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'source-product-add-to-cart.js' | asset_url }}" defer="defer"></script>
 {% render 'source-product-save-water-core', section: section, product: product %}
 

@@ -113,3 +113,11 @@
   .sprv .sprv__heading{width:100%;font:700 20px/25px Helvetica,Arial,sans-serif}
 }
 
+/* Mobile pagination keeps the page controls compact while arrows retain full navigation. */
+@media(max-width:749px){
+  .sprv .sprv__pagination{justify-content:center;gap:6px;margin:32px 0 20px;padding:0;overflow:visible}
+  .sprv .sprv__pagination button{width:26px;height:28px;flex:0 0 26px}
+  .sprv .sprv__pagination button[hidden]{display:none!important}
+  .sprv .sprv__pagination button:disabled{color:#aaa;cursor:default}
+}
+

@@ -12,6 +12,8 @@
     const filterMenu = root.querySelector('[data-sprv-filter-menu]');
     const cards = root.querySelector('[data-sprv-cards]');
     const carouselProgress = root.querySelector('[data-sprv-carousel-progress]');
+    const pageButtons = [...root.querySelectorAll('[data-sprv-page]')];
+    const totalPages = 10;
     let currentPage = 1;
     let activeFilter = filterButton?.dataset.sprvFilter || 'photos';
 
@@ -108,6 +110,38 @@
     window.addEventListener('resize', updateReviewExpanders);
     window.requestAnimationFrame(updateReviewExpanders);
 
+    const updatePagination = () => {
+      const compactPagination = window.matchMedia('(max-width: 749px)').matches;
+      let firstVisiblePage = Math.max(1, currentPage - 1);
+      let lastVisiblePage = Math.min(totalPages, currentPage + 1);
+      if (currentPage <= 2) {
+        firstVisiblePage = 1;
+        lastVisiblePage = Math.min(totalPages, 3);
+      } else if (currentPage >= totalPages - 1) {
+        firstVisiblePage = Math.max(1, totalPages - 2);
+        lastVisiblePage = totalPages;
+      }
+
+      pageButtons.forEach((item) => {
+        const page = Number(item.dataset.sprvPage);
+        if (Number.isNaN(page)) {
+          item.hidden = false;
+          item.disabled = compactPagination && (item.dataset.sprvPage === 'previous'
+            ? currentPage === 1
+            : currentPage === totalPages);
+          return;
+        }
+
+        const active = page === currentPage;
+        item.classList.toggle('is-active', active);
+        if (active) item.setAttribute('aria-current', 'page');
+        else item.removeAttribute('aria-current');
+        item.hidden = compactPagination && (page < firstVisiblePage || page > lastVisiblePage);
+      });
+    };
+
+    window.addEventListener('resize', updatePagination);
+
     filterButton?.addEventListener('click', () => {
       const isOpen = filterButton.getAttribute('aria-expanded') === 'true';
       filterButton.setAttribute('aria-expanded', String(!isOpen));
@@ -130,16 +164,12 @@
       }
     });
 
-    root.querySelectorAll('[data-sprv-page]').forEach((button) => button.addEventListener('click', () => {
+    pageButtons.forEach((button) => button.addEventListener('click', () => {
       const value = button.dataset.sprvPage;
       if (value === 'previous') currentPage = Math.max(1, currentPage - 1);
-      else if (value === 'next') currentPage = Math.min(10, currentPage + 1);
+      else if (value === 'next') currentPage = Math.min(totalPages, currentPage + 1);
       else currentPage = Number(value);
-      root.querySelectorAll('[data-sprv-page]').forEach((item) => {
-        const active = Number(item.dataset.sprvPage) === currentPage;
-        item.classList.toggle('is-active', active);
-        if (active) item.setAttribute('aria-current', 'page'); else item.removeAttribute('aria-current');
-      });
+      updatePagination();
       cards?.classList.add('is-loading');
       window.setTimeout(() => cards?.classList.remove('is-loading'), 180);
       emit(root, 'source_product_review_page', { page: currentPage });
@@ -154,6 +184,7 @@
       emit(root, 'source_product_review_helpful', { vote: button.dataset.sprvHelpful });
     }));
 
+    updatePagination();
     applyFilter(activeFilter, filterButton?.textContent.trim(), false);
     root.querySelector('[data-sprv-write]')?.addEventListener('click', () => emit(root, 'source_product_review_write_click'));
   });
