@@ -79,10 +79,14 @@
     updateTriggerState(drawer, false);
     getTriggers(drawer).forEach((button) => {
       button.setAttribute('type', 'button');
-      button.addEventListener('click', () => {
+      button.addEventListener('click', (event) => {
+        // The bundled theme also listens for this click. Handle it first so it
+        // cannot open a competing drawer state without the active body class.
+        event.preventDefault();
+        event.stopImmediatePropagation();
         if (drawer.hidden) openDrawer(drawer);
         else closeDrawer(drawer);
-      });
+      }, true);
     });
 
     drawer.querySelector('.fixed-overlay')?.addEventListener('click', () => closeDrawer(drawer));
