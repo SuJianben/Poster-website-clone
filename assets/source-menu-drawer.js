@@ -1,7 +1,7 @@
 (() => {
   const DRAWER_SELECTOR = '#MenuDrawer';
   const OPEN_CLASS = 'source-menu-drawer-open';
-  const CLOSE_DELAY = 340;
+  const CLOSE_DELAY = 740;
   const CLOSE_ICON = '<svg class="source-menu-drawer__close-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M18.75 5.25 5.25 18.75M18.75 18.75 5.25 5.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>';
 
   const getTriggers = (drawer) => [...document.querySelectorAll('.menu-drawer-button')]
