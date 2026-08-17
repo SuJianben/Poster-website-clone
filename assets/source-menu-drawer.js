@@ -3,16 +3,40 @@
   const OPEN_CLASS = 'source-menu-drawer-open';
   const HOST_OPEN_CLASS = 'source-menu-drawer-host-active';
   const CLOSE_DELAY = 340;
+  const CLOSE_ICON = '<svg class="source-menu-drawer__close-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M18.75 5.25 5.25 18.75M18.75 18.75 5.25 5.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>';
 
   const getTriggers = (drawer) => [...document.querySelectorAll('.menu-drawer-button')]
     .filter((button) => button.getAttribute('aria-controls') === drawer.id);
 
   const getHostHeader = (drawer) => drawer.closest('header');
 
+  const ensureAnnouncement = (drawer) => {
+    const header = getHostHeader(drawer);
+    if (!header) return null;
+
+    let announcement = header.querySelector(':scope > .source-menu-drawer__announcement');
+    if (announcement) return announcement;
+
+    announcement = document.createElement('div');
+    announcement.className = 'source-menu-drawer__announcement';
+    announcement.setAttribute('aria-label', 'Versandhinweis');
+    announcement.innerHTML = '<span class="source-menu-drawer__announcement-badge">Neu</span><span>Kostenloser Versand ab 49&euro;</span>';
+    header.prepend(announcement);
+    return announcement;
+  };
+
   const syncHeaderHeight = (drawer) => {
-    const headerTop = getHostHeader(drawer)?.querySelector('.header__top');
-    const height = Math.ceil(headerTop?.getBoundingClientRect().height || 56);
-    drawer.style.setProperty('--source-menu-drawer-header-height', `${height}px`);
+    const header = getHostHeader(drawer);
+    const announcement = ensureAnnouncement(drawer);
+    const headerTop = header?.querySelector('.header__top');
+    const announcementHeight = Math.ceil(announcement?.getBoundingClientRect().height || 28);
+    const headerHeight = Math.ceil(headerTop?.getBoundingClientRect().height || 56);
+
+    header?.style.setProperty('--source-menu-drawer-announcement-height', `${announcementHeight}px`);
+    drawer.style.setProperty(
+      '--source-menu-drawer-header-height',
+      `${announcementHeight + headerHeight}px`
+    );
   };
 
   const updateTriggerState = (drawer, isOpen) => {
@@ -20,7 +44,11 @@
       if (!button.dataset.sourceMenuDrawerDefaultLabel) {
         button.dataset.sourceMenuDrawerDefaultLabel = button.getAttribute('aria-label') || 'Menu';
       }
+      if (!button.dataset.sourceMenuDrawerDefaultMarkup) {
+        button.dataset.sourceMenuDrawerDefaultMarkup = button.innerHTML;
+      }
       button.classList.toggle('source-menu-drawer-toggle-active', isOpen);
+      button.innerHTML = isOpen ? CLOSE_ICON : button.dataset.sourceMenuDrawerDefaultMarkup;
       button.setAttribute('aria-expanded', String(isOpen));
       button.setAttribute(
         'aria-label',
@@ -31,8 +59,10 @@
 
   const updateHostState = (drawer, isOpen) => {
     const header = getHostHeader(drawer);
+    if (isOpen) ensureAnnouncement(drawer);
     header?.classList.toggle(HOST_OPEN_CLASS, isOpen);
     if (isOpen) syncHeaderHeight(drawer);
+    else header?.style.removeProperty('--source-menu-drawer-announcement-height');
     updateTriggerState(drawer, isOpen);
   };
 
