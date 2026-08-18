@@ -3,6 +3,8 @@
   document.documentElement.classList.add('js');
 
   const PANEL_SELECTOR = '.tabs__panel.featured-collection__content';
+  const MOBILE_BESTSELLERS_SELECTOR = '[data-mobile-bestsellers]';
+  const mobileBreakpoint = window.matchMedia('(max-width: 767.98px)');
 
   function cardsFor(panel) {
     return Array.from(panel.querySelectorAll('.featured-collection__items > .f-column'));
@@ -77,7 +79,6 @@
     panel.querySelectorAll('img').forEach((image) => {
       image.addEventListener('load', () => syncPromotionCardHeight(panel), { once: true });
     });
-    window.addEventListener('resize', () => syncPromotionCardHeight(panel));
   }
 
   function panelFromTemplate(container, index) {
@@ -87,17 +88,71 @@
     return fragment.querySelector(PANEL_SELECTOR);
   }
 
+  function descendantsOrSelf(container, selector) {
+    const elements = [];
+    if (container instanceof Element && container.matches(selector)) elements.push(container);
+    elements.push(...container.querySelectorAll(selector));
+    return elements;
+  }
+
+  function syncBestsellerEditorMarkers(container = document) {
+    const desktopTabs = descendantsOrSelf(container, '[data-source-bestsellers-desktop-block]');
+    const sectionRoots = new Set(
+      desktopTabs.map((tab) => tab.closest('.shopify-section')).filter(Boolean)
+    );
+
+    sectionRoots.forEach((sectionRoot) => {
+      const desktopTabsInSection = Array.from(
+        sectionRoot.querySelectorAll('[data-source-bestsellers-desktop-block]')
+      );
+      const mobileTabsInSection = Array.from(
+        sectionRoot.querySelectorAll('[data-source-bestsellers-mobile-block]')
+      );
+
+      desktopTabsInSection.forEach((desktopTab) => {
+        const blockId = desktopTab.dataset.sourceBestsellersDesktopBlock;
+        const mobileTab = mobileTabsInSection.find(
+          (tab) => tab.dataset.sourceBestsellersMobileBlock === blockId
+        );
+        if (!mobileTab) return;
+
+        const editorMarker =
+          desktopTab.dataset.sourceBestsellersEditorMarker ||
+          desktopTab.getAttribute('data-shopify-editor-block') ||
+          mobileTab.getAttribute('data-shopify-editor-block');
+        if (!editorMarker) return;
+
+        desktopTab.dataset.sourceBestsellersEditorMarker = editorMarker;
+        desktopTab.removeAttribute('data-shopify-editor-block');
+        mobileTab.removeAttribute('data-shopify-editor-block');
+        (mobileBreakpoint.matches ? mobileTab : desktopTab).setAttribute(
+          'data-shopify-editor-block',
+          editorMarker
+        );
+      });
+    });
+  }
+
   function init(tabRoot) {
+    if (tabRoot.dataset.sourceTabsReady === 'true') return;
+
     const tabs = Array.from(tabRoot.querySelectorAll('.tabs__btn[data-index]'));
     const panels = tabRoot.querySelector('.tabs__panels');
     if (!tabs.length || !panels) return;
 
-    tabRoot.classList.add('source-tabs-ready');
+    const sectionRoot = tabRoot.closest('.shopify-section');
+    const abortController = new AbortController();
+    const { signal } = abortController;
+
     let currentPanel = panels.querySelector(PANEL_SELECTOR);
+    if (!currentPanel) return;
+
+    tabRoot.dataset.sourceTabsReady = 'true';
+    tabRoot.classList.add('source-tabs-ready');
     const panelCache = new Map([[currentPanel.dataset.index, currentPanel]]);
     bindPager(currentPanel);
 
-    const activate = (index) => {
+    const activate = (index, shouldAnimate = true) => {
       if (currentPanel?.dataset.index !== index) {
         let replacement = panelCache.get(index);
         if (!replacement) {
@@ -118,13 +173,134 @@
         tab.setAttribute('aria-selected', String(active));
       });
       setPage(currentPanel, 0);
-      animateTabPanel(currentPanel);
+      if (shouldAnimate) animateTabPanel(currentPanel);
     };
 
-    tabs.forEach((tab) => tab.addEventListener('click', () => activate(tab.dataset.index)));
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => activate(tab.dataset.index), { signal });
+    });
+
+    window.addEventListener('resize', () => syncPromotionCardHeight(currentPanel), { signal });
+    sectionRoot?.addEventListener(
+      'shopify:block:select',
+      (event) => {
+        if (mobileBreakpoint.matches) return;
+
+        const blockId = event.detail?.blockId;
+        const tab = tabs.find(
+          (candidate) => candidate.dataset.sourceBestsellersDesktopBlock === blockId
+        );
+        if (tab) activate(tab.dataset.index, false);
+      },
+      { signal }
+    );
+    sectionRoot?.addEventListener('shopify:section:unload', () => abortController.abort(), {
+      once: true
+    });
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('[is="product-tabs"]').forEach(init);
-  });
+  function initMobileBestsellers(container = document) {
+    descendantsOrSelf(container, MOBILE_BESTSELLERS_SELECTOR).forEach((mobileSection) => {
+      if (mobileSection.dataset.sourceMobileBestsellersReady === 'true') return;
+
+      const tabs = Array.from(mobileSection.querySelectorAll('[data-mobile-tab]'));
+      const panels = Array.from(mobileSection.querySelectorAll('[data-mobile-panel]'));
+      if (!tabs.length || !panels.length) return;
+
+      const sectionRoot = mobileSection.closest('.shopify-section');
+      const abortController = new AbortController();
+      const { signal } = abortController;
+      mobileSection.dataset.sourceMobileBestsellersReady = 'true';
+
+      const syncProgress = (panel) => {
+        const track = panel.querySelector('.source-mobile-bestsellers__track');
+        const indicator = panel.querySelector('.source-mobile-bestsellers__progress span');
+        if (!track || !indicator) return;
+
+        const maxScroll = Math.max(track.scrollWidth - track.clientWidth, 0);
+        const progress = maxScroll ? track.scrollLeft / maxScroll : 0;
+        indicator.style.width = `${18 + progress * 82}%`;
+        indicator.style.transform = 'none';
+      };
+
+      const activate = (index, shouldAnimate = true) => {
+        tabs.forEach((tab) => {
+          const active = tab.dataset.mobileTab === index;
+          tab.classList.toggle('is-active', active);
+          tab.setAttribute('aria-selected', String(active));
+        });
+
+        panels.forEach((panel) => {
+          const active = panel.dataset.mobilePanel === index;
+          panel.classList.toggle('is-active', active);
+          if (!active) return;
+
+          if (shouldAnimate) {
+            panel.classList.remove('source-mobile-bestsellers__panel--entering');
+            void panel.offsetWidth;
+            panel.classList.add('source-mobile-bestsellers__panel--entering');
+          } else {
+            panel.classList.remove('source-mobile-bestsellers__panel--entering');
+          }
+
+          requestAnimationFrame(() => syncProgress(panel));
+        });
+      };
+
+      panels.forEach((panel) => {
+        const track = panel.querySelector('.source-mobile-bestsellers__track');
+        if (!track) return;
+        track.addEventListener('scroll', () => syncProgress(panel), { passive: true, signal });
+        requestAnimationFrame(() => syncProgress(panel));
+      });
+
+      tabs.forEach((tab) => {
+        tab.addEventListener('click', () => activate(tab.dataset.mobileTab), { signal });
+      });
+
+      window.addEventListener(
+        'resize',
+        () => panels.forEach((panel) => syncProgress(panel)),
+        { signal }
+      );
+      sectionRoot?.addEventListener(
+        'shopify:block:select',
+        (event) => {
+          if (!mobileBreakpoint.matches) return;
+
+          const blockId = event.detail?.blockId;
+          const tab = tabs.find(
+            (candidate) => candidate.dataset.sourceBestsellersMobileBlock === blockId
+          );
+          if (tab) {
+            activate(tab.dataset.mobileTab, false);
+            tab.scrollIntoView({ block: 'nearest', inline: 'center' });
+          }
+        },
+        { signal }
+      );
+      sectionRoot?.addEventListener('shopify:section:unload', () => abortController.abort(), {
+        once: true
+      });
+    });
+  }
+
+  function initAll(container = document) {
+    descendantsOrSelf(container, '[is="product-tabs"]').forEach(init);
+    initMobileBestsellers(container);
+    syncBestsellerEditorMarkers(container);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => initAll());
+  } else {
+    initAll();
+  }
+
+  document.addEventListener('shopify:section:load', (event) => initAll(event.target));
+  if (mobileBreakpoint.addEventListener) {
+    mobileBreakpoint.addEventListener('change', () => syncBestsellerEditorMarkers());
+  } else {
+    mobileBreakpoint.addListener(() => syncBestsellerEditorMarkers());
+  }
 })();

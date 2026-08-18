@@ -14,7 +14,7 @@
             <div class="tabs-nav swipe-mobile swipe-mobile--auto-cols no-js-hidden"><div class="tabs-nav__inner flex flex-wrap md:justify-center swipe-mobile__inner" role="tablist">
               {% for block in section.blocks %}
                 {% assign tab_label = block.settings.label | default: block.settings.collection.title %}
-                <button class="tabs__btn focus-inset btn btn--underline{% if forloop.first %} active{% endif %}" role="tab" data-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>{{ tab_label }}</button>
+                <button class="tabs__btn focus-inset btn btn--underline{% if forloop.first %} active{% endif %}" role="tab" data-index="{{ forloop.index0 }}" data-source-bestsellers-desktop-block="{{ block.id }}" {{ block.shopify_attributes }}>{{ tab_label }}</button>
               {% endfor %}
             </div></div>
           </motion-element>
@@ -53,7 +53,7 @@
       <div class="source-mobile-bestsellers__tabs" role="tablist">
         {% for block in section.blocks %}
           {% assign tab_label = block.settings.label | default: block.settings.collection.title %}
-          <button class="source-mobile-bestsellers__tab{% if forloop.first %} is-active{% endif %}" type="button" data-mobile-tab="{{ forloop.index0 }}" role="tab" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">{{ tab_label }}</button>
+          <button class="source-mobile-bestsellers__tab{% if forloop.first %} is-active{% endif %}" type="button" data-mobile-tab="{{ forloop.index0 }}" data-source-bestsellers-mobile-block="{{ block.id }}" role="tab" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">{{ tab_label }}</button>
         {% endfor %}
       </div>
     </header>
@@ -340,48 +340,3 @@
     }
   }
 </style>
-<script>
-  (() => {
-    document.querySelectorAll('[data-mobile-bestsellers]').forEach((section) => {
-      const syncProgress = (panel) => {
-        const track = panel.querySelector('.source-mobile-bestsellers__track');
-        const indicator = panel.querySelector('.source-mobile-bestsellers__progress span');
-        if (!track || !indicator) return;
-
-        const maxScroll = Math.max(track.scrollWidth - track.clientWidth, 0);
-        const progress = maxScroll ? track.scrollLeft / maxScroll : 0;
-        indicator.style.width = `${18 + progress * 82}%`;
-        indicator.style.transform = 'none';
-      };
-
-      section.querySelectorAll('[data-mobile-panel]').forEach((panel) => {
-        const track = panel.querySelector('.source-mobile-bestsellers__track');
-        if (!track) return;
-        track.addEventListener('scroll', () => syncProgress(panel), { passive: true });
-        window.addEventListener('resize', () => syncProgress(panel));
-        requestAnimationFrame(() => syncProgress(panel));
-      });
-
-      section.querySelectorAll('[data-mobile-tab]').forEach((tab) => {
-        tab.addEventListener('click', () => {
-          const index = tab.dataset.mobileTab;
-          section.querySelectorAll('[data-mobile-tab]').forEach((item) => {
-            const active = item === tab;
-            item.classList.toggle('is-active', active);
-            item.setAttribute('aria-selected', String(active));
-          });
-          section.querySelectorAll('[data-mobile-panel]').forEach((panel) => {
-            const active = panel.dataset.mobilePanel === index;
-            panel.classList.toggle('is-active', active);
-            if (active) {
-              panel.classList.remove('source-mobile-bestsellers__panel--entering');
-              void panel.offsetWidth;
-              panel.classList.add('source-mobile-bestsellers__panel--entering');
-              requestAnimationFrame(() => syncProgress(panel));
-            }
-          });
-        });
-      });
-    });
-  })();
-</script>
