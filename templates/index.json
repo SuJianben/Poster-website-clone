@@ -102,6 +102,7 @@
           "type": "collection_tab",
           "settings": {
             "collection": "all",
+            "custom_link": "",
             "label": "Trending",
             "promo_heading": "",
             "promo_button_label": "",
@@ -112,6 +113,7 @@
           "type": "collection_tab",
           "settings": {
             "collection": "urban-posters",
+            "custom_link": "",
             "label": "Bestseller",
             "promo_heading": "",
             "promo_button_label": "",
@@ -122,6 +124,7 @@
           "type": "collection_tab",
           "settings": {
             "collection": "time-series-posters",
+            "custom_link": "",
             "label": "Personalisierbar",
             "promo_heading": "",
             "promo_button_label": "",
@@ -132,6 +135,7 @@
           "type": "collection_tab",
           "settings": {
             "collection": "still-life-posters",
+            "custom_link": "",
             "label": "Leinwand",
             "promo_heading": "",
             "promo_button_label": "",
@@ -142,6 +146,7 @@
           "type": "collection_tab",
           "settings": {
             "collection": "urban-posters",
+            "custom_link": "",
             "label": "Acrylglas",
             "promo_heading": "",
             "promo_button_label": "",
@@ -152,6 +157,7 @@
           "type": "collection_tab",
           "settings": {
             "collection": "still-life-posters",
+            "custom_link": "",
             "label": "Poster",
             "promo_heading": "",
             "promo_button_label": "",
@@ -162,6 +168,7 @@
           "type": "collection_tab",
           "settings": {
             "collection": "abstract-posters",
+            "custom_link": "",
             "label": "Abstrakt",
             "promo_heading": "",
             "promo_button_label": "",
