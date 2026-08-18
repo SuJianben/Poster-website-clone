@@ -15,15 +15,15 @@
 {% endif %}
 {% schema %}
 {
-  "name": "Newsletter",
+  "name": "邮件订阅",
   "settings": [
-    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true },
-    { "type": "text", "id": "heading", "label": "Heading override" },
-    { "type": "text", "id": "subheading", "label": "Subheading override" },
-    { "type": "text", "id": "email_placeholder", "label": "Email placeholder override" },
-    { "type": "text", "id": "button_label", "label": "Button label override" },
-    { "type": "text", "id": "success_message", "label": "Success message override" }
+    { "type": "checkbox", "id": "enabled", "label": "显示模块", "default": true },
+    { "type": "text", "id": "heading", "label": "主标题（覆盖默认）" },
+    { "type": "text", "id": "subheading", "label": "副标题（覆盖默认）" },
+    { "type": "text", "id": "email_placeholder", "label": "邮箱输入提示（覆盖默认）" },
+    { "type": "text", "id": "button_label", "label": "按钮文字（覆盖默认）" },
+    { "type": "text", "id": "success_message", "label": "成功提示（覆盖默认）" }
   ],
-  "presets": [{ "name": "Newsletter" }]
+  "presets": [{ "name": "邮件订阅" }]
 }
 {% endschema %}

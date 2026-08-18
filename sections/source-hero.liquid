@@ -6,18 +6,18 @@
 {% endif %}
 {% schema %}
 {
-  "name": "Hero with product",
+  "name": "商品主视觉",
   "settings": [
-    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true },
-    { "type": "image_picker", "id": "desktop_image", "label": "Desktop image" },
-    { "type": "image_picker", "id": "mobile_image", "label": "Mobile image" },
-    { "type": "url", "id": "link", "label": "Hero link" },
-    { "type": "text", "id": "link_label", "label": "Hero link label" },
-    { "type": "product", "id": "product", "label": "Featured product" },
-    { "type": "text", "id": "primary_badge", "label": "First product badge", "default": "Trending" },
-    { "type": "text", "id": "secondary_badge", "label": "Second product badge", "default": "Limited Edition" },
-    { "type": "text", "id": "price_prefix", "label": "Price prefix", "default": "Ab" }
+    { "type": "checkbox", "id": "enabled", "label": "显示模块", "default": true },
+    { "type": "image_picker", "id": "desktop_image", "label": "桌面端图片" },
+    { "type": "image_picker", "id": "mobile_image", "label": "移动端图片" },
+    { "type": "url", "id": "link", "label": "主视觉链接" },
+    { "type": "text", "id": "link_label", "label": "主视觉链接文字" },
+    { "type": "product", "id": "product", "label": "推荐商品" },
+    { "type": "text", "id": "primary_badge", "label": "商品标签一", "default": "Trending" },
+    { "type": "text", "id": "secondary_badge", "label": "商品标签二", "default": "Limited Edition" },
+    { "type": "text", "id": "price_prefix", "label": "价格前缀", "default": "Ab" }
   ],
-  "presets": [{ "name": "Hero with product" }]
+  "presets": [{ "name": "商品主视觉" }]
 }
 {% endschema %}

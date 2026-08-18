@@ -7,135 +7,135 @@
 
 {% schema %}
 {
-  "name": "Save Water viewport",
+  "name": "商品主信息",
   "settings": [],
   "max_blocks": 12,
   "blocks": [
     {
       "type": "top_badge",
-      "name": "Top badge",
+      "name": "顶部标签",
       "limit": 1,
       "settings": [
-        { "type": "text", "id": "text", "label": "Text", "default": "Trending" }
+        { "type": "text", "id": "text", "label": "文案", "default": "Trending" }
       ]
     },
     {
       "type": "brand_banner",
-      "name": "Brand banner",
+      "name": "品牌提示栏",
       "limit": 1,
       "settings": [
-        { "type": "text", "id": "text", "label": "Supporting text", "default": "und 60.000+ Kunden lieben unsere Premium Wandbilder." }
+        { "type": "text", "id": "text", "label": "辅助说明", "default": "und 60.000+ Kunden lieben unsere Premium Wandbilder." }
       ]
     },
     {
       "type": "reviews",
-      "name": "Reviews",
+      "name": "商品评价",
       "limit": 1,
       "settings": [
-        { "type": "text", "id": "count", "label": "Review count", "default": "2,861" },
-        { "type": "text", "id": "label", "label": "Label", "default": "Verifizierte Bewertungen" }
+        { "type": "text", "id": "count", "label": "评价数量", "default": "2,861" },
+        { "type": "text", "id": "label", "label": "标签文字", "default": "Verifizierte Bewertungen" }
       ]
     },
     {
       "type": "title",
-      "name": "Title",
+      "name": "商品标题",
       "limit": 1,
       "settings": [
-        { "type": "checkbox", "id": "use_product_title", "label": "Use product title", "default": false },
-        { "type": "text", "id": "heading", "label": "Fallback title", "default": "Save Water - Poster" }
+        { "type": "checkbox", "id": "use_product_title", "label": "使用商品标题", "default": false },
+        { "type": "text", "id": "heading", "label": "备用标题", "default": "Save Water - Poster" }
       ]
     },
     {
       "type": "artist",
-      "name": "Artist",
+      "name": "艺术家信息",
       "limit": 1,
       "settings": [
-        { "type": "text", "id": "label", "label": "Label", "default": "Künstler:" },
-        { "type": "checkbox", "id": "use_product_vendor", "label": "Use product vendor", "default": false },
-        { "type": "text", "id": "name", "label": "Fallback artist", "default": "Sabrina Seck" },
-        { "type": "url", "id": "url", "label": "Artist link" },
-        { "type": "checkbox", "id": "show_atelier_badge", "label": "Show Atelier badge", "default": true },
-        { "type": "text", "id": "atelier_text", "label": "Atelier badge text", "default": "ATELIER EXCLUSIVE" }
+        { "type": "text", "id": "label", "label": "标签文字", "default": "Künstler:" },
+        { "type": "checkbox", "id": "use_product_vendor", "label": "使用商品供应商", "default": false },
+        { "type": "text", "id": "name", "label": "备用艺术家", "default": "Sabrina Seck" },
+        { "type": "url", "id": "url", "label": "艺术家链接" },
+        { "type": "checkbox", "id": "show_atelier_badge", "label": "显示工作室专属标签", "default": true },
+        { "type": "text", "id": "atelier_text", "label": "工作室专属标签文字", "default": "ATELIER EXCLUSIVE" }
       ]
     },
     {
       "type": "price",
-      "name": "Price",
+      "name": "商品价格",
       "limit": 1,
       "settings": [
-        { "type": "checkbox", "id": "use_product_price", "label": "Use product price", "default": false },
-        { "type": "text", "id": "price_text", "label": "Fallback price", "default": "$29.00" },
-        { "type": "text", "id": "shipping_text", "label": "Shipping text", "default": "Kostenloser Versand." }
+        { "type": "checkbox", "id": "use_product_price", "label": "使用商品价格", "default": false },
+        { "type": "text", "id": "price_text", "label": "备用价格", "default": "$29.00" },
+        { "type": "text", "id": "shipping_text", "label": "配送说明", "default": "Kostenloser Versand." }
       ]
     },
     {
       "type": "variant_picker",
-      "name": "Variant picker",
+      "name": "规格选择器",
       "limit": 1,
       "settings": [
         {
           "type": "select",
           "id": "picker_type",
-          "label": "Picker type",
+          "label": "选择器类型",
           "options": [
-            { "value": "button", "label": "Buttons" },
-            { "value": "dropdown", "label": "Dropdown" }
+            { "value": "button", "label": "按钮" },
+            { "value": "dropdown", "label": "下拉菜单" }
           ],
           "default": "button"
         },
-        { "type": "checkbox", "id": "show_size_guide", "label": "Show size guide for size options", "default": true },
-        { "type": "text", "id": "size_guide_label", "label": "Size guide label", "default": "SIZE GUIDE" },
-        { "type": "text", "id": "popular_size", "label": "Popular size value", "default": "" },
-        { "type": "text", "id": "popular_size_label", "label": "Popular size label", "default": "Bestseller" }
+        { "type": "checkbox", "id": "show_size_guide", "label": "尺寸选项显示尺码指南", "default": true },
+        { "type": "text", "id": "size_guide_label", "label": "尺码指南文字", "default": "SIZE GUIDE" },
+        { "type": "text", "id": "popular_size", "label": "热门规格值", "default": "" },
+        { "type": "text", "id": "popular_size_label", "label": "热门规格标签", "default": "Bestseller" }
       ]
     },
     {
       "type": "buy_button",
-      "name": "Buy button",
+      "name": "购买按钮",
       "limit": 1,
       "settings": [
-        { "type": "text", "id": "label", "label": "Button label", "default": "Add To Cart" },
-        { "type": "checkbox", "id": "show_hanging_kit", "label": "Show optional hanging kit", "default": false },
-        { "type": "text", "id": "hanging_kit_heading", "label": "Optional item heading", "default": "Optional" },
-        { "type": "text", "id": "hanging_kit_label", "label": "Hanging kit label", "default": "Hanging kit" },
-        { "type": "text", "id": "hanging_kit_note", "label": "Hanging kit note", "default": "" },
-        { "type": "text", "id": "hanging_kit_property_name", "label": "Cart property name", "default": "Hanging kit" },
-        { "type": "text", "id": "hanging_kit_property_value", "label": "Cart property value", "default": "Yes" },
-        { "type": "text", "id": "hanging_kit_variant_id", "label": "Optional add-on variant ID", "default": "" }
+        { "type": "text", "id": "label", "label": "按钮文字", "default": "Add To Cart" },
+        { "type": "checkbox", "id": "show_hanging_kit", "label": "显示可选挂件", "default": false },
+        { "type": "text", "id": "hanging_kit_heading", "label": "可选项目标题", "default": "Optional" },
+        { "type": "text", "id": "hanging_kit_label", "label": "挂件标签", "default": "Hanging kit" },
+        { "type": "text", "id": "hanging_kit_note", "label": "挂件说明", "default": "" },
+        { "type": "text", "id": "hanging_kit_property_name", "label": "购物车属性名称", "default": "Hanging kit" },
+        { "type": "text", "id": "hanging_kit_property_value", "label": "购物车属性值", "default": "Yes" },
+        { "type": "text", "id": "hanging_kit_variant_id", "label": "可选附加商品变体 ID", "default": "" }
       ]
     },
     {
       "type": "volume_discount",
-      "name": "Volume discount",
+      "name": "多件优惠",
       "limit": 1,
       "settings": [
-        { "type": "text", "id": "heading", "label": "Heading", "default": "🌞 SUMMER-SALE: Get more, save more! 🎉" },
-        { "type": "text", "id": "note", "label": "Supporting text", "default": "Can be combined with already discounted items!" }
+        { "type": "text", "id": "heading", "label": "标题", "default": "🌞 SUMMER-SALE: Get more, save more! 🎉" },
+        { "type": "text", "id": "note", "label": "辅助说明", "default": "Can be combined with already discounted items!" }
       ]
     },
     {
       "type": "benefits",
-      "name": "Benefits",
+      "name": "商品卖点",
       "limit": 1,
       "settings": [
-        { "type": "text", "id": "benefit_1", "label": "Benefit 1", "default": "Immediately Ready to hang" },
-        { "type": "text", "id": "benefit_2", "label": "Benefit 2", "default": "Free worldwide shipping over €49" },
-        { "type": "text", "id": "benefit_3", "label": "Benefit 3", "default": "Estimated delivery: August 15 - August 17" }
+        { "type": "text", "id": "benefit_1", "label": "卖点 1", "default": "Immediately Ready to hang" },
+        { "type": "text", "id": "benefit_2", "label": "卖点 2", "default": "Free worldwide shipping over €49" },
+        { "type": "text", "id": "benefit_3", "label": "卖点 3", "default": "Estimated delivery: August 15 - August 17" }
       ]
     },
     {
       "type": "payment_trust",
-      "name": "Payment trust",
+      "name": "支付保障",
       "limit": 1,
       "settings": [
-        { "type": "text", "id": "heading", "label": "Heading", "default": "SECURELY PACKAGED & PAID" },
-        { "type": "text", "id": "note", "label": "Supporting text", "default": "Special packaging for art galleries" }
+        { "type": "text", "id": "heading", "label": "标题", "default": "SECURELY PACKAGED & PAID" },
+        { "type": "text", "id": "note", "label": "辅助说明", "default": "Special packaging for art galleries" }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Save Water viewport",
+      "name": "商品主信息",
       "blocks": [
         { "type": "top_badge" },
         { "type": "brand_banner" },

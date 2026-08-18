@@ -22,32 +22,32 @@
 {% endif %}
 {% schema %}
 {
-  "name": "Footer icons",
+  "name": "页脚保障图标",
   "settings": [
-    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true },
-    { "type": "text", "id": "heading_prefix", "label": "Heading prefix override" },
-    { "type": "text", "id": "heading_highlight", "label": "Heading highlight override" }
+    { "type": "checkbox", "id": "enabled", "label": "显示模块", "default": true },
+    { "type": "text", "id": "heading_prefix", "label": "标题前缀（覆盖默认）" },
+    { "type": "text", "id": "heading_highlight", "label": "标题高亮文字（覆盖默认）" }
   ],
   "blocks": [
     {
       "type": "promise",
-      "name": "Promise item",
+      "name": "保障项目",
       "settings": [
-        { "type": "paragraph", "content": "Blocks are mapped to the five source promise items in order. Leave a field empty to retain the source content." },
-        { "type": "select", "id": "icon", "label": "Source icon", "default": "", "options": [
-          { "value": "", "label": "Keep source icon" },
-          { "value": "heart", "label": "Heart" },
-          { "value": "package", "label": "Package" },
-          { "value": "truck", "label": "Truck" },
-          { "value": "currency-circle-dollar", "label": "Secure payment" },
-          { "value": "smiley", "label": "Customer service" }
+        { "type": "paragraph", "content": "区块会按顺序对应参考站的五项保障内容。字段留空即可保留原内容。" },
+        { "type": "select", "id": "icon", "label": "图标", "default": "", "options": [
+          { "value": "", "label": "保留参考站图标" },
+          { "value": "heart", "label": "爱心" },
+          { "value": "package", "label": "包裹" },
+          { "value": "truck", "label": "物流" },
+          { "value": "currency-circle-dollar", "label": "安全支付" },
+          { "value": "smiley", "label": "客户服务" }
         ] },
-        { "type": "text", "id": "title", "label": "Title override" },
-        { "type": "textarea", "id": "text", "label": "Description override" }
+        { "type": "text", "id": "title", "label": "标题（覆盖默认）" },
+        { "type": "textarea", "id": "text", "label": "说明（覆盖默认）" }
       ]
     }
   ],
   "max_blocks": 5,
-  "presets": [{ "name": "Footer icons" }]
+  "presets": [{ "name": "页脚保障图标" }]
 }
 {% endschema %}

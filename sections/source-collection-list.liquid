@@ -7,25 +7,25 @@
 {% endif %}
 {% schema %}
 {
-  "name": "Collection list",
+  "name": "系列列表",
   "settings": [
-    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true },
-    { "type": "text", "id": "heading_prefix", "label": "Heading prefix", "default": "MEHR" },
-    { "type": "text", "id": "heading_highlight", "label": "Heading highlight", "default": "KOLLEKTIONEN" }
+    { "type": "checkbox", "id": "enabled", "label": "显示模块", "default": true },
+    { "type": "text", "id": "heading_prefix", "label": "标题前缀", "default": "MEHR" },
+    { "type": "text", "id": "heading_highlight", "label": "标题高亮文字", "default": "KOLLEKTIONEN" }
   ],
   "max_blocks": 7,
   "blocks": [
     {
       "type": "collection",
-      "name": "Collection card",
+      "name": "系列卡片",
       "settings": [
-        { "type": "collection", "id": "collection", "label": "Collection" },
-        { "type": "image_picker", "id": "image", "label": "Custom image (optional)" },
-        { "type": "text", "id": "image_url", "label": "External image URL (optional)" },
-        { "type": "text", "id": "label", "label": "Card label override" }
+        { "type": "collection", "id": "collection", "label": "系列" },
+        { "type": "image_picker", "id": "image", "label": "自定义图片（可选）" },
+        { "type": "text", "id": "image_url", "label": "外部图片链接（可选）" },
+        { "type": "text", "id": "label", "label": "自定义卡片标签" }
       ]
     }
   ],
-  "presets": [{ "name": "Collection list" }]
+  "presets": [{ "name": "系列列表" }]
 }
 {% endschema %}

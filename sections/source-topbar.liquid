@@ -53,14 +53,14 @@
 {% endif %}
 {% schema %}
 {
-  "name": "Top bar",
+  "name": "顶部栏",
   "settings": [
-    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true },
-    { "type": "text", "id": "left_badge", "label": "Left badge", "info": "Leave blank to use the source default." },
-    { "type": "text", "id": "left_text", "label": "Left text", "info": "Leave blank to use the source default." },
-    { "type": "text", "id": "center_badge", "label": "Center badge", "info": "Leave blank to use the source default." },
-    { "type": "text", "id": "center_text", "label": "Center text", "info": "Leave blank to use the source default." }
+    { "type": "checkbox", "id": "enabled", "label": "显示模块", "default": true },
+    { "type": "text", "id": "left_badge", "label": "左侧徽标", "info": "留空则使用参考站默认内容。" },
+    { "type": "text", "id": "left_text", "label": "左侧文字", "info": "留空则使用参考站默认内容。" },
+    { "type": "text", "id": "center_badge", "label": "中间徽标", "info": "留空则使用参考站默认内容。" },
+    { "type": "text", "id": "center_text", "label": "中间文字", "info": "留空则使用参考站默认内容。" }
   ],
-  "presets": [{ "name": "Top bar" }]
+  "presets": [{ "name": "顶部栏" }]
 }
 {% endschema %}

@@ -7,43 +7,43 @@
 {% endif %}
 {% schema %}
 {
-  "name": "Grid banner",
+  "name": "网格横幅",
   "settings": [
-    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Eindrücke und Inspiration der Community" },
-    { "type": "text", "id": "button_label", "label": "Button label", "default": "Zu Allen Bewertungen" },
-    { "type": "url", "id": "button_link", "label": "Button link" }
+    { "type": "checkbox", "id": "enabled", "label": "显示模块", "default": true },
+    { "type": "text", "id": "heading", "label": "标题", "default": "Eindrücke und Inspiration der Community" },
+    { "type": "text", "id": "button_label", "label": "按钮文字", "default": "Zu Allen Bewertungen" },
+    { "type": "url", "id": "button_link", "label": "按钮链接" }
   ],
   "blocks": [
     {
       "type": "image",
-      "name": "Grid image",
+      "name": "网格图片",
       "settings": [
-        { "type": "image_picker", "id": "image", "label": "Image" },
-        { "type": "url", "id": "link", "label": "Image link" },
+        { "type": "image_picker", "id": "image", "label": "图片" },
+        { "type": "url", "id": "link", "label": "图片链接" },
         {
           "type": "select",
           "id": "column_span",
-          "label": "Desktop column span",
+          "label": "桌面端列跨度",
           "default": "1",
           "options": [
-            { "value": "1", "label": "1 column" },
-            { "value": "2", "label": "2 columns" }
+            { "value": "1", "label": "1 列" },
+            { "value": "2", "label": "2 列" }
           ]
         },
         {
           "type": "select",
           "id": "row_span",
-          "label": "Desktop row span",
+          "label": "桌面端行跨度",
           "default": "1",
           "options": [
-            { "value": "1", "label": "1 row" },
-            { "value": "2", "label": "2 rows" }
+            { "value": "1", "label": "1 行" },
+            { "value": "2", "label": "2 行" }
           ]
         }
       ]
     }
   ],
-  "presets": [{ "name": "Grid banner" }]
+  "presets": [{ "name": "网格横幅" }]
 }
 {% endschema %}

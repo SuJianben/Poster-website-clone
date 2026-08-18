@@ -14,7 +14,7 @@
     "footer",
     "custom"
   ],
-  "name": "Footer group",
+  "name": "页脚组件组",
   "sections": {
     "newsletter": {
       "type": "source-newsletter",

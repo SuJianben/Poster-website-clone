@@ -25,24 +25,24 @@
 {% endif %}
 {% schema %}
 {
-  "name": "Secondary collection list",
+  "name": "次级系列列表",
   "settings": [
-    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true },
-    { "type": "text", "id": "heading", "label": "Heading override" }
+    { "type": "checkbox", "id": "enabled", "label": "显示模块", "default": true },
+    { "type": "text", "id": "heading", "label": "自定义标题" }
   ],
   "blocks": [
     {
       "type": "collection_card",
-      "name": "Collection card",
+      "name": "系列卡片",
       "settings": [
-        { "type": "paragraph", "content": "Blocks are mapped to the five source cards in order. Leave a field empty to retain the source content." },
-        { "type": "collection", "id": "collection", "label": "Collection" },
-        { "type": "image_picker", "id": "image", "label": "Custom image" },
-        { "type": "text", "id": "title", "label": "Title override" }
+        { "type": "paragraph", "content": "区块按顺序对应原始的五张卡片；字段留空则保留原始内容。" },
+        { "type": "collection", "id": "collection", "label": "系列" },
+        { "type": "image_picker", "id": "image", "label": "自定义图片" },
+        { "type": "text", "id": "title", "label": "自定义标题" }
       ]
     }
   ],
   "max_blocks": 5,
-  "presets": [{ "name": "Secondary collection list" }]
+  "presets": [{ "name": "次级系列列表" }]
 }
 {% endschema %}

@@ -13,7 +13,7 @@
     "header",
     "promotion"
   ],
-  "name": "Header group",
+  "name": "页头组件组",
   "sections": {
     "topbar": {
       "type": "source-topbar",

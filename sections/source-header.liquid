@@ -11,14 +11,14 @@
 {% endif %}
 {% schema %}
 {
-  "name": "Header",
+  "name": "页头",
   "settings": [
-    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true },
-    { "type": "image_picker", "id": "logo", "label": "Logo image" },
-    { "type": "url", "id": "logo_link", "label": "Logo link" },
-    { "type": "text", "id": "search_placeholder", "label": "Search placeholder", "default": "Wonach suchst du?" },
-    { "type": "link_list", "id": "menu", "label": "Primary navigation", "info": "Use a six-item menu to replace the source top navigation without changing its layout." }
+    { "type": "checkbox", "id": "enabled", "label": "显示模块", "default": true },
+    { "type": "image_picker", "id": "logo", "label": "Logo 图片" },
+    { "type": "url", "id": "logo_link", "label": "Logo 链接" },
+    { "type": "text", "id": "search_placeholder", "label": "搜索框提示文字", "default": "Wonach suchst du?" },
+    { "type": "link_list", "id": "menu", "label": "主导航菜单", "info": "使用包含六个菜单项的菜单替换参考站顶部导航，布局保持不变。" }
   ],
-  "presets": [{ "name": "Header" }]
+  "presets": [{ "name": "页头" }]
 }
 {% endschema %}

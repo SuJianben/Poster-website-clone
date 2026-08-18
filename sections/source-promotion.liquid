@@ -3,30 +3,30 @@
 {% endif %}
 {% schema %}
 {
-  "name": "Promotion",
+  "name": "推广横幅",
   "settings": [
-    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true }
+    { "type": "checkbox", "id": "enabled", "label": "显示模块", "default": true }
   ],
   "blocks": [
     {
       "type": "text",
-      "name": "Text item",
+      "name": "文字项",
       "settings": [
-        { "type": "textarea", "id": "text", "label": "Text" },
-        { "type": "select", "id": "text_style", "label": "Text style", "options": [{ "value": "h4", "label": "Small" }, { "value": "h2", "label": "Large" }], "default": "h2" }
+        { "type": "textarea", "id": "text", "label": "文字" },
+        { "type": "select", "id": "text_style", "label": "文字样式", "options": [{ "value": "h4", "label": "小号" }, { "value": "h2", "label": "大号" }], "default": "h2" }
       ]
     },
     {
       "type": "image",
-      "name": "Image item",
+      "name": "图片项",
       "settings": [
-        { "type": "image_picker", "id": "image", "label": "Image" },
-        { "type": "url", "id": "link", "label": "Image link" },
-        { "type": "range", "id": "image_height", "label": "Image height", "min": 40, "max": 120, "step": 5, "unit": "px", "default": 80 },
-        { "type": "range", "id": "mobile_image_height", "label": "Mobile image height", "min": 30, "max": 80, "step": 5, "unit": "px", "default": 50 }
+        { "type": "image_picker", "id": "image", "label": "图片" },
+        { "type": "url", "id": "link", "label": "图片链接" },
+        { "type": "range", "id": "image_height", "label": "图片高度", "min": 40, "max": 120, "step": 5, "unit": "px", "default": 80 },
+        { "type": "range", "id": "mobile_image_height", "label": "移动端图片高度", "min": 30, "max": 80, "step": 5, "unit": "px", "default": 50 }
       ]
     }
   ],
-  "presets": [{ "name": "Promotion" }]
+  "presets": [{ "name": "推广横幅" }]
 }
 {% endschema %}

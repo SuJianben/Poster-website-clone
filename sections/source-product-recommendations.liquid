@@ -43,65 +43,65 @@
 
 {% schema %}
 {
-  "name": "Source recommendations",
+  "name": "商品推荐",
   "max_blocks": 12,
   "settings": [
     {
       "type": "text",
       "id": "heading",
-      "label": "Heading",
+      "label": "标题",
       "default": "Recommendations for you"
     }
   ],
   "blocks": [
     {
       "type": "product_card",
-      "name": "Product card",
+      "name": "商品卡片",
       "settings": [
         {
           "type": "product",
           "id": "product",
-          "label": "Store product"
+          "label": "选择商品"
         },
         {
           "type": "text",
           "id": "fallback_title",
-          "label": "Fallback title"
+          "label": "备用标题"
         },
         {
           "type": "text",
           "id": "fallback_material",
-          "label": "Fallback material"
+          "label": "备用材质"
         },
         {
           "type": "text",
           "id": "fallback_price",
-          "label": "Fallback price"
+          "label": "备用价格"
         },
         {
           "type": "url",
           "id": "fallback_url",
-          "label": "Fallback product link"
+          "label": "备用商品链接"
         },
         {
           "type": "text",
           "id": "fallback_image_url",
-          "label": "Fallback image URL"
+          "label": "备用图片链接"
         },
         {
           "type": "text",
           "id": "fallback_hover_image_url",
-          "label": "Fallback hover image URL"
+          "label": "备用悬停图片链接"
         },
         {
           "type": "text",
           "id": "badge",
-          "label": "Top badge"
+          "label": "顶部标签"
         },
         {
           "type": "text",
           "id": "edition_badge",
-          "label": "Edition badge",
+          "label": "系列标签",
           "default": "ATELIER EXCLUSIVE"
         }
       ]
@@ -109,7 +109,7 @@
   ],
   "presets": [
     {
-      "name": "Source recommendations",
+      "name": "商品推荐",
       "blocks": [
         { "type": "product_card" },
         { "type": "product_card" },

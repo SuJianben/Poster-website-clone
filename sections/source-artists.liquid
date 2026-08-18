@@ -8,30 +8,30 @@
 {% endif %}
 {% schema %}
 {
-  "name": "Meet the artists",
+  "name": "认识艺术家",
   "settings": [
-    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true },
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Mit jedem Verkauf wird der Künstler unterstützt" },
-    { "type": "text", "id": "heading_prefix", "label": "Heading prefix", "default": "DESIGNED VON ECHTEN" },
-    { "type": "text", "id": "heading_highlight", "label": "Heading highlight", "default": "KÜNSTLERN" },
-    { "type": "text", "id": "link_label", "label": "Heading link label", "default": "Zu Allen Künstlern" },
-    { "type": "url", "id": "link", "label": "Heading link" },
-    { "type": "text", "id": "collection_label", "label": "Collection button label", "default": "Zur Kollektion" }
+    { "type": "checkbox", "id": "enabled", "label": "显示模块", "default": true },
+    { "type": "text", "id": "eyebrow", "label": "标题上方文字", "default": "Mit jedem Verkauf wird der Künstler unterstützt" },
+    { "type": "text", "id": "heading_prefix", "label": "标题前缀", "default": "DESIGNED VON ECHTEN" },
+    { "type": "text", "id": "heading_highlight", "label": "标题高亮文字", "default": "KÜNSTLERN" },
+    { "type": "text", "id": "link_label", "label": "标题链接文字", "default": "Zu Allen Künstlern" },
+    { "type": "url", "id": "link", "label": "标题链接" },
+    { "type": "text", "id": "collection_label", "label": "系列按钮文字", "default": "Zur Kollektion" }
   ],
   "blocks": [
     {
       "type": "collection_tab",
-      "name": "Artist collection",
+      "name": "艺术家系列",
       "settings": [
-        { "type": "collection", "id": "collection", "label": "Artist collection" },
-        { "type": "text", "id": "label", "label": "Artist name" },
-        { "type": "image_picker", "id": "promo_image", "label": "Promotion image" },
-        { "type": "text", "id": "promo_heading", "label": "Promotion heading" },
-        { "type": "text", "id": "promo_button_label", "label": "Promotion button label" },
-        { "type": "url", "id": "promo_link", "label": "Promotion link" }
+        { "type": "collection", "id": "collection", "label": "艺术家系列" },
+        { "type": "text", "id": "label", "label": "艺术家名称" },
+        { "type": "image_picker", "id": "promo_image", "label": "推广图片" },
+        { "type": "text", "id": "promo_heading", "label": "推广标题" },
+        { "type": "text", "id": "promo_button_label", "label": "推广按钮文字" },
+        { "type": "url", "id": "promo_link", "label": "推广链接" }
       ]
     }
   ],
-  "presets": [{ "name": "Meet the artists" }]
+  "presets": [{ "name": "认识艺术家" }]
 }
 {% endschema %}

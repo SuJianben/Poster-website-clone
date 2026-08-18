@@ -3,19 +3,19 @@
 {% endif %}
 {% schema %}
 {
-  "name": "Header promotion",
+  "name": "页头促销栏",
   "settings": [
-    { "type": "checkbox", "id": "enabled", "label": "Show section", "default": true }
+    { "type": "checkbox", "id": "enabled", "label": "显示模块", "default": true }
   ],
   "blocks": [
     {
       "type": "text",
-      "name": "Promotion text",
+      "name": "促销文字",
       "settings": [
-        { "type": "text", "id": "text", "label": "Text", "default": "✨ 5% - 25% Rabatt Sommer Sale" }
+        { "type": "text", "id": "text", "label": "文字内容", "default": "✨ 5% - 25% Rabatt Sommer Sale" }
       ]
     }
   ],
-  "presets": [{ "name": "Header promotion" }]
+  "presets": [{ "name": "页头促销栏" }]
 }
 {% endschema %}
