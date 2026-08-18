@@ -13,6 +13,8 @@
       "type": "source-hero",
       "settings": {
         "enabled": true,
+        "desktop_image": "shopify://shop_images/AcrylglasbildSaveWaterDrinkChampagneOriginalPopArtBild12.jpg",
+        "mobile_image": "shopify://shop_images/AcrylglasbildSaveWaterDrinkChampagneOriginalPopArtBild12.jpg",
         "link": "shopify://collections/all",
         "link_label": "",
         "product": "lucrecia-rey-caro-bleu",
@@ -36,14 +38,14 @@
         "text_ccfqfF": {
           "type": "text",
           "settings": {
-            "text": "666",
+            "text": "123",
             "text_style": "h2"
           }
         },
         "image_tfmwwU": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/TPC_Artwall_43_Low_Res_a179b207-af70-4731-8560-00444a1cddc5.jpg",
+            "image": "shopify://shop_images/AcrylglasbildSaveWaterDrinkChampagneOriginalPopArtBild10.jpg",
             "link": "",
             "image_height": 80,
             "mobile_image_height": 50
@@ -202,7 +204,6 @@
           "settings": {
             "collection": "wandbilder-bundles",
             "label": "Bundles -15%",
-            "promo_image": "",
             "promo_heading": "",
             "promo_button_label": "",
             "promo_link": "shopify://collections/wandbilder-bundles"
@@ -232,8 +233,8 @@
             "image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg",
             "image_url": "https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-2f6c3ae69b2d-Mo-vlog-dotcomcanvas-1_d62ed114-44da-486c-9971-fac32e52ca02.jpg?v=1771097240&width=1100",
             "avatar_url": "https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-ddce8e063798-Screenshot_2026-02-14_202843.png?v=1771097345&width=80",
-            "reference_name": "Mo Vlogs",
             "name": "哇哇哇哇",
+            "reference_name": "Mo Vlogs",
             "link": ""
           }
         },
@@ -243,8 +244,8 @@
             "image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg",
             "image_url": "https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-c6eef3ba785a-GeissensFeedbackvip.jpg?v=1762863812&width=1100",
             "avatar_url": "https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-c6eef3ba785a-GeissensFeedbackvip.jpg?v=1762863812&width=80",
-            "reference_name": "Die Geissens",
             "name": "哇哇哇哇",
+            "reference_name": "Die Geissens",
             "link": ""
           }
         },
@@ -254,8 +255,8 @@
             "image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg",
             "image_url": "https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-260f8304bf7b-knossi_93156580_680586532743168_4863580538485880894_n.webp?v=1771097100&width=1100",
             "avatar_url": "https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-534bb7e89ee7-Screenshot_2026-02-13_054717.png?v=1770958655&width=80",
-            "reference_name": "Knossi",
             "name": "哇哇哇哇",
+            "reference_name": "Knossi",
             "link": ""
           }
         },
@@ -265,8 +266,8 @@
             "image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg",
             "image_url": "https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-b57f8f2593cb-Jeremy_Fragrance.jpg?v=1683058694&width=1100",
             "avatar_url": "https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-b57f8f2593cb-Jeremy_Fragrance.jpg?v=1683058694&width=80",
-            "reference_name": "Jeremy Fragrance",
             "name": "哇哇哇哇",
+            "reference_name": "Jeremy Fragrance",
             "link": ""
           }
         },
@@ -276,8 +277,8 @@
             "image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg",
             "image_url": "https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-0a53e89a8f81-vip25_1_torben_platzer_dotcomcanvas_auftragsarbeit.jpg?v=1665234527&width=1100",
             "avatar_url": "https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-0a53e89a8f81-vip25_1_torben_platzer_dotcomcanvas_auftragsarbeit.jpg?v=1665234527&width=80",
-            "reference_name": "Torben Platzer",
             "name": "哇哇哇哇",
+            "reference_name": "Torben Platzer",
             "link": ""
           }
         },
@@ -286,32 +287,9 @@
           "settings": {
             "image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg",
             "image_url": "https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-baea5a668323-Philip-Hopf-Auftragsarbeit_889de7b8-5f82-401d-b4bd-27146f3eb2f8.jpg?v=1762863374&width=1100",
+            "avatar_url": "",
+            "name": "哇哇哇哇",
             "reference_name": "Philip Hopf",
-            "name": "哇哇哇哇",
-            "link": ""
-          }
-        },
-        "gallery_item_ijNTUj": {
-          "type": "gallery_item",
-          "settings": {
-            "image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg",
-            "name": "哇哇哇哇",
-            "link": ""
-          }
-        },
-        "gallery_item_BxcGgU": {
-          "type": "gallery_item",
-          "settings": {
-            "image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg",
-            "name": "哇哇哇哇",
-            "link": ""
-          }
-        },
-        "gallery_item_XJDfQ9": {
-          "type": "gallery_item",
-          "settings": {
-            "image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg",
-            "name": "哇哇哇哇",
             "link": ""
           }
         }
@@ -359,7 +337,6 @@
           "settings": {
             "collection": "all",
             "label": "Amex Edition",
-            "promo_image": "",
             "promo_heading": "",
             "promo_button_label": "",
             "promo_link": ""
