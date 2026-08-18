@@ -22,6 +22,7 @@
         <div class="section__content tabs__panels">
           {% for block in section.blocks %}
             {% assign collection_link = block.settings.custom_link | default: block.settings.collection.url %}
+            {% assign button_link = section.settings.collection_button_link | default: collection_link %}
             {% capture panel %}
               <div class="tabs__panel featured-collection__content" data-index="{{ forloop.index0 }}" data-id="{{ block.id }}">
                 <featured-collection class="block relative swiper swiper-equal-height overflow-visible f-grid--gap-medium swipe-mobile swipe-mobile--2-cols" data-block-id="{{ block.id }}" data-enable-slider="true" data-items="5" data-tablet-items="3" data-laptop-items="5" data-pagination-type="progressbar" data-navigation-position="bottom" id="product-list-{{ block.id }}">
@@ -38,7 +39,7 @@
                   <button class="swiper-button swiper-button-next btn" name="next" aria-label="Nach rechts schieben"><span class="btn__text"><svg class="icon icon-caret-right rtl-flip-x icon--medium icon--thick" viewBox="0 0 20 20" fill="none"><path d="M7.5 3.75L13.75 10L7.5 16.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
                 </div>
                 <scroll-progress-bar class="md:hidden" target="product-list-{{ block.id }}"><div class="progress-container"><div class="progress-bar no-empty"></div></div></scroll-progress-bar>
-                {% if block.settings.collection != blank %}<div class="collection-action-bottom flex justify-end"><a class="btn btn--primary btn--with-icon" href="{{ collection_link }}"><span class="btn__text">{{ section.settings.collection_label }}</span><span class="btn__icon order-last svg-icon svg-icon--arrow-right icon--small icon--thick inline-flex"><svg class="icon icon-arrow-right" viewBox="0 0 18 18" fill="none"><path d="M2.8125 9H15.1875" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M10.125 3.9375L15.1875 9L10.125 14.0625" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></div>{% endif %}
+                {% if block.settings.collection != blank %}<div class="collection-action-bottom flex justify-end"><a class="btn btn--primary btn--with-icon" href="{{ button_link }}"><span class="btn__text">{{ section.settings.collection_label }}</span><span class="btn__icon order-last svg-icon svg-icon--arrow-right icon--small icon--thick inline-flex"><svg class="icon icon-arrow-right" viewBox="0 0 18 18" fill="none"><path d="M2.8125 9H15.1875" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M10.125 3.9375L15.1875 9L10.125 14.0625" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></div>{% endif %}
               </div>
             {% endcapture %}
             {% if forloop.first %}{{ panel }}{% else %}<template data-index="{{ forloop.index0 }}">{{ panel }}</template>{% endif %}
@@ -72,7 +73,8 @@
         <div class="source-mobile-bestsellers__progress" aria-hidden="true"><span></span></div>
         {% if block.settings.collection != blank %}
           {% assign collection_link = block.settings.custom_link | default: block.settings.collection.url %}
-          <a class="source-mobile-bestsellers__action" href="{{ collection_link }}">{{ section.settings.collection_label }} <span aria-hidden="true">→</span></a>
+          {% assign button_link = section.settings.collection_button_link | default: collection_link %}
+          <a class="source-mobile-bestsellers__action" href="{{ button_link }}">{{ section.settings.collection_label }} <span aria-hidden="true">→</span></a>
         {% endif %}
       </div>
     {% endfor %}
