@@ -24,6 +24,69 @@
   desktop always use the same links and labels.
 {% endcomment %}
 {% if section.settings.menu != blank %}
+  <template data-source-header-desktop-menu>
+    <ul class="flex flex-wrap" role="list">
+      {% for link in section.settings.menu.links %}
+        {% assign source_menu_index = forloop.index0 %}
+        <li
+          class="inline-flex items-center"
+          data-source-desktop-menu-index="{{ source_menu_index }}"
+          {% if source_menu_index == 2 %}
+            style="--hl-link-color: #9c6161;"
+          {% elsif source_menu_index == 3 %}
+            style="--hl-link-color: #d71a00;"
+          {% endif %}
+        >
+          {% if link.links.size > 0 %}
+            <details
+              id="SourceMegaMenu-{{ section.id }}-{{ forloop.index }}"
+              is="details-mega"
+              trigger="hover"
+              level="top"
+            >
+              <summary data-link="{{ link.url }}" class="z-2 font-navigation">
+                {% if forloop.first %}
+                  <span class="menu__item flex items-center relative hightlight-link hightlight-link--button">
+                    <span class="flex items-center btn btn--primary">
+                      <span class="btn__text flex items-center menu__item-text">
+                        {{ link.title }}
+                        <svg class="icon icon-caret-down icon--2xs icon--thick" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M16.25 7.5L10 13.75L3.75 7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                      </span>
+                    </span>
+                  </span>
+                {% else %}
+                  <span class="menu__item flex items-center relative">
+                    <span class="flex items-center menu__item-text reversed-link">
+                      {{ link.title }}
+                      <svg class="icon icon-caret-down icon--2xs icon--thick" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M16.25 7.5L10 13.75L3.75 7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                  </span>
+                {% endif %}
+              </summary>
+              <div class="mega-menu v-scrollable">
+                <div class="mega-menu__container color-scheme-1">
+                  <div class="page-width mega-menu__wrapper"></div>
+                </div>
+              </div>
+            </details>
+          {% else %}
+            <a
+              href="{{ link.url }}"
+              class="menu__item flex relative z-2 font-navigation{% if source_menu_index == 2 or source_menu_index == 3 %} hightlight-link hightlight-link--star_twinkle{% endif %}"
+            >
+              <span class="reversed-link">{{ link.title }}</span>
+              {% if source_menu_index == 2 or source_menu_index == 3 %}
+                <svg class="star star-1" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 0L7.854 4.146L12 6L7.854 7.854L6 12L4.146 7.854L0 6L4.146 4.146L6 0Z" fill="currentColor"/></svg>
+                <svg class="star star-2" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 0L7.854 4.146L12 6L7.854 7.854L6 12L4.146 7.854L0 6L4.146 4.146L6 0Z" fill="currentColor"/></svg>
+                <svg class="star star-3" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 0L7.854 4.146L12 6L7.854 7.854L6 12L4.146 7.854L0 6L4.146 4.146L6 0Z" fill="currentColor"/></svg>
+              {% endif %}
+            </a>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </template>
+
   <template data-source-header-mobile-menu>
     <ul class="flex-grow" role="list">
       {% for link in section.settings.menu.links %}

@@ -133,10 +133,17 @@
     selectInitialItem();
   }
 
-  const initMenus = () => {
-    document.querySelectorAll(SELECTOR).forEach(initMenu);
+  const initMenus = (scope = document) => {
+    const root = scope instanceof Element ? scope : document;
+    root.querySelectorAll("details[is='details-mega']").forEach((menu) => {
+      if (menu.closest('header')) initMenu(menu);
+    });
   };
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initMenus);
-  else initMenus();
+  if (document.readyState === 'complete') initMenus();
+  else document.addEventListener('DOMContentLoaded', initMenus, { once: true });
+
+  document.addEventListener('source:mega-menu:init', (event) => {
+    initMenus(event.detail?.scope || document);
+  });
 })();
