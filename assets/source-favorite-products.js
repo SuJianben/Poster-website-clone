@@ -45,6 +45,11 @@
     root.dataset.sourceFavoriteReady = 'true';
     root.classList.add('source-favorite-ready');
 
+    root.addEventListener('source:favorite:select', (event) => {
+      const index = Number(event.detail?.index);
+      if (Number.isFinite(index)) render(root, index);
+    });
+
     root.querySelector('.swiper-button-prev').addEventListener('click', () => {
       render(root, Number(root.dataset.sourceFavoriteIndex || 0) - 1);
     });

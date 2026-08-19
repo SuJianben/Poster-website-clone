@@ -16,6 +16,8 @@
   function applyReview(card, review) {
     if (!card) return;
 
+    window.sourceThemeEditorApplyAttributes?.(card, review.shopifyAttributes);
+
     replaceText(card.querySelector('.source-reviews-card__date'), review.date);
     replaceText(card.querySelector('.source-reviews-card__title'), review.title);
     replaceText(card.querySelector('.source-reviews-card__message'), review.message);
@@ -54,6 +56,18 @@
 
     const cards = carousel.querySelectorAll('.source-reviews-card');
     data.reviews.forEach((review) => applyReview(cards[review.index], review));
+
+    if (section.dataset.sourceAnnouncementEditorReady !== 'true') {
+      section.dataset.sourceAnnouncementEditorReady = 'true';
+      section.addEventListener('shopify:block:select', (event) => {
+        const blockId = event.detail?.blockId;
+        const review = data.reviews.find((item) => item.blockId === blockId);
+        if (!review) return;
+        carousel.dispatchEvent(new CustomEvent('source:reviews:select', {
+          detail: { index: review.index }
+        }));
+      });
+    }
   }
 
   function initialize() {

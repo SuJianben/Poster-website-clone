@@ -10,6 +10,8 @@
           {% for block in section.blocks %}
             {
               "index": {{ forloop.index0 }},
+              "blockId": {{ block.id | json }},
+              "shopifyAttributes": {{ block.shopify_attributes | json }},
               "icon": {{ block.settings.icon | json }},
               "title": {{ block.settings.title | json }},
               "text": {{ block.settings.text | json }}

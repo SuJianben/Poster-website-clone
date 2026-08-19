@@ -77,9 +77,22 @@
       }
 
       const productSlide = root.querySelector(`.favorite-products__products > .swiper-wrapper > .swiper-slide[data-index="${slideData.index}"]`);
+      window.sourceThemeEditorApplyAttributes?.(productSlide, slideData.shopifyAttributes);
       applyProduct(productSlide, slideData.product);
       applyScene(root, slideData.index, slideData.sceneImage);
     });
+
+    if (section.dataset.sourceFavoriteEditorReady !== 'true') {
+      section.dataset.sourceFavoriteEditorReady = 'true';
+      section.addEventListener('shopify:block:select', (event) => {
+        const blockId = event.detail?.blockId;
+        const slide = data.slides.find((item) => item.blockId === blockId);
+        if (!slide) return;
+        root.dispatchEvent(new CustomEvent('source:favorite:select', {
+          detail: { index: slide.index }
+        }));
+      });
+    }
   }
 
   function initialize() {

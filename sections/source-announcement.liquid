@@ -10,6 +10,8 @@
             {% assign product = block.settings.product %}
             {
               "index": {{ forloop.index0 }},
+              "blockId": {{ block.id | json }},
+              "shopifyAttributes": {{ block.shopify_attributes | json }},
               "date": {{ block.settings.date | json }},
               "rating": {{ block.settings.rating | json }},
               "title": {{ block.settings.title | json }},

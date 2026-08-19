@@ -25,6 +25,8 @@
   function applyCard(card, data) {
     if (!card) return;
 
+    window.sourceThemeEditorApplyAttributes?.(card, data.shopifyAttributes);
+
     const link = card.querySelector('.collection-card__wrapper');
     const title = card.querySelector('.collection-card__title span');
     const resolvedTitle = data.title || data.collection?.title;

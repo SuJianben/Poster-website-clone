@@ -95,44 +95,6 @@
     return elements;
   }
 
-  function syncBestsellerEditorMarkers(container = document) {
-    const desktopTabs = descendantsOrSelf(container, '[data-source-bestsellers-desktop-block]');
-    const sectionRoots = new Set(
-      desktopTabs.map((tab) => tab.closest('.shopify-section')).filter(Boolean)
-    );
-
-    sectionRoots.forEach((sectionRoot) => {
-      const desktopTabsInSection = Array.from(
-        sectionRoot.querySelectorAll('[data-source-bestsellers-desktop-block]')
-      );
-      const mobileTabsInSection = Array.from(
-        sectionRoot.querySelectorAll('[data-source-bestsellers-mobile-block]')
-      );
-
-      desktopTabsInSection.forEach((desktopTab) => {
-        const blockId = desktopTab.dataset.sourceBestsellersDesktopBlock;
-        const mobileTab = mobileTabsInSection.find(
-          (tab) => tab.dataset.sourceBestsellersMobileBlock === blockId
-        );
-        if (!mobileTab) return;
-
-        const editorMarker =
-          desktopTab.dataset.sourceBestsellersEditorMarker ||
-          desktopTab.getAttribute('data-shopify-editor-block') ||
-          mobileTab.getAttribute('data-shopify-editor-block');
-        if (!editorMarker) return;
-
-        desktopTab.dataset.sourceBestsellersEditorMarker = editorMarker;
-        desktopTab.removeAttribute('data-shopify-editor-block');
-        mobileTab.removeAttribute('data-shopify-editor-block');
-        (mobileBreakpoint.matches ? mobileTab : desktopTab).setAttribute(
-          'data-shopify-editor-block',
-          editorMarker
-        );
-      });
-    });
-  }
-
   function init(tabRoot) {
     if (tabRoot.dataset.sourceTabsReady === 'true') return;
 
@@ -181,19 +143,6 @@
     });
 
     window.addEventListener('resize', () => syncPromotionCardHeight(currentPanel), { signal });
-    sectionRoot?.addEventListener(
-      'shopify:block:select',
-      (event) => {
-        if (mobileBreakpoint.matches) return;
-
-        const blockId = event.detail?.blockId;
-        const tab = tabs.find(
-          (candidate) => candidate.dataset.sourceBestsellersDesktopBlock === blockId
-        );
-        if (tab) activate(tab.dataset.index, false);
-      },
-      { signal }
-    );
     sectionRoot?.addEventListener('shopify:section:unload', () => abortController.abort(), {
       once: true
     });
@@ -263,22 +212,6 @@
         () => panels.forEach((panel) => syncProgress(panel)),
         { signal }
       );
-      sectionRoot?.addEventListener(
-        'shopify:block:select',
-        (event) => {
-          if (!mobileBreakpoint.matches) return;
-
-          const blockId = event.detail?.blockId;
-          const tab = tabs.find(
-            (candidate) => candidate.dataset.sourceBestsellersMobileBlock === blockId
-          );
-          if (tab) {
-            activate(tab.dataset.mobileTab, false);
-            tab.scrollIntoView({ block: 'nearest', inline: 'center' });
-          }
-        },
-        { signal }
-      );
       sectionRoot?.addEventListener('shopify:section:unload', () => abortController.abort(), {
         once: true
       });
@@ -288,7 +221,6 @@
   function initAll(container = document) {
     descendantsOrSelf(container, '[is="product-tabs"]').forEach(init);
     initMobileBestsellers(container);
-    syncBestsellerEditorMarkers(container);
   }
 
   if (document.readyState === 'loading') {
@@ -298,9 +230,4 @@
   }
 
   document.addEventListener('shopify:section:load', (event) => initAll(event.target));
-  if (mobileBreakpoint.addEventListener) {
-    mobileBreakpoint.addEventListener('change', () => syncBestsellerEditorMarkers());
-  } else {
-    mobileBreakpoint.addListener(() => syncBestsellerEditorMarkers());
-  }
 })();

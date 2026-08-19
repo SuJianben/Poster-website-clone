@@ -24,6 +24,14 @@
     const isMobile = () => mobileQuery.matches;
     const slideCount = () => (isMobile() ? cards.length : pages.length);
 
+    carousel.addEventListener('source:reviews:select', (event) => {
+      const cardIndex = Number(event.detail?.index);
+      if (!Number.isFinite(cardIndex)) return;
+      index = isMobile() ? cardIndex : Math.floor(cardIndex / 3);
+      render();
+      cards[cardIndex]?.scrollIntoView({ block: 'nearest', inline: 'center' });
+    });
+
     const render = () => {
       const count = slideCount();
       if (index >= count) index = 0;

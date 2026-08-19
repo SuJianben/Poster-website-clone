@@ -33,6 +33,7 @@
 
   function applyItem(card, item, iconMap) {
     if (!card) return;
+    window.sourceThemeEditorApplyAttributes?.(card, item.shopifyAttributes);
     replaceIcon(card, item.icon, iconMap);
     replaceText(card.querySelector('.multicolumn-card__title'), item.title);
     replaceDescription(card, item.text);
