@@ -89,6 +89,11 @@
 .spx-product__top-badge--new { border:1px solid #9fc8a5; background:#dcefdc; color:#111; text-shadow:none; }
 .spx-product__top-badge--limited,.spx-product__top-badge--personalizable { border:1px solid #333; background:#000; }
 @keyframes spx-badge-shine { 0%,100% { background-position:0 50%; } 50% { background-position:100% 50%; } }
+@media (prefers-reduced-motion:no-preference) {
+  .spx-product__top-badges[data-spx-reveal] { transform:translateY(-50%); }
+  .spx-product__top-badges[data-spx-reveal].is-revealed { animation:spx-top-badges-reveal .7s cubic-bezier(.3,1,.3,1) var(--spx-reveal-delay,0ms) both; }
+  @keyframes spx-top-badges-reveal { from { opacity:0; transform:translate3d(0,calc(-50% + 18px),0); } to { opacity:1; transform:translate3d(0,-50%,0); } }
+}
 .spx-product__brands { display:block; min-height:0; margin:0; padding:17px 12px 9px; border-top:0 !important; border-bottom:1px solid #dada !important; background:#fff; color:#333; font-size:14px; font-weight:700; line-height:1.4; text-align:center; }
 .spx-product__brand-logos { display:inline-flex; align-items:center; gap:2px; margin-right:3px; vertical-align:middle; white-space:nowrap; }
 .spx-product__brands img { display:block; width:auto; height:16px; object-fit:contain; }
