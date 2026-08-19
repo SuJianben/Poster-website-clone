@@ -633,7 +633,7 @@
         "enabled": true,
         "heading": "Eindrücke und Inspiration der Community",
         "button_label": "Zu Allen Bewertungen",
-        "button_link": "shopify://pages/about"
+        "button_link": "shopify://collections/all"
       }
     },
     "favorite-products": {
