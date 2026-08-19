@@ -38,13 +38,42 @@
     updateTriggerState(drawer, isOpen);
   };
 
+  const setSubmenuState = (details, isOpen) => {
+    if (!details) return;
+
+    const parent = details.closest('[data-parent]');
+    if (isOpen) {
+      parent?.querySelectorAll(':scope > ul > li > details[is="menu-drawer-details"]').forEach((otherDetails) => {
+        if (otherDetails === details) return;
+        otherDetails.open = false;
+        otherDetails.classList.remove('active');
+        otherDetails.querySelector(':scope > summary')?.setAttribute('aria-expanded', 'false');
+      });
+    }
+
+    details.open = isOpen;
+    details.classList.toggle('active', isOpen);
+    parent?.classList.toggle('active', isOpen);
+    details.querySelector(':scope > summary')?.setAttribute('aria-expanded', String(isOpen));
+  };
+
+  const closeSubmenu = (details) => {
+    if (!details) return;
+
+    details.querySelectorAll('details[open]').forEach((nestedDetails) => {
+      nestedDetails.open = false;
+      nestedDetails.classList.remove('active');
+    });
+    setSubmenuState(details, false);
+  };
+
   const closeDrawer = (drawer, { restoreFocus = false } = {}) => {
     if (!drawer || drawer.hidden) return;
 
     drawer.removeAttribute('open');
     drawer.classList.remove(OPEN_CLASS);
-    drawer.querySelectorAll('details[is="menu-drawer-details"][open]').forEach((details) => {
-      details.open = false;
+    drawer.querySelectorAll('details[is="menu-drawer-details"]').forEach((details) => {
+      closeSubmenu(details);
     });
     document.body.classList.remove('source-menu-drawer-active');
     updateHostState(drawer, false);
@@ -93,11 +122,21 @@
     drawer.addEventListener('click', (event) => {
       if (event.target === drawer) closeDrawer(drawer);
     });
-    drawer.querySelectorAll('.menu-drawer__item-back-link').forEach((button) => {
-      button.addEventListener('click', () => {
-        const details = button.closest('details[is="menu-drawer-details"]');
-        if (details) details.open = false;
-      });
+    drawer.addEventListener('click', (event) => {
+      const backButton = event.target.closest('.menu-drawer__item-back-link');
+      if (backButton && drawer.contains(backButton)) {
+        event.preventDefault();
+        const details = backButton.closest('details[is="menu-drawer-details"]');
+        closeSubmenu(details);
+        return;
+      }
+
+      const summary = event.target.closest('details[is="menu-drawer-details"] > summary');
+      if (summary && drawer.contains(summary)) {
+        event.preventDefault();
+        const details = summary.parentElement;
+        setSubmenuState(details, !details.open);
+      }
     });
 
     window.addEventListener('resize', () => {

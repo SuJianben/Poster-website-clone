@@ -1,27 +1,30 @@
 (() => {
   const SELECTOR = '[data-source-header-config]';
-  const SOURCE_MENU_SIZE = 6;
 
   function setMenuLabel(node, label) {
     const textTarget = node.querySelector('.menu__item-text') || node;
     const labelTarget = textTarget.querySelector('.reversed-link') || textTarget;
+    const textNodes = [...labelTarget.childNodes].filter((child) => child.nodeType === Node.TEXT_NODE);
 
-    [...textTarget.childNodes].forEach((child) => {
-      if (child.nodeType === Node.TEXT_NODE) child.remove();
-    });
-
-    labelTarget.textContent = label;
-    if (labelTarget === textTarget) textTarget.prepend(labelTarget.firstChild);
+    if (textNodes.length > 0) {
+      textNodes[0].nodeValue = label;
+      textNodes.slice(1).forEach((child) => child.remove());
+    } else {
+      labelTarget.prepend(document.createTextNode(label));
+    }
   }
 
   function applyNavigation(config) {
-    if (!Array.isArray(config) || config.length !== SOURCE_MENU_SIZE) return;
+    if (!Array.isArray(config) || config.length === 0) return;
 
     const items = [...document.querySelectorAll('.header__navigation > nav > ul > li')];
-    if (items.length !== SOURCE_MENU_SIZE) return;
+    if (items.length === 0) return;
 
-    config.forEach((link, index) => {
-      const item = items[index];
+    items.forEach((item, index) => {
+      const link = config[index];
+      item.hidden = !link;
+      if (!link) return;
+
       const summary = item.querySelector(':scope > details > summary');
       const anchor = item.querySelector(':scope > a');
       if (summary) {
@@ -32,6 +35,19 @@
         setMenuLabel(anchor, link.title);
       }
     });
+  }
+
+  function applyMobileNavigation(configNode) {
+    const template = configNode.parentElement?.querySelector('template[data-source-header-mobile-menu]');
+    const drawer = configNode.parentElement?.querySelector('#MenuDrawer') || document.querySelector('#MenuDrawer');
+    const list = drawer?.querySelector('.menu-drawer__menus > ul');
+    if (!template || !list) return;
+
+    const replacement = template.content.firstElementChild?.cloneNode(true);
+    if (!replacement) return;
+
+    list.replaceWith(replacement);
+    replacement.dataset.sourceMobileMenuRendered = 'true';
   }
 
   function applyMegaMenus(configNode) {
@@ -71,7 +87,9 @@
     });
 
     try {
-      applyNavigation(JSON.parse(configNode.dataset.navigation || '[]'));
+      const navigation = JSON.parse(configNode.dataset.navigation || '[]');
+      applyNavigation(navigation);
+      applyMobileNavigation(configNode);
       applyMegaMenus(configNode);
     } catch (_error) {
       // A missing or incomplete backend navigation deliberately leaves source markup intact.

@@ -17,4 +17,76 @@
   data-search-placeholder="{{ section.settings.search_placeholder | default: 'Wonach suchst du?' | escape }}"
   data-navigation="{{ source_header_navigation | strip_newlines | escape }}"
 ></div>
+
+{% comment %}
+  The captured header markup contains a visual fallback menu from the reference
+  theme. Render a lightweight copy from the selected Shopify menu so mobile and
+  desktop always use the same links and labels.
+{% endcomment %}
+{% if section.settings.menu != blank %}
+  <template data-source-header-mobile-menu>
+    <ul class="flex-grow" role="list">
+      {% for link in section.settings.menu.links %}
+        <li class="menu-drawer__item" data-source-mobile-menu-index="{{ forloop.index0 }}">
+          {% if link.links.size > 0 %}
+            <details is="menu-drawer-details" level="top" data-source-mobile-menu-details>
+              <summary class="menu-drawer__item-link menu-drawer__item-link-heading flex items-center justify-between">
+                {% if forloop.first %}
+                  <span class="relative hightlight-link hightlight-link--button"><span class="flex items-center btn btn--primary"><span class="btn__text flex items-center">{{ link.title }}</span></span></span>
+                {% else %}
+                  <span class="menu-drawer__item-link-text">{{ link.title }}</span>
+                {% endif %}
+                <svg class="icon icon-caret-right rtl-flip-x icon--2xs icon--thick" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7.5 3.75L13.75 10L7.5 16.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </summary>
+              <div class="menu-drawer__submenu absolute z-1 flex flex-col w-full h-full" data-parent>
+                <button type="button" class="menu-drawer__item-back-link font-navigation flex items-center gap-2 w-full" aria-label="返回 {{ link.title | escape }}">
+                  <svg class="icon icon-caret-left rtl-flip-x icon--small icon--thick" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M12.5 16.25L6.25 10L12.5 3.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  {{ link.title }}
+                </button>
+                <ul class="flex flex-col h-full v-scrollable" data-parent role="list">
+                  {% if link.url != blank %}
+                    <li class="menu-drawer__item menu-drawer__item--sidebar" level="child"><a href="{{ link.url }}" class="menu-drawer__item-link flex items-center justify-between">查看全部 {{ link.title }}</a></li>
+                  {% endif %}
+                  {% for child in link.links %}
+                    <li class="menu-drawer__item menu-drawer__item--sidebar" level="child">
+                      {% if child.links.size > 0 %}
+                        <details is="accordion-details" class="accordion-details">
+                          <summary class="menu-drawer__item-link menu-drawer__item-link-heading accordion-details__summary flex items-center justify-between">
+                            <span>{{ child.title }}</span>
+                            <svg class="icon icon-plus-toggle icon--2xs icon--thick" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path class="horizontal" d="M3.125 10H16.875" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path class="vertical" d="M10 3.125V16.875" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                          </summary>
+                          <div class="flex flex-col w-full">
+                            <ul class="flex flex-col w-full" role="list">
+                              {% if child.url != blank %}
+                                <li class="menu-drawer__item"><a href="{{ child.url }}" class="menu-drawer__item-link flex items-center justify-between">查看全部 {{ child.title }}</a></li>
+                              {% endif %}
+                              {% for grandchild in child.links %}
+                                <li class="menu-drawer__item"><a href="{{ grandchild.url }}" class="menu-drawer__item-link flex items-center justify-between">{{ grandchild.title }}</a></li>
+                              {% endfor %}
+                            </ul>
+                          </div>
+                        </details>
+                      {% else %}
+                        <a href="{{ child.url }}" class="menu-drawer__item-link flex items-center justify-between">{{ child.title }}</a>
+                      {% endif %}
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </details>
+          {% else %}
+            <a href="{{ link.url }}" class="menu-drawer__item-link flex items-center justify-between{% if forloop.index0 == 2 or forloop.index0 == 3 %} hightlight-link hightlight-link--star_twinkle{% endif %}"{% if forloop.index0 == 2 %} style="--hl-link-color: #9c6161;"{% elsif forloop.index0 == 3 %} style="--hl-link-color: #d71a00;"{% endif %}>
+              <span>{{ link.title }}</span>
+              {% if forloop.index0 == 2 or forloop.index0 == 3 %}
+                <svg class="star star-1" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 0L7.854 4.146L12 6L7.854 7.854L6 12L4.146 7.854L0 6L4.146 4.146L6 0Z" fill="currentColor"/></svg>
+                <svg class="star star-2" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 0L7.854 4.146L12 6L7.854 7.854L6 12L4.146 7.854L0 6L4.146 4.146L6 0Z" fill="currentColor"/></svg>
+                <svg class="star star-3" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 0L7.854 4.146L12 6L7.854 7.854L6 12L4.146 7.854L0 6L4.146 4.146L6 0Z" fill="currentColor"/></svg>
+              {% endif %}
+            </a>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </template>
+{% endif %}
 {% render 'source-header-mega-config', section: section %}
