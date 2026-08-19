@@ -102,13 +102,13 @@
                 <svg class="icon icon-caret-right rtl-flip-x icon--2xs icon--thick" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7.5 3.75L13.75 10L7.5 16.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </summary>
               <div class="menu-drawer__submenu absolute z-1 flex flex-col w-full h-full" data-parent>
-                <button type="button" class="menu-drawer__item-back-link font-navigation flex items-center gap-2 w-full" aria-label="返回 {{ link.title | escape }}">
+                <button type="button" class="menu-drawer__item-back-link font-navigation flex items-center gap-2 w-full" aria-label="Back to {{ link.title | escape }}">
                   <svg class="icon icon-caret-left rtl-flip-x icon--small icon--thick" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M12.5 16.25L6.25 10L12.5 3.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                   {{ link.title }}
                 </button>
                 <ul class="flex flex-col h-full v-scrollable" data-parent role="list">
                   {% if link.url != blank %}
-                    <li class="menu-drawer__item menu-drawer__item--sidebar" level="child"><a href="{{ link.url }}" class="menu-drawer__item-link flex items-center justify-between">查看全部 {{ link.title }}</a></li>
+                    <li class="menu-drawer__item menu-drawer__item--sidebar" level="child"><a href="{{ link.url }}" class="menu-drawer__item-link flex items-center justify-between">View all {{ link.title }}</a></li>
                   {% endif %}
                   {% for child in link.links %}
                     <li class="menu-drawer__item menu-drawer__item--sidebar" level="child">
@@ -121,7 +121,7 @@
                           <div class="flex flex-col w-full">
                             <ul class="flex flex-col w-full" role="list">
                               {% if child.url != blank %}
-                                <li class="menu-drawer__item"><a href="{{ child.url }}" class="menu-drawer__item-link flex items-center justify-between">查看全部 {{ child.title }}</a></li>
+                                <li class="menu-drawer__item"><a href="{{ child.url }}" class="menu-drawer__item-link flex items-center justify-between">View all {{ child.title }}</a></li>
                               {% endif %}
                               {% for grandchild in child.links %}
                                 <li class="menu-drawer__item"><a href="{{ grandchild.url }}" class="menu-drawer__item-link flex items-center justify-between">{{ grandchild.title }}</a></li>
