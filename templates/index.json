@@ -393,7 +393,7 @@
         "heading_prefix": "DEIN PERSÖNLICHES",
         "heading_highlight": "MEISTERWERK",
         "link_label": "Zu Allen Personalisierbaren Motiven",
-        "link": "",
+        "link": "shopify://collections/all",
         "collection_label": "Zur Kollektion"
       }
     },
