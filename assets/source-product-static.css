@@ -109,6 +109,8 @@
 .spx-product__artist { display:flex; align-items:center; gap:0; margin:0 0 14px; color:#666; font-weight:700; }
 .spx-product__artist a { display:inline-block; margin-left:5px; color:#111; font-weight:700; text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:2px; }
 .spx-product .spx-product__atelier-badge { display:inline-flex; align-items:center; min-height:0; height:auto; margin-left:13px; padding:3px 8px; border:1px solid #95a5a6; border-radius:2px; background:linear-gradient(135deg,#dce4e8,#fff,#bdc3c7,#fff,#dce4e8); color:#000; box-shadow:0 0 5px rgba(189,195,199,.5); font-size:9px; font-weight:800; letter-spacing:.45px; line-height:1; white-space:nowrap; cursor:pointer; transition:filter .2s ease; }
+.spx-product .spx-product__atelier-badge--limited { border-color:#9b7a2d; background:linear-gradient(135deg,#191919,#b18a35,#f7e7a8,#9b7428,#181818); color:#fff; text-shadow:0 1px 2px rgba(0,0,0,.6); }
+.spx-product .spx-product__atelier-badge--essentials { border-color:#aeb8bb; background:linear-gradient(180deg,#fff 0%,#eef1f2 42%,#d6dcde 100%); color:#151515; box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 1px 1px rgba(17,17,17,.08); }
 .spx-product .spx-product__atelier-badge:hover { filter:brightness(1.05); }
 .spx-product__atelier-badge svg { width:10px; height:10px; margin-left:4px; stroke:currentColor; stroke-linecap:round; stroke-linejoin:round; stroke-width:2.5; }
 .spx-product__price { margin:0; font-size:28px; font-weight:800; line-height:1.1; }

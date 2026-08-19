@@ -9,6 +9,25 @@
 
     wrapper.dataset.ready = 'true';
     let trigger = null;
+    const title = drawer.querySelector('[data-atelier-drawer-title]');
+    const intro = drawer.querySelector('[data-atelier-drawer-intro]');
+    const defaultTitle = title?.textContent || '';
+    const defaultIntro = intro?.innerHTML || '';
+
+    const setDefaultContent = () => {
+      if (title) title.textContent = defaultTitle;
+      if (intro) intro.innerHTML = defaultIntro;
+    };
+
+    const setTriggerContent = (nextTrigger) => {
+      setDefaultContent();
+
+      const customTitle = nextTrigger.dataset.atelierTitle?.trim();
+      const customDescription = nextTrigger.dataset.atelierDescription?.trim();
+
+      if (customTitle && title) title.textContent = customTitle;
+      if (customDescription && intro) intro.textContent = customDescription;
+    };
 
     const close = () => {
       if (!drawer.classList.contains('is-open')) return;
@@ -21,6 +40,7 @@
 
     const open = (nextTrigger) => {
       trigger = nextTrigger;
+      setTriggerContent(nextTrigger);
       drawer.classList.add('is-open');
       drawer.setAttribute('aria-hidden', 'false');
       overlay.classList.add('is-visible');

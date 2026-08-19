@@ -6,6 +6,10 @@
   assign card_url = block.settings.fallback_url
   assign card_image = block.settings.fallback_image_url
   assign card_hover_image = block.settings.fallback_hover_image_url
+  assign atelier_edition_label = block.settings.edition_badge
+  assign atelier_edition_key = 'custom'
+  assign atelier_drawer_title = ''
+  assign atelier_drawer_description = ''
 
   if card_product != blank
     assign card_title = card_product.title
@@ -21,6 +25,45 @@
       endif
       echo card_product.price_min | money
     endcapture
+    assign atelier_edition_value = card_product.metafields.custom.atelier_edition.value | default: ''
+    assign atelier_drawer_title = card_product.metafields.custom.atelier_title.value | default: ''
+    assign atelier_drawer_description = card_product.metafields.custom.atelier_description.value | default: ''
+    assign atelier_edition_key = atelier_edition_value | downcase | strip
+    assign has_atelier_edition_metafield = false
+    case atelier_edition_key
+      when 'limited', 'limited atelier exclusive', 'limited-atelier', 'limited_atelier'
+        assign atelier_edition_key = 'limited'
+        assign atelier_edition_label = 'LIMITED ATELIER EXCLUSIVE'
+        assign has_atelier_edition_metafield = true
+      when 'atelier', 'atelier exclusive', 'silver'
+        assign atelier_edition_key = 'atelier'
+        assign atelier_edition_label = 'ATELIER EXCLUSIVE'
+        assign has_atelier_edition_metafield = true
+      when 'essentials', 'essential'
+        assign atelier_edition_key = 'essentials'
+        assign atelier_edition_label = 'ESSENTIALS'
+        assign has_atelier_edition_metafield = true
+    endcase
+    if has_atelier_edition_metafield == false
+      assign atelier_product_tags = card_product.tags | join: '|' | downcase
+      if atelier_product_tags contains 'limited atelier exclusive'
+        assign atelier_edition_key = 'limited'
+        assign atelier_edition_label = 'LIMITED ATELIER EXCLUSIVE'
+      elsif atelier_product_tags contains 'atelier exclusive'
+        assign atelier_edition_key = 'atelier'
+        assign atelier_edition_label = 'ATELIER EXCLUSIVE'
+      endif
+    endif
+  endif
+  if atelier_edition_label != blank and atelier_edition_key == 'custom'
+    assign atelier_label_key = atelier_edition_label | downcase | strip
+    if atelier_label_key contains 'limited'
+      assign atelier_edition_key = 'limited'
+    elsif atelier_label_key contains 'atelier'
+      assign atelier_edition_key = 'atelier'
+    elsif atelier_label_key contains 'essential'
+      assign atelier_edition_key = 'essentials'
+    endif
   endif
 -%}
 
@@ -60,13 +103,13 @@
   </div>
 
   <div class="spr-recs__info">
-    {%- if block.settings.edition_badge != blank -%}
-      <span class="spr-recs__edition">
-        {{ block.settings.edition_badge }}
+    {%- if atelier_edition_label != blank -%}
+      <button class="spr-recs__edition spr-recs__edition--{{ atelier_edition_key }} js-open-atelier-drawer-card" type="button" aria-haspopup="dialog" aria-controls="atelier-drawer-title" data-atelier-title="{{ atelier_drawer_title | escape }}" data-atelier-description="{{ atelier_drawer_description | escape }}">
+        {{ atelier_edition_label }}
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="m9 18 6-6-6-6"></path>
         </svg>
-      </span>
+      </button>
     {%- endif -%}
 
     <h3 class="spr-recs__title">

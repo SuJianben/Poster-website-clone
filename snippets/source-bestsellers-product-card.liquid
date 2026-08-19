@@ -19,6 +19,51 @@
   elsif promotion_discount != blank and promotion_discount > 0
     assign is_trending = true
   endif
+
+  assign atelier_edition_value = product.metafields.custom.atelier_edition.value | default: ''
+  assign atelier_edition_key = atelier_edition_value | downcase | strip
+  assign atelier_product_tags = product.tags | join: '|' | downcase
+  assign has_atelier_edition_metafield = false
+  case atelier_edition_key
+    when 'limited', 'limited atelier exclusive', 'limited-atelier', 'limited_atelier'
+      assign atelier_edition_key = 'limited'
+      assign has_atelier_edition_metafield = true
+    when 'atelier', 'atelier exclusive', 'silver'
+      assign atelier_edition_key = 'atelier'
+      assign has_atelier_edition_metafield = true
+    when 'essentials', 'essential'
+      assign atelier_edition_key = 'essentials'
+      assign has_atelier_edition_metafield = true
+  endcase
+  if has_atelier_edition_metafield == false
+    if atelier_product_tags contains 'limited atelier exclusive'
+      assign atelier_edition_key = 'limited'
+    elsif atelier_product_tags contains 'atelier exclusive'
+      assign atelier_edition_key = 'atelier'
+    elsif edition_badge != blank
+      assign edition_badge_key = edition_badge | downcase | strip
+      if edition_badge_key contains 'limited'
+        assign atelier_edition_key = 'limited'
+      elsif edition_badge_key contains 'atelier'
+        assign atelier_edition_key = 'atelier'
+      else
+        assign atelier_edition_key = 'essentials'
+      endif
+    else
+      assign atelier_edition_key = 'essentials'
+    endif
+  endif
+  case atelier_edition_key
+    when 'limited', 'limited atelier exclusive', 'limited-atelier', 'limited_atelier'
+      assign atelier_edition_key = 'limited'
+      assign atelier_edition_label = 'LIMITED ATELIER EXCLUSIVE'
+    when 'atelier', 'atelier exclusive', 'silver'
+      assign atelier_edition_key = 'atelier'
+      assign atelier_edition_label = 'ATELIER EXCLUSIVE'
+    else
+      assign atelier_edition_key = 'essentials'
+      assign atelier_edition_label = 'ESSENTIALS'
+  endcase
 %}
 
 <div class="f-column swiper-slide">
@@ -52,7 +97,7 @@
       </div>
       <div class="product-card__info text-center">
         <div class="product-card__atelier-badges" style="margin-bottom: 6px; display: flex; flex-wrap: wrap; gap: 4px; justify-content: center;">
-          <button class="atelier-badge js-open-atelier-drawer-card{% if product.tags contains 'Limited Atelier Exclusive' %} atelier-badge--limited{% elsif edition_badge == 'atelier' or product.tags contains 'Atelier Exclusive' %} atelier-badge--silver{% else %} atelier-badge--essentials{% endif %}" type="button" aria-haspopup="dialog" aria-controls="atelier-drawer-title">{% if product.tags contains 'Limited Atelier Exclusive' %}LIMITED ATELIER EXCLUSIVE{% elsif edition_badge == 'atelier' or product.tags contains 'Atelier Exclusive' %}ATELIER EXCLUSIVE{% else %}ESSENTIALS{% endif %}<svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="margin-left:3px;"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+          <button class="atelier-badge js-open-atelier-drawer-card atelier-badge--{% if atelier_edition_key == 'atelier' %}silver{% else %}{{ atelier_edition_key }}{% endif %}" type="button" aria-haspopup="dialog" aria-controls="atelier-drawer-title" data-atelier-title="{{ product.metafields.custom.atelier_title.value | escape }}" data-atelier-description="{{ product.metafields.custom.atelier_description.value | escape }}">{{ atelier_edition_label }}<svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="margin-left:3px;"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
         </div>
         <h3 class="product-card__title text-pcard-title" style="min-height: 3.08em; margin-bottom: 2px;"><a class="reversed-link block" href="{{ product.url }}"><span class="reversed-link__text">{{ product.title }}</span></a></h3>
         <p class="product-card__material" style="color: #555555; font-size: 13px; margin: 0 0 2px 0; line-height: 1.2; text-transform: uppercase;">{{ material }}</p>

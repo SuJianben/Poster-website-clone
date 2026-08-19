@@ -78,11 +78,52 @@
       {% assign artist_handle = product.vendor | handleize %}
       {% assign artist_url = routes.collections_url | append: '/' | append: artist_handle %}
     {% endif %}
+    {% assign atelier_edition_value = product.metafields.custom.atelier_edition.value | default: '' %}
+    {% assign atelier_edition_key = atelier_edition_value | downcase | strip %}
+    {% assign atelier_product_tags = product.tags | join: '|' | downcase %}
+    {% assign has_atelier_edition_metafield = false %}
+    {% case atelier_edition_key %}
+      {% when 'limited', 'limited atelier exclusive', 'limited-atelier', 'limited_atelier' %}
+        {% assign atelier_edition_key = 'limited' %}
+        {% assign has_atelier_edition_metafield = true %}
+      {% when 'atelier', 'atelier exclusive', 'silver' %}
+        {% assign atelier_edition_key = 'atelier' %}
+        {% assign has_atelier_edition_metafield = true %}
+      {% when 'essentials', 'essential' %}
+        {% assign atelier_edition_key = 'essentials' %}
+        {% assign has_atelier_edition_metafield = true %}
+    {% endcase %}
+    {% if has_atelier_edition_metafield == false %}
+      {% if atelier_product_tags contains 'limited atelier exclusive' %}
+        {% assign atelier_edition_key = 'limited' %}
+      {% elsif atelier_product_tags contains 'atelier exclusive' %}
+        {% assign atelier_edition_key = 'atelier' %}
+      {% else %}
+        {% assign atelier_edition_key = block.settings.atelier_text | downcase | strip %}
+        {% if atelier_edition_key contains 'limited' %}
+          {% assign atelier_edition_key = 'limited' %}
+        {% elsif atelier_edition_key contains 'atelier' %}
+          {% assign atelier_edition_key = 'atelier' %}
+        {% elsif atelier_edition_key contains 'essential' %}
+          {% assign atelier_edition_key = 'essentials' %}
+        {% else %}
+          {% assign atelier_edition_key = 'custom' %}
+        {% endif %}
+      {% endif %}
+    {% endif %}
+    {% assign atelier_edition_label = block.settings.atelier_text | default: 'ATELIER EXCLUSIVE' %}
+    {% case atelier_edition_key %}
+      {% when 'limited' %}{% assign atelier_edition_label = 'LIMITED ATELIER EXCLUSIVE' %}
+      {% when 'atelier' %}{% assign atelier_edition_label = 'ATELIER EXCLUSIVE' %}
+      {% when 'essentials' %}{% assign atelier_edition_label = 'ESSENTIALS' %}
+    {% endcase %}
+    {% assign show_atelier_badge = block.settings.show_atelier_badge %}
+    {% if has_atelier_edition_metafield or atelier_product_tags contains 'limited atelier exclusive' or atelier_product_tags contains 'atelier exclusive' %}{% assign show_atelier_badge = true %}{% endif %}
     <p class="spx-product__artist" data-analytics-block-type="artist" {{ block.shopify_attributes }}>
       {{ block.settings.label }} <a href="{{ artist_url }}">{{ artist_name }}</a>
-      {% if block.settings.show_atelier_badge %}
-        <button class="spx-product__atelier-badge" type="button" data-spx-atelier aria-label="Learn about {{ block.settings.atelier_text }}">
-          {{ block.settings.atelier_text }}
+      {% if show_atelier_badge %}
+        <button class="spx-product__atelier-badge spx-product__atelier-badge--{{ atelier_edition_key }} js-open-atelier-drawer-card" type="button" data-spx-atelier aria-haspopup="dialog" aria-controls="atelier-drawer-title" aria-label="Learn about {{ atelier_edition_label | escape }}" data-atelier-title="{{ product.metafields.custom.atelier_title.value | escape }}" data-atelier-description="{{ product.metafields.custom.atelier_description.value | escape }}">
+          {{ atelier_edition_label }}
           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><polyline points="9 18 15 12 9 6"></polyline></svg>
         </button>
       {% endif %}

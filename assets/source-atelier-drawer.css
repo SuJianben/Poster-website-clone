@@ -37,7 +37,7 @@
 .atelier-drawer__close { background: none; border: 0; color: #000; cursor: pointer; padding: 5px; }
 .atelier-drawer__content { color: #333; font-size: 14px; line-height: 1.6; }
 .atelier-drawer__content p { color: #555; margin: 0; }
-.drawer-intro { font-style: italic; margin-bottom: 30px !important; }
+.drawer-intro { font-style: italic; margin-bottom: 30px !important; white-space: pre-line; }
 .drawer-section { margin-bottom: 25px; }
 .drawer-section:last-child { margin-bottom: 0; }
 .drawer-section h4 { color: #000; font-size: 13px; font-weight: 800; margin: 0 0 8px; text-transform: uppercase; }

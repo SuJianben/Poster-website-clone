@@ -7,16 +7,16 @@
   <button class="atelier-drawer-overlay" type="button" data-atelier-close aria-label="Close"></button>
   <aside class="atelier-drawer" aria-hidden="true" aria-labelledby="atelier-drawer-title" role="dialog">
     <div class="atelier-drawer__header">
-      <span id="atelier-drawer-title" class="atelier-drawer__title">{% if is_english %}THREE DIFFERENT EDITIONS{% else %}DREI VERSCHIEDENE EDITIONEN{% endif %}</span>
+      <span id="atelier-drawer-title" class="atelier-drawer__title" data-atelier-drawer-title>{% if is_english %}THREE DIFFERENT EDITIONS{% else %}DREI VERSCHIEDENE EDITIONEN{% endif %}</span>
       <button class="atelier-drawer__close" type="button" data-atelier-close aria-label="{% if is_english %}Close{% else %}Schließen{% endif %}">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
       </button>
     </div>
-    <div class="atelier-drawer__content">
+    <div class="atelier-drawer__content" data-atelier-drawer-content>
       {% if is_english %}
-        <p class="drawer-intro">At DotComCanvas, we redefine wall art. Our three categories offer you access to exclusive art - from entry-level to rare investment pieces.</p>
+        <p class="drawer-intro" data-atelier-drawer-intro>At DotComCanvas, we redefine wall art. Our three categories offer you access to exclusive art - from entry-level to rare investment pieces.</p>
       {% else %}
-        <p class="drawer-intro">Bei DotComCanvas definieren wir Wandkunst neu. Unsere drei Kategorien bieten dir Zugang zu exklusiver Kunst - vom Einstieg bis zum seltenen Investment-Piece.</p>
+        <p class="drawer-intro" data-atelier-drawer-intro>Bei DotComCanvas definieren wir Wandkunst neu. Unsere drei Kategorien bieten dir Zugang zu exklusiver Kunst - vom Einstieg bis zum seltenen Investment-Piece.</p>
       {% endif %}
       <div class="drawer-section">
         <div class="drawer-separator">-----</div>
