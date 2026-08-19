@@ -59,7 +59,9 @@
     "custom": {
       "type": "source-footer-custom",
       "settings": {
-        "enabled": true
+        "enabled": true,
+        "logo_alt": "DOTCOMCANVAS®",
+        "logo_link": ""
       }
     }
   },

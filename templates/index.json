@@ -13,8 +13,6 @@
       "type": "source-hero",
       "settings": {
         "enabled": true,
-        "desktop_image": "shopify://shop_images/AcrylglasbildSaveWaterDrinkChampagneOriginalPopArtBild12.jpg",
-        "mobile_image": "shopify://shop_images/AcrylglasbildSaveWaterDrinkChampagneOriginalPopArtBild12.jpg",
         "link": "shopify://collections/all",
         "link_label": "",
         "product": "lucrecia-rey-caro-bleu",
@@ -189,7 +187,8 @@
         "enabled": true,
         "heading_prefix": "UNSERE",
         "heading_highlight": "BESTSELLER",
-        "collection_label": "Zur Kollektion"
+        "collection_label": "Zur Kollektion",
+        "collection_button_link": ""
       }
     },
     "canvas-deals": {
@@ -662,6 +661,16 @@
             "scene_image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg"
           }
         },
+        "slide_VtL3eQ": {
+          "type": "slide",
+          "settings": {
+            "title": "",
+            "body": "",
+            "customer_name": "",
+            "customer_location": "",
+            "product": ""
+          }
+        },
         "slide_Vgx3YX": {
           "type": "slide",
           "settings": {
@@ -677,6 +686,7 @@
       "block_order": [
         "slide_Mbr6hk",
         "slide_kQGGqG",
+        "slide_VtL3eQ",
         "slide_Vgx3YX"
       ],
       "settings": {
