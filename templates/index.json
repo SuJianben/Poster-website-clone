@@ -464,7 +464,7 @@
         "heading_prefix": "DESIGNED VON ECHTEN",
         "heading_highlight": "KÜNSTLERN",
         "link_label": "Zu Allen Künstlern",
-        "link": "shopify://pages/alle-kunstler",
+        "link": "shopify://collections/all",
         "collection_label": "Zur Kollektion"
       }
     },
