@@ -1,7 +1,7 @@
 {% assign source_footer_logo_width = section.settings.logo_width | default: 95 %}
 {% assign source_footer_logo_width_mobile = section.settings.logo_width_mobile | default: 90 %}
-{% assign source_footer_logo_text_size = source_footer_logo_width | times: 12 | divided_by: 100.0 %}
-{% assign source_footer_logo_text_size_mobile = source_footer_logo_width_mobile | times: 12 | divided_by: 100.0 %}
+{% assign source_footer_logo_text_size = source_footer_logo_width | times: 10 | divided_by: 100.0 %}
+{% assign source_footer_logo_text_size_mobile = source_footer_logo_width_mobile | times: 10 | divided_by: 100.0 %}
 {% assign source_footer_logo_alt = section.settings.logo_alt | default: shop.name %}
 
 <div
@@ -15,7 +15,7 @@
       position: relative;
       display: flex;
       justify-content: center;
-      align-items: flex-end;
+      align-items: center;
       overflow: visible;
       padding-top: 0;
       background-color: transparent;
@@ -44,12 +44,13 @@
     #shopify-section-{{ section.id }} .massive-footer-logo-text {
       width: var(--source-footer-logo-width, 95%);
       max-width: 100%;
-      margin: 0;
-      padding: 0.04em 0 0.08em;
+      margin: 0 auto;
+      padding-block: 0.06em;
+      box-sizing: border-box;
       color: #4a3b32;
       font-size: clamp(1.5rem, var(--source-footer-logo-text-size, 11.4vw), 12vw);
       font-weight: 900;
-      line-height: 0.9;
+      line-height: 1;
       letter-spacing: 0;
       text-align: center;
       text-transform: none;
