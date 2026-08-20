@@ -60,6 +60,8 @@
       "type": "source-footer-custom",
       "settings": {
         "enabled": true,
+        "logo_width": 53,
+        "logo_width_mobile": 90,
         "logo_alt": "DOTCOMCANVAS®",
         "logo_link": ""
       }
