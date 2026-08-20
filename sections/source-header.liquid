@@ -1,5 +1,6 @@
 {% if section.settings.enabled %}
 <style>.cart-icon cart-count { visibility: hidden; }</style>
+{{ 'source-header-logo.css' | asset_url | stylesheet_tag }}
 {% render 'source-header-1' %}
 {% render 'source-header-2' %}
 {% render 'source-header-config', section: section %}
@@ -15,6 +16,8 @@
   "settings": [
     { "type": "checkbox", "id": "enabled", "label": "显示模块", "default": true },
     { "type": "image_picker", "id": "logo", "label": "Logo 图片" },
+    { "type": "range", "id": "logo_width", "label": "Logo 宽度", "min": 80, "max": 500, "step": 10, "unit": "px", "default": 400 },
+    { "type": "range", "id": "logo_width_mobile", "label": "移动端 Logo 宽度", "min": 60, "max": 280, "step": 10, "unit": "px", "default": 200 },
     { "type": "url", "id": "logo_link", "label": "Logo 链接" },
     { "type": "text", "id": "search_placeholder", "label": "搜索框提示文字", "default": "Wonach suchst du?" },
     { "type": "link_list", "id": "menu", "label": "主导航菜单", "info": "使用包含六个菜单项的菜单替换参考站顶部导航，布局保持不变。" }

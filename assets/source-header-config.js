@@ -87,21 +87,79 @@
     }));
   }
 
+  function getLogoWidth(value, fallback, min, max) {
+    const width = Number.parseInt(value, 10);
+    if (!Number.isFinite(width)) return fallback;
+    return Math.min(Math.max(width, min), max);
+  }
+
+  function getHeaderScope(configNode) {
+    return configNode.closest('.shopify-section') || configNode.parentElement || document;
+  }
+
+  function applyLogoConfig(configNode) {
+    const headerScope = getHeaderScope(configNode);
+    const logoAnchor = headerScope.querySelector('.header__logo > a') || document.querySelector('.header__logo > a');
+    if (!logoAnchor) return;
+
+    const logo = configNode.dataset.logo;
+    const shopName = configNode.dataset.shopName || 'Store';
+    const desktopWidth = getLogoWidth(configNode.dataset.logoWidth, 400, 80, 500);
+    const mobileWidth = getLogoWidth(configNode.dataset.logoWidthMobile, 200, 60, 280);
+    const logoSection = logoAnchor.closest('.shopify-section') || (headerScope instanceof HTMLElement ? headerScope : null);
+    const images = [...logoAnchor.querySelectorAll('img.logo')];
+    let fallback = logoAnchor.querySelector('[data-source-header-logo-text]');
+
+    if (logoSection) {
+      logoSection.style.setProperty('--logo-width', `${desktopWidth}px`);
+      logoSection.style.setProperty('--logo-width-mobile', `${mobileWidth}px`);
+    }
+    logoAnchor.style.setProperty('--source-header-logo-width', `${desktopWidth}px`);
+    logoAnchor.style.setProperty('--source-header-logo-width-mobile', `${mobileWidth}px`);
+    logoAnchor.dataset.sourceHeaderLogo = 'true';
+    logoAnchor.setAttribute('aria-label', shopName);
+
+    if (logo) {
+      images.forEach((image) => {
+        image.hidden = false;
+        image.removeAttribute('aria-hidden');
+        image.src = logo;
+        image.srcset = logo;
+        image.alt = shopName;
+      });
+      fallback?.remove();
+      logoAnchor.classList.remove('source-header-logo--text');
+      logoAnchor.classList.add('header__logo--image');
+      return;
+    }
+
+    images.forEach((image) => {
+      image.hidden = true;
+      image.setAttribute('aria-hidden', 'true');
+    });
+
+    if (!fallback) {
+      fallback = document.createElement('span');
+      fallback.className = 'source-header-logo-text';
+      fallback.dataset.sourceHeaderLogoText = 'true';
+      logoAnchor.append(fallback);
+    }
+
+    fallback.textContent = shopName;
+    logoAnchor.classList.remove('header__logo--image');
+    logoAnchor.classList.add('source-header-logo--text');
+  }
+
   function applyConfig(configNode) {
     if (configNode.dataset.sourceHeaderConfigReady === 'true') return;
 
-    const logo = configNode.dataset.logo;
     const logoLink = configNode.dataset.logoLink;
-    const logoAnchor = document.querySelector('.header__logo > a');
-    if (logo && logoAnchor) {
-      logoAnchor.querySelectorAll('img').forEach((image) => {
-        image.src = logo;
-        image.srcset = logo;
-      });
-    }
+    const headerScope = getHeaderScope(configNode);
+    const logoAnchor = headerScope.querySelector('.header__logo > a') || document.querySelector('.header__logo > a');
+    applyLogoConfig(configNode);
     if (logoLink && logoAnchor) logoAnchor.href = logoLink;
 
-    document.querySelectorAll('.header__search input[type="search"]').forEach((input) => {
+    headerScope.querySelectorAll('.header__search input[type="search"]').forEach((input) => {
       input.placeholder = configNode.dataset.searchPlaceholder;
     });
 
