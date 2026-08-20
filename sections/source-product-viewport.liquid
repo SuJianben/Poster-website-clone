@@ -8,7 +8,14 @@
 {% schema %}
 {
   "name": "商品主信息",
-  "settings": [],
+  "settings": [
+    { "type": "header", "content": "Product Details" },
+    { "type": "text", "id": "product_details_heading", "label": "Product Details 标题", "default": "Product Details" },
+    { "type": "richtext", "id": "product_details_content", "label": "Product Details 自定义内容", "info": "留空时显示当前商品的描述（description）。也可通过动态来源连接产品元字段。" },
+    { "type": "header", "content": "Shipping and Returns" },
+    { "type": "text", "id": "shipping_returns_heading", "label": "Shipping and Returns 标题", "default": "Shipping and Returns" },
+    { "type": "richtext", "id": "shipping_returns_content", "label": "Shipping and Returns 自定义内容", "info": "留空时使用当前配送与退换货说明。也可通过动态来源连接产品元字段。" }
+  ],
   "max_blocks": 12,
   "blocks": [
     {

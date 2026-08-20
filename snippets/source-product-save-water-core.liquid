@@ -2,6 +2,10 @@
   assign primary_collection = product.collections.first
   assign selected_media = product.selected_or_first_available_variant.featured_media | default: product.featured_media
   assign selected_image = selected_media.preview_image | default: product.featured_image
+  assign product_details_heading = section.settings.product_details_heading | default: 'Product Details'
+  assign product_details_content = section.settings.product_details_content
+  assign shipping_returns_heading = section.settings.shipping_returns_heading | default: 'Shipping and Returns'
+  assign shipping_returns_content = section.settings.shipping_returns_content
 %}
 
 <section class="spx-product" data-spx-product>
@@ -40,16 +44,26 @@
 
         <div class="spx-product__accordions">
           <details class="spx-product__accordion" data-spx-accordion>
-            <summary><span>Product Details</span><svg class="spx-product__accordion-icon" aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M3.125 10H16.875"/><path class="spx-product__accordion-icon-vertical" d="M10 3.125V16.875"/></svg></summary>
+            <summary><span>{{ product_details_heading }}</span><svg class="spx-product__accordion-icon" aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M3.125 10H16.875"/><path class="spx-product__accordion-icon-vertical" d="M10 3.125V16.875"/></svg></summary>
             <div class="spx-product__accordion-content"><div class="spx-product__accordion-body spx-product__accordion-product-details">
-              {% if product.description != blank %}{{ product.description }}{% else %}<p class="spx-product__accordion-intro">Premium wall art made with high-resolution printing and durable materials.</p>{% endif %}
+              {% if product_details_content != blank %}
+                {{ product_details_content }}
+              {% elsif product.description != blank %}
+                {{ product.description }}
+              {% else %}
+                <p class="spx-product__accordion-intro">Premium wall art made with high-resolution printing and durable materials.</p>
+              {% endif %}
             </div></div>
           </details>
           <details class="spx-product__accordion" data-spx-accordion>
-            <summary><span>Shipping and Returns</span><svg class="spx-product__accordion-icon" aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M3.125 10H16.875"/><path class="spx-product__accordion-icon-vertical" d="M10 3.125V16.875"/></svg></summary>
+            <summary><span>{{ shipping_returns_heading }}</span><svg class="spx-product__accordion-icon" aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M3.125 10H16.875"/><path class="spx-product__accordion-icon-vertical" d="M10 3.125V16.875"/></svg></summary>
             <div class="spx-product__accordion-content"><div class="spx-product__accordion-body spx-product__accordion-shipping">
-              <h3>Shipping &amp; Delivery</h3><ul><li><strong>Shipping Costs:</strong> Free worldwide shipping on orders over 99 EUR.</li><li><strong>Security:</strong> Safe and fast shipping including tracking.</li><li><strong>Delivery Time:</strong> 2-7 business days worldwide.</li></ul>
-              <h3>Returns &amp; Exchanges</h3><p>You can return or exchange your order within 30 days of receipt. Personalized products are excluded from return unless defective.</p>
+              {% if shipping_returns_content != blank %}
+                {{ shipping_returns_content }}
+              {% else %}
+                <h3>Shipping &amp; Delivery</h3><ul><li><strong>Shipping Costs:</strong> Free worldwide shipping on orders over 99 EUR.</li><li><strong>Security:</strong> Safe and fast shipping including tracking.</li><li><strong>Delivery Time:</strong> 2-7 business days worldwide.</li></ul>
+                <h3>Returns &amp; Exchanges</h3><p>You can return or exchange your order within 30 days of receipt. Personalized products are excluded from return unless defective.</p>
+              {% endif %}
             </div></div>
           </details>
         </div>
