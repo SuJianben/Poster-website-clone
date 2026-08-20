@@ -1,82 +1,100 @@
-{% raw %}
-<section id="shopify-section-sections--28031812927754__custom_liquid_f9hRqg" class="shopify-section shopify-section-group-footer-group section"><div
-  class="section section--padding color-scheme-inverse"
+{% assign source_footer_logo_width = section.settings.logo_width | default: 95 %}
+{% assign source_footer_logo_width_mobile = section.settings.logo_width_mobile | default: 90 %}
+{% assign source_footer_logo_alt = section.settings.logo_alt | default: shop.name %}
+
+<div
+  class="section section--padding color-scheme-inverse source-footer-custom"
   data-section-index="4"
-  style="--section-padding-top: 0px;--section-padding-bottom: 0px;"
+  style="--section-padding-top: 0px; --section-padding-bottom: 0px;"
 >
   <style>
-  /* --- CONTAINER FÜR DAS RIESIGE LOGO --- */
-  .massive-footer-logo-container {
-    width: 100vw;
-    position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    overflow: hidden;
-    padding-top: 0; /* Abstand nach oben zu den Footer-Links */
-    background-color: transparent; /* Gleiche Farbe wie dein Footer-Hintergrund */
-  }
-
-  /* --- WENN DU EIN BILD/SVG NUTZT --- */
-  .massive-footer-logo-image {
-    width: 95%; /* Etwas Platz am Rand, mach 100% für komplett Edge-to-Edge */
-    max-width: 1600px; /* Verhindert, dass es auf riesigen Monitoren unscharf wird */
-    height: auto;
-    display: block;
-    margin-bottom: 2%; /* Zieht das Logo eng an den unteren Rand wie im Screenshot */
-    object-fit: contain;
-  }
-
-  /* --- WENN DU NUR TEXT NUTZT --- */
-  .massive-footer-logo-text {
-    font-size: 16vw; /* Skaliert dynamisch mit der Bildschirmbreite */
-    font-weight: 900; /* Sehr fett */
-    line-height: 0.75; /* Zieht den Text in der Höhe eng zusammen */
-    text-transform: none;
-    letter-spacing: -0.05em; /* Buchstaben rücken näher zusammen */
-    color: #4a3b32; /* Dunkelbraun wie im Screenshot - ÄNDERE DIESE FARBE NACH DEINEM WUNSCH */
-    margin: 0;
-    text-align: center;
-    white-space: nowrap;
-    width: 100%;
-  }
-
-  /* Mobile Anpassungen */
-  @media screen and (max-width: 768px) {
-    .massive-footer-logo-container {
-      padding-top: 0px;
+    #shopify-section-{{ section.id }} .massive-footer-logo-container {
+      width: 100%;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      overflow: hidden;
+      padding-top: 0;
+      background-color: transparent;
     }
-    .massive-footer-logo-text {
-      font-size: 15vw; /* Auf dem Handy anpassen, damit alles drauf passt */
+
+    #shopify-section-{{ section.id }} .massive-footer-logo-link {
+      display: block;
+      width: var(--source-footer-logo-width, 95%);
+      max-width: 100%;
     }
-    .massive-footer-logo-image {
-      width: 90%; /* Auf Mobile komplett bis zum Rand */
+
+    #shopify-section-{{ section.id }} .massive-footer-logo-link .massive-footer-logo-image {
+      width: 100%;
+      max-width: none;
     }
-  }
-</style>
 
-<div class="massive-footer-logo-container">
-  
-  
-  
-  <img src="https://cdn.shopify.com/s/files/1/0601/1253/5810/files/DOTCOMCANVAS_Logo_weiss_4.0_b72e12bf-29e0-4e16-934d-b7c402b10524.png?v=1774272498" alt="DOTCOMCANVAS®" class="massive-footer-logo-image">
+    #shopify-section-{{ section.id }} .massive-footer-logo-image {
+      width: var(--source-footer-logo-width, 95%);
+      max-width: min(1600px, 100%);
+      height: auto;
+      display: block;
+      margin-bottom: 2%;
+      object-fit: contain;
+    }
 
+    #shopify-section-{{ section.id }} .massive-footer-logo-text {
+      width: 100%;
+      margin: 0;
+      color: #4a3b32;
+      font-size: 16vw;
+      font-weight: 900;
+      line-height: 0.75;
+      letter-spacing: -0.05em;
+      text-align: center;
+      text-transform: none;
+      white-space: nowrap;
+    }
 
+    @media screen and (max-width: 768px) {
+      #shopify-section-{{ section.id }} .massive-footer-logo-container {
+        padding-top: 0;
+      }
 
+      #shopify-section-{{ section.id }} .massive-footer-logo-image {
+        width: var(--source-footer-logo-width-mobile, 90%);
+      }
 
+      #shopify-section-{{ section.id }} .massive-footer-logo-link {
+        width: var(--source-footer-logo-width-mobile, 90%);
+      }
 
+      #shopify-section-{{ section.id }} .massive-footer-logo-text {
+        font-size: 15vw;
+      }
+    }
+  </style>
+
+  <div
+    class="massive-footer-logo-container"
+    style="--source-footer-logo-width: {{ source_footer_logo_width }}%; --source-footer-logo-width-mobile: {{ source_footer_logo_width_mobile }}%;"
+  >
+    {% if section.settings.logo_image != blank %}
+      {% if section.settings.logo_link != blank %}
+        <a class="massive-footer-logo-link" href="{{ section.settings.logo_link }}" aria-label="{{ source_footer_logo_alt | escape }}">
+      {% endif %}
+
+      {{
+        section.settings.logo_image
+        | image_url: width: 2200
+        | image_tag:
+          class: 'massive-footer-logo-image',
+          widths: '480, 720, 960, 1280, 1600, 2200',
+          loading: 'lazy',
+          alt: source_footer_logo_alt
+      }}
+
+      {% if section.settings.logo_link != blank %}
+        </a>
+      {% endif %}
+    {% else %}
+      <p class="massive-footer-logo-text">{{ source_footer_logo_alt }}</p>
+    {% endif %}
+  </div>
 </div>
-</div>
-
-
-</section>
-<!-- END sections: footer-group -->
-    </div>
-
-    <!-- BEGIN sections: overlay-group -->
-
-{% endraw %}

@@ -1,22 +1,15 @@
 {% if section.settings.enabled %}
-{% render 'source-footer-custom-1' %}
-<script src="{{ 'source-footer-custom-content.js' | asset_url }}" defer="defer"></script>
-{% if section.settings.logo_image != blank or section.settings.logo_alt != blank or section.settings.logo_link != blank %}
-  <script type="application/json" data-source-footer-custom-overrides>
-    {
-      "image": {% if section.settings.logo_image != blank %}{{ section.settings.logo_image | image_url: width: 2200 | json }}{% else %}null{% endif %},
-      "alt": {{ section.settings.logo_alt | json }},
-      "link": {{ section.settings.logo_link | json }}
-    }
-  </script>
+  {% render 'source-footer-custom-1', section: section %}
 {% endif %}
-{% endif %}
+
 {% schema %}
 {
   "name": "页脚自定义内容",
   "settings": [
     { "type": "checkbox", "id": "enabled", "label": "显示模块", "default": true },
     { "type": "image_picker", "id": "logo_image", "label": "Logo 图片" },
+    { "type": "range", "id": "logo_width", "label": "桌面端 Logo 宽度", "min": 40, "max": 100, "step": 1, "unit": "%", "default": 95 },
+    { "type": "range", "id": "logo_width_mobile", "label": "移动端 Logo 宽度", "min": 40, "max": 100, "step": 1, "unit": "%", "default": 90 },
     { "type": "text", "id": "logo_alt", "label": "Logo 替代文本", "default": "DOTCOMCANVAS®" },
     { "type": "url", "id": "logo_link", "label": "Logo 链接" }
   ],
