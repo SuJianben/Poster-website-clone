@@ -6,6 +6,16 @@
   assign product_details_content = section.settings.product_details_content
   assign shipping_returns_heading = section.settings.shipping_returns_heading | default: 'Shipping and Returns'
   assign shipping_returns_content = section.settings.shipping_returns_content
+  assign size_guide_image = blank
+  assign size_guide_label = 'SIZE GUIDE'
+  for block in section.blocks
+    if block.type == 'variant_picker'
+      assign size_guide_image = block.settings.size_guide_image
+      assign size_guide_label = block.settings.size_guide_label | default: size_guide_label
+      break
+    endif
+  endfor
+  assign size_guide_image_alt = size_guide_image.alt | default: size_guide_label
 %}
 
 <section class="spx-product" data-spx-product>
@@ -83,7 +93,7 @@
   </dialog>
 
   <dialog class="spx-product__size-guide-dialog" data-spx-size-guide-dialog aria-label="Size guide">
-    <div class="spx-product__size-guide-card"><div class="spx-product__size-guide-header"><span>SIZE GUIDE</span><button type="button" data-spx-close-size-guide aria-label="Close size guide"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m18 6-12 12M6 6l12 12"/></svg></button></div><div class="spx-product__size-guide-image"><img src="https://dotcomcanvas.de/cdn/shop/files/Groessen_Size_en_Guide_NA_inches.png?v=10709032047291710906" alt="Size guide in inches"></div></div>
+    <div class="spx-product__size-guide-card"><div class="spx-product__size-guide-header"><span>{{ size_guide_label }}</span><button type="button" data-spx-close-size-guide aria-label="Close size guide"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m18 6-12 12M6 6l12 12"/></svg></button></div><div class="spx-product__size-guide-image">{% if size_guide_image != blank %}{{ size_guide_image | image_url: width: 1800 | image_tag: alt: size_guide_image_alt, loading: 'lazy' }}{% else %}<img src="https://dotcomcanvas.de/cdn/shop/files/Groessen_Size_en_Guide_NA_inches.png?v=10709032047291710906" alt="Size guide in inches">{% endif %}</div></div>
   </dialog>
   <button class="spx-product__back-to-top" type="button" aria-label="Back to top" data-spx-back-to-top>
     <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="m6 14 6-6 6 6"/></svg>
