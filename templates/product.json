@@ -185,7 +185,9 @@
         "media_logo_bloomberg",
         "media_logo_yahoo_finance"
       ],
-      "settings": {}
+      "settings": {
+        "heading": "Bekannt aus"
+      }
     },
     "source_tabs": {
       "type": "source-product-tabs-content",
