@@ -3,29 +3,75 @@
 <script src="{{ 'source-product-reviews.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'source-reviews-summary.js' | asset_url }}" defer="defer"></script>
 
-<section class="sprv" data-sprv-root data-section-id="{{ section.id }}" aria-labelledby="sprv-heading-{{ section.id }}">
+{%- liquid
+  assign review_source = section.settings.review_source | default: 'manual'
+  assign manual_review_count = 0
+  assign app_block_count = 0
+
+  for block in section.blocks
+    if block.type == 'review' and block.settings.enabled
+      assign manual_review_count = manual_review_count | plus: 1
+    elsif block.type == '@app'
+      assign app_block_count = app_block_count | plus: 1
+    endif
+  endfor
+
+  assign section_has_content = false
+  if review_source == 'manual' and manual_review_count > 0
+    assign section_has_content = true
+  elsif review_source == 'app' and app_block_count > 0
+    assign section_has_content = true
+  endif
+-%}
+
+<section
+  class="sprv"
+  data-sprv-root
+  data-section-id="{{ section.id }}"
+  data-sprv-default-filter="{{ section.settings.default_filter | default: 'recent' }}"
+  data-sprv-page-size="{{ section.settings.reviews_per_page | default: 12 }}"
+  {% if section_has_content == false and request.design_mode == false %}hidden{% endif %}
+  aria-labelledby="sprv-heading-{{ section.id }}"
+>
   <div class="sprv__heading-wrap">
     <h2 id="sprv-heading-{{ section.id }}" class="sprv__heading">{{ section.settings.heading }}</h2>
   </div>
 
   <div class="sprv__widget">
     <div class="sprv__inner">
-      {% if section.blocks.size > 0 %}
+      {% if review_source == 'app' %}
+        {% if app_block_count > 0 %}
         <div class="sprv__app-blocks">
           {% for block in section.blocks %}
             {% if block.type == '@app' %}<div class="sprv__app-block" {{ block.shopify_attributes }}>{% render block %}</div>{% endif %}
           {% endfor %}
         </div>
-      {% else %}
-        {% render 'source-reviews-summary', variant: 'product', review_count: section.settings.review_count, write_heading: section.settings.write_heading, contact_url: section.settings.contact_url %}
+        {% elsif request.design_mode %}
+          <p class="sprv__empty">请先添加评论应用块，或将“评论来源”切换为“后台手动评论”。</p>
+        {% endif %}
+      {% elsif manual_review_count > 0 %}
+        {% render 'source-reviews-summary',
+          variant: 'product',
+          review_count: section.settings.review_count,
+          average_rating: section.settings.average_rating,
+          write_heading: section.settings.write_heading,
+          contact_url: section.settings.contact_url,
+          section: section,
+          manual_review_photos: true,
+          use_manual_summary: true,
+          use_custom_summary: section.settings.use_custom_summary
+        %}
 
         {% assign review_write_url = section.settings.contact_url | default: '/pages/write-a-review' %}
         {% render 'source-product-reviews-list',
+          section: section,
           review_count: section.settings.review_count,
           show_write: true,
           write_heading: section.settings.write_heading,
           contact_url: review_write_url
         %}
+      {% elsif request.design_mode %}
+        <p class="sprv__empty">暂无手动评论。点击左侧“添加块”，选择“客户评论”后即可填写内容。</p>
       {% endif %}
     </div>
   </div>
@@ -36,12 +82,64 @@
 {
   "name": "商品评价",
   "settings": [
+    {
+      "type": "select",
+      "id": "review_source",
+      "label": "评论来源",
+      "default": "manual",
+      "options": [
+        { "value": "manual", "label": "后台手动评论" },
+        { "value": "app", "label": "评论插件" }
+      ]
+    },
     { "type": "text", "id": "heading", "label": "标题", "default": "Über 60.000 zufriedene Kunden" },
-    { "type": "text", "id": "review_count", "label": "评价数量", "default": "2626" },
+    { "type": "checkbox", "id": "use_custom_summary", "label": "手动设置评分和评价总数", "default": false, "info": "关闭后将根据当前显示的客户评论自动计算。" },
+    { "type": "text", "id": "average_rating", "label": "平均评分", "default": "4,9", "info": "仅在开启手动设置汇总时使用，例如 4,9。" },
+    { "type": "text", "id": "review_count", "label": "展示评价总数", "default": "2626", "info": "仅在开启手动设置汇总时使用。" },
     { "type": "text", "id": "write_heading", "label": "写评价标题", "default": "Write a review" },
-    { "type": "url", "id": "contact_url", "label": "写评价链接" }
+    { "type": "url", "id": "contact_url", "label": "写评价链接" },
+    {
+      "type": "select",
+      "id": "default_filter",
+      "label": "默认筛选方式",
+      "default": "recent",
+      "options": [
+        { "value": "recent", "label": "最新评价（显示全部）" },
+        { "value": "photos", "label": "仅显示带图片的评价" },
+        { "value": "highest-rating", "label": "评分从高到低" },
+        { "value": "lowest-rating", "label": "评分从低到高" },
+        { "value": "most-votes", "label": "最有帮助" }
+      ]
+    },
+    { "type": "range", "id": "reviews_per_page", "label": "每页显示评论数", "min": 4, "max": 24, "step": 1, "default": 12 }
   ],
-  "blocks": [{ "type": "@app" }],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "客户评论",
+      "settings": [
+        { "type": "checkbox", "id": "enabled", "label": "显示此评论", "default": true },
+        { "type": "text", "id": "reviewer", "label": "客户姓名", "default": "Customer name" },
+        { "type": "text", "id": "review_date", "label": "评论日期", "info": "建议使用 YYYY-MM-DD 格式，方便按日期排序。" },
+        { "type": "range", "id": "rating", "label": "星级", "min": 1, "max": 5, "step": 1, "default": 5 },
+        { "type": "text", "id": "title", "label": "评论标题", "default": "Review title" },
+        { "type": "textarea", "id": "body", "label": "评论正文", "default": "Add the customer's review here." },
+        { "type": "product", "id": "product", "label": "关联产品（可选）" },
+        { "type": "text", "id": "product_name", "label": "关联产品名称（未选择产品时使用）" },
+        { "type": "checkbox", "id": "verified", "label": "显示已验证买家", "default": true },
+        { "type": "text", "id": "verified_label", "label": "已验证买家文案", "default": "Verified Buyer" },
+        { "type": "text", "id": "country", "label": "国家或地区" },
+        { "type": "image_picker", "id": "image_1", "label": "评论图片 1" },
+        { "type": "image_picker", "id": "image_2", "label": "评论图片 2" },
+        { "type": "image_picker", "id": "image_3", "label": "评论图片 3" },
+        { "type": "text", "id": "image_1_url", "label": "评论图片 1 外链（可选）" },
+        { "type": "text", "id": "image_2_url", "label": "评论图片 2 外链（可选）" },
+        { "type": "text", "id": "image_3_url", "label": "评论图片 3 外链（可选）" },
+        { "type": "range", "id": "helpful_count", "label": "初始有帮助数", "min": 0, "max": 999, "step": 1, "default": 0 }
+      ]
+    },
+    { "type": "@app" }
+  ],
   "presets": [{ "name": "商品评价" }]
 }
 {% endschema %}

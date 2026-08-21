@@ -1,109 +1,105 @@
 {%- liquid
-  assign review_index = index | modulo: 4
-  if review_index == 0
-    assign review_index = 4
+  assign review_product = block.settings.product
+  assign review_title = block.settings.title | default: 'Great quality'
+  assign review_body = block.settings.body | default: ''
+  assign review_date = block.settings.review_date | default: ''
+  assign rating = block.settings.rating | default: 5
+  assign reviewer = block.settings.reviewer | default: 'Customer'
+  assign country = block.settings.country | default: ''
+  assign helpful = block.settings.helpful_count | default: 0
+  assign verified_label = ''
+  if block.settings.verified
+    assign verified_label = block.settings.verified_label | default: 'Verified Buyer'
   endif
 
-  assign is_desktop_extra = false
-  if index > 4
-    assign is_desktop_extra = true
+  assign product_name = block.settings.product_name | default: ''
+  assign product_image = ''
+  if review_product != blank
+    assign product_name = review_product.title
+    if review_product.featured_image != blank
+      assign product_image = review_product.featured_image | image_url: width: 600
+    endif
   endif
 
-  case review_index
-    when 1
-      assign image_urls = 'https://cdn.stamped.io/tr:w-350:/uploads/photos/228253_8264592785674_bbcf5af6_6d4e_4392_8109_868d996fa81e.jpg?|https://cdn.stamped.io/tr:w-350:/uploads/photos/228253_8264592785674_85af7e91_7171_4fd5_81c6_e48557cb06fc.jpg?|https://cdn.stamped.io/tr:w-350:/uploads/photos/228253_8264592785674_6b62d13f_3bca_4491_b59f_9dd2d48a635a.jpg?' | split: '|'
-      assign has_photo = true
-      assign review_timestamp = '2026-06-16'
-      assign rating = 5
-      assign review_date = '16/06/2026'
-      assign detail_rows = 'Was hast du bestellt?::Acrylglasbild, Blattgoldbild|Wie alt bist du?::60|Was machst du beruflich?::Entrepreneur|Wo hängt das Wandbild?::Livingroom, kitchen, toilet' | split: '|'
-      assign review_title = '7 beautiful acrylglas work in my home'
-      assign review_body = 'I have ordered paintings over the years and i am very proud of the acrykglas work. They are my home decorations items. I have accumulated 7 of them over the year. Guests who visit my home are interested in them because acrylclas work are immediately noticeable.'
-      assign product_name = 'Shit Happens - Acrylglas - 40 X 40 CM / Ohne Rahmen'
-      assign product_image = 'https://cdn1.stamped.io/uploads/productImages/228253_8264592785674.jpg'
-      assign author = 'Tapio V.'
-      assign country = 'Finland'
-      assign helpful = '0'
-      assign verified_label = 'Verified Buyer'
-    when 2
-      assign image_urls = '' | split: '|'
-      assign has_photo = false
-      assign review_timestamp = '2026-06-07'
-      assign rating = 4
-      assign review_date = '07/06/2026'
-      assign detail_rows = 'Bestellung::Acrylglasbild|Alter::52|Beruf::Carpenter|Anwendung::Will be the living room' | split: '|'
-      assign review_title = 'Awesome company'
-      assign review_body = 'Yesterday I received my 6th piece of artwork from dotcomcanvas. And once again dotcomcanvas done a outstanding job the colours and attention to detail are top quality and definitely the best company out there selling this type of product. Also dotcomcanvas selection is much better than all the others companies out there trying to do what dotcomcanvas does but not quite as good in my opinion. Customer service is fantastic shipping and delivery is fast and reliable. This delivery did take a bit longer not dotcomcanvas fault. I made a mistake with my delivery address so when it arrived in the uk Customs sent it back to Germany. Contacted dotcomcanvas and they sorted out the problem in no time fantastic. If your looking for something to stand out in your home something you don’t see all the time then you need to check this company out. I just want to say a big thanks to everyone at dotcomcanvas you do a fantastic job. Can’t wait to hang my new artwork in the next few days.'
-      assign product_name = ''
-      assign author = 'James C.'
-      assign country = ''
-      assign helpful = '0'
-      assign verified_label = ''
-    when 3
-      assign image_urls = 'https://cdn.stamped.io/tr:w-350:/uploads/photos/228253_8202634854666_e52e860b_9db8_4f3c_8a81_0cd68bfa9de8.jpg?' | split: '|'
-      assign has_photo = true
-      assign review_timestamp = '2026-06-06'
-      assign rating = 5
-      assign review_date = '06/06/2026'
-      assign detail_rows = 'Was hast du bestellt?::Acrylglasbild' | split: '|'
-      assign review_title = '5/5'
-      assign review_body = 'Tilaaminen todella helppoa ja tuote tuli noin viikossa perille. Taulut vaikuttaa korkea laatuiselta. Tätä tukee myös +100 takuu. Ehdottomasti tilaan uudelleen.'
-      assign product_name = 'Queen Card - Acrylglas'
-      assign author = 'Tomi K.'
-      assign country = 'Finland'
-      assign helpful = '1'
-      assign verified_label = 'Verified Buyer'
-    else
-      assign image_urls = 'https://cdn.stamped.io/tr:w-350:/uploads/photos/228253_10484023623946_f6621af5_7a5c_4871_8105_f5465414762a_r1780202711687.jpg?v=1780202711' | split: '|'
-      assign has_photo = true
-      assign review_timestamp = '2026-05-29'
-      assign rating = 3
-      assign review_date = '29/05/2026'
-      assign detail_rows = 'Was hast du bestellt?::Leinwandbild|Wie alt bist du?::24|Was machst du beruflich?::Sales|Wo hängt das Wandbild?::Living Room' | split: '|'
-      assign review_title = 'Bild'
-      assign review_body = 'Hat alles super geklappt, Qualität ist gut und Lieferung war schnell.'
-      assign product_name = 'Old Money Duck'
-      assign author = 'Daniel S.'
-      assign country = 'Switzerland'
-      assign helpful = '2'
-      assign verified_label = 'Verified Buyer'
-  endcase
+  assign review_image_1 = block.settings.image_1
+  assign review_image_2 = block.settings.image_2
+  assign review_image_3 = block.settings.image_3
+  assign review_image_1_url = block.settings.image_1_url | strip
+  assign review_image_2_url = block.settings.image_2_url | strip
+  assign review_image_3_url = block.settings.image_3_url | strip
+  assign image_count = 0
+
+  if review_image_1 != blank or review_image_1_url != blank
+    assign image_count = image_count | plus: 1
+  endif
+  if review_image_2 != blank or review_image_2_url != blank
+    assign image_count = image_count | plus: 1
+  endif
+  if review_image_3 != blank or review_image_3_url != blank
+    assign image_count = image_count | plus: 1
+  endif
 -%}
 
-<article class="sprv-card{% if is_desktop_extra %} sprv-card--desktop-extra{% endif %}" data-sprv-review-card data-has-photo="{{ has_photo }}" data-sprv-has-photo="{{ has_photo }}" data-sprv-date="{{ review_timestamp }}" data-sprv-rating="{{ rating }}" data-sprv-helpful="{{ helpful }}">
-  {%- if has_photo -%}
-  <div class="sprv-card__media{% if image_urls.size > 1 %} sprv-card__media--stack{% endif %}">
-    {%- for image_url in image_urls -%}
-      <button type="button" data-srp-summary-photo data-sprv-photo="{{ image_url }}" data-reviewer="{{ author | escape }}" data-verified="{{ verified_label | escape }}" data-date="{{ review_date | escape }}" data-title="{{ review_title | escape }}" data-body="{{ review_body | escape }}" data-product="{{ product_name | escape }}"{% if product_image != blank %} data-product-image="{{ product_image | escape }}"{% endif %} data-helpful="{{ helpful }}" aria-label="Open review photo {{ forloop.index }}">
-        <img src="{{ image_url }}" alt="Save Water customer review" width="700" height="525" loading="lazy">
-      </button>
-    {%- endfor -%}
-  </div>
-  {%- endif -%}
-  <div class="sprv-card__content">
-    <div class="sprv-card__meta"><time datetime="{{ review_timestamp }}">{{ review_date }}</time><span class="sprv__stars" aria-label="{{ rating }} out of 5 stars">{% for star in (1..5) %}{% if star <= rating %}★{% else %}☆{% endif %}{% endfor %}</span></div>
-    <dl class="sprv-card__details">
-      {%- for row in detail_rows -%}
-        {%- assign columns = row | split: '::' -%}
-        <div><dt>{{ columns[0] }}</dt><dd>{{ columns[1] }}</dd></div>
-      {%- endfor -%}
-    </dl>
-    <div class="sprv-card__meters">
-      {%- assign meter_labels = 'Wie bewertest du die Druckqualität?|Wie bewertest du die Verarbeitung?|Wie bewertest du das Preis-Leistungs-Verhältnis?' | split: '|' -%}
-      {%- for label in meter_labels -%}
-        <div><strong>{{ label }}</strong><span class="sprv-card__meter"><i></i><i></i><i></i><i></i><i></i></span><small><b>Schlecht</b><b>Perfekt</b></small></div>
-      {%- endfor -%}
+<article
+  class="sprv-card"
+  data-sprv-review-card
+  data-sprv-has-photo="{% if image_count > 0 %}true{% else %}false{% endif %}"
+  data-sprv-date="{{ review_date | escape }}"
+  data-sprv-rating="{{ rating }}"
+  data-sprv-helpful="{{ helpful }}"
+  {{ block.shopify_attributes }}
+>
+  {%- if image_count > 0 -%}
+    <div class="sprv-card__media{% if image_count > 1 %} sprv-card__media--stack{% endif %}">
+      {%- if review_image_1 != blank -%}
+        {%- assign image_1_src = review_image_1 | image_url: width: 900 -%}
+        <button type="button" data-srp-summary-photo data-sprv-photo="{{ image_1_src }}" data-reviewer="{{ reviewer | escape }}" data-verified="{{ verified_label | escape }}" data-date="{{ review_date | escape }}" data-title="{{ review_title | escape }}" data-body="{{ review_body | escape }}" data-product="{{ product_name | escape }}"{% if product_image != blank %} data-product-image="{{ product_image }}"{% endif %} data-helpful="{{ helpful }}" aria-label="Open review photo 1">
+          <img src="{{ image_1_src }}" alt="{{ review_title | escape }}" width="{{ review_image_1.width }}" height="{{ review_image_1.height }}" loading="lazy">
+        </button>
+      {%- elsif review_image_1_url != blank -%}
+        <button type="button" data-srp-summary-photo data-sprv-photo="{{ review_image_1_url | escape }}" data-reviewer="{{ reviewer | escape }}" data-verified="{{ verified_label | escape }}" data-date="{{ review_date | escape }}" data-title="{{ review_title | escape }}" data-body="{{ review_body | escape }}" data-product="{{ product_name | escape }}"{% if product_image != blank %} data-product-image="{{ product_image }}"{% endif %} data-helpful="{{ helpful }}" aria-label="Open review photo 1">
+          <img src="{{ review_image_1_url | escape }}" alt="{{ review_title | escape }}" width="900" height="675" loading="lazy">
+        </button>
+      {%- endif -%}
+
+      {%- if review_image_2 != blank -%}
+        {%- assign image_2_src = review_image_2 | image_url: width: 900 -%}
+        <button type="button" data-srp-summary-photo data-sprv-photo="{{ image_2_src }}" data-reviewer="{{ reviewer | escape }}" data-verified="{{ verified_label | escape }}" data-date="{{ review_date | escape }}" data-title="{{ review_title | escape }}" data-body="{{ review_body | escape }}" data-product="{{ product_name | escape }}"{% if product_image != blank %} data-product-image="{{ product_image }}"{% endif %} data-helpful="{{ helpful }}" aria-label="Open review photo 2">
+          <img src="{{ image_2_src }}" alt="{{ review_title | escape }}" width="{{ review_image_2.width }}" height="{{ review_image_2.height }}" loading="lazy">
+        </button>
+      {%- elsif review_image_2_url != blank -%}
+        <button type="button" data-srp-summary-photo data-sprv-photo="{{ review_image_2_url | escape }}" data-reviewer="{{ reviewer | escape }}" data-verified="{{ verified_label | escape }}" data-date="{{ review_date | escape }}" data-title="{{ review_title | escape }}" data-body="{{ review_body | escape }}" data-product="{{ product_name | escape }}"{% if product_image != blank %} data-product-image="{{ product_image }}"{% endif %} data-helpful="{{ helpful }}" aria-label="Open review photo 2">
+          <img src="{{ review_image_2_url | escape }}" alt="{{ review_title | escape }}" width="900" height="675" loading="lazy">
+        </button>
+      {%- endif -%}
+
+      {%- if review_image_3 != blank -%}
+        {%- assign image_3_src = review_image_3 | image_url: width: 900 -%}
+        <button type="button" data-srp-summary-photo data-sprv-photo="{{ image_3_src }}" data-reviewer="{{ reviewer | escape }}" data-verified="{{ verified_label | escape }}" data-date="{{ review_date | escape }}" data-title="{{ review_title | escape }}" data-body="{{ review_body | escape }}" data-product="{{ product_name | escape }}"{% if product_image != blank %} data-product-image="{{ product_image }}"{% endif %} data-helpful="{{ helpful }}" aria-label="Open review photo 3">
+          <img src="{{ image_3_src }}" alt="{{ review_title | escape }}" width="{{ review_image_3.width }}" height="{{ review_image_3.height }}" loading="lazy">
+        </button>
+      {%- elsif review_image_3_url != blank -%}
+        <button type="button" data-srp-summary-photo data-sprv-photo="{{ review_image_3_url | escape }}" data-reviewer="{{ reviewer | escape }}" data-verified="{{ verified_label | escape }}" data-date="{{ review_date | escape }}" data-title="{{ review_title | escape }}" data-body="{{ review_body | escape }}" data-product="{{ product_name | escape }}"{% if product_image != blank %} data-product-image="{{ product_image }}"{% endif %} data-helpful="{{ helpful }}" aria-label="Open review photo 3">
+          <img src="{{ review_image_3_url | escape }}" alt="{{ review_title | escape }}" width="900" height="675" loading="lazy">
+        </button>
+      {%- endif -%}
     </div>
-    <h3>{{ review_title }}</h3>
-    <p class="sprv-card__body" data-sprv-review-body>{{ review_body }}</p>
+  {%- endif -%}
+
+  <div class="sprv-card__content">
+    <div class="sprv-card__meta">
+      {%- if review_date != blank -%}<time datetime="{{ review_date | escape }}">{{ review_date | escape }}</time>{%- endif -%}
+      <span class="sprv__stars" aria-label="{{ rating }} out of 5 stars">{% for star in (1..5) %}{% if star <= rating %}★{% else %}☆{% endif %}{% endfor %}</span>
+    </div>
+    <h3>{{ review_title | escape }}</h3>
+    {%- if review_body != blank -%}<p class="sprv-card__body" data-sprv-review-body>{{ review_body | escape | newline_to_br }}</p>{%- endif -%}
     <button class="sprv-card__expand" type="button" data-sprv-review-expand aria-expanded="false" hidden>Mehr anzeigen</button>
-    {%- if product_name != blank -%}<p class="sprv-card__product">{{ product_name }}</p>{%- endif -%}
-    <p class="sprv-card__author"><strong>{{ author }}</strong>{% if verified_label != blank %} <span>{{ verified_label }}</span>{% endif %}</p>
-    {%- if country != blank -%}<p class="sprv-card__country">⚑ {{ country }}</p>{%- endif -%}
+    {%- if product_name != blank -%}<p class="sprv-card__product">{{ product_name | escape }}</p>{%- endif -%}
+    <p class="sprv-card__author"><strong>{{ reviewer | escape }}</strong>{% if verified_label != blank %} <span>{{ verified_label | escape }}</span>{% endif %}</p>
+    {%- if country != blank -%}<p class="sprv-card__country">⚑ {{ country | escape }}</p>{%- endif -%}
     <div class="sprv-card__helpful">Was this helpful?
       <button type="button" data-sprv-helpful="up" aria-label="Helpful">♥ <span>{{ helpful }}</span></button>
       <button type="button" data-sprv-helpful="down" aria-label="Not helpful">♡ <span>0</span></button>
     </div>
   </div>
 </article>
-

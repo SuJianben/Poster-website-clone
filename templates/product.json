@@ -141,11 +141,93 @@
     },
     "source_reviews": {
       "type": "source-product-reviews",
+      "blocks": {
+        "manual_review_tapio": {
+          "type": "review",
+          "settings": {
+            "enabled": true,
+            "reviewer": "Tapio V.",
+            "review_date": "2026-06-16",
+            "rating": 5,
+            "title": "7 beautiful acrylglas work in my home",
+            "body": "I have ordered paintings over the years and i am very proud of the acrylglas work. They are my home decoration items and guests immediately notice them.",
+            "product_name": "Shit Happens - Acrylglas - 40 X 40 CM / Ohne Rahmen",
+            "verified": true,
+            "verified_label": "Verified Buyer",
+            "country": "Finland",
+            "image_1_url": "https://cdn.stamped.io/tr:w-350:/uploads/photos/228253_8264592785674_bbcf5af6_6d4e_4392_8109_868d996fa81e.jpg?",
+            "image_2_url": "https://cdn.stamped.io/tr:w-350:/uploads/photos/228253_8264592785674_85af7e91_7171_4fd5_81c6_e48557cb06fc.jpg?",
+            "image_3_url": "https://cdn.stamped.io/tr:w-350:/uploads/photos/228253_8264592785674_6b62d13f_3bca_4491_b59f_9dd2d48a635a.jpg?",
+            "helpful_count": 0
+          }
+        },
+        "manual_review_james": {
+          "type": "review",
+          "settings": {
+            "enabled": true,
+            "reviewer": "James C.",
+            "review_date": "2026-06-07",
+            "rating": 4,
+            "title": "Awesome company",
+            "body": "The colours and attention to detail are top quality. Customer service was fantastic and delivery was reliable.",
+            "product_name": "",
+            "verified": false,
+            "verified_label": "Verified Buyer",
+            "country": "",
+            "helpful_count": 0
+          }
+        },
+        "manual_review_tomi": {
+          "type": "review",
+          "settings": {
+            "enabled": true,
+            "reviewer": "Tomi K.",
+            "review_date": "2026-06-06",
+            "rating": 5,
+            "title": "5/5",
+            "body": "Ordering was very easy and the product arrived in about a week. The artwork feels high quality and I would order again.",
+            "product_name": "Queen Card - Acrylglas",
+            "verified": true,
+            "verified_label": "Verified Buyer",
+            "country": "Finland",
+            "image_1_url": "https://cdn.stamped.io/tr:w-350:/uploads/photos/228253_8202634854666_e52e860b_9db8_4f3c_8a81_0cd68bfa9de8.jpg?",
+            "helpful_count": 1
+          }
+        },
+        "manual_review_daniel": {
+          "type": "review",
+          "settings": {
+            "enabled": true,
+            "reviewer": "Daniel S.",
+            "review_date": "2026-05-29",
+            "rating": 3,
+            "title": "Bild",
+            "body": "Hat alles super geklappt, Qualität ist gut und Lieferung war schnell.",
+            "product_name": "Old Money Duck",
+            "verified": true,
+            "verified_label": "Verified Buyer",
+            "country": "Switzerland",
+            "image_1_url": "https://cdn.stamped.io/tr:w-350:/uploads/photos/228253_10484023623946_f6621af5_7a5c_4871_8105_f5465414762a_r1780202711687.jpg?v=1780202711",
+            "helpful_count": 2
+          }
+        }
+      },
+      "block_order": [
+        "manual_review_tapio",
+        "manual_review_james",
+        "manual_review_tomi",
+        "manual_review_daniel"
+      ],
       "settings": {
         "heading": "Über 60.000 zufriedene Kunden",
+        "average_rating": "4,9",
         "review_count": "2626",
         "write_heading": "Eine Bewertung schreiben",
-        "contact_url": "/pages/contact"
+        "contact_url": "/pages/contact",
+        "review_source": "manual",
+        "use_custom_summary": false,
+        "default_filter": "recent",
+        "reviews_per_page": 12
       }
     }
   },

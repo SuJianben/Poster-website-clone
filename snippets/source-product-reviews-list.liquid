@@ -1,11 +1,44 @@
 {%- liquid
-  assign shared_review_count = review_count | default: '2624'
+  assign manual_review_count = 0
+  assign review_page_size = section.settings.reviews_per_page | default: 12
+  assign default_filter = section.settings.default_filter | default: 'recent'
+
+  for block in section.blocks
+    if block.type == 'review' and block.settings.enabled
+      assign manual_review_count = manual_review_count | plus: 1
+    endif
+  endfor
+
+  assign shared_review_count = review_count
+  if manual_review_count > 0 and section.settings.use_custom_summary != true
+    assign shared_review_count = manual_review_count
+  elsif shared_review_count == blank
+    assign shared_review_count = manual_review_count
+  endif
   assign shared_write_heading = write_heading | default: 'Eine Bewertung schreiben'
   assign shared_contact_url = contact_url | default: '/pages/write-a-review'
   assign shared_review_app_url = false
   if shared_contact_url contains '/a/review/'
     assign shared_review_app_url = true
   endif
+
+  assign default_filter_label = 'Neueste'
+  case default_filter
+    when 'photos'
+      assign default_filter_label = 'Mit Fotos'
+    when 'highest-rating'
+      assign default_filter_label = 'Höchste Bewertung'
+    when 'lowest-rating'
+      assign default_filter_label = 'Niedrigste Bewertung'
+    when 'most-votes'
+      assign default_filter_label = 'Hilfreichste'
+  endcase
+
+  assign rendered_review_count = manual_review_count
+  if rendered_review_count == 0
+    assign rendered_review_count = 12
+  endif
+  assign review_page_total = rendered_review_count | plus: review_page_size | minus: 1 | divided_by: review_page_size
 -%}
 
 <div class="sprv__toolbar">
@@ -15,7 +48,7 @@
   <div class="sprv__filter-row">
     <span class="sprv__filter-label">Filter Bewertungen:</span>
     <div class="sprv__filter" data-sprv-filter>
-      <button type="button" aria-expanded="false" data-sprv-filter-button>Mit Fotos <span aria-hidden="true"></span></button>
+      <button type="button" aria-expanded="false" data-sprv-filter-button data-sprv-filter="{{ default_filter }}">{{ default_filter_label }} <span aria-hidden="true"></span></button>
       <div class="sprv__filter-menu" hidden data-sprv-filter-menu>
         <button type="button" data-value="photos">Mit Fotos</button>
         <button type="button" data-value="recent">Neueste</button>
@@ -29,21 +62,33 @@
 <p class="sprv__filter-status visually-hidden" aria-live="polite" data-sprv-filter-status></p>
 
 <div class="sprv__cards" data-sprv-cards>
-  {%- for index in (1..12) -%}
-    {% render 'source-product-review-card', index: index %}
-  {%- endfor -%}
+  {%- if manual_review_count > 0 -%}
+    {%- assign review_position = 0 -%}
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'review' and block.settings.enabled -%}
+        {%- assign review_position = review_position | plus: 1 -%}
+        {% render 'source-product-review-card', block: block, position: review_position %}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- else -%}
+    {%- for index in (1..12) -%}
+      {% render 'source-product-review-card-legacy', index: index %}
+    {%- endfor -%}
+  {%- endif -%}
 </div>
 <div class="sprv__carousel-progress" aria-hidden="true">
   <span data-sprv-carousel-progress></span>
 </div>
 
-<nav class="sprv__pagination" aria-label="Reviews pagination">
-  <button type="button" data-sprv-page="previous" aria-label="Previous page">&lt;</button>
-  {%- for page_number in (1..10) -%}
-    <button type="button" data-sprv-page="{{ page_number }}"{% if page_number == 1 %} class="is-active" aria-current="page"{% endif %}>{{ page_number }}</button>
-  {%- endfor -%}
-  <button type="button" data-sprv-page="next" aria-label="Next page">&gt;</button>
-</nav>
+{%- if review_page_total > 1 -%}
+  <nav class="sprv__pagination" aria-label="Reviews pagination" data-sprv-pagination>
+    <button type="button" data-sprv-page="previous" aria-label="Previous page">&lt;</button>
+    {%- for page_number in (1..review_page_total) -%}
+      <button type="button" data-sprv-page="{{ page_number }}"{% if page_number == 1 %} class="is-active" aria-current="page"{% endif %}>{{ page_number }}</button>
+    {%- endfor -%}
+    <button type="button" data-sprv-page="next" aria-label="Next page">&gt;</button>
+  </nav>
+{%- endif -%}
 
 {%- if show_write -%}
   <div class="sprv__write">
@@ -55,4 +100,3 @@
     </a>
   </div>
 {%- endif -%}
-

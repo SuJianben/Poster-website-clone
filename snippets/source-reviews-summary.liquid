@@ -1,20 +1,87 @@
-{%- assign summary_variant = variant | default: 'product' -%}
-{%- assign summary_review_count = review_count | default: '2626' -%}
-{%- assign summary_write_heading = write_heading | default: 'Eine Bewertung schreiben' -%}
-{%- assign summary_contact_url = contact_url | default: '/pages/write-a-review' -%}
-{%- assign summary_review_count_display = summary_review_count -%}
-{%- if summary_review_count == '2626' -%}
-  {%- assign summary_review_count_display = '2.626' -%}
-{%- endif -%}
+{%- liquid
+  assign summary_variant = variant | default: 'product'
+  assign summary_review_count = review_count | default: '2626'
+  assign summary_average_rating = average_rating | default: '4,9'
+  assign summary_write_heading = write_heading | default: 'Eine Bewertung schreiben'
+  assign summary_contact_url = contact_url | default: '/pages/write-a-review'
+  assign use_manual_review_photos = manual_review_photos | default: false
+  assign use_manual_summary = use_manual_summary | default: false
+  assign use_custom_summary = use_custom_summary | default: false
+
+  assign manual_review_count = 0
+  assign manual_review_photo_count = 0
+  assign manual_rating_sum = 0
+  assign manual_rating_5 = 0
+  assign manual_rating_4 = 0
+  assign manual_rating_3 = 0
+  assign manual_rating_2 = 0
+  assign manual_rating_1 = 0
+  assign should_read_manual_reviews = false
+  if use_manual_review_photos or use_manual_summary
+    assign should_read_manual_reviews = true
+  endif
+  if should_read_manual_reviews and section != blank
+    for block in section.blocks
+      if block.type == 'review' and block.settings.enabled
+        assign manual_review_count = manual_review_count | plus: 1
+        assign block_rating = block.settings.rating | default: 5
+        assign manual_rating_sum = manual_rating_sum | plus: block_rating
+        case block_rating
+          when 5
+            assign manual_rating_5 = manual_rating_5 | plus: 1
+          when 4
+            assign manual_rating_4 = manual_rating_4 | plus: 1
+          when 3
+            assign manual_rating_3 = manual_rating_3 | plus: 1
+          when 2
+            assign manual_rating_2 = manual_rating_2 | plus: 1
+          else
+            assign manual_rating_1 = manual_rating_1 | plus: 1
+        endcase
+        if block.settings.image_1 != blank or block.settings.image_1_url != blank
+          assign manual_review_photo_count = manual_review_photo_count | plus: 1
+        endif
+      endif
+    endfor
+  endif
+
+  if use_manual_summary and use_custom_summary != true and manual_review_count > 0
+    assign summary_review_count = manual_review_count
+    assign average_rating_tenths = manual_rating_sum | times: 10 | divided_by: manual_review_count
+    assign average_rating_whole = average_rating_tenths | divided_by: 10
+    assign average_rating_decimal = average_rating_tenths | modulo: 10
+    assign summary_average_rating = average_rating_whole | append: ',' | append: average_rating_decimal
+    assign rating_5_percent = manual_rating_5 | times: 100 | divided_by: manual_review_count
+    assign rating_4_percent = manual_rating_4 | times: 100 | divided_by: manual_review_count
+    assign rating_3_percent = manual_rating_3 | times: 100 | divided_by: manual_review_count
+    assign rating_2_percent = manual_rating_2 | times: 100 | divided_by: manual_review_count
+    assign rating_1_percent = manual_rating_1 | times: 100 | divided_by: manual_review_count
+    capture ratings
+      echo '5|' | append: rating_5_percent | append: '|' | append: manual_rating_5 | append: ','
+      echo '4|' | append: rating_4_percent | append: '|' | append: manual_rating_4 | append: ','
+      echo '3|' | append: rating_3_percent | append: '|' | append: manual_rating_3 | append: ','
+      echo '2|' | append: rating_2_percent | append: '|' | append: manual_rating_2 | append: ','
+      echo '1|' | append: rating_1_percent | append: '|' | append: manual_rating_1
+    endcapture
+    assign ratings = ratings | split: ','
+  else
+    assign ratings = '5|94|2463,4|6|157,3|0|5,2|0|0,1|0|1' | split: ','
+  endif
+
+  assign summary_review_count_display = summary_review_count
+  if summary_review_count == '2626'
+    assign summary_review_count_display = '2.626'
+  endif
+-%}
+
 <div class="src-review-summary src-review-summary--{{ summary_variant }}" data-source-review-summary>
   <div class="srp-widget__summary" data-srp-summary>
     <div class="srp-widget__overview">
-      <span class="srp-widget__score"><strong>4,9</strong></span>
+      <span class="srp-widget__score"><strong>{{ summary_average_rating | escape }}</strong></span>
       <span class="srp-widget__summary-stars" role="img" aria-label="5 out of 5 stars"><i></i><i></i><i></i><i></i><i></i></span>
       <small>Basierend auf {{ summary_review_count_display }} Rezensionen</small>
     </div>
     <div class="srp-widget__ratings" aria-label="Review rating distribution">
-      {% assign ratings = '5|94|2463,4|6|157,3|0|5,2|0|0,1|0|1' | split: ',' %}
       {% for rating in ratings %}
         {% assign row = rating | split: '|' %}
         <button type="button" data-srp-rating-filter="{{ row[0] }}" aria-pressed="false">
@@ -22,25 +89,63 @@
         </button>
       {% endfor %}
     </div>
-    <div class="srp-widget__photos" data-srp-photo-strip>
-      <p>Customer Photos</p>
-      <div class="srp-widget__photo-viewport">
-        <div class="srp-widget__photo-track">
-          <button type="button" data-srp-summary-photo data-reviewer="Philipp H." data-verified="Verified Buyer" data-date="10.10.2021" data-title="Great designs in the best quality" data-body="First-class work! We are very satisfied!!!" data-product="Think outside the Box" data-product-image="https://cdn.shopify.com/s/files/1/0601/1253/5810/products/WandbildMotivationsspruchPosterThinkoutsidethebox1347-12_medium.jpg?v=1731603249" data-video="https://cdn1.stamped.io/uploads/videos/a8e34717bc9fe2f9f83292b1af39b519.mp4"><img src="https://cdn.stamped.io/uploads/videos/a8e34717bc9fe2f9f83292b1af39b519.jpg" width="70" height="55" alt="Think outside the Box customer photo"></button>
-          <button type="button" data-srp-summary-photo data-reviewer="Oliver S." data-verified="Verified Buyer" data-title="An absolute eye-catcher" data-body="The quality and workmanship exceeded our expectations." data-product="Guernica Picasso"><img src="https://cdn.stamped.io/uploads/videos/a81216b4654bdcfbd850b985640f44c5.jpg" width="70" height="55" alt="Guernica Picasso customer photo"></button>
-          <button type="button" data-srp-summary-photo data-reviewer="Stefanie W." data-verified="Verified Buyer" data-date="11.05.2026" data-title="Top Product" data-body="Great product, fast delivery and secure packaging." data-product="Save Water - Canvas"><img src="https://cdn.stamped.io/uploads/videos/6cab27b9e5a6e8abf7376643397e3aaf.jpg" width="70" height="55" alt="Save Water customer photo"></button>
-          <button type="button" data-srp-summary-photo data-reviewer="Patrik F." data-verified="Verified Buyer" data-title="Perfect" data-body="The picture looks fantastic and arrived safely packaged." data-product="Royal American Canvas"><img src="https://cdn.stamped.io/uploads/videos/8c7e5f380f1f3173c8dd30029278b25a.jpg" width="70" height="55" alt="Royal American Canvas customer photo"></button>
-          <button type="button" data-srp-summary-photo data-reviewer="Sükrü U." data-verified="Verified Buyer" data-title="Very good quality" data-body="Beautiful colors and an impressive finish." data-product="More Money Duck"><img src="https://cdn.stamped.io/uploads/videos/21a4e1daec458d792212652c1cf5085a.jpg" width="70" height="55" alt="More Money Duck customer photo"></button>
-          <button type="button" data-srp-summary-photo data-reviewer="Carlos W." data-verified="Verified Buyer" data-title="Looks amazing" data-body="Exactly as shown and delivered quickly." data-product="Fast Bunny Limited"><img src="https://cdn.stamped.io/uploads/videos/8d136012af53db6d82ac7069af53cca7.jpg" width="70" height="55" alt="Fast Bunny Limited customer photo"></button>
-          <button type="button" data-srp-summary-photo data-reviewer="Nici" data-verified="Verified Buyer" data-title="Love it" data-body="A striking piece with excellent print quality." data-product="Get Rich"><img src="https://cdn.stamped.io/uploads/videos/256ca76b86bd47423f1e89aa58eb9d08.jpg" width="70" height="55" alt="Get Rich customer photo"></button>
-          <button type="button" data-srp-summary-photo data-reviewer="Kurt K." data-verified="Verified Buyer" data-title="Motivation every day" data-body="The artwork brings the room to life." data-product="Mac Miller Creative"><img src="https://cdn.stamped.io/uploads/videos/bef1f5c940fc5baa3a4fcc3ccd787683.jpg" width="70" height="55" alt="Mac Miller Creative customer photo"></button>
+
+    {%- if use_manual_review_photos -%}
+      {%- if manual_review_photo_count > 0 -%}
+        <div class="srp-widget__photos" data-srp-photo-strip>
+          <p>Customer Photos</p>
+          <div class="srp-widget__photo-viewport">
+            <div class="srp-widget__photo-track">
+              {%- assign rendered_manual_photos = 0 -%}
+              {%- for block in section.blocks -%}
+                {%- if block.type == 'review' and block.settings.enabled -%}
+                  {%- assign review_photo_url = block.settings.image_1_url | strip -%}
+                  {%- if block.settings.image_1 != blank -%}
+                    {%- assign review_photo_url = block.settings.image_1 | image_url: width: 160 -%}
+                  {%- endif -%}
+                  {%- if review_photo_url != blank -%}
+                    {%- assign review_photo_product = block.settings.product -%}
+                    {%- assign review_photo_product_name = block.settings.product_name | default: '' -%}
+                    {%- assign review_photo_product_image = '' -%}
+                    {%- if review_photo_product != blank -%}
+                      {%- assign review_photo_product_name = review_photo_product.title -%}
+                      {%- if review_photo_product.featured_image != blank -%}
+                        {%- assign review_photo_product_image = review_photo_product.featured_image | image_url: width: 500 -%}
+                      {%- endif -%}
+                    {%- endif -%}
+                    <button type="button" data-srp-summary-photo data-sprv-photo="{{ review_photo_url | escape }}" data-reviewer="{{ block.settings.reviewer | escape }}"{% if block.settings.verified %} data-verified="{{ block.settings.verified_label | default: 'Verified Buyer' | escape }}"{% endif %} data-date="{{ block.settings.review_date | escape }}" data-title="{{ block.settings.title | escape }}" data-body="{{ block.settings.body | escape }}" data-product="{{ review_photo_product_name | escape }}"{% if review_photo_product_image != blank %} data-product-image="{{ review_photo_product_image }}"{% endif %} data-helpful="{{ block.settings.helpful_count | default: 0 }}">
+                      <img src="{{ review_photo_url | escape }}" width="70" height="55" alt="{{ block.settings.title | escape }}">
+                    </button>
+                    {%- assign rendered_manual_photos = rendered_manual_photos | plus: 1 -%}
+                    {%- if rendered_manual_photos >= 8 -%}{%- break -%}{%- endif -%}
+                  {%- endif -%}
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
+    {%- else -%}
+      <div class="srp-widget__photos" data-srp-photo-strip>
+        <p>Customer Photos</p>
+        <div class="srp-widget__photo-viewport">
+          <div class="srp-widget__photo-track">
+            <button type="button" data-srp-summary-photo data-reviewer="Philipp H." data-verified="Verified Buyer" data-date="10.10.2021" data-title="Great designs in the best quality" data-body="First-class work! We are very satisfied!!!" data-product="Think outside the Box" data-product-image="https://cdn.shopify.com/s/files/1/0601/1253/5810/products/WandbildMotivationsspruchPosterThinkoutsidethebox1347-12_medium.jpg?v=1731603249" data-video="https://cdn1.stamped.io/uploads/videos/a8e34717bc9fe2f9f83292b1af39b519.mp4"><img src="https://cdn.stamped.io/uploads/videos/a8e34717bc9fe2f9f83292b1af39b519.jpg" width="70" height="55" alt="Think outside the Box customer photo"></button>
+            <button type="button" data-srp-summary-photo data-reviewer="Oliver S." data-verified="Verified Buyer" data-title="An absolute eye-catcher" data-body="The quality and workmanship exceeded our expectations." data-product="Guernica Picasso"><img src="https://cdn.stamped.io/uploads/videos/a81216b4654bdcfbd850b985640f44c5.jpg" width="70" height="55" alt="Guernica Picasso customer photo"></button>
+            <button type="button" data-srp-summary-photo data-reviewer="Stefanie W." data-verified="Verified Buyer" data-date="11.05.2026" data-title="Top Product" data-body="Great product, fast delivery and secure packaging." data-product="Save Water - Canvas"><img src="https://cdn.stamped.io/uploads/videos/6cab27b9e5a6e8abf7376643397e3aaf.jpg" width="70" height="55" alt="Save Water customer photo"></button>
+            <button type="button" data-srp-summary-photo data-reviewer="Patrik F." data-verified="Verified Buyer" data-title="Perfect" data-body="The picture looks fantastic and arrived safely." data-product="Royal American Canvas"><img src="https://cdn.stamped.io/uploads/videos/8c7e5f380f1f3173c8dd30029278b25a.jpg" width="70" height="55" alt="Royal American Canvas customer photo"></button>
+            <button type="button" data-srp-summary-photo data-reviewer="Sükrü U." data-verified="Verified Buyer" data-title="Very good quality" data-body="Beautiful colors and an impressive finish." data-product="More Money Duck"><img src="https://cdn.stamped.io/uploads/videos/21a4e1daec458d792212652c1cf5085a.jpg" width="70" height="55" alt="More Money Duck customer photo"></button>
+            <button type="button" data-srp-summary-photo data-reviewer="Carlos W." data-verified="Verified Buyer" data-title="Looks amazing" data-body="Exactly as shown and delivered quickly." data-product="Fast Bunny Limited"><img src="https://cdn.stamped.io/uploads/videos/8d136012af53db6d82ac7069af53cca7.jpg" width="70" height="55" alt="Fast Bunny Limited customer photo"></button>
+            <button type="button" data-srp-summary-photo data-reviewer="Nici" data-verified="Verified Buyer" data-title="Love it" data-body="A striking piece with excellent print quality." data-product="Get Rich"><img src="https://cdn.stamped.io/uploads/videos/256ca76b86bd47423f1e89aa58eb9d08.jpg" width="70" height="55" alt="Get Rich customer photo"></button>
+            <button type="button" data-srp-summary-photo data-reviewer="Kurt K." data-verified="Verified Buyer" data-title="Motivation every day" data-body="The artwork brings the room to life." data-product="Mac Miller Creative"><img src="https://cdn.stamped.io/uploads/videos/bef1f5c940fc5baa3a4fcc3ccd787683.jpg" width="70" height="55" alt="Mac Miller Creative customer photo"></button>
+          </div>
         </div>
       </div>
-    </div>
+    {%- endif -%}
+
     <div class="srp-widget__actions">
       <a href="{{ summary_contact_url }}" data-sprv-write>{{ summary_write_heading }}</a>
       <button type="button" data-srp-question>Eine Frage stellen</button>
     </div>
   </div>
 </div>
-
