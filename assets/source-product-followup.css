@@ -50,11 +50,15 @@
 .spf-known__container { width: 100%; max-width: 1280px; margin: 0 auto; }
 .spf-known__header { margin-bottom: 18px; text-align: center; }
 .spf-known__header h2 { margin: 0; font-size: 22px; font-weight: 700; line-height: 1.15; }
-.spf-known__viewport { overflow: hidden; }
-.spf-known__rail { display: flex; align-items: center; justify-content: center; gap: 34px; }
-.spf-known__item { display: grid; min-width: 120px; flex: 0 0 120px; place-items: center; }
+.spf-known__heading-link { display: inline-flex; align-items: baseline; gap: 10px; color: inherit; text-decoration: none; }
+.spf-known__heading-link span { color: #666; font-size: 12px; font-weight: 600; }
+.spf-known__viewport { overflow-x: auto; scrollbar-width: none; }
+.spf-known__viewport::-webkit-scrollbar { display: none; }
+.spf-known__rail { display: flex; align-items: center; justify-content: center; gap: 34px; width: max-content; min-width: 100%; }
+.spf-known__item { display: grid; min-width: 120px; flex: 0 0 120px; place-items: center; color: inherit; text-decoration: none; }
 .spf-known__media { display: grid; width: 100%; height: 58px; place-items: center; }
 .spf-known__media img { display: block; max-width: 100%; max-height: 58px; object-fit: contain; }
+.spf-known__item--empty { border: 1px dashed #c8c8c8; color: #777; font-size: 11px; text-align: center; }
 
 @media (max-width: 767.98px) {
   .spf-benefits__item { min-width: 270px; flex-basis: 270px; gap: 13px; padding: 18px 16px; }
@@ -69,9 +73,8 @@
   .spf-known { padding: 12px 14px 16px; }
   .spf-known__header { margin-bottom: 14px; }
   .spf-known__header h2 { font-size: 21px; }
-  .spf-known__rail { justify-content: flex-start; gap: 13px; overflow-x: auto; padding-inline: 3px; scrollbar-width: none; }
-  .spf-known__rail::-webkit-scrollbar { display: none; }
-  .spf-known__item { min-width: calc((100% - 26px) / 3); flex-basis: calc((100% - 26px) / 3); }
+  .spf-known__rail { justify-content: flex-start; gap: 13px; padding-inline: 3px; }
+  .spf-known__item { min-width: clamp(90px, 28vw, 140px); flex-basis: clamp(90px, 28vw, 140px); }
   .spf-known__media { height: 50px; }
   .spf-known__media img { max-height: 50px; }
 }

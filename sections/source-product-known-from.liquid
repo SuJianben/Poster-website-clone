@@ -3,48 +3,45 @@
 <section class="spf-known" aria-labelledby="spf-known-{{ section.id }}" {{ section.shopify_attributes }}>
   <div class="spf-known__container">
     <header class="spf-known__header">
-      <h2 id="spf-known-{{ section.id }}">{{ section.settings.heading | default: 'Bekannt aus' | escape }}</h2>
+      {% if section.settings.section_link != blank %}
+        <a class="spf-known__heading-link" href="{{ section.settings.section_link }}">
+          <h2 id="spf-known-{{ section.id }}">{{ section.settings.heading | default: 'Bekannt aus' | escape }}</h2>
+          {% if section.settings.section_link_label != blank %}<span>{{ section.settings.section_link_label | escape }}</span>{% endif %}
+        </a>
+      {% else %}
+        <h2 id="spf-known-{{ section.id }}">{{ section.settings.heading | default: 'Bekannt aus' | escape }}</h2>
+      {% endif %}
     </header>
 
     <div class="spf-known__viewport">
       <div class="spf-known__rail" aria-label="Media and awards">
-        {% if section.settings.logo_1 != blank %}
-          <a class="spf-known__item" href="https://www.german-brand-award.com/preistraeger/galerie/detail/45110-dotcomcanvas.html">
-            <span class="spf-known__media">{{ section.settings.logo_1 | image_url: width: 480 | image_tag: loading: 'lazy', widths: '120, 180, 240, 360, 480', alt: 'German Brand Award' }}</span>
-          </a>
+        {% if section.blocks.size > 0 %}
+          {% for block in section.blocks %}
+            {% assign logo_image = block.settings.image %}
+            {% if logo_image != blank %}
+              {% assign logo_alt = block.settings.alt | default: logo_image.alt | default: 'Media logo' %}
+              {% if block.settings.link != blank %}
+                <a class="spf-known__item" href="{{ block.settings.link }}"{% if block.settings.open_new_tab %} target="_blank" rel="noopener noreferrer"{% endif %} {{ block.shopify_attributes }}>
+                  <span class="spf-known__media">{{ logo_image | image_url: width: 480 | image_tag: loading: 'lazy', widths: '120, 180, 240, 360, 480', alt: logo_alt }}</span>
+                </a>
+              {% else %}
+                <span class="spf-known__item" {{ block.shopify_attributes }}>
+                  <span class="spf-known__media">{{ logo_image | image_url: width: 480 | image_tag: loading: 'lazy', widths: '120, 180, 240, 360, 480', alt: logo_alt }}</span>
+                </span>
+              {% endif %}
+            {% elsif request.design_mode %}
+              <div class="spf-known__item spf-known__item--empty" {{ block.shopify_attributes }}><span class="spf-known__media">&#x8BF7;&#x9009;&#x62E9;&#x5A92;&#x4F53; Logo &#x56FE;&#x7247;</span></div>
+            {% endif %}
+          {% endfor %}
         {% else %}
+          {%- comment -%}Keep the original showcase visible until the first custom media block is added.{%- endcomment -%}
           <a class="spf-known__item" href="https://www.german-brand-award.com/preistraeger/galerie/detail/45110-dotcomcanvas.html">
             <span class="spf-known__media"><img src="https://dotcomcanvas.de/cdn/shop/files/GBA23_HO_SPECIAL_MC_RGB_18e95b9b-9ef8-41df-97a1-2c05ba00f96a.png?v=1757412001&width=1262" alt="German Brand Award" width="1262" height="727" loading="lazy"></span>
           </a>
-        {% endif %}
-
-        {% if section.settings.logo_2 != blank %}
-          <span class="spf-known__item"><span class="spf-known__media">{{ section.settings.logo_2 | image_url: width: 480 | image_tag: loading: 'lazy', widths: '120, 180, 240, 360, 480', alt: 'Growth Champion award' }}</span></span>
-        {% else %}
           <span class="spf-known__item"><span class="spf-known__media"><img src="https://dotcomcanvas.de/cdn/shop/files/Logo-1_22c722b1-ad66-4b4b-bd17-812c1c9bc657.png?v=1769264255&width=200" alt="Growth Champion award" width="200" height="116" loading="lazy"></span></span>
-        {% endif %}
-
-        {% if section.settings.logo_3 != blank %}
-          <span class="spf-known__item"><span class="spf-known__media">{{ section.settings.logo_3 | image_url: width: 480 | image_tag: loading: 'lazy', widths: '120, 180, 240, 360, 480', alt: 'FT 1000 award' }}</span></span>
-        {% else %}
           <span class="spf-known__item"><span class="spf-known__media"><img src="https://dotcomcanvas.de/cdn/shop/files/Logo-3.png?v=1769264343&width=250" alt="FT 1000 award" width="250" height="145" loading="lazy"></span></span>
-        {% endif %}
-
-        {% if section.settings.logo_4 != blank %}
-          <span class="spf-known__item"><span class="spf-known__media">{{ section.settings.logo_4 | image_url: width: 480 | image_tag: loading: 'lazy', widths: '120, 180, 240, 360, 480', alt: 'Business Insider' }}</span></span>
-        {% else %}
           <span class="spf-known__item"><span class="spf-known__media"><img src="https://dotcomcanvas.de/cdn/shop/files/Business-Insider.png?v=1682845804&width=500" alt="Business Insider" width="500" height="500" loading="lazy"></span></span>
-        {% endif %}
-
-        {% if section.settings.logo_5 != blank %}
-          <span class="spf-known__item"><span class="spf-known__media">{{ section.settings.logo_5 | image_url: width: 480 | image_tag: loading: 'lazy', widths: '120, 180, 240, 360, 480', alt: 'Bloomberg' }}</span></span>
-        {% else %}
           <span class="spf-known__item"><span class="spf-known__media"><img src="https://dotcomcanvas.de/cdn/shop/files/Bloomberg.png?v=1682845989&width=500" alt="Bloomberg" width="500" height="500" loading="lazy"></span></span>
-        {% endif %}
-
-        {% if section.settings.logo_6 != blank %}
-          <span class="spf-known__item"><span class="spf-known__media">{{ section.settings.logo_6 | image_url: width: 480 | image_tag: loading: 'lazy', widths: '120, 180, 240, 360, 480', alt: 'Yahoo Finance' }}</span></span>
-        {% else %}
           <span class="spf-known__item"><span class="spf-known__media"><img src="https://dotcomcanvas.de/cdn/shop/files/Yahoo-Finance.png?v=1682846040&width=500" alt="Yahoo Finance" width="500" height="500" loading="lazy"></span></span>
         {% endif %}
       </div>
@@ -57,14 +54,22 @@
   "name": "\u5a92\u4f53\u80cc\u4e66",
   "settings": [
     { "type": "text", "id": "heading", "label": "\u6807\u9898", "default": "Bekannt aus" },
-    { "type": "header", "content": "\u5a92\u4f53 Logo \u56fe\u7247" },
-    { "type": "image_picker", "id": "logo_1", "label": "Logo 1" },
-    { "type": "image_picker", "id": "logo_2", "label": "Logo 2" },
-    { "type": "image_picker", "id": "logo_3", "label": "Logo 3" },
-    { "type": "image_picker", "id": "logo_4", "label": "Logo 4" },
-    { "type": "image_picker", "id": "logo_5", "label": "Logo 5" },
-    { "type": "image_picker", "id": "logo_6", "label": "Logo 6" }
+    { "type": "text", "id": "section_link_label", "label": "\u6574\u4f53\u94fe\u63a5\u6587\u5b57", "default": "" },
+    { "type": "url", "id": "section_link", "label": "\u6574\u4f53\u94fe\u63a5" }
   ],
+  "blocks": [
+    {
+      "type": "media_logo",
+      "name": "\u5a92\u4f53 Logo",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "\u5a92\u4f53 Logo \u56fe\u7247" },
+        { "type": "text", "id": "alt", "label": "\u56fe\u7247\u66ff\u4ee3\u6587\u672c", "info": "\u7559\u7a7a\u65f6\u4f7f\u7528\u56fe\u7247\u81ea\u5e26\u7684\u66ff\u4ee3\u6587\u672c\u3002" },
+        { "type": "url", "id": "link", "label": "Logo \u94fe\u63a5" },
+        { "type": "checkbox", "id": "open_new_tab", "label": "\u65b0\u7a97\u53e3\u6253\u5f00", "default": false }
+      ]
+    }
+  ],
+  "max_blocks": 20,
   "presets": [
     { "name": "\u5a92\u4f53\u80cc\u4e66" }
   ]
