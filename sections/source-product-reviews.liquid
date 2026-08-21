@@ -60,13 +60,10 @@
           use_custom_summary: section.settings.use_custom_summary
         %}
 
-        {% assign review_write_url = section.settings.contact_url | default: '/pages/write-a-review' %}
         {% render 'source-product-reviews-list',
           section: section,
           review_count: section.settings.review_count,
-          show_write: true,
-          write_heading: section.settings.write_heading,
-          contact_url: review_write_url
+          show_write: false
         %}
       {% elsif request.design_mode %}
         <p class="sprv__empty">暂无手动评论。点击左侧“添加块”，选择“客户评论”后即可填写内容。</p>
@@ -94,8 +91,6 @@
     { "type": "checkbox", "id": "use_custom_summary", "label": "手动设置评分和评价总数", "default": false, "info": "关闭后将根据当前显示的客户评论自动计算。" },
     { "type": "text", "id": "average_rating", "label": "平均评分", "default": "4,9", "info": "仅在开启手动设置汇总时使用，例如 4,9。" },
     { "type": "text", "id": "review_count", "label": "展示评价总数", "default": "2626", "info": "仅在开启手动设置汇总时使用。" },
-    { "type": "text", "id": "write_heading", "label": "写评价标题", "default": "Write a review" },
-    { "type": "url", "id": "contact_url", "label": "写评价链接" },
     {
       "type": "select",
       "id": "default_filter",
