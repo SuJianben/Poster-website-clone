@@ -17,16 +17,61 @@
       <div class="spf-known__rail" aria-label="Media and awards">
         {% if section.blocks.size > 0 %}
           {% for block in section.blocks %}
-            {% assign logo_image = block.settings.image %}
+            {% assign logo_title = block.settings.title | default: 'Media logo' %}
+            {% assign fallback_url = blank %}
+            {% assign fallback_link = blank %}
+            {% assign fallback_alt = logo_title %}
+            {% assign fallback_width = 500 %}
+            {% assign fallback_height = 500 %}
+            {% assign legacy_image = blank %}
+            {% case logo_title %}
+              {% when 'German Brand Award' %}
+                {% assign legacy_image = section.settings.logo_1 %}
+                {% assign fallback_url = 'https://dotcomcanvas.de/cdn/shop/files/GBA23_HO_SPECIAL_MC_RGB_18e95b9b-9ef8-41df-97a1-2c05ba00f96a.png?v=1757412001&width=1262' %}
+                {% assign fallback_link = 'https://www.german-brand-award.com/preistraeger/galerie/detail/45110-dotcomcanvas.html' %}
+                {% assign fallback_width = 1262 %}
+                {% assign fallback_height = 727 %}
+              {% when 'Growth Champion award' %}
+                {% assign legacy_image = section.settings.logo_2 %}
+                {% assign fallback_url = 'https://dotcomcanvas.de/cdn/shop/files/Logo-1_22c722b1-ad66-4b4b-bd17-812c1c9bc657.png?v=1769264255&width=200' %}
+                {% assign fallback_width = 200 %}
+                {% assign fallback_height = 116 %}
+              {% when 'FT 1000 award' %}
+                {% assign legacy_image = section.settings.logo_3 %}
+                {% assign fallback_url = 'https://dotcomcanvas.de/cdn/shop/files/Logo-3.png?v=1769264343&width=250' %}
+                {% assign fallback_width = 250 %}
+                {% assign fallback_height = 145 %}
+              {% when 'Business Insider' %}
+                {% assign legacy_image = section.settings.logo_4 %}
+                {% assign fallback_url = 'https://dotcomcanvas.de/cdn/shop/files/Business-Insider.png?v=1682845804&width=500' %}
+              {% when 'Bloomberg' %}
+                {% assign legacy_image = section.settings.logo_5 %}
+                {% assign fallback_url = 'https://dotcomcanvas.de/cdn/shop/files/Bloomberg.png?v=1682845989&width=500' %}
+              {% when 'Yahoo Finance' %}
+                {% assign legacy_image = section.settings.logo_6 %}
+                {% assign fallback_url = 'https://dotcomcanvas.de/cdn/shop/files/Yahoo-Finance.png?v=1682846040&width=500' %}
+            {% endcase %}
+            {% assign logo_image = block.settings.image | default: legacy_image %}
+            {% assign logo_alt = block.settings.alt %}
+            {% if logo_alt == blank and logo_image != blank %}{% assign logo_alt = logo_image.alt %}{% endif %}
+            {% assign logo_alt = logo_alt | default: fallback_alt | default: 'Media logo' %}
+            {% assign logo_link = block.settings.link | default: fallback_link %}
+            {% assign logo_media = blank %}
+
             {% if logo_image != blank %}
-              {% assign logo_alt = block.settings.alt | default: logo_image.alt | default: 'Media logo' %}
-              {% if block.settings.link != blank %}
-                <a class="spf-known__item" href="{{ block.settings.link }}"{% if block.settings.open_new_tab %} target="_blank" rel="noopener noreferrer"{% endif %} {{ block.shopify_attributes }}>
-                  <span class="spf-known__media">{{ logo_image | image_url: width: 480 | image_tag: loading: 'lazy', widths: '120, 180, 240, 360, 480', alt: logo_alt }}</span>
+              {% capture logo_media %}{{ logo_image | image_url: width: 480 | image_tag: loading: 'lazy', widths: '120, 180, 240, 360, 480', sizes: '(max-width: 767px) 28vw, 120px', alt: logo_alt }}{% endcapture %}
+            {% elsif fallback_url != blank %}
+              {% capture logo_media %}<img src="{{ fallback_url }}" alt="{{ logo_alt | escape }}" width="{{ fallback_width }}" height="{{ fallback_height }}" loading="lazy">{% endcapture %}
+            {% endif %}
+
+            {% if logo_media != blank %}
+              {% if logo_link != blank %}
+                <a class="spf-known__item" href="{{ logo_link }}"{% if block.settings.open_new_tab %} target="_blank" rel="noopener noreferrer"{% endif %} {{ block.shopify_attributes }}>
+                  <span class="spf-known__media">{{ logo_media }}</span>
                 </a>
               {% else %}
                 <span class="spf-known__item" {{ block.shopify_attributes }}>
-                  <span class="spf-known__media">{{ logo_image | image_url: width: 480 | image_tag: loading: 'lazy', widths: '120, 180, 240, 360, 480', alt: logo_alt }}</span>
+                  <span class="spf-known__media">{{ logo_media }}</span>
                 </span>
               {% endif %}
             {% elsif request.design_mode %}
@@ -62,6 +107,7 @@
       "type": "media_logo",
       "name": "\u5a92\u4f53 Logo",
       "settings": [
+        { "type": "text", "id": "title", "label": "\u5a92\u4f53\u540d\u79f0", "default": "Media logo" },
         { "type": "image_picker", "id": "image", "label": "\u5a92\u4f53 Logo \u56fe\u7247" },
         { "type": "text", "id": "alt", "label": "\u56fe\u7247\u66ff\u4ee3\u6587\u672c", "info": "\u7559\u7a7a\u65f6\u4f7f\u7528\u56fe\u7247\u81ea\u5e26\u7684\u66ff\u4ee3\u6587\u672c\u3002" },
         { "type": "url", "id": "link", "label": "Logo \u94fe\u63a5" },

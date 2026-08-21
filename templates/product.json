@@ -126,6 +126,65 @@
     },
     "source_known_from": {
       "type": "source-product-known-from",
+      "blocks": {
+        "media_logo_german_brand": {
+          "type": "media_logo",
+          "settings": {
+            "title": "German Brand Award",
+            "alt": "German Brand Award",
+            "link": "https://www.german-brand-award.com/preistraeger/galerie/detail/45110-dotcomcanvas.html",
+            "open_new_tab": false
+          }
+        },
+        "media_logo_growth_champion": {
+          "type": "media_logo",
+          "settings": {
+            "title": "Growth Champion award",
+            "alt": "Growth Champion award",
+            "open_new_tab": false
+          }
+        },
+        "media_logo_ft_1000": {
+          "type": "media_logo",
+          "settings": {
+            "title": "FT 1000 award",
+            "alt": "FT 1000 award",
+            "open_new_tab": false
+          }
+        },
+        "media_logo_business_insider": {
+          "type": "media_logo",
+          "settings": {
+            "title": "Business Insider",
+            "alt": "Business Insider",
+            "open_new_tab": false
+          }
+        },
+        "media_logo_bloomberg": {
+          "type": "media_logo",
+          "settings": {
+            "title": "Bloomberg",
+            "alt": "Bloomberg",
+            "open_new_tab": false
+          }
+        },
+        "media_logo_yahoo_finance": {
+          "type": "media_logo",
+          "settings": {
+            "title": "Yahoo Finance",
+            "alt": "Yahoo Finance",
+            "open_new_tab": false
+          }
+        }
+      },
+      "block_order": [
+        "media_logo_german_brand",
+        "media_logo_growth_champion",
+        "media_logo_ft_1000",
+        "media_logo_business_insider",
+        "media_logo_bloomberg",
+        "media_logo_yahoo_finance"
+      ],
       "settings": {}
     },
     "source_tabs": {
