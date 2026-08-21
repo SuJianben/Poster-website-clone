@@ -21,13 +21,17 @@
   if should_read_manual_reviews and section != blank
     for block in section.blocks
       assign review_matches_current_product = true
+      assign review_enabled = block.settings.enabled
+      if review_enabled == blank
+        assign review_enabled = true
+      endif
       if block.type == 'review' and block.settings.product != blank and current_product != blank
         if block.settings.product.id != current_product.id
           assign review_matches_current_product = false
         endif
       endif
 
-      if block.type == 'review' and block.settings.enabled and review_matches_current_product
+      if block.type == 'review' and review_enabled and review_matches_current_product
         assign manual_review_count = manual_review_count | plus: 1
         assign block_rating = block.settings.rating | default: 5
         assign manual_rating_sum = manual_rating_sum | plus: block_rating
@@ -109,7 +113,11 @@
                     {%- assign review_matches_current_product = false -%}
                   {%- endif -%}
                 {%- endif -%}
-                {%- if block.type == 'review' and block.settings.enabled and review_matches_current_product -%}
+                {%- assign review_enabled = block.settings.enabled -%}
+                {%- if review_enabled == blank -%}
+                  {%- assign review_enabled = true -%}
+                {%- endif -%}
+                {%- if block.type == 'review' and review_enabled and review_matches_current_product -%}
                   {%- assign review_photo_url = block.settings.image_1_url | strip -%}
                   {%- if block.settings.image_1 != blank -%}
                     {%- assign review_photo_url = block.settings.image_1 | image_url: width: 160 -%}
