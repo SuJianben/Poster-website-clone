@@ -6,7 +6,7 @@
 <script src="{{ 'source-product-reviews.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'source-reviews-summary.js' | asset_url }}" defer="defer"></script>
 
-<section class="srw-page" data-srw-page data-analytics-page="review_write">
+<section class="srw-page" {{ section.shopify_attributes }} data-srw-page data-analytics-page="review_write">
   <h1 class="srw-page__title">{{ section.settings.title }}</h1>
   <h2 class="srw-page__heading">{{ section.settings.heading }}</h2>
 
@@ -14,7 +14,7 @@
   {% form 'contact', return_to: request.path, id: form_id, class: 'srw-form' %}
     {%- if form.posted_successfully? -%}
       <p class="srw-form__notice srw-form__notice--success" data-srw-status aria-live="polite">
-        Vielen Dank. Deine Bewertung wurde zur Pruefung eingereicht.
+        Vielen Dank. Deine Bewertung wurde zur Prüfung eingereicht. Sie erscheint nach manueller Freigabe in den Kundenbewertungen.
       </p>
     {%- elsif form.errors -%}
       <div class="srw-form__notice srw-form__notice--error" role="alert">
