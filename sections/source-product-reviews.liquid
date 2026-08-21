@@ -3,6 +3,8 @@
 <script src="{{ 'source-product-reviews.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'source-reviews-summary.js' | asset_url }}" defer="defer"></script>
 
+{%- comment -%}Manual review blocks are configured through the product template.{%- endcomment -%}
+
 {%- liquid
   assign review_source = section.settings.review_source | default: 'manual'
   assign manual_review_count = 0
