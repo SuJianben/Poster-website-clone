@@ -1,26 +1,72 @@
 {{ 'source-product-followup.css' | asset_url | stylesheet_tag }}
 
-<section class="spf-known" aria-labelledby="spf-known-{{ section.id }}">
+<section class="spf-known" aria-labelledby="spf-known-{{ section.id }}" {{ section.shopify_attributes }}>
   <div class="spf-known__container">
     <header class="spf-known__header">
-      <h2 id="spf-known-{{ section.id }}">Bekannt aus</h2>
+      <h2 id="spf-known-{{ section.id }}">{{ section.settings.heading | default: 'Bekannt aus' | escape }}</h2>
     </header>
 
     <div class="spf-known__viewport">
       <div class="spf-known__rail" aria-label="Media and awards">
-        <a class="spf-known__item" href="https://www.german-brand-award.com/preistraeger/galerie/detail/45110-dotcomcanvas.html">
-          <span class="spf-known__media"><img src="https://dotcomcanvas.de/cdn/shop/files/GBA23_HO_SPECIAL_MC_RGB_18e95b9b-9ef8-41df-97a1-2c05ba00f96a.png?v=1757412001&width=1262" alt="German Brand Award" width="1262" height="727" loading="lazy"></span>
-        </a>
-        <span class="spf-known__item"><span class="spf-known__media"><img src="https://dotcomcanvas.de/cdn/shop/files/Logo-1_22c722b1-ad66-4b4b-bd17-812c1c9bc657.png?v=1769264255&width=200" alt="Growth Champion award" width="200" height="116" loading="lazy"></span></span>
-        <span class="spf-known__item"><span class="spf-known__media"><img src="https://dotcomcanvas.de/cdn/shop/files/Logo-3.png?v=1769264343&width=250" alt="FT 1000 award" width="250" height="145" loading="lazy"></span></span>
-        <span class="spf-known__item"><span class="spf-known__media"><img src="https://dotcomcanvas.de/cdn/shop/files/Business-Insider.png?v=1682845804&width=500" alt="Business Insider" width="500" height="500" loading="lazy"></span></span>
-        <span class="spf-known__item"><span class="spf-known__media"><img src="https://dotcomcanvas.de/cdn/shop/files/Bloomberg.png?v=1682845989&width=500" alt="Bloomberg" width="500" height="500" loading="lazy"></span></span>
-        <span class="spf-known__item"><span class="spf-known__media"><img src="https://dotcomcanvas.de/cdn/shop/files/Yahoo-Finance.png?v=1682846040&width=500" alt="Yahoo Finance" width="500" height="500" loading="lazy"></span></span>
+        {% if section.settings.logo_1 != blank %}
+          <a class="spf-known__item" href="https://www.german-brand-award.com/preistraeger/galerie/detail/45110-dotcomcanvas.html">
+            <span class="spf-known__media">{{ section.settings.logo_1 | image_url: width: 480 | image_tag: loading: 'lazy', widths: '120, 180, 240, 360, 480', alt: 'German Brand Award' }}</span>
+          </a>
+        {% else %}
+          <a class="spf-known__item" href="https://www.german-brand-award.com/preistraeger/galerie/detail/45110-dotcomcanvas.html">
+            <span class="spf-known__media"><img src="https://dotcomcanvas.de/cdn/shop/files/GBA23_HO_SPECIAL_MC_RGB_18e95b9b-9ef8-41df-97a1-2c05ba00f96a.png?v=1757412001&width=1262" alt="German Brand Award" width="1262" height="727" loading="lazy"></span>
+          </a>
+        {% endif %}
+
+        {% if section.settings.logo_2 != blank %}
+          <span class="spf-known__item"><span class="spf-known__media">{{ section.settings.logo_2 | image_url: width: 480 | image_tag: loading: 'lazy', widths: '120, 180, 240, 360, 480', alt: 'Growth Champion award' }}</span></span>
+        {% else %}
+          <span class="spf-known__item"><span class="spf-known__media"><img src="https://dotcomcanvas.de/cdn/shop/files/Logo-1_22c722b1-ad66-4b4b-bd17-812c1c9bc657.png?v=1769264255&width=200" alt="Growth Champion award" width="200" height="116" loading="lazy"></span></span>
+        {% endif %}
+
+        {% if section.settings.logo_3 != blank %}
+          <span class="spf-known__item"><span class="spf-known__media">{{ section.settings.logo_3 | image_url: width: 480 | image_tag: loading: 'lazy', widths: '120, 180, 240, 360, 480', alt: 'FT 1000 award' }}</span></span>
+        {% else %}
+          <span class="spf-known__item"><span class="spf-known__media"><img src="https://dotcomcanvas.de/cdn/shop/files/Logo-3.png?v=1769264343&width=250" alt="FT 1000 award" width="250" height="145" loading="lazy"></span></span>
+        {% endif %}
+
+        {% if section.settings.logo_4 != blank %}
+          <span class="spf-known__item"><span class="spf-known__media">{{ section.settings.logo_4 | image_url: width: 480 | image_tag: loading: 'lazy', widths: '120, 180, 240, 360, 480', alt: 'Business Insider' }}</span></span>
+        {% else %}
+          <span class="spf-known__item"><span class="spf-known__media"><img src="https://dotcomcanvas.de/cdn/shop/files/Business-Insider.png?v=1682845804&width=500" alt="Business Insider" width="500" height="500" loading="lazy"></span></span>
+        {% endif %}
+
+        {% if section.settings.logo_5 != blank %}
+          <span class="spf-known__item"><span class="spf-known__media">{{ section.settings.logo_5 | image_url: width: 480 | image_tag: loading: 'lazy', widths: '120, 180, 240, 360, 480', alt: 'Bloomberg' }}</span></span>
+        {% else %}
+          <span class="spf-known__item"><span class="spf-known__media"><img src="https://dotcomcanvas.de/cdn/shop/files/Bloomberg.png?v=1682845989&width=500" alt="Bloomberg" width="500" height="500" loading="lazy"></span></span>
+        {% endif %}
+
+        {% if section.settings.logo_6 != blank %}
+          <span class="spf-known__item"><span class="spf-known__media">{{ section.settings.logo_6 | image_url: width: 480 | image_tag: loading: 'lazy', widths: '120, 180, 240, 360, 480', alt: 'Yahoo Finance' }}</span></span>
+        {% else %}
+          <span class="spf-known__item"><span class="spf-known__media"><img src="https://dotcomcanvas.de/cdn/shop/files/Yahoo-Finance.png?v=1682846040&width=500" alt="Yahoo Finance" width="500" height="500" loading="lazy"></span></span>
+        {% endif %}
       </div>
     </div>
   </div>
 </section>
 
 {% schema %}
-{"name":"媒体背书","settings":[],"presets":[{"name":"媒体背书"}]}
+{
+  "name": "\u5a92\u4f53\u80cc\u4e66",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "\u6807\u9898", "default": "Bekannt aus" },
+    { "type": "header", "content": "\u5a92\u4f53 Logo \u56fe\u7247" },
+    { "type": "image_picker", "id": "logo_1", "label": "Logo 1" },
+    { "type": "image_picker", "id": "logo_2", "label": "Logo 2" },
+    { "type": "image_picker", "id": "logo_3", "label": "Logo 3" },
+    { "type": "image_picker", "id": "logo_4", "label": "Logo 4" },
+    { "type": "image_picker", "id": "logo_5", "label": "Logo 5" },
+    { "type": "image_picker", "id": "logo_6", "label": "Logo 6" }
+  ],
+  "presets": [
+    { "name": "\u5a92\u4f53\u80cc\u4e66" }
+  ]
+}
 {% endschema %}
