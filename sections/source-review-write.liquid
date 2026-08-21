@@ -10,35 +10,118 @@
   <h1 class="srw-page__title">{{ section.settings.title }}</h1>
   <h2 class="srw-page__heading">{{ section.settings.heading }}</h2>
 
-  <form class="srw-form" data-srw-form novalidate>
+  {%- assign form_id = 'ReviewContactForm-' | append: section.id -%}
+  {% form 'contact', return_to: request.path, id: form_id, class: 'srw-form' %}
+    {%- if form.posted_successfully? -%}
+      <p class="srw-form__notice srw-form__notice--success" data-srw-status aria-live="polite">
+        Vielen Dank. Deine Bewertung wurde zur Pruefung eingereicht.
+      </p>
+    {%- elsif form.errors -%}
+      <div class="srw-form__notice srw-form__notice--error" role="alert">
+        {{ form.errors | default_errors }}
+      </div>
+    {%- endif -%}
+
     <fieldset class="srw-form__contact">
-      <div class="srw-field"><label for="srw-author-{{ section.id }}">Name</label><input id="srw-author-{{ section.id }}" name="author" type="text" placeholder="Gib deinen Namen ein" autocomplete="name" required></div>
-      <div class="srw-field"><label for="srw-email-{{ section.id }}">E-Mail</label><input id="srw-email-{{ section.id }}" name="email" type="email" placeholder="john.smith@example.com" autocomplete="email" required></div>
+      <div class="srw-field">
+        <label for="srw-author-{{ section.id }}">Name</label>
+        <input id="srw-author-{{ section.id }}" name="contact[name]" type="text" placeholder="Gib deinen Namen ein" autocomplete="name" required>
+      </div>
+      <div class="srw-field">
+        <label for="srw-email-{{ section.id }}">E-Mail</label>
+        <input id="srw-email-{{ section.id }}" name="contact[email]" type="email" placeholder="john.smith@example.com" autocomplete="email" value="{{ form.email | escape }}" required>
+      </div>
     </fieldset>
 
-    <fieldset class="srw-rating"><legend class="srw-field__label">Bewertung</legend><input data-srw-rating-input name="review_rating" type="text" required hidden>
-      <div class="srw-rating__stars" role="group" aria-label="Bewertung auswählen">{% for star in (1..5) %}<button type="button" data-srw-rating="{{ star }}" aria-label="{{ star }} von 5 Sternen" aria-pressed="false">☆</button>{% endfor %}</div>
+    <fieldset class="srw-rating">
+      <legend class="srw-field__label">Bewertung</legend>
+      <input data-srw-rating-input name="contact[Rating]" type="hidden" value="5">
+      <div class="srw-rating__stars" role="group" aria-label="Bewertung auswaehlen">
+        {% for star in (1..5) %}
+          <button type="button" data-srw-rating="{{ star }}" aria-label="{{ star }} von 5 Sternen" aria-pressed="false">&#9734;</button>
+        {% endfor %}
+      </div>
     </fieldset>
-    <div class="srw-field"><label for="srw-title-{{ section.id }}">Titel der Bewertung</label><input id="srw-title-{{ section.id }}" name="review_title" type="text" placeholder="Der Bewertung einen Titel geben" required></div>
-    <div class="srw-field"><label for="srw-message-{{ section.id }}">Gefallen dir unsere Sachen?</label><textarea id="srw-message-{{ section.id }}" name="review_message" required></textarea></div>
 
-    <fieldset class="srw-products"><legend><h3>Was hast du bestellt?</h3></legend>{% assign product_types = 'Leinwandbild|Acrylglasbild|Blattgold-/silberbild|Poster|Wandskulptur' | split: '|' %}{% for product_type in product_types %}<label><input type="checkbox" name="ordered_products" value="{{ product_type }}">{{ product_type }}</label>{% endfor %}</fieldset>
-    <div class="srw-field"><label for="srw-age-{{ section.id }}">Wie alt bist du?</label><input id="srw-age-{{ section.id }}" name="age" type="text"></div>
-    <div class="srw-field"><label for="srw-job-{{ section.id }}">Was machst du beruflich?</label><input id="srw-job-{{ section.id }}" name="job" type="text"></div>
-    <div class="srw-field"><label for="srw-room-{{ section.id }}">Wo hängt das Wandbild?</label><input id="srw-room-{{ section.id }}" name="room" type="text"></div>
+    <div class="srw-field">
+      <label for="srw-title-{{ section.id }}">Titel der Bewertung</label>
+      <input id="srw-title-{{ section.id }}" name="contact[Review title]" type="text" placeholder="Der Bewertung einen Titel geben" required>
+    </div>
+    <div class="srw-field">
+      <label for="srw-message-{{ section.id }}">Gefallen dir unsere Sachen?</label>
+      <textarea id="srw-message-{{ section.id }}" name="contact[body]" required></textarea>
+    </div>
+
+    <fieldset class="srw-products">
+      <legend><h3>Was hast du bestellt?</h3></legend>
+      {% assign product_types = 'Leinwandbild|Acrylglasbild|Blattgold-/silberbild|Poster|Wandskulptur' | split: '|' %}
+      {% for product_type in product_types %}
+        <label><input type="checkbox" name="contact[Ordered product type {{ forloop.index }}]" value="{{ product_type }}">{{ product_type }}</label>
+      {% endfor %}
+    </fieldset>
+
+    <div class="srw-field">
+      <label for="srw-product-{{ section.id }}">Produktname</label>
+      <input id="srw-product-{{ section.id }}" name="contact[Product name]" type="text" placeholder="Name des gekauften Produkts" required>
+    </div>
+    <div class="srw-field">
+      <label for="srw-age-{{ section.id }}">Wie alt bist du?</label>
+      <input id="srw-age-{{ section.id }}" name="contact[Age]" type="text">
+    </div>
+    <div class="srw-field">
+      <label for="srw-job-{{ section.id }}">Was machst du beruflich?</label>
+      <input id="srw-job-{{ section.id }}" name="contact[Job]" type="text">
+    </div>
+    <div class="srw-field">
+      <label for="srw-room-{{ section.id }}">Wo haengt das Wandbild?</label>
+      <input id="srw-room-{{ section.id }}" name="contact[Room]" type="text">
+    </div>
 
     <div class="srw-scales">
-      {% assign scale_prompts = 'Wie bewertest du die Druckqualität?|Wie bewertest du die Verarbeitung?|Wie bewertest du das Preis-Leistungs-Verhältnis?' | split: '|' %}
-      {% for prompt in scale_prompts %}<fieldset class="srw-scale" data-srw-scale><legend>{{ prompt }}</legend><div class="srw-scale__options">{% for value in (1..5) %}<label class="srw-scale__option"><input type="radio" name="scale_{{ forloop.parentloop.index }}" value="{{ value }}" aria-label="{{ value }} von 5"><span class="visually-hidden">{{ value }} von 5</span></label>{% endfor %}</div><div class="srw-scale__caption"><span>Schlecht</span><span>Perfekt</span></div></fieldset>{% endfor %}
+      {% assign scale_prompts = 'Wie bewertest du die Druckqualitaet?|Wie bewertest du die Verarbeitung?|Wie bewertest du das Preis-Leistungs-Verhaeltnis?' | split: '|' %}
+      {% for prompt in scale_prompts %}
+        <fieldset class="srw-scale" data-srw-scale>
+          <legend>{{ prompt }}</legend>
+          <div class="srw-scale__options">
+            {% for value in (1..5) %}
+              <label class="srw-scale__option">
+                <input type="radio" name="contact[Quality scale {{ forloop.parentloop.index }}]" value="{{ value }}" aria-label="{{ value }} von 5">
+                <span class="visually-hidden">{{ value }} von 5</span>
+              </label>
+            {% endfor %}
+          </div>
+          <div class="srw-scale__caption"><span>Schlecht</span><span>Perfekt</span></div>
+        </fieldset>
+      {% endfor %}
     </div>
-    <div class="srw-field"><label for="srw-instagram-{{ section.id }}">Instagram Account (Optional)</label><input id="srw-instagram-{{ section.id }}" name="instagram" type="text"></div>
-    <div class="srw-form__actions"><label class="srw-upload"><span data-srw-upload-label>Bild hinzufügen</span><input data-srw-upload-input type="file" accept="image/*"></label><button class="srw-submit" type="submit">Bewertung abgeben</button></div><p class="srw-form__status" data-srw-status aria-live="polite"></p>
-  </form>
 
-  <section class="sprv srw-page__reviews" data-sprv-root data-section-id="{{ section.id }}-reviews" aria-label="Customer review list"><div class="sprv__widget"><div class="sprv__inner">{% render 'source-product-reviews-list', review_count: section.settings.review_count, show_write: false %}</div></div></section>
+    <div class="srw-field">
+      <label for="srw-instagram-{{ section.id }}">Instagram Account (Optional)</label>
+      <input id="srw-instagram-{{ section.id }}" name="contact[Instagram]" type="text">
+    </div>
+    <div class="srw-field">
+      <label for="srw-image-url-{{ section.id }}">Bild-Link (Optional)</label>
+      <input id="srw-image-url-{{ section.id }}" name="contact[Image link]" type="url" placeholder="https://">
+    </div>
+
+    <div class="srw-form__actions"><button class="srw-submit" type="submit">Bewertung abgeben</button></div>
+    <p class="srw-form__status" data-srw-status aria-live="polite"></p>
+  {% endform %}
+
+  <section class="sprv srw-page__reviews" data-sprv-root data-section-id="{{ section.id }}-reviews" aria-label="Customer review list">
+    <div class="sprv__widget"><div class="sprv__inner">
+      {% render 'source-product-reviews-list', review_count: section.settings.review_count, show_write: false %}
+    </div></div>
+  </section>
 </section>
 
 {% schema %}
-{"name": "撰写评价","settings":[{"type":"text","id":"title","label": "页面标题","default":"Write a Review"},{"type":"text","id":"heading","label": "表单标题","default":"Kundenbewertungen"},{"type":"text","id":"review_count","label": "评价数量","default":"2625"}]}
+{
+  "name": "撰写评论",
+  "settings": [
+    { "type": "text", "id": "title", "label": "页面标题", "default": "Write a Review" },
+    { "type": "text", "id": "heading", "label": "表单标题", "default": "Kundenbewertungen" },
+    { "type": "text", "id": "review_count", "label": "评价数量", "default": "2625" }
+  ]
+}
 {% endschema %}
-
