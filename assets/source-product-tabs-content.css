@@ -302,6 +302,12 @@
   font-weight: 500;
 }
 
+.spf-tabs__price-copy li::before {
+  flex: 0 0 auto;
+  content: '✓';
+  font-weight: 700;
+}
+
 .spf-tabs__price-copy li span {
   font-weight: 700;
 }
