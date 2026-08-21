@@ -70,7 +70,19 @@
           "type": "volume_discount",
           "settings": {
             "heading": "🌞 SUMMER-SALE: Get more, save more! 🎉",
-            "note": "Can be combined with already discounted items!"
+            "note": "Can be combined with already discounted items!",
+            "quantity_heading": "Buy quantity",
+            "discount_heading": "Discount",
+            "tier_1_quantity": "Buy 1",
+            "tier_1_discount": "Get 5% off",
+            "tier_2_quantity": "Buy 2",
+            "tier_2_discount": "Get 10% off",
+            "tier_3_quantity": "Buy 3",
+            "tier_3_discount": "Get 15% off",
+            "tier_4_quantity": "Buy 4",
+            "tier_4_discount": "Get 20% off",
+            "tier_5_quantity": "Buy 5+",
+            "tier_5_discount": "Get 25% off"
           }
         },
         "benefits": {

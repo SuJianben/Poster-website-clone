@@ -263,12 +263,12 @@
       <p class="spx-product__sale-title">{{ block.settings.heading }}</p>
       <p>{{ block.settings.note }}</p>
       <div class="spx-product__discount-table" role="table" aria-label="Quantity discounts">
-        <div class="spx-product__discount-row spx-product__discount-row--head" role="row"><span role="columnheader">Buy quantity</span><span role="columnheader">Discount</span></div>
-        <div class="spx-product__discount-row" role="row"><span role="cell">Buy 1</span><span role="cell">Get 5% off</span></div>
-        <div class="spx-product__discount-row" role="row"><span role="cell">Buy 2</span><span role="cell">Get 10% off</span></div>
-        <div class="spx-product__discount-row" role="row"><span role="cell">Buy 3</span><span role="cell">Get 15% off</span></div>
-        <div class="spx-product__discount-row" role="row"><span role="cell">Buy 4</span><span role="cell">Get 20% off</span></div>
-        <div class="spx-product__discount-row" role="row"><span role="cell">Buy 5+</span><span role="cell">Get 25% off</span></div>
+        <div class="spx-product__discount-row spx-product__discount-row--head" role="row"><span role="columnheader">{{ block.settings.quantity_heading | default: 'Buy quantity' }}</span><span role="columnheader">{{ block.settings.discount_heading | default: 'Discount' }}</span></div>
+        <div class="spx-product__discount-row" role="row"><span role="cell">{{ block.settings.tier_1_quantity | default: 'Buy 1' }}</span><span role="cell">{{ block.settings.tier_1_discount | default: 'Get 5% off' }}</span></div>
+        <div class="spx-product__discount-row" role="row"><span role="cell">{{ block.settings.tier_2_quantity | default: 'Buy 2' }}</span><span role="cell">{{ block.settings.tier_2_discount | default: 'Get 10% off' }}</span></div>
+        <div class="spx-product__discount-row" role="row"><span role="cell">{{ block.settings.tier_3_quantity | default: 'Buy 3' }}</span><span role="cell">{{ block.settings.tier_3_discount | default: 'Get 15% off' }}</span></div>
+        <div class="spx-product__discount-row" role="row"><span role="cell">{{ block.settings.tier_4_quantity | default: 'Buy 4' }}</span><span role="cell">{{ block.settings.tier_4_discount | default: 'Get 20% off' }}</span></div>
+        <div class="spx-product__discount-row" role="row"><span role="cell">{{ block.settings.tier_5_quantity | default: 'Buy 5+' }}</span><span role="cell">{{ block.settings.tier_5_discount | default: 'Get 25% off' }}</span></div>
       </div>
     </section>
 
