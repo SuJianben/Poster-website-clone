@@ -6,7 +6,7 @@
   for block in section.blocks
     assign review_matches_current_product = true
     assign review_enabled = block.settings.enabled
-    if review_enabled == blank
+    if review_enabled == nil
       assign review_enabled = true
     endif
     if block.type == 'review' and block.settings.product != blank and current_product != blank
@@ -88,7 +88,7 @@
     {%- for block in section.blocks -%}
       {%- assign review_matches_current_product = true -%}
       {%- assign review_enabled = block.settings.enabled -%}
-      {%- if review_enabled == blank -%}
+      {%- if review_enabled == nil -%}
         {%- assign review_enabled = true -%}
       {%- endif -%}
       {%- if block.type == 'review' and block.settings.product != blank and current_product != blank -%}
