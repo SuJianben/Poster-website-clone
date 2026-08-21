@@ -2,8 +2,6 @@
   assign summary_variant = variant | default: 'product'
   assign summary_review_count = review_count | default: '2626'
   assign summary_average_rating = average_rating | default: '4,9'
-  assign summary_write_heading = write_heading | default: 'Eine Bewertung schreiben'
-  assign summary_contact_url = contact_url | default: '/pages/write-a-review'
   assign use_manual_review_photos = manual_review_photos | default: false
   assign use_manual_summary = use_manual_summary | default: false
   assign use_custom_summary = use_custom_summary | default: false
@@ -142,10 +140,5 @@
         </div>
       </div>
     {%- endif -%}
-
-    <div class="srp-widget__actions">
-      <a href="{{ summary_contact_url }}" data-sprv-write>{{ summary_write_heading }}</a>
-      <button type="button" data-srp-question>Eine Frage stellen</button>
-    </div>
   </div>
 </div>
