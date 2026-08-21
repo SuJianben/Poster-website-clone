@@ -5,13 +5,17 @@
 
   for block in section.blocks
     assign review_matches_current_product = true
+    assign review_enabled = block.settings.enabled
+    if review_enabled == blank
+      assign review_enabled = true
+    endif
     if block.type == 'review' and block.settings.product != blank and current_product != blank
       if block.settings.product.id != current_product.id
         assign review_matches_current_product = false
       endif
     endif
 
-    if block.type == 'review' and block.settings.enabled and review_matches_current_product
+    if block.type == 'review' and review_enabled and review_matches_current_product
       assign manual_review_count = manual_review_count | plus: 1
     endif
   endfor
@@ -83,12 +87,16 @@
     {%- assign review_position = 0 -%}
     {%- for block in section.blocks -%}
       {%- assign review_matches_current_product = true -%}
+      {%- assign review_enabled = block.settings.enabled -%}
+      {%- if review_enabled == blank -%}
+        {%- assign review_enabled = true -%}
+      {%- endif -%}
       {%- if block.type == 'review' and block.settings.product != blank and current_product != blank -%}
         {%- if block.settings.product.id != current_product.id -%}
           {%- assign review_matches_current_product = false -%}
         {%- endif -%}
       {%- endif -%}
-      {%- if block.type == 'review' and block.settings.enabled and review_matches_current_product -%}
+      {%- if block.type == 'review' and review_enabled and review_matches_current_product -%}
         {%- assign review_position = review_position | plus: 1 -%}
         {% render 'source-product-review-card', block: block, position: review_position %}
       {%- endif -%}
