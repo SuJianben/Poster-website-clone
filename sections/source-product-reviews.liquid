@@ -19,7 +19,7 @@
   endfor
 
   assign section_has_content = false
-  if review_source == 'manual' and manual_review_count > 0
+  if review_source == 'manual'
     assign section_has_content = true
   elsif review_source == 'app' and app_block_count > 0
     assign section_has_content = true
@@ -51,21 +51,24 @@
         {% elsif request.design_mode %}
           <p class="sprv__empty">请先添加评论应用块，或将“评论来源”切换为“后台手动评论”。</p>
         {% endif %}
-      {% elsif manual_review_count > 0 %}
-        {% render 'source-reviews-summary',
-          variant: 'product',
-          review_count: section.settings.review_count,
-          average_rating: section.settings.average_rating,
-          section: section,
-          manual_review_photos: true,
-          use_manual_summary: true,
-          use_custom_summary: section.settings.use_custom_summary
-        %}
+      {% elsif review_source == 'manual' %}
+        {% if manual_review_count > 0 %}
+          {% render 'source-reviews-summary',
+            variant: 'product',
+            review_count: section.settings.review_count,
+            average_rating: section.settings.average_rating,
+            section: section,
+            manual_review_photos: true,
+            use_manual_summary: true,
+            use_custom_summary: section.settings.use_custom_summary
+          %}
+        {% endif %}
 
         {% render 'source-product-reviews-list',
           section: section,
           review_count: section.settings.review_count,
-          show_write: false
+          show_write: true,
+          review_mode: 'empty'
         %}
       {% elsif request.design_mode %}
         <p class="sprv__empty">暂无手动评论。点击左侧“添加块”，选择“客户评论”后即可填写内容。</p>
