@@ -11,7 +11,14 @@
   assign app_block_count = 0
 
   for block in section.blocks
-    if block.type == 'review' and block.settings.enabled
+    assign review_matches_current_product = true
+    if block.type == 'review' and block.settings.product != blank and product != blank
+      if block.settings.product.id != product.id
+        assign review_matches_current_product = false
+      endif
+    endif
+
+    if block.type == 'review' and block.settings.enabled and review_matches_current_product
       assign manual_review_count = manual_review_count | plus: 1
     elsif block.type == '@app'
       assign app_block_count = app_block_count | plus: 1
@@ -58,6 +65,7 @@
             review_count: section.settings.review_count,
             average_rating: section.settings.average_rating,
             section: section,
+            current_product: product,
             manual_review_photos: true,
             use_manual_summary: true,
             use_custom_summary: section.settings.use_custom_summary
@@ -66,6 +74,7 @@
 
         {% render 'source-product-reviews-list',
           section: section,
+          current_product: product,
           review_count: section.settings.review_count,
           show_write: true,
           review_mode: 'empty'
