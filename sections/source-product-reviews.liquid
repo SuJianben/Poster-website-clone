@@ -12,13 +12,17 @@
 
   for block in section.blocks
     assign review_matches_current_product = true
+    assign review_enabled = block.settings.enabled
+    if review_enabled == blank
+      assign review_enabled = true
+    endif
     if block.type == 'review' and block.settings.product != blank and product != blank
       if block.settings.product.id != product.id
         assign review_matches_current_product = false
       endif
     endif
 
-    if block.type == 'review' and block.settings.enabled and review_matches_current_product
+    if block.type == 'review' and review_enabled and review_matches_current_product
       assign manual_review_count = manual_review_count | plus: 1
     elsif block.type == '@app'
       assign app_block_count = app_block_count | plus: 1
@@ -35,10 +39,12 @@
 
 <section
   class="sprv"
+  {{ section.shopify_attributes }}
   data-sprv-root
   data-section-id="{{ section.id }}"
   data-sprv-default-filter="{{ section.settings.default_filter | default: 'recent' }}"
   data-sprv-page-size="{{ section.settings.reviews_per_page | default: 12 }}"
+  data-sprv-manual-review-count="{{ manual_review_count }}"
   {% if section_has_content == false and request.design_mode == false %}hidden{% endif %}
   aria-labelledby="sprv-heading-{{ section.id }}"
 >
@@ -59,6 +65,12 @@
           <p class="sprv__empty">请先添加评论应用块，或将“评论来源”切换为“后台手动评论”。</p>
         {% endif %}
       {% elsif review_source == 'manual' %}
+        {% if request.design_mode and manual_review_count == 0 %}
+          <div class="sprv__empty sprv__empty--editor" role="status">
+            <strong>还没有手动评论</strong>
+            <p>点击左侧“添加区块” → “客户评论”，填写内容后保存即可发布。</p>
+          </div>
+        {% endif %}
         {% if manual_review_count > 0 %}
           {% render 'source-reviews-summary',
             variant: 'product',
@@ -120,6 +132,7 @@
     },
     { "type": "range", "id": "reviews_per_page", "label": "每页显示评论数", "min": 4, "max": 24, "step": 1, "default": 12 }
   ],
+  "max_blocks": 50,
   "blocks": [
     {
       "type": "review",
