@@ -16,7 +16,12 @@
     assign shared_review_count = manual_review_count
   endif
   assign shared_write_heading = write_heading | default: 'Eine Bewertung schreiben'
-  assign shared_contact_url = contact_url | default: '/pages/write-a-review'
+  assign selected_review_mode = review_mode | default: 'default'
+  assign review_page = pages['write-a-review']
+  assign shared_contact_url = contact_url | default: review_page.url
+  if shared_contact_url == blank
+    assign shared_contact_url = routes.contact_url
+  endif
   assign shared_review_app_url = false
   if shared_contact_url contains '/a/review/'
     assign shared_review_app_url = true
@@ -39,8 +44,13 @@
     assign rendered_review_count = 12
   endif
   assign review_page_total = rendered_review_count | plus: review_page_size | minus: 1 | divided_by: review_page_size
+  assign show_review_content = true
+  if manual_review_count == 0 and selected_review_mode == 'empty'
+    assign show_review_content = false
+  endif
 -%}
 
+{%- if show_review_content -%}
 <div class="sprv__toolbar">
   <div class="sprv__tab-row">
     <div class="sprv__tab" aria-current="page">Bewertungen <span>{{ shared_review_count }}</span></div>
@@ -88,6 +98,7 @@
     {%- endfor -%}
     <button type="button" data-sprv-page="next" aria-label="Next page">&gt;</button>
   </nav>
+{%- endif -%}
 {%- endif -%}
 
 {%- if show_write -%}
