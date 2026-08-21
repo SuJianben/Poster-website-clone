@@ -1,68 +1,67 @@
 {%- liquid
-  assign card_product = block.settings.product
-  assign card_title = block.settings.fallback_title
-  assign card_material = block.settings.fallback_material
-  assign card_price = block.settings.fallback_price
-  assign card_url = block.settings.fallback_url
-  assign card_image = block.settings.fallback_image_url
-  assign card_hover_image = block.settings.fallback_hover_image_url
-  assign atelier_edition_label = block.settings.edition_badge
+  assign card_product = product
+  assign card_title = card_product.title | default: 'Recommended product'
+  assign card_material = card_product.type | default: 'Product'
+  assign card_url = card_product.url | default: routes.all_products_collection_url
+  assign card_image = card_product.featured_image | image_url: width: 900
+  assign card_hover_image = ''
+  assign card_badge = ''
+  assign atelier_edition_label = ''
   assign atelier_edition_key = 'custom'
   assign atelier_drawer_title = ''
   assign atelier_drawer_description = ''
 
-  if card_product != blank
-    assign card_title = card_product.title
-    assign card_material = card_product.type
-    assign card_url = card_product.url
-    assign card_image = card_product.featured_image | image_url: width: 900
-    if card_product.images.size > 1
-      assign card_hover_image = card_product.images[1] | image_url: width: 900
-    endif
-    capture card_price
-      if card_product.price_varies
-        echo 'From '
-      endif
-      echo card_product.price_min | money
-    endcapture
-    assign atelier_edition_value = card_product.metafields.custom.atelier_edition.value | default: ''
-    assign atelier_drawer_title = card_product.metafields.custom.atelier_title.value | default: ''
-    assign atelier_drawer_description = card_product.metafields.custom.atelier_description.value | default: ''
-    assign atelier_edition_key = atelier_edition_value | downcase | strip
-    assign has_atelier_edition_metafield = false
-    case atelier_edition_key
-      when 'limited', 'limited atelier exclusive', 'limited-atelier', 'limited_atelier'
-        assign atelier_edition_key = 'limited'
-        assign atelier_edition_label = 'LIMITED ATELIER EXCLUSIVE'
-        assign has_atelier_edition_metafield = true
-      when 'atelier', 'atelier exclusive', 'silver'
-        assign atelier_edition_key = 'atelier'
-        assign atelier_edition_label = 'ATELIER EXCLUSIVE'
-        assign has_atelier_edition_metafield = true
-      when 'essentials', 'essential'
-        assign atelier_edition_key = 'essentials'
-        assign atelier_edition_label = 'ESSENTIALS'
-        assign has_atelier_edition_metafield = true
-    endcase
-    if has_atelier_edition_metafield == false
-      assign atelier_product_tags = card_product.tags | join: '|' | downcase
-      if atelier_product_tags contains 'limited atelier exclusive'
-        assign atelier_edition_key = 'limited'
-        assign atelier_edition_label = 'LIMITED ATELIER EXCLUSIVE'
-      elsif atelier_product_tags contains 'atelier exclusive'
-        assign atelier_edition_key = 'atelier'
-        assign atelier_edition_label = 'ATELIER EXCLUSIVE'
-      endif
-    endif
+  if card_product.images.size > 1
+    assign card_hover_image = card_product.images[1] | image_url: width: 900
   endif
-  if atelier_edition_label != blank and atelier_edition_key == 'custom'
-    assign atelier_label_key = atelier_edition_label | downcase | strip
-    if atelier_label_key contains 'limited'
+
+  capture card_price
+    if card_product.price_varies
+      echo 'From '
+    endif
+    echo card_product.price_min | money
+  endcapture
+
+  if card_product.tags contains 'Trending'
+    assign card_badge = 'TRENDING'
+  elsif card_product.tags contains 'Bestseller'
+    assign card_badge = 'BESTSELLER'
+  elsif card_product.tags contains 'Personalisierbar'
+    assign card_badge = 'PERSONALISIERBAR'
+  elsif card_product.compare_at_price > card_product.price
+    assign discount_percent = card_product.compare_at_price | minus: card_product.price | times: 100 | divided_by: card_product.compare_at_price
+    assign card_badge = '-' | append: discount_percent | append: '%'
+  endif
+
+  assign atelier_edition_value = card_product.metafields.custom.atelier_edition.value | default: ''
+  assign atelier_drawer_title = card_product.metafields.custom.atelier_title.value | default: ''
+  assign atelier_drawer_description = card_product.metafields.custom.atelier_description.value | default: ''
+  assign atelier_edition_key = atelier_edition_value | downcase | strip
+  assign has_atelier_edition_metafield = false
+
+  case atelier_edition_key
+    when 'limited', 'limited atelier exclusive', 'limited-atelier', 'limited_atelier'
       assign atelier_edition_key = 'limited'
-    elsif atelier_label_key contains 'atelier'
+      assign atelier_edition_label = 'LIMITED ATELIER EXCLUSIVE'
+      assign has_atelier_edition_metafield = true
+    when 'atelier', 'atelier exclusive', 'silver'
       assign atelier_edition_key = 'atelier'
-    elsif atelier_label_key contains 'essential'
+      assign atelier_edition_label = 'ATELIER EXCLUSIVE'
+      assign has_atelier_edition_metafield = true
+    when 'essentials', 'essential'
       assign atelier_edition_key = 'essentials'
+      assign atelier_edition_label = 'ESSENTIALS'
+      assign has_atelier_edition_metafield = true
+  endcase
+
+  if has_atelier_edition_metafield == false
+    assign atelier_product_tags = card_product.tags | join: '|' | downcase
+    if atelier_product_tags contains 'limited atelier exclusive'
+      assign atelier_edition_key = 'limited'
+      assign atelier_edition_label = 'LIMITED ATELIER EXCLUSIVE'
+    elsif atelier_product_tags contains 'atelier exclusive'
+      assign atelier_edition_key = 'atelier'
+      assign atelier_edition_label = 'ATELIER EXCLUSIVE'
     endif
   endif
 -%}
@@ -72,33 +71,34 @@
   data-spr-recommendation-card
   data-product-title="{{ card_title | escape }}"
   data-product-position="{{ position }}"
-  {{ block.shopify_attributes }}
 >
   <div class="spr-recs__media">
     <a class="spr-recs__media-link" href="{{ card_url }}" aria-label="{{ card_title | escape }}">
-      <img
-        class="spr-recs__image spr-recs__image--main"
-        src="{{ card_image }}"
-        alt="{{ card_title | escape }}"
-        width="900"
-        height="900"
-        loading="lazy"
-      >
-      {%- if card_hover_image != blank -%}
+      {% if card_image != blank %}
         <img
-          class="spr-recs__image spr-recs__image--hover"
-          src="{{ card_hover_image }}"
-          alt=""
+          class="spr-recs__image spr-recs__image--main"
+          src="{{ card_image }}"
+          alt="{{ card_title | escape }}"
           width="900"
           height="900"
           loading="lazy"
-          aria-hidden="true"
         >
-      {%- endif -%}
+        {%- if card_hover_image != blank -%}
+          <img
+            class="spr-recs__image spr-recs__image--hover"
+            src="{{ card_hover_image }}"
+            alt=""
+            width="900"
+            height="900"
+            loading="lazy"
+            aria-hidden="true"
+          >
+        {%- endif -%}
+      {% endif %}
     </a>
 
-    {%- if block.settings.badge != blank -%}
-      <span class="spr-recs__trend">{{ block.settings.badge }}</span>
+    {%- if card_badge != blank -%}
+      <span class="spr-recs__trend">{{ card_badge }}</span>
     {%- endif -%}
   </div>
 
@@ -113,9 +113,9 @@
     {%- endif -%}
 
     <h3 class="spr-recs__title">
-      <a href="{{ card_url }}">{{ card_title }}</a>
+      <a href="{{ card_url }}">{{ card_title | escape }}</a>
     </h3>
-    <p class="spr-recs__material">{{ card_material }}</p>
+    <p class="spr-recs__material">{{ card_material | escape }}</p>
     <p class="spr-recs__price">{{ card_price }}</p>
   </div>
 </article>

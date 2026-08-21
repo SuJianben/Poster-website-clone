@@ -21,6 +21,24 @@
   overflow-wrap: normal;
 }
 
+.spr-recs[data-spr-state='loading']:not([data-spr-design-mode='true']) {
+  display: none;
+}
+
+.spr-recs[data-spr-state='empty']:not([data-spr-design-mode='true']),
+.spr-recs[data-spr-state='error']:not([data-spr-design-mode='true']) {
+  display: none;
+}
+
+.spr-recs__empty {
+  width: 100%;
+  padding: 24px 0;
+  color: var(--spr-recs-muted);
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+}
+
 .spr-recs a {
   color: inherit;
   text-decoration: none;
