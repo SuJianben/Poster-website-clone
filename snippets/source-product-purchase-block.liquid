@@ -282,7 +282,15 @@
   {% when 'payment_trust' %}
     <div data-analytics-block-type="payment_trust" {{ block.shopify_attributes }}>
       <div class="spx-product__payment-title"><span></span>{{ block.settings.heading }}<span></span></div>
-      <div class="spx-product__payment-methods" aria-label="Accepted payment methods"><span class="is-amex">AMEX</span><span>Pay</span><span class="is-blik">blik</span><span>G Pay</span><span class="is-maestro">●●</span><span class="is-mastercard">●●</span><span class="is-paypal">P</span><span class="is-visa">VISA</span><span class="is-klarna">Klarna.</span></div>
+      {% if shop.enabled_payment_types.size > 0 %}
+        <div class="spx-product__payment-methods" aria-label="Accepted payment methods">
+          {% for payment_type in shop.enabled_payment_types %}
+            <span class="spx-product__payment-method">
+              {{ payment_type | payment_type_svg_tag: class: 'icon icon--full-color' }}
+            </span>
+          {% endfor %}
+        </div>
+      {% endif %}
       <p class="spx-product__payment-note"><svg aria-hidden="true" viewBox="0 0 20 20"><path d="M10 2.5 15.5 4v4.4c0 3.5-2.35 6.7-5.5 8.1-3.15-1.4-5.5-4.6-5.5-8.1V4L10 2.5Z"/></svg>{{ block.settings.note }}</p>
     </div>
 {% endcase %}
