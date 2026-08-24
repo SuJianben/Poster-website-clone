@@ -22,7 +22,19 @@
       productPicker.required = !hasProduct;
       if (hasProduct && productPicker.value !== productIdField.value) {
         const matchingOption = [...productPicker.options].find((option) => option.value === productIdField.value);
-        if (matchingOption) productPicker.value = productIdField.value;
+        if (matchingOption) {
+          productPicker.value = productIdField.value;
+        } else {
+          const fallbackOption = document.createElement('option');
+          fallbackOption.value = productIdField.value;
+          fallbackOption.textContent = productTitleField?.value || productHandleField?.value || productIdField.value;
+          fallbackOption.dataset.productId = productIdField.value;
+          fallbackOption.dataset.productHandle = productHandleField?.value || '';
+          fallbackOption.dataset.productTitle = productTitleField?.value || '';
+          fallbackOption.dataset.productUrl = productUrlField?.value || '';
+          productPicker.append(fallbackOption);
+          productPicker.value = productIdField.value;
+        }
       }
     };
     const createSubmissionId = () => {
