@@ -9,6 +9,8 @@
   assign review_source = section.settings.review_source | default: 'manual'
   assign manual_review_count = 0
   assign app_block_count = 0
+  assign published_reviews = product.metafields.custom.approved_reviews.value
+  assign published_review_count = published_reviews | size
 
   for block in section.blocks
     assign review_matches_current_product = true
@@ -65,19 +67,20 @@
           <p class="sprv__empty">请先添加评论应用块，或将“评论来源”切换为“后台手动评论”。</p>
         {% endif %}
       {% elsif review_source == 'manual' %}
-        {% if request.design_mode and manual_review_count == 0 %}
+        {% if request.design_mode and manual_review_count == 0 and published_review_count == 0 %}
           <div class="sprv__empty sprv__empty--editor" role="status">
             <strong>还没有手动评论</strong>
             <p>点击左侧“添加区块” → “客户评论”，填写内容后保存即可发布。</p>
           </div>
         {% endif %}
-        {% if manual_review_count > 0 %}
+        {% if manual_review_count > 0 or published_review_count > 0 %}
           {% render 'source-reviews-summary',
             variant: 'product',
             review_count: section.settings.review_count,
             average_rating: section.settings.average_rating,
             section: section,
             current_product: product,
+            published_reviews: published_reviews,
             manual_review_photos: true,
             use_manual_summary: true,
             use_custom_summary: section.settings.use_custom_summary
@@ -87,6 +90,7 @@
         {% render 'source-product-reviews-list',
           section: section,
           current_product: product,
+          published_reviews: published_reviews,
           review_count: section.settings.review_count,
           show_write: true,
           review_mode: 'empty'

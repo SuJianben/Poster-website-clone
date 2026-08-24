@@ -5,6 +5,10 @@
   assign use_manual_review_photos = manual_review_photos | default: false
   assign use_manual_summary = use_manual_summary | default: false
   assign use_custom_summary = use_custom_summary | default: false
+  if published_reviews == blank and current_product != blank
+    assign published_reviews = current_product.metafields.custom.approved_reviews.value
+  endif
+  assign published_review_count = published_reviews | size
 
   assign manual_review_count = 0
   assign manual_review_photo_count = 0
@@ -14,10 +18,39 @@
   assign manual_rating_3 = 0
   assign manual_rating_2 = 0
   assign manual_rating_1 = 0
+  assign published_rating_sum = 0
+  assign published_rating_5 = 0
+  assign published_rating_4 = 0
+  assign published_rating_3 = 0
+  assign published_rating_2 = 0
+  assign published_rating_1 = 0
   assign should_read_manual_reviews = false
   if use_manual_review_photos or use_manual_summary
     assign should_read_manual_reviews = true
   endif
+
+  if published_review_count > 0
+    for published_review in published_reviews
+      assign published_rating = published_review.rating | default: 5 | plus: 0
+      assign published_rating_sum = published_rating_sum | plus: published_rating
+      case published_rating
+        when 5
+          assign published_rating_5 = published_rating_5 | plus: 1
+        when 4
+          assign published_rating_4 = published_rating_4 | plus: 1
+        when 3
+          assign published_rating_3 = published_rating_3 | plus: 1
+        when 2
+          assign published_rating_2 = published_rating_2 | plus: 1
+        else
+          assign published_rating_1 = published_rating_1 | plus: 1
+      endcase
+      if published_review.image_url != blank
+        assign manual_review_photo_count = manual_review_photo_count | plus: 1
+      endif
+    endfor
+  endif
+
   if should_read_manual_reviews and section != blank
     for block in section.blocks
       assign review_matches_current_product = true
@@ -54,23 +87,31 @@
     endfor
   endif
 
-  if use_manual_summary and use_custom_summary != true and manual_review_count > 0
-    assign summary_review_count = manual_review_count
-    assign average_rating_tenths = manual_rating_sum | times: 10 | divided_by: manual_review_count
+  assign combined_review_count = manual_review_count | plus: published_review_count
+  assign combined_rating_sum = manual_rating_sum | plus: published_rating_sum
+
+  if use_manual_summary and use_custom_summary != true and combined_review_count > 0
+    assign summary_review_count = combined_review_count
+    assign average_rating_tenths = combined_rating_sum | times: 10 | divided_by: combined_review_count
     assign average_rating_whole = average_rating_tenths | divided_by: 10
     assign average_rating_decimal = average_rating_tenths | modulo: 10
     assign summary_average_rating = average_rating_whole | append: ',' | append: average_rating_decimal
-    assign rating_5_percent = manual_rating_5 | times: 100 | divided_by: manual_review_count
-    assign rating_4_percent = manual_rating_4 | times: 100 | divided_by: manual_review_count
-    assign rating_3_percent = manual_rating_3 | times: 100 | divided_by: manual_review_count
-    assign rating_2_percent = manual_rating_2 | times: 100 | divided_by: manual_review_count
-    assign rating_1_percent = manual_rating_1 | times: 100 | divided_by: manual_review_count
+    assign combined_rating_5 = manual_rating_5 | plus: published_rating_5
+    assign combined_rating_4 = manual_rating_4 | plus: published_rating_4
+    assign combined_rating_3 = manual_rating_3 | plus: published_rating_3
+    assign combined_rating_2 = manual_rating_2 | plus: published_rating_2
+    assign combined_rating_1 = manual_rating_1 | plus: published_rating_1
+    assign rating_5_percent = combined_rating_5 | times: 100 | divided_by: combined_review_count
+    assign rating_4_percent = combined_rating_4 | times: 100 | divided_by: combined_review_count
+    assign rating_3_percent = combined_rating_3 | times: 100 | divided_by: combined_review_count
+    assign rating_2_percent = combined_rating_2 | times: 100 | divided_by: combined_review_count
+    assign rating_1_percent = combined_rating_1 | times: 100 | divided_by: combined_review_count
     capture ratings
-      echo '5|' | append: rating_5_percent | append: '|' | append: manual_rating_5 | append: ','
-      echo '4|' | append: rating_4_percent | append: '|' | append: manual_rating_4 | append: ','
-      echo '3|' | append: rating_3_percent | append: '|' | append: manual_rating_3 | append: ','
-      echo '2|' | append: rating_2_percent | append: '|' | append: manual_rating_2 | append: ','
-      echo '1|' | append: rating_1_percent | append: '|' | append: manual_rating_1
+      echo '5|' | append: rating_5_percent | append: '|' | append: combined_rating_5 | append: ','
+      echo '4|' | append: rating_4_percent | append: '|' | append: combined_rating_4 | append: ','
+      echo '3|' | append: rating_3_percent | append: '|' | append: combined_rating_3 | append: ','
+      echo '2|' | append: rating_2_percent | append: '|' | append: combined_rating_2 | append: ','
+      echo '1|' | append: rating_1_percent | append: '|' | append: combined_rating_1
     endcapture
     assign ratings = ratings | split: ','
   else
@@ -140,6 +181,17 @@
                   {%- endif -%}
                 {%- endif -%}
               {%- endfor -%}
+              {%- if rendered_manual_photos < 8 -%}
+                {%- for published_review in published_reviews -%}
+                  {%- if published_review.image_url != blank -%}
+                    <button type="button" data-srp-summary-photo data-sprv-photo="{{ published_review.image_url | escape }}" data-reviewer="{{ published_review.author | default: 'Customer' | escape }}"{% if published_review.verified %} data-verified="{{ published_review.verified_label | default: 'Verified Buyer' | escape }}"{% endif %} data-date="{{ published_review.date | default: published_review.created_at | escape }}" data-title="{{ published_review.title | default: 'Customer review' | escape }}" data-body="{{ published_review.body | default: '' | escape }}" data-product="{{ published_review.product_title | default: '' | escape }}" data-helpful="{{ published_review.helpful_count | default: 0 }}">
+                      <img src="{{ published_review.image_url | escape }}" width="70" height="55" alt="{{ published_review.title | default: 'Customer review' | escape }}">
+                    </button>
+                    {%- assign rendered_manual_photos = rendered_manual_photos | plus: 1 -%}
+                    {%- if rendered_manual_photos >= 8 -%}{%- break -%}{%- endif -%}
+                  {%- endif -%}
+                {%- endfor -%}
+              {%- endif -%}
             </div>
           </div>
         </div>

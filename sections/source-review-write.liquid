@@ -6,12 +6,20 @@
 <script src="{{ 'source-product-reviews.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'source-reviews-summary.js' | asset_url }}" defer="defer"></script>
 
-<section class="srw-page" {{ section.shopify_attributes }} data-srw-page data-analytics-page="review_write">
+<section class="srw-page" {{ section.shopify_attributes }} data-srw-page data-analytics-page="review_write" data-srw-review-endpoint="{{ section.settings.apps_script_endpoint | strip | escape }}">
   <h1 class="srw-page__title">{{ section.settings.title }}</h1>
   <h2 class="srw-page__heading">{{ section.settings.heading }}</h2>
 
   {%- assign form_id = 'ReviewContactForm-' | append: section.id -%}
   {% form 'contact', return_to: request.path, id: form_id, class: 'srw-form' %}
+    <input type="hidden" name="review_submission_id" data-srw-submission-id value="">
+    <input type="hidden" name="review_shop_domain" value="{{ shop.permanent_domain | default: shop.domain | escape }}">
+    <input type="hidden" name="review_product_id" value="{% if product != blank %}{{ product.id }}{% endif %}">
+    <input type="hidden" name="review_product_handle" value="{% if product != blank %}{{ product.handle | escape }}{% endif %}">
+    <input type="hidden" name="review_product_title" value="{% if product != blank %}{{ product.title | escape }}{% endif %}">
+    <input type="hidden" name="review_product_url" value="{% if product != blank %}{{ shop.url }}{{ product.url }}{% endif %}">
+    <input type="hidden" name="review_started_at" data-srw-started-at value="">
+    <input type="text" name="website" value="" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
     {%- if form.posted_successfully? -%}
       <p class="srw-form__notice srw-form__notice--success" data-srw-status aria-live="polite">
         Vielen Dank. Deine Bewertung wurde zur Prüfung eingereicht. Sie erscheint nach manueller Freigabe in den Kundenbewertungen.
@@ -121,7 +129,13 @@
   "settings": [
     { "type": "text", "id": "title", "label": "页面标题", "default": "Write a Review" },
     { "type": "text", "id": "heading", "label": "表单标题", "default": "Kundenbewertungen" },
-    { "type": "text", "id": "review_count", "label": "评价数量", "default": "2625" }
+    { "type": "text", "id": "review_count", "label": "评价数量", "default": "2625" },
+    {
+      "type": "url",
+      "id": "apps_script_endpoint",
+      "label": "Google Apps Script 审核地址",
+      "info": "填入已部署的 Apps Script /exec 地址后，评论会进入 Google Sheet 待审核；留空则继续使用 Shopify 联系表单。"
+    }
   ]
 }
 {% endschema %}

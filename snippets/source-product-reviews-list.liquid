@@ -2,6 +2,10 @@
   assign manual_review_count = 0
   assign review_page_size = section.settings.reviews_per_page | default: 12
   assign default_filter = section.settings.default_filter | default: 'recent'
+  if published_reviews == blank and current_product != blank
+    assign published_reviews = current_product.metafields.custom.approved_reviews.value
+  endif
+  assign published_review_count = published_reviews | size
 
   for block in section.blocks
     assign review_matches_current_product = true
@@ -20,11 +24,16 @@
     endif
   endfor
 
+  assign total_review_count = manual_review_count | plus: published_review_count
+  assign custom_summary_enabled = false
+  if section != blank and section.settings.use_custom_summary == true
+    assign custom_summary_enabled = true
+  endif
   assign shared_review_count = review_count
-  if manual_review_count > 0 and section.settings.use_custom_summary != true
-    assign shared_review_count = manual_review_count
+  if total_review_count > 0 and custom_summary_enabled == false
+    assign shared_review_count = total_review_count
   elsif shared_review_count == blank
-    assign shared_review_count = manual_review_count
+    assign shared_review_count = total_review_count
   endif
   assign shared_write_heading = write_heading | default: 'Eine Bewertung schreiben'
   assign selected_review_mode = review_mode | default: 'default'
@@ -32,6 +41,18 @@
   assign shared_contact_url = contact_url | default: review_page.url
   if shared_contact_url == blank
     assign shared_contact_url = routes.contact_url
+  endif
+  if current_product != blank and shared_contact_url != blank
+    assign encoded_product_handle = current_product.handle | url_encode
+    assign encoded_product_title = current_product.title | url_encode
+    assign product_query = 'product_id=' | append: current_product.id
+    assign product_query = product_query | append: '&product_handle=' | append: encoded_product_handle
+    assign product_query = product_query | append: '&product_title=' | append: encoded_product_title
+    if shared_contact_url contains '?'
+      assign shared_contact_url = shared_contact_url | append: '&' | append: product_query
+    else
+      assign shared_contact_url = shared_contact_url | append: '?' | append: product_query
+    endif
   endif
   assign shared_review_app_url = false
   if shared_contact_url contains '/a/review/'
@@ -50,13 +71,13 @@
       assign default_filter_label = 'Hilfreichste'
   endcase
 
-  assign rendered_review_count = manual_review_count
+  assign rendered_review_count = total_review_count
   if rendered_review_count == 0
     assign rendered_review_count = 12
   endif
   assign review_page_total = rendered_review_count | plus: review_page_size | minus: 1 | divided_by: review_page_size
   assign show_review_content = true
-  if manual_review_count == 0 and selected_review_mode == 'empty'
+  if total_review_count == 0 and selected_review_mode == 'empty'
     assign show_review_content = false
   endif
 -%}
@@ -83,7 +104,7 @@
 <p class="sprv__filter-status visually-hidden" aria-live="polite" data-sprv-filter-status></p>
 
 <div class="sprv__cards" data-sprv-cards>
-  {%- if manual_review_count > 0 -%}
+  {%- if total_review_count > 0 -%}
     {%- assign review_position = 0 -%}
     {%- for block in section.blocks -%}
       {%- assign review_matches_current_product = true -%}
@@ -100,6 +121,10 @@
         {%- assign review_position = review_position | plus: 1 -%}
         {% render 'source-product-review-card', block: block, position: review_position %}
       {%- endif -%}
+    {%- endfor -%}
+    {%- for review in published_reviews -%}
+      {%- assign review_position = review_position | plus: 1 -%}
+      {% render 'source-product-review-card-published', review: review, position: review_position %}
     {%- endfor -%}
   {%- else -%}
     {%- for index in (1..12) -%}

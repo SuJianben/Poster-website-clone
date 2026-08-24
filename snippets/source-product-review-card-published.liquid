@@ -1,0 +1,48 @@
+{%- liquid
+  assign review_title = review.title | default: 'Customer review'
+  assign review_body = review.body | default: ''
+  assign review_date = review.date | default: review.created_at | default: ''
+  assign rating = review.rating | default: 5 | plus: 0
+  assign reviewer = review.author | default: 'Customer'
+  assign product_name = review.product_title | default: ''
+  assign helpful = review.helpful_count | default: 0
+  assign review_image_url = review.image_url | default: '' | strip
+  assign verified_label = ''
+  if review.verified
+    assign verified_label = review.verified_label | default: 'Verified Buyer'
+  endif
+-%}
+
+<article
+  class="sprv-card"
+  data-sprv-review-card
+  data-sprv-source="published"
+  data-sprv-has-photo="{% if review_image_url != blank %}true{% else %}false{% endif %}"
+  data-sprv-date="{{ review_date | escape }}"
+  data-sprv-rating="{{ rating }}"
+  data-sprv-helpful="{{ helpful }}"
+>
+  {%- if review_image_url != blank -%}
+    <div class="sprv-card__media">
+      <button type="button" data-srp-summary-photo data-sprv-photo="{{ review_image_url | escape }}" data-reviewer="{{ reviewer | escape }}" data-verified="{{ verified_label | escape }}" data-date="{{ review_date | escape }}" data-title="{{ review_title | escape }}" data-body="{{ review_body | escape }}" data-product="{{ product_name | escape }}" data-helpful="{{ helpful }}" aria-label="Open review photo">
+        <img src="{{ review_image_url | escape }}" alt="{{ review_title | escape }}" width="900" height="675" loading="lazy">
+      </button>
+    </div>
+  {%- endif -%}
+
+  <div class="sprv-card__content">
+    <div class="sprv-card__meta">
+      {%- if review_date != blank -%}<time datetime="{{ review_date | escape }}">{{ review_date | escape }}</time>{%- endif -%}
+      <span class="sprv__stars" aria-label="{{ rating }} out of 5 stars">{% for star in (1..5) %}{% if star <= rating %}&#9733;{% else %}&#9734;{% endif %}{% endfor %}</span>
+    </div>
+    <h3>{{ review_title | escape }}</h3>
+    {%- if review_body != blank -%}<p class="sprv-card__body" data-sprv-review-body>{{ review_body | escape | newline_to_br }}</p>{%- endif -%}
+    <button class="sprv-card__expand" type="button" data-sprv-review-expand aria-expanded="false" hidden>Mehr anzeigen</button>
+    {%- if product_name != blank -%}<p class="sprv-card__product">{{ product_name | escape }}</p>{%- endif -%}
+    <p class="sprv-card__author"><strong>{{ reviewer | escape }}</strong>{% if verified_label != blank %} <span>{{ verified_label | escape }}</span>{% endif %}</p>
+    <div class="sprv-card__helpful">Was this helpful?
+      <button type="button" data-sprv-helpful="up" aria-label="Helpful">&#128077;<span>{{ helpful }}</span></button>
+      <button type="button" data-sprv-helpful="down" aria-label="Not helpful">&#128078;<span>0</span></button>
+    </div>
+  </div>
+</article>
