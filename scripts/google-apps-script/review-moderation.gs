@@ -134,7 +134,9 @@ function validatePayload_(payload) {
     if (result === undefined || result === null || result === '') return fallback || '';
     return Array.isArray(result) ? result[0] : result;
   };
-  var submissionId = clean_(value('submission_id'), 80);
+  // The theme names its hidden field review_submission_id. Accept the
+  // generic name too so manual/API submissions remain compatible.
+  var submissionId = clean_(value('review_submission_id') || value('submission_id'), 80);
   var author = clean_(value('contact[name]') || value('author'), 120);
   var email = clean_(value('contact[email]') || value('email'), 180);
   var title = clean_(value('contact[Review title]') || value('title'), 180);

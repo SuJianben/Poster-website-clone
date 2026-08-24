@@ -6,25 +6,35 @@
 <script src="{{ 'source-product-reviews.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'source-reviews-summary.js' | asset_url }}" defer="defer"></script>
 
-<section class="srw-page" {{ section.shopify_attributes }} data-srw-page data-analytics-page="review_write" data-srw-review-endpoint="{{ section.settings.apps_script_endpoint | strip | escape }}">
+{%- assign review_endpoint = section.settings.apps_script_endpoint | strip -%}
+{%- assign form_id = 'ReviewContactForm-' | append: section.id -%}
+{%- assign apps_script_target = 'ReviewAppsScriptTarget-' | append: section.id -%}
+
+<section class="srw-page" {{ section.shopify_attributes }} data-srw-page data-analytics-page="review_write" data-srw-review-endpoint="{{ review_endpoint | escape }}">
   <h1 class="srw-page__title">{{ section.settings.title }}</h1>
   <h2 class="srw-page__heading">{{ section.settings.heading }}</h2>
 
-  {%- assign form_id = 'ReviewContactForm-' | append: section.id -%}
-  {% form 'contact', return_to: request.path, id: form_id, class: 'srw-form' %}
-    <input type="hidden" name="review_submission_id" data-srw-submission-id value="">
+  {%- if review_endpoint != blank -%}
+    <iframe id="{{ apps_script_target }}" name="{{ apps_script_target }}" class="srw-submit-frame" title="Review submission" hidden aria-hidden="true" tabindex="-1"></iframe>
+    <form action="{{ review_endpoint | escape }}" method="post" target="{{ apps_script_target }}" id="{{ form_id }}" class="srw-form" data-srw-apps-script-form>
+  {%- else -%}
+    {% form 'contact', return_to: request.path, id: form_id, class: 'srw-form' %}
+  {%- endif -%}
+    <input type="hidden" name="submission_id" data-srw-submission-id value="">
+    <input type="hidden" name="review_payload_version" value="1">
     <input type="hidden" name="review_shop_domain" value="{{ shop.permanent_domain | default: shop.domain | escape }}">
     <input type="hidden" name="review_product_id" value="{% if product != blank %}{{ product.id }}{% endif %}">
     <input type="hidden" name="review_product_handle" value="{% if product != blank %}{{ product.handle | escape }}{% endif %}">
     <input type="hidden" name="review_product_title" value="{% if product != blank %}{{ product.title | escape }}{% endif %}">
     <input type="hidden" name="review_product_url" value="{% if product != blank %}{{ shop.url }}{{ product.url }}{% endif %}">
     <input type="hidden" name="review_started_at" data-srw-started-at value="">
+    <input type="hidden" name="started_at" data-srw-started-at-alias value="">
     <input type="text" name="website" value="" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
-    {%- if form.posted_successfully? -%}
+    {%- if review_endpoint == blank and form.posted_successfully? -%}
       <p class="srw-form__notice srw-form__notice--success" data-srw-status aria-live="polite">
         Vielen Dank. Deine Bewertung wurde zur Prüfung eingereicht. Sie erscheint nach manueller Freigabe in den Kundenbewertungen.
       </p>
-    {%- elsif form.errors -%}
+    {%- elsif review_endpoint == blank and form.errors -%}
       <div class="srw-form__notice srw-form__notice--error" role="alert">
         {{ form.errors | default_errors }}
       </div>
@@ -114,7 +124,45 @@
 
     <div class="srw-form__actions"><button class="srw-submit" type="submit">Bewertung abgeben</button></div>
     <p class="srw-form__status" data-srw-status aria-live="polite"></p>
-  {% endform %}
+  {%- if review_endpoint != blank -%}
+    </form>
+  {%- else -%}
+    {% endform %}
+  {%- endif -%}
+
+  {%- if review_endpoint != blank -%}
+    <script>
+      (() => {
+        const form = document.getElementById({{ form_id | json }});
+        if (!form) return;
+        const query = new URLSearchParams(window.location.search);
+        const setQueryValue = (selector, key) => {
+          const field = form.querySelector(selector);
+          const value = query.get(key);
+          if (field && value) field.value = value;
+          return field;
+        };
+        const productHandle = setQueryValue('[name="review_product_handle"]', 'product_handle');
+        setQueryValue('[name="review_product_id"]', 'product_id');
+        setQueryValue('[name="review_product_title"]', 'product_title');
+        const productUrl = form.querySelector('[name="review_product_url"]');
+        if (productUrl && !productUrl.value && productHandle?.value) {
+          productUrl.value = new URL(`/products/${encodeURIComponent(productHandle.value)}`, window.location.origin).href;
+        }
+        const createSubmissionId = () => {
+          if (window.crypto?.randomUUID) return window.crypto.randomUUID();
+          return `rvw_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+        };
+        const submissionId = form.querySelector('[data-srw-submission-id]');
+        const startedAt = form.querySelector('[data-srw-started-at]');
+        const startedAtAlias = form.querySelector('[data-srw-started-at-alias]');
+        if (submissionId && !submissionId.value) submissionId.value = createSubmissionId();
+        if (startedAt && !startedAt.value) startedAt.value = String(Date.now());
+        if (startedAtAlias && !startedAtAlias.value) startedAtAlias.value = startedAt?.value || String(Date.now());
+        form.dataset.srwBootstrapReady = 'true';
+      })();
+    </script>
+  {%- endif -%}
 
   <section class="sprv srw-page__reviews" data-sprv-root data-section-id="{{ section.id }}-reviews" aria-label="Customer review list">
     <div class="sprv__widget"><div class="sprv__inner">

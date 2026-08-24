@@ -24,6 +24,11 @@
       setQueryValue(form.querySelector('[name="review_product_id"]'), 'product_id');
       setQueryValue(form.querySelector('[name="review_product_handle"]'), 'product_handle');
       setQueryValue(form.querySelector('[name="review_product_title"]'), 'product_title');
+      const productUrl = form.querySelector('[name="review_product_url"]');
+      const handle = form.querySelector('[name="review_product_handle"]')?.value;
+      if (productUrl && !productUrl.value && handle) {
+        productUrl.value = new URL(`/products/${encodeURIComponent(handle)}`, window.location.origin).href;
+      }
     };
     hydrateProductFields();
     if (submissionId && !submissionId.value) submissionId.value = createSubmissionId();
@@ -49,10 +54,33 @@
       scale.querySelectorAll('.srw-scale__option').forEach((option) => option.classList.toggle('is-selected', option.contains(input)));
       emit('scale_select', { field: input.name, value: input.value });
     }));
+    const targetFrame = form.dataset.srwAppsScriptForm === undefined
+      ? null
+      : document.getElementById(form.getAttribute('target'));
+    if (targetFrame) {
+      targetFrame.addEventListener('load', () => {
+        if (form.dataset.srwNativeSubmitting !== 'true') return;
+        if (status) status.textContent = 'Submitted for approval. It will appear after you publish it in the review sheet.';
+        if (submitButton) submitButton.disabled = false;
+        form.dataset.srwNativeSubmitting = 'complete';
+        emit('submit_success', { mode: 'apps_script' });
+      });
+    }
     form.addEventListener('submit', (event) => {
       if (!endpoint) {
         if (status) status.textContent = 'Wird gesendet...';
         emit('submit', { mode: 'shopify_contact' });
+        return;
+      }
+
+      // The Liquid form already targets a hidden iframe when an endpoint is
+      // configured. Let the browser perform the native POST so this still
+      // works if this asset fails to load and avoids CORS/no-cors ambiguity.
+      if (targetFrame) {
+        form.dataset.srwNativeSubmitting = 'true';
+        if (submitButton) submitButton.disabled = true;
+        if (status) status.textContent = 'Submitting for approval...';
+        emit('submit', { mode: 'apps_script' });
         return;
       }
 
