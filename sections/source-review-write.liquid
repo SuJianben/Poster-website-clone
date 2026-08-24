@@ -16,10 +16,13 @@
 
   {%- if review_endpoint != blank -%}
     <iframe id="{{ apps_script_target }}" name="{{ apps_script_target }}" class="srw-submit-frame" title="Review submission" hidden aria-hidden="true" tabindex="-1"></iframe>
-    <form action="{{ review_endpoint | escape }}" method="post" target="{{ apps_script_target }}" id="{{ form_id }}" class="srw-form" data-srw-apps-script-form>
-  {%- else -%}
-    {% form 'contact', return_to: request.path, id: form_id, class: 'srw-form' %}
   {%- endif -%}
+  <form action="{%- if review_endpoint != blank -%}{{ review_endpoint | escape }}{%- else -%}/contact{%- endif -%}" method="post"{%- if review_endpoint != blank -%} target="{{ apps_script_target }}" data-srw-apps-script-form{%- endif -%} id="{{ form_id }}" class="srw-form">
+    {%- if review_endpoint == blank -%}
+      <input type="hidden" name="form_type" value="contact">
+      <input type="hidden" name="utf8" value="✓">
+      <input type="hidden" name="return_to" value="{{ request.path | escape }}">
+    {%- endif -%}
     <input type="hidden" name="submission_id" data-srw-submission-id value="">
     <input type="hidden" name="review_payload_version" value="1">
     <input type="hidden" name="review_shop_domain" value="{{ shop.permanent_domain | default: shop.domain | escape }}">
@@ -30,16 +33,6 @@
     <input type="hidden" name="review_started_at" data-srw-started-at value="">
     <input type="hidden" name="started_at" data-srw-started-at-alias value="">
     <input type="text" name="website" value="" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
-    {%- if review_endpoint == blank and form.posted_successfully? -%}
-      <p class="srw-form__notice srw-form__notice--success" data-srw-status aria-live="polite">
-        Vielen Dank. Deine Bewertung wurde zur Prüfung eingereicht. Sie erscheint nach manueller Freigabe in den Kundenbewertungen.
-      </p>
-    {%- elsif review_endpoint == blank and form.errors -%}
-      <div class="srw-form__notice srw-form__notice--error" role="alert">
-        {{ form.errors | default_errors }}
-      </div>
-    {%- endif -%}
-
     <fieldset class="srw-form__contact">
       <div class="srw-field">
         <label for="srw-author-{{ section.id }}">Name</label>
@@ -47,7 +40,7 @@
       </div>
       <div class="srw-field">
         <label for="srw-email-{{ section.id }}">E-Mail</label>
-        <input id="srw-email-{{ section.id }}" name="contact[email]" type="email" placeholder="john.smith@example.com" autocomplete="email" value="{{ form.email | escape }}" required>
+        <input id="srw-email-{{ section.id }}" name="contact[email]" type="email" placeholder="john.smith@example.com" autocomplete="email" required>
       </div>
     </fieldset>
 
@@ -124,11 +117,7 @@
 
     <div class="srw-form__actions"><button class="srw-submit" type="submit">Bewertung abgeben</button></div>
     <p class="srw-form__status" data-srw-status aria-live="polite"></p>
-  {%- if review_endpoint != blank -%}
-    </form>
-  {%- else -%}
-    {% endform %}
-  {%- endif -%}
+  </form>
 
   {%- if review_endpoint != blank -%}
     <script>
