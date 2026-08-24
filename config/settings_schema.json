@@ -1,1 +1,139 @@
-[]
+[
+  {
+    "name": "侧边优惠弹窗",
+    "settings": [
+      { "type": "checkbox", "id": "sp_enabled", "label": "显示侧边优惠弹窗", "default": true },
+      { "type": "text", "id": "sp_btn_label", "label": "侧边按钮文字", "default": "Angebote" },
+      { "type": "text", "id": "sp_banner", "label": "弹窗顶部提示", "default": "Spare jetzt mit diesen exklusiven Angeboten" },
+      { "type": "text", "id": "sp_title", "label": "弹窗标题", "default": "Besondere Angebote" },
+      { "type": "color", "id": "sp_btn_bg", "label": "侧边按钮背景色", "default": "#3D1313" },
+      { "type": "color", "id": "sp_btn_text", "label": "侧边按钮文字色", "default": "#FFFFFF" },
+
+      { "type": "header", "content": "优惠内容 1" },
+      { "type": "checkbox", "id": "sp_o1_enabled", "label": "启用优惠 1", "default": true },
+      { "type": "text", "id": "sp_o1_badge", "label": "优惠高亮文字", "default": "-10%" },
+      { "type": "text", "id": "sp_o1_title", "label": "优惠标题", "default": "Rabatt für Newsletter Anmeldung" },
+      { "type": "textarea", "id": "sp_o1_desc", "label": "优惠说明", "default": "" },
+      { "type": "text", "id": "sp_o1_btn", "label": "优惠按钮文字", "default": "Zur Anmeldung" },
+      { "type": "url", "id": "sp_o1_link", "label": "优惠跳转链接" },
+      {
+        "type": "select",
+        "id": "sp_o1_scheme",
+        "label": "优惠颜色方案",
+        "options": [
+          { "value": "inverse", "label": "反色" },
+          { "value": "10", "label": "方案 10" }
+        ],
+        "default": "inverse"
+      },
+
+      { "type": "header", "content": "优惠内容 2" },
+      { "type": "checkbox", "id": "sp_o2_enabled", "label": "启用优惠 2", "default": true },
+      { "type": "text", "id": "sp_o2_badge", "label": "优惠高亮文字", "default": "-20%" },
+      { "type": "text", "id": "sp_o2_title", "label": "优惠标题", "default": "Rabatt auf Neuheiten" },
+      { "type": "textarea", "id": "sp_o2_desc", "label": "优惠说明", "default": "Jede Woche neue Angebote" },
+      { "type": "text", "id": "sp_o2_btn", "label": "优惠按钮文字", "default": "Sparen" },
+      { "type": "url", "id": "sp_o2_link", "label": "优惠跳转链接" },
+      {
+        "type": "select",
+        "id": "sp_o2_scheme",
+        "label": "优惠颜色方案",
+        "options": [
+          { "value": "inverse", "label": "反色" },
+          { "value": "10", "label": "方案 10" }
+        ],
+        "default": "10"
+      },
+
+      { "type": "header", "content": "优惠内容 3" },
+      { "type": "checkbox", "id": "sp_o3_enabled", "label": "启用优惠 3", "default": true },
+      { "type": "text", "id": "sp_o3_badge", "label": "优惠高亮文字", "default": "-15%" },
+      { "type": "text", "id": "sp_o3_title", "label": "优惠标题", "default": "Rabatt auf Bundles" },
+      { "type": "textarea", "id": "sp_o3_desc", "label": "优惠说明", "default": "Entdecke passende Bundles" },
+      { "type": "text", "id": "sp_o3_btn", "label": "优惠按钮文字", "default": "Sparen" },
+      { "type": "url", "id": "sp_o3_link", "label": "优惠跳转链接" },
+      {
+        "type": "select",
+        "id": "sp_o3_scheme",
+        "label": "优惠颜色方案",
+        "options": [
+          { "value": "inverse", "label": "反色" },
+          { "value": "10", "label": "方案 10" }
+        ],
+        "default": "10"
+      },
+
+      { "type": "header", "content": "优惠内容 4" },
+      { "type": "checkbox", "id": "sp_o4_enabled", "label": "启用优惠 4", "default": false },
+      { "type": "text", "id": "sp_o4_badge", "label": "优惠高亮文字", "default": "" },
+      { "type": "text", "id": "sp_o4_title", "label": "优惠标题", "default": "" },
+      { "type": "textarea", "id": "sp_o4_desc", "label": "优惠说明", "default": "" },
+      { "type": "text", "id": "sp_o4_btn", "label": "优惠按钮文字", "default": "" },
+      { "type": "url", "id": "sp_o4_link", "label": "优惠跳转链接" },
+      {
+        "type": "select",
+        "id": "sp_o4_scheme",
+        "label": "优惠颜色方案",
+        "options": [
+          { "value": "inverse", "label": "反色" },
+          { "value": "10", "label": "方案 10" }
+        ],
+        "default": "10"
+      },
+
+      { "type": "header", "content": "优惠内容 5" },
+      { "type": "checkbox", "id": "sp_o5_enabled", "label": "启用优惠 5", "default": false },
+      { "type": "text", "id": "sp_o5_badge", "label": "优惠高亮文字", "default": "" },
+      { "type": "text", "id": "sp_o5_title", "label": "优惠标题", "default": "" },
+      { "type": "textarea", "id": "sp_o5_desc", "label": "优惠说明", "default": "" },
+      { "type": "text", "id": "sp_o5_btn", "label": "优惠按钮文字", "default": "" },
+      { "type": "url", "id": "sp_o5_link", "label": "优惠跳转链接" },
+      {
+        "type": "select",
+        "id": "sp_o5_scheme",
+        "label": "优惠颜色方案",
+        "options": [
+          { "value": "inverse", "label": "反色" },
+          { "value": "10", "label": "方案 10" }
+        ],
+        "default": "10"
+      },
+
+      { "type": "header", "content": "购物车进度优惠" },
+      { "type": "checkbox", "id": "sp_progress_on", "label": "显示购物车进度条", "default": true },
+      {
+        "type": "text",
+        "id": "sp_progress_next",
+        "label": "未达成提示模板",
+        "info": "可使用 {remaining}、{discount} 占位符。",
+        "default": "Kaufen Sie {remaining} weitere Artikel, um {discount}% Rabatt zu erhalten."
+      },
+      { "type": "text", "id": "sp_progress_done", "label": "全部达成提示", "default": "Sie haben sich den maximalen Mengenrabatt gesichert." },
+      {
+        "type": "text",
+        "id": "sp_progress_disc",
+        "label": "折扣标签模板",
+        "info": "可使用 {discount} 占位符。",
+        "default": "{discount}% Rabatt"
+      },
+      {
+        "type": "text",
+        "id": "sp_progress_goal",
+        "label": "商品数量标签模板",
+        "info": "可使用 {quantity} 占位符。",
+        "default": "{quantity} Artikel kaufen"
+      },
+      { "type": "range", "id": "sp_tier_count", "label": "显示优惠档位数量", "min": 1, "max": 5, "step": 1, "default": 5 },
+      { "type": "number", "id": "sp_t1_qty", "label": "档位 1 商品数量", "default": 1 },
+      { "type": "number", "id": "sp_t1_disc", "label": "档位 1 折扣百分比", "default": 5 },
+      { "type": "number", "id": "sp_t2_qty", "label": "档位 2 商品数量", "default": 2 },
+      { "type": "number", "id": "sp_t2_disc", "label": "档位 2 折扣百分比", "default": 10 },
+      { "type": "number", "id": "sp_t3_qty", "label": "档位 3 商品数量", "default": 3 },
+      { "type": "number", "id": "sp_t3_disc", "label": "档位 3 折扣百分比", "default": 15 },
+      { "type": "number", "id": "sp_t4_qty", "label": "档位 4 商品数量", "default": 4 },
+      { "type": "number", "id": "sp_t4_disc", "label": "档位 4 折扣百分比", "default": 20 },
+      { "type": "number", "id": "sp_t5_qty", "label": "档位 5 商品数量", "default": 5 },
+      { "type": "number", "id": "sp_t5_disc", "label": "档位 5 折扣百分比", "default": 25 }
+    ]
+  }
+]

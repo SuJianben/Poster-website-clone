@@ -1,0 +1,74 @@
+<script type="application/json" data-source-spotlight-config>
+  {
+    "enabled": {{ settings.sp_enabled | json }},
+    "button": {
+      "label": {{ settings.sp_btn_label | default: 'Angebote' | json }},
+      "background": {{ settings.sp_btn_bg | default: '#3D1313' | json }},
+      "textColor": {{ settings.sp_btn_text | default: '#FFFFFF' | json }}
+    },
+    "banner": {{ settings.sp_banner | default: 'Spare jetzt mit diesen exklusiven Angeboten' | json }},
+    "title": {{ settings.sp_title | default: 'Besondere Angebote' | json }},
+    "offers": [
+      {
+        "enabled": {{ settings.sp_o1_enabled | json }},
+        "highlight": {{ settings.sp_o1_badge | default: '-10%' | json }},
+        "title": {{ settings.sp_o1_title | default: 'Rabatt für Newsletter Anmeldung' | json }},
+        "description": {{ settings.sp_o1_desc | json }},
+        "button": {{ settings.sp_o1_btn | default: 'Zur Anmeldung' | json }},
+        "link": {{ settings.sp_o1_link | default: '/pages/newsletter' | json }},
+        "scheme": {{ settings.sp_o1_scheme | default: 'inverse' | json }}
+      },
+      {
+        "enabled": {{ settings.sp_o2_enabled | json }},
+        "highlight": {{ settings.sp_o2_badge | default: '-20%' | json }},
+        "title": {{ settings.sp_o2_title | default: 'Rabatt auf Neuheiten' | json }},
+        "description": {{ settings.sp_o2_desc | default: 'Jede Woche neue Angebote' | json }},
+        "button": {{ settings.sp_o2_btn | default: 'Sparen' | json }},
+        "link": {{ settings.sp_o2_link | default: '/collections/wandbild-neuheiten-sale' | json }},
+        "scheme": {{ settings.sp_o2_scheme | default: '10' | json }}
+      },
+      {
+        "enabled": {{ settings.sp_o3_enabled | json }},
+        "highlight": {{ settings.sp_o3_badge | default: '-15%' | json }},
+        "title": {{ settings.sp_o3_title | default: 'Rabatt auf Bundles' | json }},
+        "description": {{ settings.sp_o3_desc | default: 'Entdecke passende Bundles' | json }},
+        "button": {{ settings.sp_o3_btn | default: 'Sparen' | json }},
+        "link": {{ settings.sp_o3_link | default: '/collections/wandbilder-bundles' | json }},
+        "scheme": {{ settings.sp_o3_scheme | default: '10' | json }}
+      },
+      {
+        "enabled": {{ settings.sp_o4_enabled | json }},
+        "highlight": {{ settings.sp_o4_badge | json }},
+        "title": {{ settings.sp_o4_title | json }},
+        "description": {{ settings.sp_o4_desc | json }},
+        "button": {{ settings.sp_o4_btn | json }},
+        "link": {{ settings.sp_o4_link | json }},
+        "scheme": {{ settings.sp_o4_scheme | default: '10' | json }}
+      },
+      {
+        "enabled": {{ settings.sp_o5_enabled | json }},
+        "highlight": {{ settings.sp_o5_badge | json }},
+        "title": {{ settings.sp_o5_title | json }},
+        "description": {{ settings.sp_o5_desc | json }},
+        "button": {{ settings.sp_o5_btn | json }},
+        "link": {{ settings.sp_o5_link | json }},
+        "scheme": {{ settings.sp_o5_scheme | default: '10' | json }}
+      }
+    ],
+    "progress": {
+      "enabled": {{ settings.sp_progress_on | json }},
+      "nextCopy": {{ settings.sp_progress_next | default: 'Kaufen Sie {remaining} weitere Artikel, um {discount}% Rabatt zu erhalten.' | json }},
+      "completeCopy": {{ settings.sp_progress_done | default: 'Sie haben sich den maximalen Mengenrabatt gesichert.' | json }},
+      "discountLabel": {{ settings.sp_progress_disc | default: '{discount}% Rabatt' | json }},
+      "goalTemplate": {{ settings.sp_progress_goal | default: '{quantity} Artikel kaufen' | json }},
+      "tierCount": {{ settings.sp_tier_count | default: 5 | json }},
+      "tiers": [
+        { "quantity": {{ settings.sp_t1_qty | default: 1 | json }}, "discount": {{ settings.sp_t1_disc | default: 5 | json }} },
+        { "quantity": {{ settings.sp_t2_qty | default: 2 | json }}, "discount": {{ settings.sp_t2_disc | default: 10 | json }} },
+        { "quantity": {{ settings.sp_t3_qty | default: 3 | json }}, "discount": {{ settings.sp_t3_disc | default: 15 | json }} },
+        { "quantity": {{ settings.sp_t4_qty | default: 4 | json }}, "discount": {{ settings.sp_t4_disc | default: 20 | json }} },
+        { "quantity": {{ settings.sp_t5_qty | default: 5 | json }}, "discount": {{ settings.sp_t5_disc | default: 25 | json }} }
+      ]
+    }
+  }
+</script>
