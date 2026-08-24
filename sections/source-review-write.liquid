@@ -49,7 +49,7 @@
               data-product-handle="{{ picker_product.handle | escape }}"
               data-product-title="{{ picker_product.title | escape }}"
               data-product-url="{{ shop.url }}{{ picker_product.url }}"
-            >{{ picker_product.title }}</option>
+            >{{ picker_product.title | escape }}</option>
           {%- endfor -%}
         </select>
         <p id="srw-product-picker-hint-{{ section.id }}" class="srw-product-picker-field__hint">Bitte wähle das Produkt, auf das sich deine Bewertung bezieht.</p>

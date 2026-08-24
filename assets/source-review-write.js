@@ -16,6 +16,15 @@
     const productTitleField = form.querySelector('[name="review_product_title"]');
     const productUrlField = form.querySelector('[name="review_product_url"]');
     const productPicker = form.querySelector('[data-srw-product-picker]');
+    const syncProductPickerState = () => {
+      if (!productPicker) return;
+      const hasProduct = Boolean(productIdField?.value);
+      productPicker.required = !hasProduct;
+      if (hasProduct && productPicker.value !== productIdField.value) {
+        const matchingOption = [...productPicker.options].find((option) => option.value === productIdField.value);
+        if (matchingOption) productPicker.value = productIdField.value;
+      }
+    };
     const createSubmissionId = () => {
       if (window.crypto?.randomUUID) return window.crypto.randomUUID();
       return `rvw_${Date.now()}_${Math.random().toString(36).slice(2)}`;
@@ -34,18 +43,18 @@
       if (productUrl && !productUrl.value && handle) {
         productUrl.value = new URL(`/products/${encodeURIComponent(handle)}`, window.location.origin).href;
       }
-      if (productPicker && productIdField?.value) productPicker.value = productIdField.value;
+      syncProductPickerState();
     };
     hydrateProductFields();
     if (submissionId && !submissionId.value) submissionId.value = createSubmissionId();
     if (startedAt && !startedAt.value) startedAt.value = String(Date.now());
     productPicker?.addEventListener('change', () => {
       const option = productPicker.selectedOptions[0];
-      if (!option?.dataset.productId) return;
-      productIdField.value = option.dataset.productId;
-      productHandleField.value = option.dataset.productHandle || '';
-      productTitleField.value = option.dataset.productTitle || '';
-      productUrlField.value = option.dataset.productUrl || '';
+      productIdField.value = option?.dataset.productId || '';
+      productHandleField.value = option?.dataset.productHandle || '';
+      productTitleField.value = option?.dataset.productTitle || '';
+      productUrlField.value = option?.dataset.productUrl || '';
+      syncProductPickerState();
       emit('product_select', { productId: productIdField.value, productHandle: productHandleField.value });
     });
     const setRating = (value) => {
