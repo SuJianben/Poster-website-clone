@@ -9,6 +9,10 @@
 {%- assign review_endpoint = section.settings.apps_script_endpoint | strip -%}
 {%- assign form_id = 'ReviewContactForm-' | append: section.id -%}
 {%- assign apps_script_target = 'ReviewAppsScriptTarget-' | append: section.id -%}
+{%- assign form_action = '/contact' -%}
+{%- if review_endpoint != blank -%}
+  {%- assign form_action = review_endpoint -%}
+{%- endif -%}
 
 <section class="srw-page" {{ section.shopify_attributes }} data-srw-page data-analytics-page="review_write" data-srw-review-endpoint="{{ review_endpoint | escape }}">
   <h1 class="srw-page__title">{{ section.settings.title }}</h1>
@@ -17,7 +21,7 @@
   {%- if review_endpoint != blank -%}
     <iframe id="{{ apps_script_target }}" name="{{ apps_script_target }}" class="srw-submit-frame" title="Review submission" hidden aria-hidden="true" tabindex="-1"></iframe>
   {%- endif -%}
-  <form action="{%- if review_endpoint != blank -%}{{ review_endpoint | escape }}{%- else -%}/contact{%- endif -%}" method="post"{%- if review_endpoint != blank -%} target="{{ apps_script_target }}" data-srw-apps-script-form{%- endif -%} id="{{ form_id }}" class="srw-form">
+  <form action="{{ form_action | escape }}" method="post"{% if review_endpoint != blank %} target="{{ apps_script_target }}" data-srw-apps-script-form{% endif %} id="{{ form_id }}" class="srw-form">
     {%- if review_endpoint == blank -%}
       <input type="hidden" name="form_type" value="contact">
       <input type="hidden" name="utf8" value="✓">
