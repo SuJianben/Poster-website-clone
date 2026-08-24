@@ -11,6 +11,11 @@
     const submitButton = form.querySelector('button[type="submit"]');
     const submissionId = form.querySelector('[data-srw-submission-id]');
     const startedAt = form.querySelector('[data-srw-started-at]');
+    const productIdField = form.querySelector('[data-srw-product-id]');
+    const productHandleField = form.querySelector('[name="review_product_handle"]');
+    const productTitleField = form.querySelector('[name="review_product_title"]');
+    const productUrlField = form.querySelector('[name="review_product_url"]');
+    const productPicker = form.querySelector('[data-srw-product-picker]');
     const createSubmissionId = () => {
       if (window.crypto?.randomUUID) return window.crypto.randomUUID();
       return `rvw_${Date.now()}_${Math.random().toString(36).slice(2)}`;
@@ -21,7 +26,7 @@
       if (value && field && !field.value) field.value = value;
     };
     const hydrateProductFields = () => {
-      setQueryValue(form.querySelector('[name="review_product_id"]'), 'product_id');
+      setQueryValue(productIdField, 'product_id');
       setQueryValue(form.querySelector('[name="review_product_handle"]'), 'product_handle');
       setQueryValue(form.querySelector('[name="review_product_title"]'), 'product_title');
       const productUrl = form.querySelector('[name="review_product_url"]');
@@ -29,10 +34,20 @@
       if (productUrl && !productUrl.value && handle) {
         productUrl.value = new URL(`/products/${encodeURIComponent(handle)}`, window.location.origin).href;
       }
+      if (productPicker && productIdField?.value) productPicker.value = productIdField.value;
     };
     hydrateProductFields();
     if (submissionId && !submissionId.value) submissionId.value = createSubmissionId();
     if (startedAt && !startedAt.value) startedAt.value = String(Date.now());
+    productPicker?.addEventListener('change', () => {
+      const option = productPicker.selectedOptions[0];
+      if (!option?.dataset.productId) return;
+      productIdField.value = option.dataset.productId;
+      productHandleField.value = option.dataset.productHandle || '';
+      productTitleField.value = option.dataset.productTitle || '';
+      productUrlField.value = option.dataset.productUrl || '';
+      emit('product_select', { productId: productIdField.value, productHandle: productHandleField.value });
+    });
     const setRating = (value) => {
       ratingInput.value = String(value);
       ratingButtons.forEach((item) => {
@@ -67,6 +82,13 @@
       });
     }
     form.addEventListener('submit', (event) => {
+      if (!productIdField?.value) {
+        event.preventDefault();
+        if (status) status.textContent = 'Bitte wähle zuerst ein Produkt aus.';
+        productPicker?.focus();
+        emit('submit_error', { reason: 'missing_product' });
+        return;
+      }
       if (!endpoint) {
         if (status) status.textContent = 'Wird gesendet...';
         emit('submit', { mode: 'shopify_contact' });

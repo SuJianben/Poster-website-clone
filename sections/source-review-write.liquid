@@ -30,13 +30,31 @@
     <input type="hidden" name="submission_id" data-srw-submission-id value="">
     <input type="hidden" name="review_payload_version" value="1">
     <input type="hidden" name="review_shop_domain" value="{{ shop.permanent_domain | default: shop.domain | escape }}">
-    <input type="hidden" name="review_product_id" value="{% if product != blank %}{{ product.id }}{% endif %}">
+    <input type="hidden"{% if product != blank %} name="review_product_id"{% endif %} data-srw-product-id value="{% if product != blank %}{{ product.id }}{% endif %}">
     <input type="hidden" name="review_product_handle" value="{% if product != blank %}{{ product.handle | escape }}{% endif %}">
     <input type="hidden" name="review_product_title" value="{% if product != blank %}{{ product.title | escape }}{% endif %}">
     <input type="hidden" name="review_product_url" value="{% if product != blank %}{{ shop.url }}{{ product.url }}{% endif %}">
     <input type="hidden" name="review_started_at" data-srw-started-at value="">
     <input type="hidden" name="started_at" data-srw-started-at-alias value="">
     <input type="text" name="website" value="" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
+    {%- if product == blank -%}
+      <div class="srw-field srw-product-picker-field">
+        <label for="srw-product-picker-{{ section.id }}">Produkt auswählen</label>
+        <select id="srw-product-picker-{{ section.id }}" name="review_product_id" data-srw-product-picker required aria-describedby="srw-product-picker-hint-{{ section.id }}">
+          <option value="">Bitte ein Produkt auswählen</option>
+          {%- for picker_product in collections.all.products limit: 250 -%}
+            <option
+              value="{{ picker_product.id }}"
+              data-product-id="{{ picker_product.id }}"
+              data-product-handle="{{ picker_product.handle | escape }}"
+              data-product-title="{{ picker_product.title | escape }}"
+              data-product-url="{{ shop.url }}{{ picker_product.url }}"
+            >{{ picker_product.title }}</option>
+          {%- endfor -%}
+        </select>
+        <p id="srw-product-picker-hint-{{ section.id }}" class="srw-product-picker-field__hint">Bitte wähle das Produkt, auf das sich deine Bewertung bezieht.</p>
+      </div>
+    {%- endif -%}
     <fieldset class="srw-form__contact">
       <div class="srw-field">
         <label for="srw-author-{{ section.id }}">Name</label>
@@ -136,8 +154,10 @@
           return field;
         };
         const productHandle = setQueryValue('[name="review_product_handle"]', 'product_handle');
-        setQueryValue('[name="review_product_id"]', 'product_id');
+        const productId = setQueryValue('[data-srw-product-id]', 'product_id');
         setQueryValue('[name="review_product_title"]', 'product_title');
+        const productPicker = form.querySelector('[data-srw-product-picker]');
+        if (productPicker && productId?.value) productPicker.value = productId.value;
         const productUrl = form.querySelector('[name="review_product_url"]');
         if (productUrl && !productUrl.value && productHandle?.value) {
           productUrl.value = new URL(`/products/${encodeURIComponent(productHandle.value)}`, window.location.origin).href;
