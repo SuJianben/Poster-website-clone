@@ -39,11 +39,11 @@
   assign selected_review_mode = review_mode | default: 'default'
   assign review_page = pages['write-a-review']
   assign shared_contact_url = contact_url | default: review_page.url
-  if shared_contact_url contains '/contact'
-    assign shared_contact_url = review_page.url
-  endif
   if shared_contact_url == blank
-    assign shared_contact_url = routes.contact_url
+    assign shared_contact_url = '/pages/write-a-review'
+  endif
+  if shared_contact_url contains '/contact'
+    assign shared_contact_url = review_page.url | default: '/pages/write-a-review'
   endif
   if current_product != blank and shared_contact_url != blank
     assign encoded_product_handle = current_product.handle | url_encode
