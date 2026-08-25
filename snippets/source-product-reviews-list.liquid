@@ -2,6 +2,8 @@
   assign manual_review_count = 0
   assign review_page_size = section.settings.reviews_per_page | default: 12
   assign default_filter = section.settings.default_filter | default: 'recent'
+  assign preserve_legacy_reviews = preserve_legacy | default: false
+  assign legacy_review_count = legacy_count | default: 12
   if published_reviews == blank and current_product != blank
     assign published_reviews = current_product.metafields.custom.approved_reviews.value
   endif
@@ -30,7 +32,9 @@
     assign custom_summary_enabled = true
   endif
   assign shared_review_count = review_count
-  if total_review_count > 0 and custom_summary_enabled == false
+  if preserve_legacy_reviews and shared_review_count != blank
+    assign shared_review_count = review_count
+  elsif total_review_count > 0 and custom_summary_enabled == false
     assign shared_review_count = total_review_count
   elsif shared_review_count == blank
     assign shared_review_count = total_review_count
@@ -75,12 +79,14 @@
   endcase
 
   assign rendered_review_count = total_review_count
-  if rendered_review_count == 0
-    assign rendered_review_count = 12
+  if preserve_legacy_reviews
+    assign rendered_review_count = rendered_review_count | plus: legacy_review_count
+  elsif rendered_review_count == 0
+    assign rendered_review_count = legacy_review_count
   endif
   assign review_page_total = rendered_review_count | plus: review_page_size | minus: 1 | divided_by: review_page_size
   assign show_review_content = true
-  if total_review_count == 0 and selected_review_mode == 'empty'
+  if total_review_count == 0 and selected_review_mode == 'empty' and preserve_legacy_reviews == false
     assign show_review_content = false
   endif
 -%}
@@ -107,8 +113,14 @@
 <p class="sprv__filter-status visually-hidden" aria-live="polite" data-sprv-filter-status></p>
 
 <div class="sprv__cards" data-sprv-cards>
+  {%- assign review_position = 0 -%}
+  {%- if preserve_legacy_reviews -%}
+    {%- for index in (1..legacy_review_count) -%}
+      {%- assign review_position = review_position | plus: 1 -%}
+      {% render 'source-product-review-card-legacy', index: index %}
+    {%- endfor -%}
+  {%- endif -%}
   {%- if total_review_count > 0 -%}
-    {%- assign review_position = 0 -%}
     {%- for block in section.blocks -%}
       {%- assign review_matches_current_product = true -%}
       {%- assign review_enabled = block.settings.enabled -%}
@@ -129,8 +141,9 @@
       {%- assign review_position = review_position | plus: 1 -%}
       {% render 'source-product-review-card-published', review: review, position: review_position %}
     {%- endfor -%}
-  {%- else -%}
-    {%- for index in (1..12) -%}
+  {%- elsif preserve_legacy_reviews == false -%}
+    {%- for index in (1..legacy_review_count) -%}
+      {%- assign review_position = review_position | plus: 1 -%}
       {% render 'source-product-review-card-legacy', index: index %}
     {%- endfor -%}
   {%- endif -%}

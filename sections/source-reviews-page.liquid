@@ -7,6 +7,7 @@
 
 {%- liquid
   assign page_label = section.settings.page_label | default: 'Bewertungen'
+  assign reviews_list_rendered = false
 -%}
 
 <section
@@ -133,32 +134,45 @@
         {%- endif -%}
 
       {%- when 'reviews' -%}
-        {%- liquid
-          assign reviews_write_heading = block.settings.write_heading | default: section.settings.write_heading
-          assign reviews_contact_url = block.settings.contact_url | default: section.settings.contact_url
-        -%}
-        <section
-          class="sprv srp-page__shared-reviews"
-          data-sprv-root
-          data-section-id="{{ section.id }}-reviews-{{ block.id }}"
-          data-sprv-default-filter="{{ section.settings.default_filter | default: 'recent' }}"
-          data-sprv-page-size="{{ section.settings.reviews_per_page | default: 12 }}"
-          aria-label="{{ block.settings.aria_label | default: 'Customer review list' | escape }}"
-          {{ block.shopify_attributes }}
-        >
-          {%- if block.settings.heading != blank -%}
-            <div class="srp-page__reviews-heading"><h2>{{ block.settings.heading | escape }}</h2></div>
-          {%- endif -%}
-          <div class="sprv__widget"><div class="sprv__inner">
-            {% render 'source-product-reviews-list',
-              section: section,
-              review_count: block.settings.review_count,
-              show_write: block.settings.show_write,
-              write_heading: reviews_write_heading,
-              contact_url: reviews_contact_url
-            %}
-          </div></div>
-        </section>
+        {%- if reviews_list_rendered == false -%}
+          {%- liquid
+            assign reviews_list_rendered = true
+            assign reviews_write_heading = block.settings.write_heading | default: section.settings.write_heading
+            assign reviews_contact_url = block.settings.contact_url | default: section.settings.contact_url
+            assign reviews_append_to_existing = block.settings.append_to_existing
+            if reviews_append_to_existing == nil
+              assign reviews_append_to_existing = true
+            endif
+          -%}
+          <section
+            class="sprv srp-page__shared-reviews"
+            data-sprv-root
+            data-section-id="{{ section.id }}-reviews-{{ block.id }}"
+            data-sprv-default-filter="{{ section.settings.default_filter | default: 'recent' }}"
+            data-sprv-page-size="{{ section.settings.reviews_per_page | default: 12 }}"
+            aria-label="{{ block.settings.aria_label | default: 'Customer review list' | escape }}"
+            {{ block.shopify_attributes }}
+          >
+            {%- if block.settings.heading != blank -%}
+              <div class="srp-page__reviews-heading"><h2>{{ block.settings.heading | escape }}</h2></div>
+            {%- endif -%}
+            <div class="sprv__widget"><div class="sprv__inner">
+              {% render 'source-product-reviews-list',
+                section: section,
+                review_count: block.settings.review_count,
+                show_write: block.settings.show_write,
+                write_heading: reviews_write_heading,
+                contact_url: reviews_contact_url,
+                preserve_legacy: reviews_append_to_existing,
+                legacy_count: 12
+              %}
+            </div></div>
+          </section>
+        {%- elsif request.design_mode -%}
+          <div class="srp-page__content-block srp-page__empty-block srp-page__duplicate-reviews-block" {{ block.shopify_attributes }}>
+            评价列表模块已经存在；客户评论块会自动加入现有评价区，请保留一个评价列表模块。
+          </div>
+        {%- endif -%}
 
       {%- when '@app' -%}
         <div class="srp-page__app-block" {{ block.shopify_attributes }}>{% render block %}</div>
@@ -269,11 +283,12 @@
     },
     {
       "type": "reviews",
-      "name": "评价列表",
+      "name": "评价列表（固定评论区）",
       "settings": [
         { "type": "text", "id": "heading", "label": "标题（可选）" },
         { "type": "text", "id": "aria_label", "label": "无障碍名称", "default": "Customer review list" },
         { "type": "text", "id": "review_count", "label": "列表评价总数", "default": "2625" },
+        { "type": "checkbox", "id": "append_to_existing", "label": "新增评论追加到现有评价区", "default": true, "info": "开启后，客户评论块会加入现有评论卡片集合，不会替换原有布局。" },
         { "type": "checkbox", "id": "show_write", "label": "显示写评价区域", "default": true },
         { "type": "text", "id": "write_heading", "label": "写评价标题", "default": "Write a review" },
         { "type": "url", "id": "contact_url", "label": "写评价链接" }
@@ -281,7 +296,7 @@
     },
     {
       "type": "review",
-      "name": "客户评论",
+      "name": "客户评论（加入现有评价列表）",
       "settings": [
         { "type": "checkbox", "id": "enabled", "label": "显示此评论", "default": true },
         { "type": "text", "id": "reviewer", "label": "客户姓名", "default": "Customer name" },

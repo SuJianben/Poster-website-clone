@@ -51,6 +51,7 @@
           "settings": {
             "aria_label": "Customer review list",
             "review_count": "2625",
+            "append_to_existing": true,
             "show_write": true,
             "write_heading": "Write a review"
           }
