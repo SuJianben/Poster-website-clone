@@ -15,13 +15,14 @@
     if review_enabled == nil
       assign review_enabled = true
     endif
+    assign review_body = block.settings.body | strip
     if block.type == 'review' and block.settings.product != blank and current_product != blank
       if block.settings.product.id != current_product.id
         assign review_matches_current_product = false
       endif
     endif
 
-    if block.type == 'review' and review_enabled and review_matches_current_product
+    if block.type == 'review' and review_enabled and review_matches_current_product and review_body != blank
       assign manual_review_count = manual_review_count | plus: 1
     endif
   endfor
@@ -114,12 +115,6 @@
 
 <div class="sprv__cards" data-sprv-cards>
   {%- assign review_position = 0 -%}
-  {%- if preserve_legacy_reviews -%}
-    {%- for index in (1..legacy_review_count) -%}
-      {%- assign review_position = review_position | plus: 1 -%}
-      {% render 'source-product-review-card-legacy', index: index %}
-    {%- endfor -%}
-  {%- endif -%}
   {%- if total_review_count > 0 -%}
     {%- for block in section.blocks -%}
       {%- assign review_matches_current_product = true -%}
@@ -127,12 +122,13 @@
       {%- if review_enabled == nil -%}
         {%- assign review_enabled = true -%}
       {%- endif -%}
+      {%- assign review_body = block.settings.body | strip -%}
       {%- if block.type == 'review' and block.settings.product != blank and current_product != blank -%}
         {%- if block.settings.product.id != current_product.id -%}
           {%- assign review_matches_current_product = false -%}
         {%- endif -%}
       {%- endif -%}
-      {%- if block.type == 'review' and review_enabled and review_matches_current_product -%}
+      {%- if block.type == 'review' and review_enabled and review_matches_current_product and review_body != blank -%}
         {%- assign review_position = review_position | plus: 1 -%}
         {% render 'source-product-review-card', block: block, position: review_position %}
       {%- endif -%}
@@ -141,7 +137,8 @@
       {%- assign review_position = review_position | plus: 1 -%}
       {% render 'source-product-review-card-published', review: review, position: review_position %}
     {%- endfor -%}
-  {%- elsif preserve_legacy_reviews == false -%}
+  {%- endif -%}
+  {%- if preserve_legacy_reviews or total_review_count == 0 -%}
     {%- for index in (1..legacy_review_count) -%}
       {%- assign review_position = review_position | plus: 1 -%}
       {% render 'source-product-review-card-legacy', index: index %}

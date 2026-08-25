@@ -58,13 +58,14 @@
       if review_enabled == nil
         assign review_enabled = true
       endif
+      assign review_body = block.settings.body | strip
       if block.type == 'review' and block.settings.product != blank and current_product != blank
         if block.settings.product.id != current_product.id
           assign review_matches_current_product = false
         endif
       endif
 
-      if block.type == 'review' and review_enabled and review_matches_current_product
+      if block.type == 'review' and review_enabled and review_matches_current_product and review_body != blank
         assign manual_review_count = manual_review_count | plus: 1
         assign block_rating = block.settings.rating | default: 5
         assign manual_rating_sum = manual_rating_sum | plus: block_rating
@@ -158,7 +159,8 @@
                 {%- if review_enabled == nil -%}
                   {%- assign review_enabled = true -%}
                 {%- endif -%}
-                {%- if block.type == 'review' and review_enabled and review_matches_current_product -%}
+                {%- assign review_body = block.settings.body | strip -%}
+                {%- if block.type == 'review' and review_enabled and review_matches_current_product and review_body != blank -%}
                   {%- assign review_photo_url = block.settings.image_1_url | strip -%}
                   {%- if block.settings.image_1 != blank -%}
                     {%- assign review_photo_url = block.settings.image_1 | image_url: width: 160 -%}

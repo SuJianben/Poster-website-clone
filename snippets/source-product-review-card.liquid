@@ -1,6 +1,7 @@
 {%- liquid
   assign review_product = block.settings.product
-  assign review_title = block.settings.title | default: 'Great quality'
+  assign review_title = block.settings.title | strip
+  assign review_image_alt = review_title | default: 'Customer review'
   assign review_body = block.settings.body | default: ''
   assign review_date = block.settings.review_date | default: ''
   assign review_sort_date = review_date
@@ -59,33 +60,33 @@
       {%- if review_image_1 != blank -%}
         {%- assign image_1_src = review_image_1 | image_url: width: 900 -%}
         <button type="button" data-srp-summary-photo data-sprv-photo="{{ image_1_src }}" data-reviewer="{{ reviewer | escape }}" data-verified="{{ verified_label | escape }}" data-date="{{ review_date | escape }}" data-title="{{ review_title | escape }}" data-body="{{ review_body | escape }}" data-product="{{ product_name | escape }}"{% if product_image != blank %} data-product-image="{{ product_image }}"{% endif %} data-helpful="{{ helpful }}" aria-label="Open review photo 1">
-          <img src="{{ image_1_src }}" alt="{{ review_title | escape }}" width="{{ review_image_1.width }}" height="{{ review_image_1.height }}" loading="lazy">
+          <img src="{{ image_1_src }}" alt="{{ review_image_alt | escape }}" width="{{ review_image_1.width }}" height="{{ review_image_1.height }}" loading="lazy">
         </button>
       {%- elsif review_image_1_url != blank -%}
         <button type="button" data-srp-summary-photo data-sprv-photo="{{ review_image_1_url | escape }}" data-reviewer="{{ reviewer | escape }}" data-verified="{{ verified_label | escape }}" data-date="{{ review_date | escape }}" data-title="{{ review_title | escape }}" data-body="{{ review_body | escape }}" data-product="{{ product_name | escape }}"{% if product_image != blank %} data-product-image="{{ product_image }}"{% endif %} data-helpful="{{ helpful }}" aria-label="Open review photo 1">
-          <img src="{{ review_image_1_url | escape }}" alt="{{ review_title | escape }}" width="900" height="675" loading="lazy">
+          <img src="{{ review_image_1_url | escape }}" alt="{{ review_image_alt | escape }}" width="900" height="675" loading="lazy">
         </button>
       {%- endif -%}
 
       {%- if review_image_2 != blank -%}
         {%- assign image_2_src = review_image_2 | image_url: width: 900 -%}
         <button type="button" data-srp-summary-photo data-sprv-photo="{{ image_2_src }}" data-reviewer="{{ reviewer | escape }}" data-verified="{{ verified_label | escape }}" data-date="{{ review_date | escape }}" data-title="{{ review_title | escape }}" data-body="{{ review_body | escape }}" data-product="{{ product_name | escape }}"{% if product_image != blank %} data-product-image="{{ product_image }}"{% endif %} data-helpful="{{ helpful }}" aria-label="Open review photo 2">
-          <img src="{{ image_2_src }}" alt="{{ review_title | escape }}" width="{{ review_image_2.width }}" height="{{ review_image_2.height }}" loading="lazy">
+          <img src="{{ image_2_src }}" alt="{{ review_image_alt | escape }}" width="{{ review_image_2.width }}" height="{{ review_image_2.height }}" loading="lazy">
         </button>
       {%- elsif review_image_2_url != blank -%}
         <button type="button" data-srp-summary-photo data-sprv-photo="{{ review_image_2_url | escape }}" data-reviewer="{{ reviewer | escape }}" data-verified="{{ verified_label | escape }}" data-date="{{ review_date | escape }}" data-title="{{ review_title | escape }}" data-body="{{ review_body | escape }}" data-product="{{ product_name | escape }}"{% if product_image != blank %} data-product-image="{{ product_image }}"{% endif %} data-helpful="{{ helpful }}" aria-label="Open review photo 2">
-          <img src="{{ review_image_2_url | escape }}" alt="{{ review_title | escape }}" width="900" height="675" loading="lazy">
+          <img src="{{ review_image_2_url | escape }}" alt="{{ review_image_alt | escape }}" width="900" height="675" loading="lazy">
         </button>
       {%- endif -%}
 
       {%- if review_image_3 != blank -%}
         {%- assign image_3_src = review_image_3 | image_url: width: 900 -%}
         <button type="button" data-srp-summary-photo data-sprv-photo="{{ image_3_src }}" data-reviewer="{{ reviewer | escape }}" data-verified="{{ verified_label | escape }}" data-date="{{ review_date | escape }}" data-title="{{ review_title | escape }}" data-body="{{ review_body | escape }}" data-product="{{ product_name | escape }}"{% if product_image != blank %} data-product-image="{{ product_image }}"{% endif %} data-helpful="{{ helpful }}" aria-label="Open review photo 3">
-          <img src="{{ image_3_src }}" alt="{{ review_title | escape }}" width="{{ review_image_3.width }}" height="{{ review_image_3.height }}" loading="lazy">
+          <img src="{{ image_3_src }}" alt="{{ review_image_alt | escape }}" width="{{ review_image_3.width }}" height="{{ review_image_3.height }}" loading="lazy">
         </button>
       {%- elsif review_image_3_url != blank -%}
         <button type="button" data-srp-summary-photo data-sprv-photo="{{ review_image_3_url | escape }}" data-reviewer="{{ reviewer | escape }}" data-verified="{{ verified_label | escape }}" data-date="{{ review_date | escape }}" data-title="{{ review_title | escape }}" data-body="{{ review_body | escape }}" data-product="{{ product_name | escape }}"{% if product_image != blank %} data-product-image="{{ product_image }}"{% endif %} data-helpful="{{ helpful }}" aria-label="Open review photo 3">
-          <img src="{{ review_image_3_url | escape }}" alt="{{ review_title | escape }}" width="900" height="675" loading="lazy">
+          <img src="{{ review_image_3_url | escape }}" alt="{{ review_image_alt | escape }}" width="900" height="675" loading="lazy">
         </button>
       {%- endif -%}
     </div>
@@ -96,7 +97,7 @@
       {%- if review_date != blank -%}<time datetime="{{ review_date | escape }}">{{ review_date | escape }}</time>{%- endif -%}
       <span class="sprv__stars" aria-label="{{ rating }} out of 5 stars">{% for star in (1..5) %}{% if star <= rating %}★{% else %}☆{% endif %}{% endfor %}</span>
     </div>
-    <h3>{{ review_title | escape }}</h3>
+    {%- if review_title != blank -%}<h3>{{ review_title | escape }}</h3>{%- endif -%}
     {%- if review_body != blank -%}<p class="sprv-card__body" data-sprv-review-body>{{ review_body | escape | newline_to_br }}</p>{%- endif -%}
     <button class="sprv-card__expand" type="button" data-sprv-review-expand aria-expanded="false" hidden>Mehr anzeigen</button>
     {%- if product_name != blank -%}<p class="sprv-card__product">{{ product_name | escape }}</p>{%- endif -%}

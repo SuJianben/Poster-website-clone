@@ -18,13 +18,14 @@
     if review_enabled == nil
       assign review_enabled = true
     endif
+    assign review_body = block.settings.body | strip
     if block.type == 'review' and block.settings.product != blank and product != blank
       if block.settings.product.id != product.id
         assign review_matches_current_product = false
       endif
     endif
 
-    if block.type == 'review' and review_enabled and review_matches_current_product
+    if block.type == 'review' and review_enabled and review_matches_current_product and review_body != blank
       assign manual_review_count = manual_review_count | plus: 1
     elsif block.type == '@app'
       assign app_block_count = app_block_count | plus: 1
@@ -70,7 +71,7 @@
         {% if request.design_mode and manual_review_count == 0 and published_review_count == 0 %}
           <div class="sprv__empty sprv__empty--editor" role="status">
             <strong>还没有手动评论</strong>
-            <p>点击左侧“添加区块” → “客户评论”，填写内容后保存即可发布。</p>
+            <p>点击左侧“添加区块” → “添加评论”，填写评论正文后保存即可发布。</p>
           </div>
         {% endif %}
         {% if manual_review_count > 0 or published_review_count > 0 %}
@@ -96,7 +97,7 @@
           review_mode: 'empty'
         %}
       {% elsif request.design_mode %}
-        <p class="sprv__empty">暂无手动评论。点击左侧“添加块”，选择“客户评论”后即可填写内容。</p>
+        <p class="sprv__empty">暂无手动评论。点击左侧“添加块”，选择“添加评论”后即可填写内容。</p>
       {% endif %}
     </div>
   </div>
@@ -140,14 +141,14 @@
   "blocks": [
     {
       "type": "review",
-      "name": "客户评论",
+      "name": "添加评论",
       "settings": [
         { "type": "checkbox", "id": "enabled", "label": "显示此评论", "default": true },
-        { "type": "text", "id": "reviewer", "label": "客户姓名", "default": "Customer name" },
+        { "type": "text", "id": "reviewer", "label": "客户姓名" },
         { "type": "text", "id": "review_date", "label": "评论日期", "info": "建议使用 YYYY-MM-DD 格式，方便按日期排序。" },
         { "type": "range", "id": "rating", "label": "星级", "min": 1, "max": 5, "step": 1, "default": 5 },
-        { "type": "text", "id": "title", "label": "评论标题", "default": "Review title" },
-        { "type": "textarea", "id": "body", "label": "评论正文", "default": "Add the customer's review here." },
+        { "type": "text", "id": "title", "label": "评论标题（可选）" },
+        { "type": "textarea", "id": "body", "label": "评论正文（必填）", "info": "填写并保存后，这条评论会显示在现有评价列表中。" },
         { "type": "product", "id": "product", "label": "关联产品（可选）" },
         { "type": "text", "id": "product_name", "label": "关联产品名称（未选择产品时使用）" },
         { "type": "checkbox", "id": "verified", "label": "显示已验证买家", "default": true },
