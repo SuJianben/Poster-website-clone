@@ -1,9 +1,15 @@
 (() => {
+  const instances = new WeakMap();
+
   const createModal = (host, summary, emit) => {
-    const photoButtons = [...host.querySelectorAll('[data-srp-summary-photo]')];
-    if (!photoButtons.length) return;
+    const photoButtons = [...summary.querySelectorAll('[data-srp-summary-photo]')];
+    if (!photoButtons.length) return null;
+    const controller = new AbortController();
+    const { signal } = controller;
     const modal = document.createElement('div');
     modal.className = 'srp-summary-modal';
+    modal.dataset.srpSummaryModal = 'true';
+    modal.dataset.srpSummarySection = host.closest('[data-section-id]')?.dataset.sectionId || '';
     modal.hidden = true;
     modal.setAttribute('role', 'dialog');
     modal.setAttribute('aria-modal', 'true');
@@ -40,6 +46,7 @@
     const down = modal.querySelector('[data-srp-modal-down]');
     let activeIndex = 0;
     let closeTimer;
+    let openTimer;
 
     photoButtons.forEach((button, index) => {
       const image = button.querySelector('img');
@@ -49,7 +56,7 @@
       thumb.setAttribute('role', 'tab');
       thumb.setAttribute('aria-label', `Show customer photo ${index + 1}`);
       thumb.innerHTML = `<img src="${image.currentSrc || image.src}" alt="">`;
-      thumb.addEventListener('click', () => moveTo(index));
+      thumb.addEventListener('click', () => moveTo(index), { signal });
       thumbs.appendChild(thumb);
     });
 
@@ -96,7 +103,7 @@
       render();
       modal.hidden = false;
       document.documentElement.classList.add('srp-summary-modal-open');
-      window.setTimeout(() => {
+      openTimer = window.setTimeout(() => {
         modal.classList.add('is-open');
         modal.querySelector('.srp-summary-modal__close').focus();
       }, 20);
@@ -123,38 +130,77 @@
       event.preventDefault();
       event.stopImmediatePropagation();
       open(index);
-    }));
-    modal.querySelector('.srp-summary-modal__close').addEventListener('click', close);
-    modal.querySelector('.srp-summary-modal__nav--prev').addEventListener('click', () => move(-1));
-    modal.querySelector('.srp-summary-modal__nav--next').addEventListener('click', () => move(1));
-    modal.addEventListener('click', (event) => { if (event.target === modal) close(); });
+    }, { signal }));
+    modal.querySelector('.srp-summary-modal__close').addEventListener('click', close, { signal });
+    modal.querySelector('.srp-summary-modal__nav--prev').addEventListener('click', () => move(-1), { signal });
+    modal.querySelector('.srp-summary-modal__nav--next').addEventListener('click', () => move(1), { signal });
+    modal.addEventListener('click', (event) => { if (event.target === modal) close(); }, { signal });
     document.addEventListener('keydown', (event) => {
       if (modal.hidden) return;
       if (event.key === 'Escape') close();
       if (event.key === 'ArrowLeft') move(-1);
       if (event.key === 'ArrowRight') move(1);
+    }, { signal });
+
+    return () => {
+      controller.abort();
+      window.clearTimeout(closeTimer);
+      window.clearTimeout(openTimer);
+      document.documentElement.classList.remove('srp-summary-modal-open');
+      modal.remove();
+    };
+  };
+
+  const initialize = (scope = document) => {
+    const summaries = [];
+    if (scope.matches?.('[data-source-review-summary]')) summaries.push(scope);
+    summaries.push(...(scope.querySelectorAll?.('[data-source-review-summary]') || []));
+
+    summaries.forEach((summary) => {
+      if (instances.has(summary)) return;
+      const controller = new AbortController();
+      const { signal } = controller;
+      summary.dataset.summaryReady = 'true';
+      const host = summary.closest('[data-srp-page], [data-sprv-root]') || summary;
+      const emit = (action, detail = {}) => host.dispatchEvent(new CustomEvent('sp_reviews:summary', { bubbles: true, detail: { action, ...detail } }));
+      const ratings = summary.querySelector('.srp-widget__ratings');
+      const ratingButtons = [...summary.querySelectorAll('[data-srp-rating-filter]')];
+      ratingButtons.forEach((button) => button.addEventListener('click', () => {
+        const rating = button.dataset.srpRatingFilter;
+        const reset = button.classList.contains('is-active');
+        ratings?.classList.toggle('is-filtering', !reset);
+        ratingButtons.forEach((item) => {
+          const selected = !reset && item === button;
+          item.classList.toggle('is-active', selected);
+          item.setAttribute('aria-pressed', String(selected));
+        });
+        emit('rating_filter', { rating: reset ? 'all' : rating });
+      }, { signal }));
+      const destroyModal = createModal(host, summary, emit);
+      instances.set(summary, () => {
+        controller.abort();
+        destroyModal?.();
+        delete summary.dataset.summaryReady;
+      });
     });
   };
 
-  document.querySelectorAll('[data-source-review-summary]').forEach((summary) => {
-    if (summary.dataset.summaryReady === 'true') return;
-    summary.dataset.summaryReady = 'true';
-    const host = summary.closest('[data-srp-page], [data-sprv-root]') || summary;
-    const emit = (action, detail = {}) => host.dispatchEvent(new CustomEvent('sp_reviews:summary', { bubbles: true, detail: { action, ...detail } }));
-    const ratings = summary.querySelector('.srp-widget__ratings');
-    const ratingButtons = [...summary.querySelectorAll('[data-srp-rating-filter]')];
-    ratingButtons.forEach((button) => button.addEventListener('click', () => {
-      const rating = button.dataset.srpRatingFilter;
-      const reset = button.classList.contains('is-active');
-      ratings?.classList.toggle('is-filtering', !reset);
-      ratingButtons.forEach((item) => {
-        const selected = !reset && item === button;
-        item.classList.toggle('is-active', selected);
-        item.setAttribute('aria-pressed', String(selected));
-      });
-      emit('rating_filter', { rating: reset ? 'all' : rating });
-    }));
-    createModal(host, summary, emit);
-  });
+  const destroy = (scope) => {
+    const summaries = [];
+    if (scope.matches?.('[data-source-review-summary]')) summaries.push(scope);
+    summaries.push(...(scope.querySelectorAll?.('[data-source-review-summary]') || []));
+    summaries.forEach((summary) => {
+      instances.get(summary)?.();
+      instances.delete(summary);
+    });
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => initialize(), { once: true });
+  } else {
+    initialize();
+  }
+  document.addEventListener('shopify:section:load', (event) => initialize(event.target));
+  document.addEventListener('shopify:section:unload', (event) => destroy(event.target));
 })();
 
