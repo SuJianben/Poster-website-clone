@@ -3,6 +3,24 @@
   color: var(--source-spotlight-button-text) !important;
 }
 
+.toggle-spotlight-drawer[data-source-spotlight-configured='true']::before {
+  background-color: var(--source-spotlight-button-text) !important;
+}
+
+/* The theme's primary-button hover layer turns white and switches the text
+   to the button color. Keep the configured spotlight trigger readable there. */
+.toggle-spotlight-drawer[data-source-spotlight-configured='true']:hover,
+.toggle-spotlight-drawer[data-source-spotlight-configured='true']:focus-visible {
+  color: var(--source-spotlight-button-background) !important;
+}
+
+.toggle-spotlight-drawer[data-source-spotlight-configured='true']:hover .btn__text,
+.toggle-spotlight-drawer[data-source-spotlight-configured='true']:focus-visible .btn__text,
+.toggle-spotlight-drawer[data-source-spotlight-configured='true']:hover .btn__text svg,
+.toggle-spotlight-drawer[data-source-spotlight-configured='true']:focus-visible .btn__text svg {
+  color: inherit !important;
+}
+
 .drawer--spotlight .source-spotlight-promotion {
   box-sizing: border-box;
   color: #050505;
