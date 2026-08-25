@@ -94,7 +94,10 @@
         { "type": "text", "id": "size_guide_label", "label": "尺码指南文字", "default": "SIZE GUIDE" },
         { "type": "image_picker", "id": "size_guide_image", "label": "尺码指南弹窗图片" },
         { "type": "text", "id": "popular_size", "label": "热门规格值" },
-        { "type": "text", "id": "popular_size_label", "label": "热门规格标签", "default": "Bestseller" }
+        { "type": "text", "id": "popular_size_label", "label": "热门规格标签", "default": "Bestseller" },
+        { "type": "header", "content": "画框主图预览" },
+        { "type": "checkbox", "id": "enable_frame_preview", "label": "选择画框时显示主图预览", "info": "仅在商品具有 Premium Rahmen、Frame 或 Rahmen 这类原生规格时生效。后台为变体绑定带框图时优先显示该图片，否则显示画框模拟预览。", "default": true },
+        { "type": "range", "id": "frame_preview_width", "label": "主图画框宽度", "min": 8, "max": 42, "step": 1, "unit": "px", "default": 20 }
       ]
     },
     {

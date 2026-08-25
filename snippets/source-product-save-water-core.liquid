@@ -35,7 +35,7 @@
               <div class="spx-product__thumbs" role="tablist" aria-label="Product images" data-spx-thumb-track>
                 {% for media in product.media %}
                   {% assign media_alt = media.alt | default: product.title %}
-                  <button class="spx-product__thumb{% if media.id == selected_media.id %} is-active{% endif %}" type="button" role="tab" aria-selected="{% if media.id == selected_media.id %}true{% else %}false{% endif %}" data-spx-image="{{ media.preview_image | image_url: width: 1620 }}" data-analytics-event="product_gallery_thumbnail">{{ media.preview_image | image_url: width: 168 | image_tag: alt: media_alt, loading: 'lazy' }}</button>
+                  <button class="spx-product__thumb{% if media.id == selected_media.id %} is-active{% endif %}" type="button" role="tab" aria-selected="{% if media.id == selected_media.id %}true{% else %}false{% endif %}" data-spx-image="{{ media.preview_image | image_url: width: 1620 }}" data-spx-media-id="{{ media.id }}" data-spx-image-id="{{ media.preview_image.id }}" data-analytics-event="product_gallery_thumbnail">{{ media.preview_image | image_url: width: 168 | image_tag: alt: media_alt, loading: 'lazy' }}</button>
                 {% else %}
                   <button class="spx-product__thumb is-active" type="button" role="tab" aria-selected="true" data-spx-image=""><span class="visually-hidden">{{ product.title }}</span></button>
                 {% endfor %}
@@ -48,6 +48,7 @@
             <button class="spx-product__main-image-button" type="button" aria-label="Expand {{ product.title | escape }}" data-spx-open-zoom>
               {% if selected_image != blank %}<img data-spx-main-image src="{{ selected_image | image_url: width: 1620 }}" alt="{{ product.title | escape }}">{% else %}{{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}{% endif %}
             </button>
+            <span class="spx-product__frame-preview" data-spx-frame-preview data-frame-tone="none" aria-hidden="true"></span>
             <button class="spx-product__zoom-button" type="button" aria-label="Expand image" data-spx-open-zoom><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="5.5"/><path d="m15 15 4 4"/></svg></button>
           </div>
         </div>
@@ -86,11 +87,23 @@
   <dialog class="spx-product__zoom-dialog" data-spx-zoom aria-label="Expanded product image">
     <div class="spx-product__zoom-stage">
       {% if selected_image != blank %}<img src="{{ selected_image | image_url: width: 1946 }}" alt="{{ product.title | escape }}" data-spx-zoom-image>{% else %}<img src="" alt="{{ product.title | escape }}" data-spx-zoom-image>{% endif %}
+      <span class="spx-product__zoom-frame-preview" data-spx-frame-preview data-frame-tone="none" aria-hidden="true"></span>
       <div class="spx-product__zoom-actions" aria-label="Expanded image controls">
         <button class="spx-product__zoom-action" type="button" aria-label="Close expanded image" data-spx-close-zoom><svg aria-hidden="true" viewBox="0 0 20 20"><path d="m5.5 5.5 9 9M14.5 5.5l-9 9"/></svg></button>
       </div>
     </div>
   </dialog>
+
+  <script type="application/json" data-spx-variant-media-data>
+    {
+      {% for variant in product.variants %}
+        "{{ variant.id }}": {
+          "mediaId": {% if variant.featured_media != blank %}{{ variant.featured_media.id | json }}{% else %}null{% endif %},
+          "imageId": {% if variant.featured_image != blank %}{{ variant.featured_image.id | json }}{% else %}null{% endif %}
+        }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    }
+  </script>
 
   <dialog class="spx-product__size-guide-dialog" data-spx-size-guide-dialog aria-label="Size guide">
     <div class="spx-product__size-guide-card"><div class="spx-product__size-guide-header"><span>{{ size_guide_label }}</span><button type="button" data-spx-close-size-guide aria-label="Close size guide"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m18 6-12 12M6 6l12 12"/></svg></button></div><div class="spx-product__size-guide-image">{% if size_guide_image != blank %}{{ size_guide_image | image_url: width: 1800 | image_tag: alt: size_guide_image_alt, loading: 'lazy' }}{% else %}<img src="https://dotcomcanvas.de/cdn/shop/files/Groessen_Size_en_Guide_NA_inches.png?v=10709032047291710906" alt="Size guide in inches">{% endif %}</div></div>

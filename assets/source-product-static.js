@@ -5,6 +5,7 @@
   product.dataset.spxInitialized = 'true';
 
   const mainImage = product.querySelector('[data-spx-main-image]');
+  const framePreviews = [...product.querySelectorAll('[data-spx-frame-preview]')];
   const zoom = product.querySelector('[data-spx-zoom]');
   const zoomImage = product.querySelector('[data-spx-zoom-image]');
   const thumbTrack = product.querySelector('[data-spx-thumb-track]');
@@ -16,7 +17,7 @@
   const thumbWindow = thumbTrack?.closest('.spx-product__thumb-window');
   const viewer = product.querySelector('[data-spx-viewer]');
   const zoomStage = product.querySelector('.spx-product__zoom-stage');
-  let activeIndex = 0;
+  let activeIndex = Math.max(0, thumbs.findIndex((thumb) => thumb.classList.contains('is-active')));
   let thumbOffset = 0;
   let zoomCloseTimer;
   let suppressViewerClick = false;
@@ -43,10 +44,12 @@
   };
 
   const setActiveImage = (index, direction = 0) => {
+    if (!mainImage || !zoomImage || !thumbs.length) return;
     const nextIndex = Math.max(0, Math.min(thumbs.length - 1, index));
     if (nextIndex === activeIndex && mainImage.src) return;
     activeIndex = nextIndex;
     const thumb = thumbs[activeIndex];
+    if (!thumb) return;
     mainImage.src = thumb.dataset.spxImage;
     mainImage.animate(
       [
@@ -207,9 +210,12 @@
   const variantPicker = product.querySelector('[data-spx-variant-picker]');
   if (variantPicker) {
     const variantData = variantPicker.querySelector('[data-spx-variant-data]');
+    const variantMediaData = product.querySelector('[data-spx-variant-media-data]');
     const variantIdInput = variantPicker.querySelector('[data-spx-variant-id]');
     const optionGroups = [...variantPicker.querySelectorAll('[data-spx-variant-option]')];
+    const frameOptionGroup = optionGroups.find((group) => group.hasAttribute('data-spx-frame-option'));
     let variants = [];
+    let variantMedia = {};
 
     try {
       variants = JSON.parse(variantData?.textContent || '[]');
@@ -217,8 +223,59 @@
       console.warn('Unable to read product variant data.', error);
     }
 
+    try {
+      variantMedia = JSON.parse(variantMediaData?.textContent || '{}');
+    } catch (error) {
+      console.warn('Unable to read product variant media data.', error);
+    }
+
     const optionValuesForVariant = (variant) => variant.options || [variant.option1, variant.option2, variant.option3].filter(Boolean);
     const selectedValues = optionGroups.map((group) => group.querySelector('[data-spx-option-output]')?.textContent.trim() || '');
+
+    const normalizeFrameTone = (value) => {
+      const label = String(value || '').trim().toLocaleLowerCase();
+      if (!label || /(^|\\s)(none|ohne|rahmenlos|unframed)(\\s|$)|no\\s*frame|without\\s*(a\\s*)?frame/.test(label)) return 'none';
+      if (/white|weiss|weiß/.test(label)) return 'white';
+      if (/black|schwarz/.test(label)) return 'black';
+      if (/silver|silber/.test(label)) return 'silver';
+      if (/gold/.test(label)) return 'gold';
+      return 'natural';
+    };
+
+    const syncFramePreview = (hasRealVariantMedia = false) => {
+      if (!framePreviews.length) return;
+
+      const frameOptionIndex = optionGroups.indexOf(frameOptionGroup);
+      const selectedControl = frameOptionGroup?.querySelector('[data-spx-variant-value].is-selected');
+      const selectedValue = selectedControl?.dataset.optionValue
+        || frameOptionGroup?.querySelector('[data-spx-variant-select]')?.value
+        || selectedValues[frameOptionIndex];
+      const frameTone = selectedControl?.dataset.spxFrameTone || normalizeFrameTone(selectedValue);
+      const previewEnabled = variantPicker.dataset.spxFramePreviewEnabled !== 'false' && Boolean(frameOptionGroup);
+      const configuredWidth = Number.parseInt(variantPicker.dataset.spxFramePreviewWidth || '', 10);
+      const previewWidth = Number.isFinite(configuredWidth) ? Math.min(42, Math.max(8, configuredWidth)) : 20;
+
+      framePreviews.forEach((preview) => {
+        preview.dataset.frameTone = previewEnabled && !hasRealVariantMedia ? frameTone : 'none';
+        preview.style.setProperty('--spx-frame-preview-width', `${previewWidth}px`);
+      });
+    };
+
+    const syncVariantMedia = (variant) => {
+      if (!variant || !thumbs.length) return false;
+
+      const mappedMedia = variantMedia[String(variant.id)] || {};
+      const mediaIds = [
+        mappedMedia.mediaId,
+        mappedMedia.imageId
+      ].filter((id) => id !== null && id !== undefined && id !== '');
+
+      const matchingIndex = thumbs.findIndex((thumb) => mediaIds.some((id) => (
+        String(id) === thumb.dataset.spxMediaId || String(id) === thumb.dataset.spxImageId
+      )));
+      if (matchingIndex >= 0) setActiveImage(matchingIndex);
+      return matchingIndex >= 0;
+    };
 
     const syncVariantState = () => {
       const selectedVariant = variants.find((variant) => optionValuesForVariant(variant).every((value, index) => value === selectedValues[index]));
@@ -245,6 +302,9 @@
           control.disabled = !available;
         });
       });
+
+      const hasRealVariantMedia = syncVariantMedia(selectedVariant);
+      syncFramePreview(hasRealVariantMedia);
 
       product.dispatchEvent(new CustomEvent('spx:variant-change', {
         bubbles: true,
