@@ -35,7 +35,20 @@
               <div class="spx-product__thumbs" role="tablist" aria-label="Product images" data-spx-thumb-track>
                 {% for media in product.media %}
                   {% assign media_alt = media.alt | default: product.title %}
-                  <button class="spx-product__thumb{% if media.id == selected_media.id %} is-active{% endif %}" type="button" role="tab" aria-selected="{% if media.id == selected_media.id %}true{% else %}false{% endif %}" data-spx-image="{{ media.preview_image | image_url: width: 1620 }}" data-spx-media-id="{{ media.id }}" data-spx-image-id="{{ media.preview_image.id }}" data-analytics-event="product_gallery_thumbnail">{{ media.preview_image | image_url: width: 168 | image_tag: alt: media_alt, loading: 'lazy' }}</button>
+                  {% assign media_alt_handle = media.alt | handleize %}
+                  {% assign frame_media_tone = '' %}
+                  {% if media_alt_handle contains 'frame-none' or media_alt_handle contains 'none-frame' or media_alt_handle contains 'no-frame' or media_alt_handle contains 'frame-no' or media_alt_handle contains 'ohne-rahmen' or media_alt_handle contains 'rahmenlos' or media_alt_handle contains 'unframed' %}
+                    {% assign frame_media_tone = 'none' %}
+                  {% elsif media_alt_handle contains 'frame-white' or media_alt_handle contains 'white-frame' or media_alt_handle contains 'rahmen-weiss' or media_alt_handle contains 'weiss-rahmen' %}
+                    {% assign frame_media_tone = 'white' %}
+                  {% elsif media_alt_handle contains 'frame-black' or media_alt_handle contains 'black-frame' or media_alt_handle contains 'rahmen-schwarz' or media_alt_handle contains 'schwarz-rahmen' %}
+                    {% assign frame_media_tone = 'black' %}
+                  {% elsif media_alt_handle contains 'frame-silver' or media_alt_handle contains 'silver-frame' or media_alt_handle contains 'rahmen-silber' or media_alt_handle contains 'silber-rahmen' %}
+                    {% assign frame_media_tone = 'silver' %}
+                  {% elsif media_alt_handle contains 'frame-gold' or media_alt_handle contains 'gold-frame' or media_alt_handle contains 'rahmen-gold' or media_alt_handle contains 'gold-rahmen' %}
+                    {% assign frame_media_tone = 'gold' %}
+                  {% endif %}
+                  <button class="spx-product__thumb{% if media.id == selected_media.id %} is-active{% endif %}" type="button" role="tab" aria-selected="{% if media.id == selected_media.id %}true{% else %}false{% endif %}" data-spx-image="{{ media.preview_image | image_url: width: 1620 }}" data-spx-media-id="{{ media.id }}" data-spx-image-id="{{ media.preview_image.id }}" data-spx-frame-media-tone="{{ frame_media_tone }}" data-analytics-event="product_gallery_thumbnail">{{ media.preview_image | image_url: width: 168 | image_tag: alt: media_alt, loading: 'lazy' }}</button>
                 {% else %}
                   <button class="spx-product__thumb is-active" type="button" role="tab" aria-selected="true" data-spx-image=""><span class="visually-hidden">{{ product.title }}</span></button>
                 {% endfor %}
@@ -48,7 +61,6 @@
             <button class="spx-product__main-image-button" type="button" aria-label="Expand {{ product.title | escape }}" data-spx-open-zoom>
               {% if selected_image != blank %}<img data-spx-main-image src="{{ selected_image | image_url: width: 1620 }}" alt="{{ product.title | escape }}">{% else %}{{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}{% endif %}
             </button>
-            <span class="spx-product__frame-preview" data-spx-frame-preview data-frame-tone="none" aria-hidden="true"></span>
             <button class="spx-product__zoom-button" type="button" aria-label="Expand image" data-spx-open-zoom><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="5.5"/><path d="m15 15 4 4"/></svg></button>
           </div>
         </div>
@@ -87,7 +99,6 @@
   <dialog class="spx-product__zoom-dialog" data-spx-zoom aria-label="Expanded product image">
     <div class="spx-product__zoom-stage">
       {% if selected_image != blank %}<img src="{{ selected_image | image_url: width: 1946 }}" alt="{{ product.title | escape }}" data-spx-zoom-image>{% else %}<img src="" alt="{{ product.title | escape }}" data-spx-zoom-image>{% endif %}
-      <span class="spx-product__zoom-frame-preview" data-spx-frame-preview data-frame-tone="none" aria-hidden="true"></span>
       <div class="spx-product__zoom-actions" aria-label="Expanded image controls">
         <button class="spx-product__zoom-action" type="button" aria-label="Close expanded image" data-spx-close-zoom><svg aria-hidden="true" viewBox="0 0 20 20"><path d="m5.5 5.5 9 9M14.5 5.5l-9 9"/></svg></button>
       </div>

@@ -66,9 +66,7 @@
             "black_label": "Black",
             "silver_label": "Silver",
             "gold_label": "Gold",
-            "save_to_cart": true,
-            "enable_preview": true,
-            "frame_preview_width": 20
+            "save_to_cart": true
           }
         },
         "buy_button": {

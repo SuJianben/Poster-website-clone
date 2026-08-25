@@ -139,7 +139,7 @@
 
   {% when 'variant_picker' %}
     {% unless product.has_only_default_variant %}
-      <div class="spx-product__variant-picker" data-spx-variant-picker data-spx-frame-preview-enabled="{% if block.settings.enable_frame_preview == false %}false{% else %}true{% endif %}" data-spx-frame-preview-width="{{ block.settings.frame_preview_width | default: 20 }}" data-analytics-block-type="variant_picker" {{ block.shopify_attributes }}>
+      <div class="spx-product__variant-picker" data-spx-variant-picker data-analytics-block-type="variant_picker" {{ block.shopify_attributes }}>
         {% assign has_native_material_option = false %}
         {% for option in product.options_with_values %}
           {% assign option_handle = option.name | handleize %}
@@ -252,7 +252,7 @@
         {% assign manual_black_label = block.settings.black_label | default: 'Black' %}
         {% assign manual_silver_label = block.settings.silver_label | default: 'Silver' %}
         {% assign manual_gold_label = block.settings.gold_label | default: 'Gold' %}
-        <div class="spx-product__option-group spx-product__manual-frame-picker" data-spx-manual-frame-picker data-spx-frame-preview-enabled="{% if block.settings.enable_preview == false %}false{% else %}true{% endif %}" data-spx-frame-preview-width="{{ block.settings.frame_preview_width | default: 20 }}" data-analytics-block-type="frame_picker" {{ block.shopify_attributes }}>
+        <div class="spx-product__option-group spx-product__manual-frame-picker" data-spx-manual-frame-picker data-analytics-block-type="frame_picker" {{ block.shopify_attributes }}>
           <p><strong>{{ block.settings.heading | default: 'Premium Frame' }}:</strong> <span data-spx-manual-frame-output>{% if manual_frame_default == 'white' %}{{ manual_white_label }}{% elsif manual_frame_default == 'black' %}{{ manual_black_label }}{% elsif manual_frame_default == 'silver' %}{{ manual_silver_label }}{% elsif manual_frame_default == 'gold' %}{{ manual_gold_label }}{% else %}{{ manual_none_label }}{% endif %}</span></p>
           <div class="spx-product__frame-options" role="group" aria-label="{{ block.settings.heading | default: 'Premium Frame' | escape }}">
             <button type="button" class="spx-product__frame-option{% if manual_frame_default == 'none' %} is-selected{% endif %}" data-spx-manual-frame-value data-spx-frame-tone="none" data-spx-frame-label="{{ manual_none_label | escape }}" aria-label="{{ manual_none_label | escape }}" aria-pressed="{% if manual_frame_default == 'none' %}true{% else %}false{% endif %}" title="{{ manual_none_label | escape }}"><span class="spx-product__frame-swatch spx-product__frame-swatch--none" aria-hidden="true"></span><span class="visually-hidden">{{ manual_none_label }}</span></button>

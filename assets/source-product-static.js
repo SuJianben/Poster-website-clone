@@ -5,7 +5,6 @@
   product.dataset.spxInitialized = 'true';
 
   const mainImage = product.querySelector('[data-spx-main-image]');
-  const framePreviews = [...product.querySelectorAll('[data-spx-frame-preview]')];
   const zoom = product.querySelector('[data-spx-zoom]');
   const zoomImage = product.querySelector('[data-spx-zoom-image]');
   const thumbTrack = product.querySelector('[data-spx-thumb-track]');
@@ -17,23 +16,8 @@
   const thumbWindow = thumbTrack?.closest('.spx-product__thumb-window');
   const viewer = product.querySelector('[data-spx-viewer]');
   const zoomStage = product.querySelector('.spx-product__zoom-stage');
-  const getPosterPreviewAspect = () => {
-    const sizeValue = product.querySelector('.spx-product__size-group [data-spx-option-output]')?.textContent || '';
-    const dimensions = sizeValue.match(/(\d+(?:[.,]\d+)?)\s*(?:x|\u00d7)\s*(\d+(?:[.,]\d+)?)/i);
-    if (!dimensions) return 0.72;
-
-    const width = Number.parseFloat(dimensions[1].replace(',', '.'));
-    const height = Number.parseFloat(dimensions[2].replace(',', '.'));
-    const aspect = width / height;
-    return Number.isFinite(aspect) ? Math.min(1.6, Math.max(0.45, aspect)) : 0.72;
-  };
-  const syncFramePreviewGeometry = (preview, width) => {
-    const aspect = getPosterPreviewAspect();
-    preview.style.setProperty('--spx-frame-preview-width', `${width}px`);
-    preview.style.setProperty('--spx-frame-preview-aspect', String(aspect));
-    preview.style.setProperty('--spx-frame-preview-content-width', `${Math.min(82, 80 * aspect)}%`);
-  };
   let activeIndex = Math.max(0, thumbs.findIndex((thumb) => thumb.classList.contains('is-active')));
+  let unframedImageIndex = activeIndex;
   let thumbOffset = 0;
   let zoomCloseTimer;
   let suppressViewerClick = false;
@@ -229,7 +213,6 @@
     const variantMediaData = product.querySelector('[data-spx-variant-media-data]');
     const variantIdInput = variantPicker.querySelector('[data-spx-variant-id]');
     const optionGroups = [...variantPicker.querySelectorAll('[data-spx-variant-option]')];
-    const frameOptionGroup = optionGroups.find((group) => group.hasAttribute('data-spx-frame-option'));
     let variants = [];
     let variantMedia = {};
 
@@ -247,35 +230,6 @@
 
     const optionValuesForVariant = (variant) => variant.options || [variant.option1, variant.option2, variant.option3].filter(Boolean);
     const selectedValues = optionGroups.map((group) => group.querySelector('[data-spx-option-output]')?.textContent.trim() || '');
-
-    const normalizeFrameTone = (value) => {
-      const label = String(value || '').trim().toLocaleLowerCase();
-      if (!label || /(^|\\s)(none|ohne|rahmenlos|unframed)(\\s|$)|no\\s*frame|without\\s*(a\\s*)?frame/.test(label)) return 'none';
-      if (/white|weiss|weiß/.test(label)) return 'white';
-      if (/black|schwarz/.test(label)) return 'black';
-      if (/silver|silber/.test(label)) return 'silver';
-      if (/gold/.test(label)) return 'gold';
-      return 'natural';
-    };
-
-    const syncFramePreview = (hasRealVariantMedia = false) => {
-      if (!framePreviews.length || !frameOptionGroup) return;
-
-      const frameOptionIndex = optionGroups.indexOf(frameOptionGroup);
-      const selectedControl = frameOptionGroup?.querySelector('[data-spx-variant-value].is-selected');
-      const selectedValue = selectedControl?.dataset.optionValue
-        || frameOptionGroup?.querySelector('[data-spx-variant-select]')?.value
-        || selectedValues[frameOptionIndex];
-      const frameTone = selectedControl?.dataset.spxFrameTone || normalizeFrameTone(selectedValue);
-      const previewEnabled = variantPicker.dataset.spxFramePreviewEnabled !== 'false' && Boolean(frameOptionGroup);
-      const configuredWidth = Number.parseInt(variantPicker.dataset.spxFramePreviewWidth || '', 10);
-      const previewWidth = Number.isFinite(configuredWidth) ? Math.min(42, Math.max(8, configuredWidth)) : 20;
-
-      framePreviews.forEach((preview) => {
-        preview.dataset.frameTone = previewEnabled && !hasRealVariantMedia ? frameTone : 'none';
-        syncFramePreviewGeometry(preview, previewWidth);
-      });
-    };
 
     const syncVariantMedia = (variant) => {
       if (!variant || !thumbs.length) return false;
@@ -319,8 +273,7 @@
         });
       });
 
-      const hasRealVariantMedia = syncVariantMedia(selectedVariant);
-      syncFramePreview(hasRealVariantMedia);
+      if (syncVariantMedia(selectedVariant)) unframedImageIndex = activeIndex;
 
       product.dispatchEvent(new CustomEvent('spx:variant-change', {
         bubbles: true,
@@ -356,13 +309,23 @@
     const manualFrameControls = [...manualFramePicker.querySelectorAll('[data-spx-manual-frame-value]')];
     const manualFrameOutput = manualFramePicker.querySelector('[data-spx-manual-frame-output]');
     const manualFrameProperty = manualFramePicker.querySelector('[data-spx-manual-frame-property]');
+    const findFrameMediaIndex = (frameTone) => thumbs.findIndex((thumb) => thumb.dataset.spxFrameMediaTone === frameTone);
+
+    const syncManualFrameImage = (frameTone) => {
+      if (frameTone === 'none') {
+        setActiveImage(unframedImageIndex);
+        return;
+      }
+
+      const taggedImageIndex = findFrameMediaIndex(frameTone);
+      if (taggedImageIndex >= 0) {
+        setActiveImage(taggedImageIndex);
+      }
+    };
 
     const setManualFrame = (control) => {
       if (!control) return;
 
-      const previewEnabled = manualFramePicker.dataset.spxFramePreviewEnabled !== 'false';
-      const configuredWidth = Number.parseInt(manualFramePicker.dataset.spxFramePreviewWidth || '', 10);
-      const previewWidth = Number.isFinite(configuredWidth) ? Math.min(42, Math.max(8, configuredWidth)) : 20;
       const frameTone = control.dataset.spxFrameTone || 'none';
       const frameLabel = control.dataset.spxFrameLabel || control.getAttribute('aria-label') || '';
 
@@ -376,10 +339,7 @@
         manualFrameProperty.value = frameLabel;
         manualFrameProperty.disabled = frameTone === 'none';
       }
-      framePreviews.forEach((preview) => {
-        preview.dataset.frameTone = previewEnabled ? frameTone : 'none';
-        syncFramePreviewGeometry(preview, previewWidth);
-      });
+      syncManualFrameImage(frameTone);
 
       product.dispatchEvent(new CustomEvent('spx:frame-change', {
         bubbles: true,
@@ -390,6 +350,7 @@
     manualFrameControls.forEach((control) => control.addEventListener('click', () => setManualFrame(control)));
     setManualFrame(manualFrameControls.find((control) => control.classList.contains('is-selected')) || manualFrameControls[0]);
     product.addEventListener('spx:variant-change', () => {
+      unframedImageIndex = activeIndex;
       setManualFrame(manualFrameControls.find((control) => control.classList.contains('is-selected')) || manualFrameControls[0]);
     });
   }
