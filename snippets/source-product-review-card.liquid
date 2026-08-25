@@ -3,6 +3,10 @@
   assign review_title = block.settings.title | default: 'Great quality'
   assign review_body = block.settings.body | default: ''
   assign review_date = block.settings.review_date | default: ''
+  assign review_sort_date = review_date
+  if review_sort_date == blank
+    assign review_sort_date = '2999-12-31'
+  endif
   assign rating = block.settings.rating | default: 5
   assign reviewer = block.settings.reviewer | default: 'Customer'
   assign country = block.settings.country | default: ''
@@ -43,8 +47,9 @@
 <article
   class="sprv-card"
   data-sprv-review-card
+  data-sprv-source="manual"
   data-sprv-has-photo="{% if image_count > 0 %}true{% else %}false{% endif %}"
-  data-sprv-date="{{ review_date | escape }}"
+  data-sprv-date="{{ review_sort_date | escape }}"
   data-sprv-rating="{{ rating }}"
   data-sprv-helpful="{{ helpful }}"
   {{ block.shopify_attributes }}
