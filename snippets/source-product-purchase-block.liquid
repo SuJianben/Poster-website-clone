@@ -234,8 +234,42 @@
       </div>
     {% endunless %}
 
+  {% when 'frame_picker' %}
+    {% assign has_native_frame_option = false %}
+    {% for option in product.options_with_values %}
+      {% assign option_handle = option.name | handleize %}
+      {% if option_handle contains 'frame' or option_handle contains 'rahmen' %}
+        {% assign has_native_frame_option = true %}
+        {% break %}
+      {% endif %}
+    {% endfor %}
+    {% unless has_native_frame_option %}
+      {% if block.settings.enabled != false %}
+        {% assign manual_frame_default = block.settings.default_frame | default: 'none' %}
+        {% assign manual_frame_property_name = block.settings.property_name | default: 'Premium Frame' %}
+        {% assign manual_none_label = block.settings.none_label | default: 'No frame' %}
+        {% assign manual_white_label = block.settings.white_label | default: 'White' %}
+        {% assign manual_black_label = block.settings.black_label | default: 'Black' %}
+        {% assign manual_silver_label = block.settings.silver_label | default: 'Silver' %}
+        {% assign manual_gold_label = block.settings.gold_label | default: 'Gold' %}
+        <div class="spx-product__option-group spx-product__manual-frame-picker" data-spx-manual-frame-picker data-spx-frame-preview-enabled="{% if block.settings.enable_preview == false %}false{% else %}true{% endif %}" data-spx-frame-preview-width="{{ block.settings.frame_preview_width | default: 20 }}" data-analytics-block-type="frame_picker" {{ block.shopify_attributes }}>
+          <p><strong>{{ block.settings.heading | default: 'Premium Frame' }}:</strong> <span data-spx-manual-frame-output>{% if manual_frame_default == 'white' %}{{ manual_white_label }}{% elsif manual_frame_default == 'black' %}{{ manual_black_label }}{% elsif manual_frame_default == 'silver' %}{{ manual_silver_label }}{% elsif manual_frame_default == 'gold' %}{{ manual_gold_label }}{% else %}{{ manual_none_label }}{% endif %}</span></p>
+          <div class="spx-product__frame-options" role="group" aria-label="{{ block.settings.heading | default: 'Premium Frame' | escape }}">
+            <button type="button" class="spx-product__frame-option{% if manual_frame_default == 'none' %} is-selected{% endif %}" data-spx-manual-frame-value data-spx-frame-tone="none" data-spx-frame-label="{{ manual_none_label | escape }}" aria-label="{{ manual_none_label | escape }}" aria-pressed="{% if manual_frame_default == 'none' %}true{% else %}false{% endif %}" title="{{ manual_none_label | escape }}"><span class="spx-product__frame-swatch spx-product__frame-swatch--none" aria-hidden="true"></span><span class="visually-hidden">{{ manual_none_label }}</span></button>
+            <button type="button" class="spx-product__frame-option{% if manual_frame_default == 'white' %} is-selected{% endif %}" data-spx-manual-frame-value data-spx-frame-tone="white" data-spx-frame-label="{{ manual_white_label | escape }}" aria-label="{{ manual_white_label | escape }}" aria-pressed="{% if manual_frame_default == 'white' %}true{% else %}false{% endif %}" title="{{ manual_white_label | escape }}"><span class="spx-product__frame-swatch spx-product__frame-swatch--white" aria-hidden="true"></span><span class="visually-hidden">{{ manual_white_label }}</span></button>
+            <button type="button" class="spx-product__frame-option{% if manual_frame_default == 'black' %} is-selected{% endif %}" data-spx-manual-frame-value data-spx-frame-tone="black" data-spx-frame-label="{{ manual_black_label | escape }}" aria-label="{{ manual_black_label | escape }}" aria-pressed="{% if manual_frame_default == 'black' %}true{% else %}false{% endif %}" title="{{ manual_black_label | escape }}"><span class="spx-product__frame-swatch spx-product__frame-swatch--black" aria-hidden="true"></span><span class="visually-hidden">{{ manual_black_label }}</span></button>
+            <button type="button" class="spx-product__frame-option{% if manual_frame_default == 'silver' %} is-selected{% endif %}" data-spx-manual-frame-value data-spx-frame-tone="silver" data-spx-frame-label="{{ manual_silver_label | escape }}" aria-label="{{ manual_silver_label | escape }}" aria-pressed="{% if manual_frame_default == 'silver' %}true{% else %}false{% endif %}" title="{{ manual_silver_label | escape }}"><span class="spx-product__frame-swatch spx-product__frame-swatch--silver" aria-hidden="true"></span><span class="visually-hidden">{{ manual_silver_label }}</span></button>
+            <button type="button" class="spx-product__frame-option{% if manual_frame_default == 'gold' %} is-selected{% endif %}" data-spx-manual-frame-value data-spx-frame-tone="gold" data-spx-frame-label="{{ manual_gold_label | escape }}" aria-label="{{ manual_gold_label | escape }}" aria-pressed="{% if manual_frame_default == 'gold' %}true{% else %}false{% endif %}" title="{{ manual_gold_label | escape }}"><span class="spx-product__frame-swatch spx-product__frame-swatch--gold" aria-hidden="true"></span><span class="visually-hidden">{{ manual_gold_label }}</span></button>
+          </div>
+          {% if block.settings.save_to_cart != false %}
+            <input type="hidden" name="properties[{{ manual_frame_property_name | escape }}]" value="{% if manual_frame_default == 'white' %}{{ manual_white_label | escape }}{% elsif manual_frame_default == 'black' %}{{ manual_black_label | escape }}{% elsif manual_frame_default == 'silver' %}{{ manual_silver_label | escape }}{% elsif manual_frame_default == 'gold' %}{{ manual_gold_label | escape }}{% else %}{{ manual_none_label | escape }}{% endif %}" form="spx-product-form-{{ section.id }}" data-spx-manual-frame-property{% if manual_frame_default == 'none' %} disabled{% endif %}>
+          {% endif %}
+        </div>
+      {% endif %}
+    {% endunless %}
+
   {% when 'buy_button' %}
-    <form class="spx-product__cart-form" method="post" action="{{ routes.cart_add_url }}" data-spx-cart-form data-spx-cart-add-url="{{ routes.cart_add_url }}.js" data-spx-cart-url="{{ routes.cart_url }}.js" data-analytics-block-type="buy_button" {{ block.shopify_attributes }}>
+    <form id="spx-product-form-{{ section.id }}" class="spx-product__cart-form" method="post" action="{{ routes.cart_add_url }}" data-spx-cart-form data-spx-cart-add-url="{{ routes.cart_add_url }}.js" data-spx-cart-url="{{ routes.cart_url }}.js" data-analytics-block-type="buy_button" {{ block.shopify_attributes }}>
       <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" data-spx-cart-variant-id>
       <input type="hidden" name="quantity" value="1">
       {% if block.settings.show_hanging_kit %}

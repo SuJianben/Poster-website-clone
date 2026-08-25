@@ -54,6 +54,23 @@
             "popular_size_label": "Bestseller"
           }
         },
+        "frame_picker": {
+          "type": "frame_picker",
+          "settings": {
+            "enabled": true,
+            "heading": "Premium Frame",
+            "property_name": "Premium Frame",
+            "default_frame": "none",
+            "none_label": "No frame",
+            "white_label": "White",
+            "black_label": "Black",
+            "silver_label": "Silver",
+            "gold_label": "Gold",
+            "save_to_cart": true,
+            "enable_preview": true,
+            "frame_preview_width": 20
+          }
+        },
         "buy_button": {
           "type": "buy_button",
           "settings": {
@@ -110,6 +127,7 @@
         "artist",
         "price",
         "variant_picker",
+        "frame_picker",
         "buy_button",
         "volume_discount",
         "benefits",

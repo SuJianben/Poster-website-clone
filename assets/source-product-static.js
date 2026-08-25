@@ -243,7 +243,7 @@
     };
 
     const syncFramePreview = (hasRealVariantMedia = false) => {
-      if (!framePreviews.length) return;
+      if (!framePreviews.length || !frameOptionGroup) return;
 
       const frameOptionIndex = optionGroups.indexOf(frameOptionGroup);
       const selectedControl = frameOptionGroup?.querySelector('[data-spx-variant-value].is-selected');
@@ -333,6 +333,46 @@
     });
 
     syncVariantState();
+  }
+
+  const manualFramePicker = product.querySelector('[data-spx-manual-frame-picker]');
+  if (manualFramePicker) {
+    const manualFrameControls = [...manualFramePicker.querySelectorAll('[data-spx-manual-frame-value]')];
+    const manualFrameOutput = manualFramePicker.querySelector('[data-spx-manual-frame-output]');
+    const manualFrameProperty = manualFramePicker.querySelector('[data-spx-manual-frame-property]');
+
+    const setManualFrame = (control) => {
+      if (!control) return;
+
+      const previewEnabled = manualFramePicker.dataset.spxFramePreviewEnabled !== 'false';
+      const configuredWidth = Number.parseInt(manualFramePicker.dataset.spxFramePreviewWidth || '', 10);
+      const previewWidth = Number.isFinite(configuredWidth) ? Math.min(42, Math.max(8, configuredWidth)) : 20;
+      const frameTone = control.dataset.spxFrameTone || 'none';
+      const frameLabel = control.dataset.spxFrameLabel || control.getAttribute('aria-label') || '';
+
+      manualFrameControls.forEach((item) => {
+        const selected = item === control;
+        item.classList.toggle('is-selected', selected);
+        item.setAttribute('aria-pressed', String(selected));
+      });
+      if (manualFrameOutput) manualFrameOutput.textContent = frameLabel;
+      if (manualFrameProperty) {
+        manualFrameProperty.value = frameLabel;
+        manualFrameProperty.disabled = frameTone === 'none';
+      }
+      framePreviews.forEach((preview) => {
+        preview.dataset.frameTone = previewEnabled ? frameTone : 'none';
+        preview.style.setProperty('--spx-frame-preview-width', `${previewWidth}px`);
+      });
+
+      product.dispatchEvent(new CustomEvent('spx:frame-change', {
+        bubbles: true,
+        detail: { tone: frameTone, label: frameLabel, source: 'manual' }
+      }));
+    };
+
+    manualFrameControls.forEach((control) => control.addEventListener('click', () => setManualFrame(control)));
+    setManualFrame(manualFrameControls.find((control) => control.classList.contains('is-selected')) || manualFrameControls[0]);
   }
 
   const sizeGuide = product.querySelector('[data-spx-size-guide-dialog]');

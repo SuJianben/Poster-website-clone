@@ -101,6 +101,25 @@
       ]
     },
     {
+      "type": "frame_picker",
+      "name": "画框选择",
+      "limit": 1,
+      "settings": [
+        { "type": "checkbox", "id": "enabled", "label": "显示画框选择", "default": true },
+        { "type": "text", "id": "heading", "label": "标题", "default": "Premium Frame" },
+        { "type": "text", "id": "property_name", "label": "购物车属性名称", "default": "Premium Frame" },
+        { "type": "select", "id": "default_frame", "label": "默认画框", "options": [ { "value": "none", "label": "无框" }, { "value": "white", "label": "白色" }, { "value": "black", "label": "黑色" }, { "value": "silver", "label": "银色" }, { "value": "gold", "label": "金色" } ], "default": "none" },
+        { "type": "text", "id": "none_label", "label": "无框显示名称", "default": "No frame" },
+        { "type": "text", "id": "white_label", "label": "白色画框名称", "default": "White" },
+        { "type": "text", "id": "black_label", "label": "黑色画框名称", "default": "Black" },
+        { "type": "text", "id": "silver_label", "label": "银色画框名称", "default": "Silver" },
+        { "type": "text", "id": "gold_label", "label": "金色画框名称", "default": "Gold" },
+        { "type": "checkbox", "id": "save_to_cart", "label": "将画框选择写入购物车", "default": true },
+        { "type": "checkbox", "id": "enable_preview", "label": "选择时显示主图预览", "default": true },
+        { "type": "range", "id": "frame_preview_width", "label": "主图画框宽度", "min": 8, "max": 42, "step": 1, "unit": "px", "default": 20 }
+      ]
+    },
+    {
       "type": "buy_button",
       "name": "购买按钮",
       "limit": 1,
@@ -168,6 +187,7 @@
         { "type": "artist" },
         { "type": "price" },
         { "type": "variant_picker" },
+        { "type": "frame_picker" },
         { "type": "buy_button" },
         { "type": "volume_discount" },
         { "type": "benefits" },
