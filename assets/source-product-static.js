@@ -17,6 +17,22 @@
   const thumbWindow = thumbTrack?.closest('.spx-product__thumb-window');
   const viewer = product.querySelector('[data-spx-viewer]');
   const zoomStage = product.querySelector('.spx-product__zoom-stage');
+  const getPosterPreviewAspect = () => {
+    const sizeValue = product.querySelector('.spx-product__size-group [data-spx-option-output]')?.textContent || '';
+    const dimensions = sizeValue.match(/(\d+(?:[.,]\d+)?)\s*(?:x|\u00d7)\s*(\d+(?:[.,]\d+)?)/i);
+    if (!dimensions) return 0.72;
+
+    const width = Number.parseFloat(dimensions[1].replace(',', '.'));
+    const height = Number.parseFloat(dimensions[2].replace(',', '.'));
+    const aspect = width / height;
+    return Number.isFinite(aspect) ? Math.min(1.6, Math.max(0.45, aspect)) : 0.72;
+  };
+  const syncFramePreviewGeometry = (preview, width) => {
+    const aspect = getPosterPreviewAspect();
+    preview.style.setProperty('--spx-frame-preview-width', `${width}px`);
+    preview.style.setProperty('--spx-frame-preview-aspect', String(aspect));
+    preview.style.setProperty('--spx-frame-preview-content-width', `${Math.min(82, 80 * aspect)}%`);
+  };
   let activeIndex = Math.max(0, thumbs.findIndex((thumb) => thumb.classList.contains('is-active')));
   let thumbOffset = 0;
   let zoomCloseTimer;
@@ -257,7 +273,7 @@
 
       framePreviews.forEach((preview) => {
         preview.dataset.frameTone = previewEnabled && !hasRealVariantMedia ? frameTone : 'none';
-        preview.style.setProperty('--spx-frame-preview-width', `${previewWidth}px`);
+        syncFramePreviewGeometry(preview, previewWidth);
       });
     };
 
@@ -362,7 +378,7 @@
       }
       framePreviews.forEach((preview) => {
         preview.dataset.frameTone = previewEnabled ? frameTone : 'none';
-        preview.style.setProperty('--spx-frame-preview-width', `${previewWidth}px`);
+        syncFramePreviewGeometry(preview, previewWidth);
       });
 
       product.dispatchEvent(new CustomEvent('spx:frame-change', {
@@ -373,6 +389,9 @@
 
     manualFrameControls.forEach((control) => control.addEventListener('click', () => setManualFrame(control)));
     setManualFrame(manualFrameControls.find((control) => control.classList.contains('is-selected')) || manualFrameControls[0]);
+    product.addEventListener('spx:variant-change', () => {
+      setManualFrame(manualFrameControls.find((control) => control.classList.contains('is-selected')) || manualFrameControls[0]);
+    });
   }
 
   const sizeGuide = product.querySelector('[data-spx-size-guide-dialog]');
