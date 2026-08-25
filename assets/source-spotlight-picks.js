@@ -7,6 +7,36 @@
     { quantity: 5, discount: 25 }
   ];
 
+  const DEFAULT_OFFERS = [
+    {
+      enabled: true,
+      highlight: '-10%',
+      title: 'Rabatt für Newsletter Anmeldung',
+      description: '',
+      button: 'Zur Anmeldung',
+      link: '/pages/newsletter',
+      scheme: 'inverse'
+    },
+    {
+      enabled: true,
+      highlight: '-20%',
+      title: 'Rabatt auf Neuheiten',
+      description: 'Jede Woche neue Angebote',
+      button: 'Sparen',
+      link: '/collections/wandbild-neuheiten-sale',
+      scheme: '10'
+    },
+    {
+      enabled: true,
+      highlight: '-15%',
+      title: 'Rabatt auf Bundles',
+      description: 'Entdecke passende Bundles',
+      button: 'Sparen',
+      link: '/collections/wandbilder-bundles',
+      scheme: '10'
+    }
+  ];
+
   const DEFAULT_CONFIG = {
     enabled: true,
     button: {
@@ -16,7 +46,7 @@
     },
     banner: 'Spare jetzt mit diesen exklusiven Angeboten',
     title: 'Besondere Angebote',
-    offers: [],
+    offers: DEFAULT_OFFERS,
     progress: {
       enabled: true,
       nextCopy: 'Kaufen Sie {remaining} weitere Artikel, um {discount}% Rabatt zu erhalten.',
@@ -128,7 +158,7 @@
         ...parsed,
         enabled: parsed?.enabled !== false,
         button: { ...DEFAULT_CONFIG.button, ...parsedButton },
-        offers: Array.isArray(parsed?.offers) ? parsed.offers : DEFAULT_CONFIG.offers,
+        offers: Array.isArray(parsed?.offers) && parsed.offers.length ? parsed.offers : DEFAULT_CONFIG.offers,
         progress: {
           ...DEFAULT_CONFIG.progress,
           ...parsedProgress,
@@ -289,7 +319,10 @@
   };
 
   const applyConfig = (drawer, config) => {
-    const offers = normalizedOffers(config.offers);
+    const configuredOffers = normalizedOffers(config.offers);
+    // Keep the drawer useful when a newly added theme setting has not been
+    // initialized yet. The global switch still controls the whole drawer.
+    const offers = configuredOffers.length ? configuredOffers : normalizedOffers(DEFAULT_OFFERS);
     updateTrigger(config, offers.length);
     if (config.enabled === false) {
       drawer.hidden = true;

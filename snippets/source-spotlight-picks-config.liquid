@@ -1,6 +1,6 @@
 <script type="application/json" data-source-spotlight-config>
   {
-    "enabled": {{ settings.sp_enabled | json }},
+    "enabled": {{ settings.sp_enabled | default: true, allow_false: true | json }},
     "button": {
       "label": {{ settings.sp_btn_label | default: 'Angebote' | json }},
       "background": {{ settings.sp_btn_bg | default: '#3D1313' | json }},
@@ -10,7 +10,7 @@
     "title": {{ settings.sp_title | default: 'Besondere Angebote' | json }},
     "offers": [
       {
-        "enabled": {{ settings.sp_o1_enabled | json }},
+        "enabled": {{ settings.sp_o1_enabled | default: true, allow_false: true | json }},
         "highlight": {{ settings.sp_o1_badge | default: '-10%' | json }},
         "title": {{ settings.sp_o1_title | default: 'Rabatt für Newsletter Anmeldung' | json }},
         "description": {{ settings.sp_o1_desc | json }},
@@ -19,7 +19,7 @@
         "scheme": {{ settings.sp_o1_scheme | default: 'inverse' | json }}
       },
       {
-        "enabled": {{ settings.sp_o2_enabled | json }},
+        "enabled": {{ settings.sp_o2_enabled | default: true, allow_false: true | json }},
         "highlight": {{ settings.sp_o2_badge | default: '-20%' | json }},
         "title": {{ settings.sp_o2_title | default: 'Rabatt auf Neuheiten' | json }},
         "description": {{ settings.sp_o2_desc | default: 'Jede Woche neue Angebote' | json }},
@@ -28,7 +28,7 @@
         "scheme": {{ settings.sp_o2_scheme | default: '10' | json }}
       },
       {
-        "enabled": {{ settings.sp_o3_enabled | json }},
+        "enabled": {{ settings.sp_o3_enabled | default: true, allow_false: true | json }},
         "highlight": {{ settings.sp_o3_badge | default: '-15%' | json }},
         "title": {{ settings.sp_o3_title | default: 'Rabatt auf Bundles' | json }},
         "description": {{ settings.sp_o3_desc | default: 'Entdecke passende Bundles' | json }},
@@ -37,7 +37,7 @@
         "scheme": {{ settings.sp_o3_scheme | default: '10' | json }}
       },
       {
-        "enabled": {{ settings.sp_o4_enabled | json }},
+        "enabled": {{ settings.sp_o4_enabled | default: false, allow_false: true | json }},
         "highlight": {{ settings.sp_o4_badge | json }},
         "title": {{ settings.sp_o4_title | json }},
         "description": {{ settings.sp_o4_desc | json }},
@@ -46,7 +46,7 @@
         "scheme": {{ settings.sp_o4_scheme | default: '10' | json }}
       },
       {
-        "enabled": {{ settings.sp_o5_enabled | json }},
+        "enabled": {{ settings.sp_o5_enabled | default: false, allow_false: true | json }},
         "highlight": {{ settings.sp_o5_badge | json }},
         "title": {{ settings.sp_o5_title | json }},
         "description": {{ settings.sp_o5_desc | json }},
@@ -56,7 +56,7 @@
       }
     ],
     "progress": {
-      "enabled": {{ settings.sp_progress_on | json }},
+      "enabled": {{ settings.sp_progress_on | default: true, allow_false: true | json }},
       "nextCopy": {{ settings.sp_progress_next | default: 'Kaufen Sie {remaining} weitere Artikel, um {discount}% Rabatt zu erhalten.' | json }},
       "completeCopy": {{ settings.sp_progress_done | default: 'Sie haben sich den maximalen Mengenrabatt gesichert.' | json }},
       "discountLabel": {{ settings.sp_progress_disc | default: '{discount}% Rabatt' | json }},
