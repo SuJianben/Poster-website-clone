@@ -11,13 +11,28 @@
   "sections": {
     "main": {
       "type": "source-reviews-page",
-      "settings": {
-        "page_label": "Bewertungen",
-        "write_heading": "Write a review",
-        "default_filter": "recent",
-        "reviews_per_page": 12
-      },
       "blocks": {
+        "review_V4fqzr": {
+          "type": "review",
+          "settings": {
+            "enabled": true,
+            "reviewer": "Customer name",
+            "review_date": "",
+            "rating": 5,
+            "title": "Review title",
+            "body": "Add the customer's review here.",
+            "product": "",
+            "product_name": "",
+            "verified": true,
+            "verified_label": "Verified Buyer",
+            "country": "",
+            "image_1": "shopify://shop_images/AcrylglasbildSaveWaterDrinkChampagneOriginalPopArtBild12.jpg",
+            "image_1_url": "",
+            "image_2_url": "",
+            "image_3_url": "",
+            "helpful_count": 0
+          }
+        },
         "heading": {
           "type": "heading",
           "settings": {
@@ -33,12 +48,13 @@
             "heading": "Unsere Glücklichen Kunden",
             "subheading": "<p>Echte Bewertungen, Echte Inspiration</p>",
             "show_highlight": true,
-            "highlight_color": "#A18D34"
+            "highlight_color": "#a18d34"
           }
         },
         "summary": {
           "type": "summary",
           "settings": {
+            "heading": "",
             "accessible_heading": "Customer Reviews",
             "review_count": "2626",
             "average_rating": "4,9",
@@ -49,16 +65,33 @@
         "reviews": {
           "type": "reviews",
           "settings": {
+            "heading": "",
             "aria_label": "Customer review list",
             "review_count": "2625",
             "append_to_existing": true,
             "show_write": true,
-            "write_heading": "Write a review"
+            "write_heading": "Write a review",
+            "contact_url": ""
           }
         }
       },
-      "block_order": ["heading", "hero", "summary", "reviews"]
+      "block_order": [
+        "review_V4fqzr",
+        "heading",
+        "hero",
+        "summary",
+        "reviews"
+      ],
+      "settings": {
+        "page_label": "Bewertungen",
+        "write_heading": "Write a review",
+        "contact_url": "",
+        "default_filter": "recent",
+        "reviews_per_page": 12
+      }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }
