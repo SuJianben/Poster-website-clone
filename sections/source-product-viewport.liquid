@@ -111,9 +111,20 @@
         { "type": "text", "id": "black_label", "label": "黑色画框名称", "default": "Black" },
         { "type": "text", "id": "silver_label", "label": "银色画框名称", "default": "Silver" },
         { "type": "text", "id": "gold_label", "label": "金色画框名称", "default": "Gold" },
+        { "type": "header", "content": "画框成品图" },
+        { "type": "image_picker", "id": "none_image", "label": "无框成品图" },
+        { "type": "url", "id": "none_image_url", "label": "无框图片链接（可选）" },
+        { "type": "image_picker", "id": "white_image", "label": "白框成品图" },
+        { "type": "url", "id": "white_image_url", "label": "白框图片链接（可选）" },
+        { "type": "image_picker", "id": "black_image", "label": "黑框成品图" },
+        { "type": "url", "id": "black_image_url", "label": "黑框图片链接（可选）" },
+        { "type": "image_picker", "id": "silver_image", "label": "银框成品图" },
+        { "type": "url", "id": "silver_image_url", "label": "银框图片链接（可选）" },
+        { "type": "image_picker", "id": "gold_image", "label": "金框成品图" },
+        { "type": "url", "id": "gold_image_url", "label": "金框图片链接（可选）" },
         { "type": "checkbox", "id": "save_to_cart", "label": "将画框选择写入购物车", "default": true },
         { "type": "header", "content": "带框成品图切换" },
-        { "type": "paragraph", "content": "在商品媒体中上传带框成品图，并将图片替代文本命名为 frame-white、frame-black、frame-silver 或 frame-gold。点击色板会切换到对应图片；无框会显示商品默认图。若同一商品有多个尺寸或材质版本，可在名称后追加对应规格，例如 frame-white-40-x-50-cm。" }
+        { "type": "paragraph", "content": "可直接填写图片链接或使用图片选择器；链接优先于图片选择器。点击色板会切换到对应图片。未配置时，系统会按商品媒体的替代文本（如 frame-white）自动匹配。" }
       ]
     },
     {

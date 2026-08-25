@@ -91,11 +91,24 @@
   const setActiveImage = (index, direction = 0) => {
     if (!mainImage || !zoomImage || !thumbs.length) return;
     const nextIndex = Math.max(0, Math.min(thumbs.length - 1, index));
-    if (nextIndex === activeIndex && mainImage.src) return;
     activeIndex = nextIndex;
     const thumb = thumbs[activeIndex];
     if (!thumb) return;
-    mainImage.src = thumb.dataset.spxImage;
+    setImageSource(thumb.dataset.spxImage, direction);
+    thumbs.forEach((item, itemIndex) => {
+      const isActive = itemIndex === activeIndex;
+      item.classList.toggle('is-active', isActive);
+      item.setAttribute('aria-selected', String(isActive));
+    });
+    syncViewerControls();
+  };
+
+  const setImageSource = (source, direction = 0) => {
+    if (!mainImage || !zoomImage || !source) return false;
+    const zoomSource = /([?&])width=\d+/i.test(source)
+      ? source.replace(/([?&])width=\d+/i, '$1width=1946')
+      : source;
+    mainImage.src = source;
     mainImage.animate(
       [
         { opacity: 0.35, transform: `translateX(${direction > 0 ? '2%' : direction < 0 ? '-2%' : '0'})` },
@@ -103,7 +116,7 @@
       ],
       { duration: 300, easing: 'cubic-bezier(.3,1,.3,1)' }
     );
-    zoomImage.src = thumb.dataset.spxImage.replace('width=1620', 'width=1946');
+    zoomImage.src = zoomSource;
     if (zoom.open) {
       zoomImage.animate(
         [
@@ -113,12 +126,7 @@
         { duration: 320, easing: 'cubic-bezier(.3,1,.3,1)' }
       );
     }
-    thumbs.forEach((item, itemIndex) => {
-      const isActive = itemIndex === activeIndex;
-      item.classList.toggle('is-active', isActive);
-      item.setAttribute('aria-selected', String(isActive));
-    });
-    syncViewerControls();
+    return true;
   };
 
   thumbs.forEach((thumb, index) => thumb.addEventListener('click', () => setActiveImage(index)));
@@ -376,7 +384,9 @@
     const manualFrameOutput = manualFramePicker.querySelector('[data-spx-manual-frame-output]');
     const manualFrameProperty = manualFramePicker.querySelector('[data-spx-manual-frame-property]');
 
-    const syncManualFrameImage = (frameTone) => {
+    const syncManualFrameImage = (control, frameTone) => {
+      const configuredImage = control?.dataset.spxManualFrameImage || '';
+      if (configuredImage && setImageSource(configuredImage)) return;
       if (frameTone === 'none') {
         restoreUnframedImage();
         return;
@@ -404,7 +414,7 @@
         manualFrameProperty.value = frameLabel;
         manualFrameProperty.disabled = frameTone === 'none';
       }
-      syncManualFrameImage(frameTone);
+      syncManualFrameImage(control, frameTone);
 
       product.dispatchEvent(new CustomEvent('spx:frame-change', {
         bubbles: true,

@@ -66,6 +66,16 @@
             "black_label": "Black",
             "silver_label": "Silver",
             "gold_label": "Gold",
+            "none_image": "",
+            "none_image_url": "",
+            "white_image": "",
+            "white_image_url": "",
+            "black_image": "",
+            "black_image_url": "",
+            "silver_image": "",
+            "silver_image_url": "",
+            "gold_image": "",
+            "gold_image_url": "",
             "save_to_cart": true
           }
         },
