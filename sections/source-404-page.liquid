@@ -1,0 +1,44 @@
+{{ 'source-404-page.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign action_url = section.settings.button_link
+  if action_url == blank
+    assign action_url = routes.root_url
+  endif
+-%}
+
+<section
+  class="s404"
+  data-source-404-page
+  {{ section.shopify_attributes }}
+  style="--s404-padding-top: {{ section.settings.padding_top | default: 72 }}px; --s404-padding-bottom: {{ section.settings.padding_bottom | default: 64 }}px;"
+>
+  <div class="s404__container">
+    <div class="s404__content">
+      <h1 id="S404Heading-{{ section.id }}" class="s404__heading">{{ section.settings.heading | default: '404 Seite nicht gefunden' | escape }}</h1>
+
+      {%- if section.settings.description != blank -%}
+        <p class="s404__description">{{ section.settings.description | escape | newline_to_br }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.button_label != blank -%}
+        <a class="s404__button" href="{{ action_url | escape }}">{{ section.settings.button_label | escape }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "404 页面",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "标题", "default": "404 Seite nicht gefunden" },
+    { "type": "textarea", "id": "description", "label": "说明文字", "default": "Die von Ihnen angeforderte Seite existiert nicht." },
+    { "type": "text", "id": "button_label", "label": "按钮文字", "default": "Weiter Einkaufen" },
+    { "type": "url", "id": "button_link", "label": "按钮链接", "info": "留空时默认返回首页。" },
+    { "type": "header", "content": "间距" },
+    { "type": "range", "id": "padding_top", "label": "顶部间距", "min": 32, "max": 180, "step": 4, "default": 72, "unit": "px" },
+    { "type": "range", "id": "padding_bottom", "label": "底部间距", "min": 32, "max": 180, "step": 4, "default": 64, "unit": "px" }
+  ]
+}
+{% endschema %}
