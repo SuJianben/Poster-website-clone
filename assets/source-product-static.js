@@ -18,6 +18,51 @@
   const zoomStage = product.querySelector('.spx-product__zoom-stage');
   let activeIndex = Math.max(0, thumbs.findIndex((thumb) => thumb.classList.contains('is-active')));
   let unframedImageIndex = activeIndex;
+  const unframedImageByContext = new Map();
+  const toFrameMediaKey = (value) => String(value || '')
+    .toLocaleLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/ß/g, 'ss')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+  const normalizeFrameTone = (value) => {
+    const label = String(value || '').trim().toLocaleLowerCase();
+    if (!label || /(^|\s)(none|ohne|rahmenlos|unframed)(\s|$)|no\s*frame|without\s*(a\s*)?frame/.test(label)) return 'none';
+    if (/white|weiss|weiß/.test(label)) return 'white';
+    if (/black|schwarz/.test(label)) return 'black';
+    if (/silver|silber/.test(label)) return 'silver';
+    if (/gold/.test(label)) return 'gold';
+    return 'natural';
+  };
+  const getFrameMediaContext = () => [...product.querySelectorAll('[data-spx-variant-option]')]
+    .filter((group) => !group.hasAttribute('data-spx-frame-option'))
+    .map((group) => toFrameMediaKey(group.querySelector('[data-spx-option-output]')?.textContent))
+    .filter(Boolean);
+  const getFrameMediaContextKey = () => getFrameMediaContext().join('|') || 'default';
+  const findFrameMediaIndex = (frameTone, context = getFrameMediaContext()) => {
+    const matches = thumbs
+      .map((thumb, index) => ({ thumb, index }))
+      .filter(({ thumb }) => thumb.dataset.spxFrameMediaTone === frameTone);
+    if (!matches.length) return -1;
+
+    const contextualMatch = context.length
+      ? matches.find(({ thumb }) => context.every((key) => thumb.dataset.spxFrameMediaKey.includes(key)))
+      : null;
+    return (contextualMatch || matches[0]).index;
+  };
+  const rememberUnframedImage = (index) => {
+    if (index < 0) return;
+    unframedImageIndex = index;
+    unframedImageByContext.set(getFrameMediaContextKey(), index);
+  };
+  const restoreUnframedImage = () => {
+    const taggedImageIndex = findFrameMediaIndex('none');
+    const imageIndex = taggedImageIndex >= 0
+      ? taggedImageIndex
+      : unframedImageByContext.get(getFrameMediaContextKey()) ?? unframedImageIndex;
+    setActiveImage(imageIndex);
+  };
   let thumbOffset = 0;
   let zoomCloseTimer;
   let suppressViewerClick = false;
@@ -213,6 +258,7 @@
     const variantMediaData = product.querySelector('[data-spx-variant-media-data]');
     const variantIdInput = variantPicker.querySelector('[data-spx-variant-id]');
     const optionGroups = [...variantPicker.querySelectorAll('[data-spx-variant-option]')];
+    const frameOptionGroup = optionGroups.find((group) => group.hasAttribute('data-spx-frame-option'));
     let variants = [];
     let variantMedia = {};
 
@@ -230,9 +276,18 @@
 
     const optionValuesForVariant = (variant) => variant.options || [variant.option1, variant.option2, variant.option3].filter(Boolean);
     const selectedValues = optionGroups.map((group) => group.querySelector('[data-spx-option-output]')?.textContent.trim() || '');
+    const getSelectedFrameTone = () => {
+      if (!frameOptionGroup) return 'none';
+      const frameOptionIndex = optionGroups.indexOf(frameOptionGroup);
+      const selectedControl = frameOptionGroup.querySelector('[data-spx-variant-value].is-selected');
+      const selectedValue = selectedControl?.dataset.optionValue
+        || frameOptionGroup.querySelector('[data-spx-variant-select]')?.value
+        || selectedValues[frameOptionIndex];
+      return selectedControl?.dataset.spxFrameTone || normalizeFrameTone(selectedValue);
+    };
 
     const syncVariantMedia = (variant) => {
-      if (!variant || !thumbs.length) return false;
+      if (!variant || !thumbs.length) return -1;
 
       const mappedMedia = variantMedia[String(variant.id)] || {};
       const mediaIds = [
@@ -244,7 +299,7 @@
         String(id) === thumb.dataset.spxMediaId || String(id) === thumb.dataset.spxImageId
       )));
       if (matchingIndex >= 0) setActiveImage(matchingIndex);
-      return matchingIndex >= 0;
+      return matchingIndex;
     };
 
     const syncVariantState = () => {
@@ -273,7 +328,18 @@
         });
       });
 
-      if (syncVariantMedia(selectedVariant)) unframedImageIndex = activeIndex;
+      const selectedFrameTone = getSelectedFrameTone();
+      const variantMediaIndex = syncVariantMedia(selectedVariant);
+      if (variantMediaIndex >= 0) {
+        if (selectedFrameTone === 'none') rememberUnframedImage(variantMediaIndex);
+      } else if (frameOptionGroup) {
+        if (selectedFrameTone === 'none') {
+          restoreUnframedImage();
+        } else {
+          const taggedFrameImageIndex = findFrameMediaIndex(selectedFrameTone);
+          if (taggedFrameImageIndex >= 0) setActiveImage(taggedFrameImageIndex);
+        }
+      }
 
       product.dispatchEvent(new CustomEvent('spx:variant-change', {
         bubbles: true,
@@ -309,11 +375,10 @@
     const manualFrameControls = [...manualFramePicker.querySelectorAll('[data-spx-manual-frame-value]')];
     const manualFrameOutput = manualFramePicker.querySelector('[data-spx-manual-frame-output]');
     const manualFrameProperty = manualFramePicker.querySelector('[data-spx-manual-frame-property]');
-    const findFrameMediaIndex = (frameTone) => thumbs.findIndex((thumb) => thumb.dataset.spxFrameMediaTone === frameTone);
 
     const syncManualFrameImage = (frameTone) => {
       if (frameTone === 'none') {
-        setActiveImage(unframedImageIndex);
+        restoreUnframedImage();
         return;
       }
 
@@ -350,7 +415,6 @@
     manualFrameControls.forEach((control) => control.addEventListener('click', () => setManualFrame(control)));
     setManualFrame(manualFrameControls.find((control) => control.classList.contains('is-selected')) || manualFrameControls[0]);
     product.addEventListener('spx:variant-change', () => {
-      unframedImageIndex = activeIndex;
       setManualFrame(manualFrameControls.find((control) => control.classList.contains('is-selected')) || manualFrameControls[0]);
     });
   }

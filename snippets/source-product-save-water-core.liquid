@@ -48,7 +48,7 @@
                   {% elsif media_alt_handle contains 'frame-gold' or media_alt_handle contains 'gold-frame' or media_alt_handle contains 'rahmen-gold' or media_alt_handle contains 'gold-rahmen' %}
                     {% assign frame_media_tone = 'gold' %}
                   {% endif %}
-                  <button class="spx-product__thumb{% if media.id == selected_media.id %} is-active{% endif %}" type="button" role="tab" aria-selected="{% if media.id == selected_media.id %}true{% else %}false{% endif %}" data-spx-image="{{ media.preview_image | image_url: width: 1620 }}" data-spx-media-id="{{ media.id }}" data-spx-image-id="{{ media.preview_image.id }}" data-spx-frame-media-tone="{{ frame_media_tone }}" data-analytics-event="product_gallery_thumbnail">{{ media.preview_image | image_url: width: 168 | image_tag: alt: media_alt, loading: 'lazy' }}</button>
+                  <button class="spx-product__thumb{% if media.id == selected_media.id %} is-active{% endif %}" type="button" role="tab" aria-selected="{% if media.id == selected_media.id %}true{% else %}false{% endif %}" data-spx-image="{{ media.preview_image | image_url: width: 1620 }}" data-spx-media-id="{{ media.id }}" data-spx-image-id="{{ media.preview_image.id }}" data-spx-frame-media-tone="{{ frame_media_tone }}" data-spx-frame-media-key="{{ media_alt_handle }}" data-analytics-event="product_gallery_thumbnail">{{ media.preview_image | image_url: width: 168 | image_tag: alt: media_alt, loading: 'lazy' }}</button>
                 {% else %}
                   <button class="spx-product__thumb is-active" type="button" role="tab" aria-selected="true" data-spx-image=""><span class="visually-hidden">{{ product.title }}</span></button>
                 {% endfor %}
