@@ -11,7 +11,6 @@
   endif
 %}
 
-<div id="shopify-section-{{ section.id }}" class="shopify-section" data-source-home-reveal-anchor>
   <style data-shopify>
     #shopify-section-{{ section.id }} .page-width--full { --page-padding: 0; }
 
@@ -51,7 +50,7 @@
   </style>
   <link href="https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-2ad60c0c4c2e-section-slideshow-with-product.css?v=73116212149192475991780837159" rel="stylesheet" type="text/css" media="all">
 
-  <div class="section section-{{ section.id }} section--slideshow-with-product page-width page-width--full" data-id="{{ section.id }}" role="region" aria-roledescription="Karussell">
+  <div class="section section-{{ section.id }} section--slideshow-with-product page-width page-width--full" data-id="{{ section.id }}" data-source-home-reveal-anchor role="region" aria-roledescription="Karussell">
     <slideshow-with-product class="block relative swiper slideshow-with-product-wrapper slideshow-with-product-height--adapt" aria-live="polite" aria-atomic="true" data-autoplay="7000" data-section-id="{{ section.id }}" style="--swiper-autoplay-delay: 8000ms;" data-container="full" data-border-radius="10" data-zoom="10%">
       <div class="swiper-wrapper">
         <div class="swiper-slide" role="group" data-index="0" aria-roledescription="Gleiten" data-type="slide" aria-label="1 von 1" tabindex="-1" data-color-scheme="color-scheme-inverse">
@@ -163,4 +162,3 @@
       </div>
     </slideshow-with-product>
   </div>
-</div>
