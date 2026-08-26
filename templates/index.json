@@ -13,6 +13,7 @@
       "type": "source-hero",
       "settings": {
         "enabled": true,
+        "desktop_video": "shopify://files/videos/banner_desktop_text.webm",
         "link": "shopify://collections/all",
         "link_label": "",
         "product": "lucrecia-rey-caro-bleu",

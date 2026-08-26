@@ -29,6 +29,8 @@
       "type": "source-header",
       "settings": {
         "enabled": true,
+        "logo_width": 400,
+        "logo_width_mobile": 200,
         "logo_link": "",
         "search_placeholder": "Wonach suchst du?",
         "menu": "sixmenu"
@@ -82,6 +84,7 @@
         "text_K9etah",
         "text_8Ccdx8"
       ],
+      "disabled": true,
       "settings": {
         "enabled": true
       }
