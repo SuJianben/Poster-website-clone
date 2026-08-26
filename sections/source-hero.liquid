@@ -1,6 +1,7 @@
 {{ 'source-home-reveal.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'source-home-reveal.js' | asset_url }}" defer="defer"></script>
 
+
 {% if section.settings.enabled %}
 {% render 'source-hero-1', section: section %}
 {% endif %}
@@ -10,6 +11,7 @@
   "settings": [
     { "type": "checkbox", "id": "enabled", "label": "显示模块", "default": true },
     { "type": "image_picker", "id": "desktop_image", "label": "桌面端图片" },
+    { "type": "video", "id": "desktop_video", "label": "桌面端视频", "info": "设置后优先播放视频；移动端仍使用移动端图片。" },
     { "type": "image_picker", "id": "mobile_image", "label": "移动端图片" },
     { "type": "url", "id": "link", "label": "主视觉链接" },
     { "type": "text", "id": "link_label", "label": "主视觉链接文字" },
@@ -21,3 +23,4 @@
   "presets": [{ "name": "商品主视觉" }]
 }
 {% endschema %}
+
