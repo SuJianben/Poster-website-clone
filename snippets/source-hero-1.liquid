@@ -6,8 +6,8 @@
   assign secondary_badge = section.settings.secondary_badge | default: 'Limited Edition'
   assign desktop_aspect_ratio = 2.2583333333
 
-  if section.settings.desktop_video != blank
-    assign desktop_aspect_ratio = 2
+  if section.settings.desktop_video != blank and section.settings.desktop_video.aspect_ratio != blank
+    assign desktop_aspect_ratio = section.settings.desktop_video.aspect_ratio
   endif
 %}
 
@@ -29,7 +29,17 @@
       display: none;
     }
 
-    @media screen and (max-width: 767px), (prefers-reduced-motion: reduce) {
+    @media screen and (max-width: 767px) {
+      #shopify-section-{{ section.id }} .source-hero__desktop-video {
+        display: none;
+      }
+
+      #shopify-section-{{ section.id }} .source-hero__image-fallback--with-video {
+        display: block;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
       #shopify-section-{{ section.id }} .source-hero__desktop-video {
         display: none;
       }
@@ -49,7 +59,11 @@
             <div class="slideshow-with-product__bg bg-image overflow-hidden z--1">
               <div class="slideshow-with-product__slide-bg absolute inset-full">
                 {% if section.settings.desktop_video != blank %}
-                  {{ section.settings.desktop_video | video_tag: class: 'source-hero__desktop-video', autoplay: true, loop: true, muted: true, playsinline: true, preload: 'metadata', image_size: '2400x' }}
+                  <video class="source-hero__desktop-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true"{% if section.settings.desktop_video.preview_image != blank %} poster="{{ section.settings.desktop_video.preview_image | image_url: width: 2400 }}"{% endif %}>
+                    {% for source in section.settings.desktop_video.sources %}
+                      <source src="{{ source.url }}" type="{{ source.mime_type }}">
+                    {% endfor %}
+                  </video>
                 {% endif %}
                 <motion-element class="w-full h-full block" data-motion="zoom-out" hold>
                   <picture class="media media--height media-wrapper block w-full h-full relative overflow-hidden{% if section.settings.desktop_video != blank %} source-hero__image-fallback--with-video{% endif %}">
