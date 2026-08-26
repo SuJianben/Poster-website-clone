@@ -6,13 +6,11 @@
   assign secondary_badge = section.settings.secondary_badge | default: 'Limited Edition'
   assign desktop_aspect_ratio = 2.2583333333
 
-  if section.settings.desktop_video != blank
-    assign desktop_aspect_ratio = 2
+  if section.settings.desktop_video != blank and section.settings.desktop_video.aspect_ratio != blank
+    assign desktop_aspect_ratio = section.settings.desktop_video.aspect_ratio
   endif
 %}
 
-
-<div id="shopify-section-{{ section.id }}" class="shopify-section" data-source-home-reveal-anchor>
   <style data-shopify>
     #shopify-section-{{ section.id }} .page-width--full { --page-padding: 0; }
 
@@ -30,7 +28,17 @@
       display: none;
     }
 
-    @media screen and (max-width: 767px), (prefers-reduced-motion: reduce) {
+    @media screen and (max-width: 767px) {
+      #shopify-section-{{ section.id }} .source-hero__desktop-video {
+        display: none;
+      }
+
+      #shopify-section-{{ section.id }} .source-hero__image-fallback--with-video {
+        display: block;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
       #shopify-section-{{ section.id }} .source-hero__desktop-video {
         display: none;
       }
@@ -42,8 +50,7 @@
   </style>
   <link href="https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-2ad60c0c4c2e-section-slideshow-with-product.css?v=73116212149192475991780837159" rel="stylesheet" type="text/css" media="all">
 
-
-  <div class="section section-{{ section.id }} section--slideshow-with-product page-width page-width--full" data-id="{{ section.id }}" role="region" aria-roledescription="Karussell">
+  <div class="section section-{{ section.id }} section--slideshow-with-product page-width page-width--full" data-id="{{ section.id }}" data-source-home-reveal-anchor role="region" aria-roledescription="Karussell">
     <slideshow-with-product class="block relative swiper slideshow-with-product-wrapper slideshow-with-product-height--adapt" aria-live="polite" aria-atomic="true" data-autoplay="7000" data-section-id="{{ section.id }}" style="--swiper-autoplay-delay: 8000ms;" data-container="full" data-border-radius="10" data-zoom="10%">
       <div class="swiper-wrapper">
         <div class="swiper-slide" role="group" data-index="0" aria-roledescription="Gleiten" data-type="slide" aria-label="1 von 1" tabindex="-1" data-color-scheme="color-scheme-inverse">
@@ -51,7 +58,11 @@
             <div class="slideshow-with-product__bg bg-image overflow-hidden z--1">
               <div class="slideshow-with-product__slide-bg absolute inset-full">
                 {% if section.settings.desktop_video != blank %}
-                  {{ section.settings.desktop_video | video_tag: class: 'source-hero__desktop-video', autoplay: true, loop: true, muted: true, playsinline: true, preload: 'metadata', image_size: '2400x' }}
+                  <video class="source-hero__desktop-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true"{% if section.settings.desktop_video.preview_image != blank %} poster="{{ section.settings.desktop_video.preview_image | image_url: width: 2400 }}"{% endif %}>
+                    {% for source in section.settings.desktop_video.sources %}
+                      <source src="{{ source.url }}" type="{{ source.mime_type }}">
+                    {% endfor %}
+                  </video>
                 {% endif %}
                 <motion-element class="w-full h-full block" data-motion="zoom-out" hold>
                   <picture class="media media--height media-wrapper block w-full h-full relative overflow-hidden{% if section.settings.desktop_video != blank %} source-hero__image-fallback--with-video{% endif %}">
@@ -68,3 +79,86 @@
                   </picture>
                 </motion-element>
               </div>
+            </div>
+
+            <div class="slideshow-with-product__content flex flex-col page-width focus-none color-scheme-inverse bg-none w-full absolute inset-0" tabindex="-1">
+              <div class="flex flex-col h-full md:gap-6 gap-3">
+                <div class="flex flex-col md:flex-row justify-between h-full flex-grow gap-8 md:gap-4">
+                  <div class="slideshow-with-product__text rich-text text-left">
+                    <div class="slideshow-with-product__buttons rich-text__button">
+                      <motion-element data-motion="fade-up" data-motion-delay="50" data-text hold class="block">
+                        <a class="btn btn--plain" href="{{ hero_link }}"><span class="btn__text">&nbsp;</span></a>
+                      </motion-element>
+                    </div>
+                  </div>
+
+                  {% if section.settings.product != blank %}
+                    <motion-element data-motion="fade-up" data-motion-delay="100" hold class="slideshow-with-product__product flex items-end justify-end shrink-0">
+                      <div class="product-card product-card-style-boxed color-scheme-1">
+                        <div class="product-card__wrapper h-full">
+                          <div class="product-card__image-wrapper color-scheme-1 bg-none">
+                            <a href="{{ hero_product.url }}" aria-label="{{ hero_product.title | escape }}" tabindex="-1">
+                              <motion-element data-motion="zoom-out-sm" class="block">
+                                <div class="media-wrapper product-card__image product-card__image--main" style="--aspect-ratio: 1/1; --aspect-ratio-mobile: 1/1;">
+                                  {% if hero_product.featured_image != blank %}
+                                    {{ hero_product.featured_image | image_url: width: 1080 | image_tag: alt: hero_product.title, loading: 'eager', fetchpriority: 'high', class: 'motion-reduce', sizes: '(max-width:767px) 50px, 120px', is: 'image-lazy' }}
+                                  {% endif %}
+                                </div>
+                                {% if hero_product.media[1] != blank %}
+                                  <div class="media-wrapper product-card__image product-card__image--second inset-full hidden md:block" style="--aspect-ratio: 1/1; --aspect-ratio-mobile: 1/1;">
+                                    {{ hero_product.media[1].preview_image | image_url: width: 1080 | image_tag: alt: hero_product.title, loading: 'lazy', class: 'motion-reduce', sizes: '(max-width:767px) 50px, 120px', is: 'image-lazy' }}
+                                  </div>
+                                {% endif %}
+                              </motion-element>
+                            </a>
+                            {% if primary_badge != blank or secondary_badge != blank %}
+                              <div class="product-card__badge">
+                                {% if primary_badge != blank %}<span class="f-badge f-badge--custom f-badge--trending">{{ primary_badge }}</span>{% endif %}
+                                {% if secondary_badge != blank %}<span class="f-badge f-badge--custom f-badge--limited-edition">{{ secondary_badge }}</span>{% endif %}
+                              </div>
+                            {% endif %}
+                          </div>
+                          <div class="product-card__info text-center">
+                            <h3 class="product-card__title text-pcard-title"><a class="reversed-link block" href="{{ hero_product.url }}"><span class="reversed-link__text">{{ hero_product.title }}</span></a></h3>
+                            <div class="f-price f-price--center"><div class="f-price__regular"><span class="f-price-item f-price-item--regular">{% if hero_product.price_varies %}{{ section.settings.price_prefix }} {% endif %}{{ hero_product.price_min | money }}</span></div></div>
+                          </div>
+                        </div>
+                      </div>
+                    </motion-element>
+                  {% else %}
+                    <motion-element data-motion="fade-up" data-motion-delay="100" hold class="slideshow-with-product__product flex items-end justify-end shrink-0">
+                      <div class="product-card product-card-style-boxed color-scheme-1">
+                        <div class="product-card__wrapper h-full">
+                          <div class="product-card__image-wrapper color-scheme-1 bg-none">
+                            <a href="/products/royal-duck-2-0-limited" aria-label="ROYAL DUCK 2.0" tabindex="-1">
+                              <motion-element data-motion="zoom-out-sm" class="block">
+                                <div class="media-wrapper product-card__image product-card__image--main" style="--aspect-ratio: 1/1; --aspect-ratio-mobile: 1/1;">
+                                  <img src="https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-19d807ab9ceb-LeinwandbildRoyalDuckDagobertDuckScroogeMcDuckGeldMotivRolexLW_1399_8_10.jpg?v=1734181788&width=1080" alt="ROYAL DUCK 2.0" width="1080" height="1080" loading="eager" fetchpriority="high" class="motion-reduce" sizes="(max-width:767px) 50px, 120px" is="image-lazy">
+                                </div>
+                                <div class="media-wrapper product-card__image product-card__image--second inset-full hidden md:block" style="--aspect-ratio: 1/1; --aspect-ratio-mobile: 1/1;">
+                                  <img src="https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-7ab8b3edf490-Bestseller_-_5.jpg?v=1772228742&width=1080" alt="ROYAL DUCK 2.0" width="1080" height="1080" loading="lazy" class="motion-reduce" sizes="(max-width:767px) 50px, 120px" is="image-lazy">
+                                </div>
+                              </motion-element>
+                            </a>
+                            <div class="product-card__badge">
+                              {% if primary_badge != blank %}<span class="f-badge f-badge--custom f-badge--trending">{{ primary_badge }}</span>{% endif %}
+                              {% if secondary_badge != blank %}<span class="f-badge f-badge--custom f-badge--limited-edition">{{ secondary_badge }}</span>{% endif %}
+                            </div>
+                          </div>
+                          <div class="product-card__info text-center">
+                            <h3 class="product-card__title text-pcard-title"><a class="reversed-link block" href="/products/royal-duck-2-0-limited"><span class="reversed-link__text">ROYAL DUCK 2.0</span></a></h3>
+                            <div class="f-price f-price--center"><div class="f-price__regular"><span class="f-price-item f-price-item--regular">{{ section.settings.price_prefix }} 169,00 €</span></div></div>
+                          </div>
+                        </div>
+                      </div>
+                    </motion-element>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+            <a class="slide-overlay-link" href="{{ hero_link }}" aria-label="{{ section.settings.link_label | default: hero_product.title | escape }}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 999; cursor: pointer;"></a>
+          </div>
+        </div>
+      </div>
+    </slideshow-with-product>
+  </div>
