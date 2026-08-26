@@ -187,8 +187,8 @@
       ],
       "settings": {
         "enabled": true,
-        "heading_prefix": "",
-        "heading_highlight": "",
+        "heading_prefix": "UNSERE",
+        "heading_highlight": "BESTSELLER",
         "collection_label": "",
         "collection_button_link": ""
       }
