@@ -14,9 +14,9 @@
       "settings": {
         "enabled": true,
         "desktop_video": "shopify://files/videos/banner_desktop_text.webm",
-        "link": "shopify://collections/all",
+        "link": "shopify://collections/儿童手绘",
         "link_label": "",
-        "product": "lucrecia-rey-caro-bleu",
+        "product": "snappy-friends-print",
         "primary_badge": "Trending",
         "secondary_badge": "Limited Edition",
         "price_prefix": "Ab"
@@ -100,9 +100,9 @@
         "collection_tab_4pbgRQ": {
           "type": "collection_tab",
           "settings": {
-            "collection": "all",
+            "collection": "儿童手绘",
             "custom_link": "",
-            "label": "Trending",
+            "label": "全部作品",
             "promo_heading": "",
             "promo_button_label": "",
             "promo_link": ""
@@ -110,6 +110,7 @@
         },
         "collection_tab_c4PEqH": {
           "type": "collection_tab",
+          "disabled": true,
           "settings": {
             "collection": "urban-posters",
             "custom_link": "",
@@ -121,6 +122,7 @@
         },
         "collection_tab_mqUYyw": {
           "type": "collection_tab",
+          "disabled": true,
           "settings": {
             "collection": "time-series-posters",
             "custom_link": "",
@@ -132,6 +134,7 @@
         },
         "collection_tab_GHwUmw": {
           "type": "collection_tab",
+          "disabled": true,
           "settings": {
             "collection": "still-life-posters",
             "custom_link": "",
@@ -143,6 +146,7 @@
         },
         "collection_tab_CdLRqy": {
           "type": "collection_tab",
+          "disabled": true,
           "settings": {
             "collection": "urban-posters",
             "custom_link": "",
@@ -154,6 +158,7 @@
         },
         "collection_tab_gg4zfW": {
           "type": "collection_tab",
+          "disabled": true,
           "settings": {
             "collection": "still-life-posters",
             "custom_link": "",
@@ -165,6 +170,7 @@
         },
         "collection_tab_PeBczR": {
           "type": "collection_tab",
+          "disabled": true,
           "settings": {
             "collection": "abstract-posters",
             "custom_link": "",
@@ -186,9 +192,9 @@
       ],
       "settings": {
         "enabled": true,
-        "heading_prefix": "UNSERE",
-        "heading_highlight": "BESTSELLER",
-        "collection_label": "Zur Kollektion",
+        "heading_prefix": "",
+        "heading_highlight": "儿童手绘",
+        "collection_label": "查看全部",
         "collection_button_link": ""
       }
     },
@@ -221,6 +227,7 @@
         "collection_tab_PVM3UY",
         "collection_tab_qyNi99"
       ],
+      "disabled": true,
       "settings": {
         "enabled": true,
         "heading_prefix": "LEINWAND",
@@ -388,6 +395,7 @@
         "collection_tab_starter",
         "collection_tab_commission"
       ],
+      "disabled": true,
       "settings": {
         "enabled": true,
         "eyebrow": "Mit jedem Bild erzählst du deine ganz eigene Geschichte.",
@@ -459,6 +467,7 @@
         "collection_tab_sabrina",
         "collection_tab_petra"
       ],
+      "disabled": true,
       "settings": {
         "enabled": true,
         "eyebrow": "Mit jedem Verkauf wird der Künstler unterstützt",
@@ -690,6 +699,7 @@
         "slide_VtL3eQ",
         "slide_Vgx3YX"
       ],
+      "disabled": true,
       "settings": {
         "enabled": true,
         "heading": "Lieblingsprodukte unserer Kunden"
@@ -766,6 +776,7 @@
         "review_zb8dDc",
         "review_QmjKnC"
       ],
+      "disabled": true,
       "settings": {
         "enabled": true,
         "heading": "",
