@@ -194,7 +194,7 @@
         "enabled": true,
         "heading_prefix": "",
         "heading_highlight": "儿童手绘",
-        "collection_label": "查看全部",
+        "collection_label": "",
         "collection_button_link": ""
       }
     },
@@ -227,7 +227,6 @@
         "collection_tab_PVM3UY",
         "collection_tab_qyNi99"
       ],
-      "disabled": true,
       "settings": {
         "enabled": true,
         "heading_prefix": "LEINWAND",
@@ -329,7 +328,7 @@
         "collection_tab_Xii4M7": {
           "type": "collection_tab",
           "settings": {
-            "collection": "abstract-posters",
+            "collection": "儿童手绘",
             "label": "Dein Eigenes Foto",
             "promo_heading": "",
             "promo_button_label": "",
@@ -395,7 +394,6 @@
         "collection_tab_starter",
         "collection_tab_commission"
       ],
-      "disabled": true,
       "settings": {
         "enabled": true,
         "eyebrow": "Mit jedem Bild erzählst du deine ganz eigene Geschichte.",
@@ -467,7 +465,6 @@
         "collection_tab_sabrina",
         "collection_tab_petra"
       ],
-      "disabled": true,
       "settings": {
         "enabled": true,
         "eyebrow": "Mit jedem Verkauf wird der Künstler unterstützt",
@@ -699,7 +696,6 @@
         "slide_VtL3eQ",
         "slide_Vgx3YX"
       ],
-      "disabled": true,
       "settings": {
         "enabled": true,
         "heading": "Lieblingsprodukte unserer Kunden"
@@ -776,7 +772,6 @@
         "review_zb8dDc",
         "review_QmjKnC"
       ],
-      "disabled": true,
       "settings": {
         "enabled": true,
         "heading": "",
