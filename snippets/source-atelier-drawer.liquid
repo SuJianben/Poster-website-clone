@@ -7,31 +7,31 @@
   <button class="atelier-drawer-overlay" type="button" data-atelier-close aria-label="Close"></button>
   <aside class="atelier-drawer" aria-hidden="true" aria-labelledby="atelier-drawer-title" role="dialog">
     <div class="atelier-drawer__header">
-      <span id="atelier-drawer-title" class="atelier-drawer__title" data-atelier-drawer-title>{% if is_english %}THREE DIFFERENT EDITIONS{% else %}DREI VERSCHIEDENE EDITIONEN{% endif %}</span>
+      <span id="atelier-drawer-title" class="atelier-drawer__title" data-atelier-drawer-title>{% if is_english %}{{ settings.atelier_drawer_title_en | escape }}{% else %}{{ settings.atelier_drawer_title_de | escape }}{% endif %}</span>
       <button class="atelier-drawer__close" type="button" data-atelier-close aria-label="{% if is_english %}Close{% else %}Schließen{% endif %}">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
       </button>
     </div>
     <div class="atelier-drawer__content" data-atelier-drawer-content>
       {% if is_english %}
-        <p class="drawer-intro" data-atelier-drawer-intro>At DotComCanvas, we redefine wall art. Our three categories offer you access to exclusive art - from entry-level to rare investment pieces.</p>
+        <p class="drawer-intro" data-atelier-drawer-intro>{{ settings.atelier_drawer_intro_en | escape | newline_to_br }}</p>
       {% else %}
-        <p class="drawer-intro" data-atelier-drawer-intro>Bei DotComCanvas definieren wir Wandkunst neu. Unsere drei Kategorien bieten dir Zugang zu exklusiver Kunst - vom Einstieg bis zum seltenen Investment-Piece.</p>
+        <p class="drawer-intro" data-atelier-drawer-intro>{{ settings.atelier_drawer_intro_de | escape | newline_to_br }}</p>
       {% endif %}
       <div class="drawer-section">
         <div class="drawer-separator">-----</div>
-        <h4>LIMITED ATELIER EXCLUSIVE</h4>
-        <p>{% if is_english %}The ultimate statement. Exclusive artworks available only through us. Strictly limited and highly sought after.{% else %}Das ultimative Statement. Exklusive Kunstwerke, die nur bei uns zu kaufen sind. Dazu noch streng limitiert und heiß begehrt.{% endif %}</p>
+        <h4>{% if is_english %}{{ settings.atelier_drawer_limited_title_en | escape }}{% else %}{{ settings.atelier_drawer_limited_title_de | escape }}{% endif %}</h4>
+        <p>{% if is_english %}{{ settings.atelier_drawer_limited_text_en | escape | newline_to_br }}{% else %}{{ settings.atelier_drawer_limited_text_de | escape | newline_to_br }}{% endif %}</p>
       </div>
       <div class="drawer-section">
         <div class="drawer-separator">-----</div>
-        <h4>ATELIER EXCLUSIVE</h4>
-        <p>{% if is_english %}A collection of exclusive art pieces. These unique designs are created directly for us.{% else %}Eine Sammlung exklusiver Kunststücke. Diese einzigartigen Designs werden direkt für uns entworfen.{% endif %}</p>
+        <h4>{% if is_english %}{{ settings.atelier_drawer_exclusive_title_en | escape }}{% else %}{{ settings.atelier_drawer_exclusive_title_de | escape }}{% endif %}</h4>
+        <p>{% if is_english %}{{ settings.atelier_drawer_exclusive_text_en | escape | newline_to_br }}{% else %}{{ settings.atelier_drawer_exclusive_text_de | escape | newline_to_br }}{% endif %}</p>
       </div>
       <div class="drawer-section">
         <div class="drawer-separator">-----</div>
-        <h4>ESSENTIALS</h4>
-        <p>{% if is_english %}Timeless favorites and bestsellers from artists who have chosen not to limit their works.{% else %}Zeitlose Favoriten und Bestseller von Künstlern, die sich entschieden haben, ihre Werke nicht zu begrenzen.{% endif %}</p>
+        <h4>{% if is_english %}{{ settings.atelier_drawer_essentials_title_en | escape }}{% else %}{{ settings.atelier_drawer_essentials_title_de | escape }}{% endif %}</h4>
+        <p>{% if is_english %}{{ settings.atelier_drawer_essentials_text_en | escape | newline_to_br }}{% else %}{{ settings.atelier_drawer_essentials_text_de | escape | newline_to_br }}{% endif %}</p>
       </div>
     </div>
   </aside>
