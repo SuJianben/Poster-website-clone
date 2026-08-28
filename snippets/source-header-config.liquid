@@ -153,12 +153,30 @@
                             <svg class="icon icon-plus-toggle icon--2xs icon--thick" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path class="horizontal" d="M3.125 10H16.875" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path class="vertical" d="M10 3.125V16.875" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                           </summary>
                           <div class="flex flex-col w-full">
-                            <ul class="flex flex-col w-full" role="list">
+                            <ul class="source-mobile-menu-collection-grid w-full" role="list">
                               {% if child.url != blank %}
-                                <li class="menu-drawer__item"><a href="{{ child.url }}" class="menu-drawer__item-link flex items-center justify-between">View all {{ child.title }}</a></li>
+                                <li class="menu-drawer__item source-mobile-menu-collection-item--text"><a href="{{ child.url }}" class="menu-drawer__item-link flex items-center justify-between">View all {{ child.title }}</a></li>
                               {% endif %}
                               {% for grandchild in child.links %}
-                                <li class="menu-drawer__item"><a href="{{ grandchild.url }}" class="menu-drawer__item-link flex items-center justify-between">{{ grandchild.title }}</a></li>
+                                {% if grandchild.type == 'collection_link' %}
+                                  {% assign menu_collection = grandchild.object %}
+                                  {% assign menu_collection_image = menu_collection.image | default: menu_collection.featured_image %}
+                                  {% if menu_collection_image == blank and menu_collection.products_count > 0 %}
+                                    {% assign menu_collection_image = menu_collection.products.first.featured_image %}
+                                  {% endif %}
+                                  <li class="menu-drawer__item source-mobile-menu-collection-item">
+                                    <a href="{{ grandchild.url }}" class="source-mobile-menu-collection-card">
+                                      <span class="source-mobile-menu-collection-card__media">
+                                        {% if menu_collection_image != blank %}
+                                          {{ menu_collection_image | image_url: width: 600 | image_tag: loading: 'lazy', widths: '240,360,480,600', sizes: '(max-width: 1023px) 45vw', alt: grandchild.title }}
+                                        {% endif %}
+                                      </span>
+                                      <span class="source-mobile-menu-collection-card__title">{{ grandchild.title }}</span>
+                                    </a>
+                                  </li>
+                                {% else %}
+                                  <li class="menu-drawer__item source-mobile-menu-collection-item--text"><a href="{{ grandchild.url }}" class="menu-drawer__item-link flex items-center justify-between">{{ grandchild.title }}</a></li>
+                                {% endif %}
                               {% endfor %}
                             </ul>
                           </div>

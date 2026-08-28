@@ -78,4 +78,52 @@
     visibility: hidden !important;
   }
 
+  #MenuDrawer .source-mobile-menu-collection-grid {
+    display: grid;
+    gap: 16px 12px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 4px 0 14px;
+  }
+
+  #MenuDrawer .source-mobile-menu-collection-item {
+    min-width: 0;
+    padding: 0;
+  }
+
+  #MenuDrawer .source-mobile-menu-collection-item--text {
+    grid-column: 1 / -1;
+  }
+
+  #MenuDrawer .source-mobile-menu-collection-card {
+    color: inherit;
+    display: block;
+    min-width: 0;
+    text-decoration: none;
+  }
+
+  #MenuDrawer .source-mobile-menu-collection-card__media {
+    aspect-ratio: 1 / 1;
+    background: #f2f2f2;
+    border-radius: 4px;
+    display: block;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  #MenuDrawer .source-mobile-menu-collection-card__media img {
+    display: block;
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  #MenuDrawer .source-mobile-menu-collection-card__title {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-top: 7px;
+    overflow-wrap: anywhere;
+  }
+
 }
