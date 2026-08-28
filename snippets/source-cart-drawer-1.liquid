@@ -100,7 +100,10 @@
             <div class="tax-note">Steuer inbegriffen. Versand und Rabatte werden im nächsten Schritt berechnet.</div>
           </div>
           <form action="{{ routes.cart_url }}" method="post" class="drawer__footer-buttons w-full">
-            <button class="btn btn--primary w-full flex items-center justify-center gap-2" type="submit" name="checkout"><span class="btn__text">JETZT SICHER ZUR KASSE</span></button>
+            <button class="btn btn--primary w-full flex items-center justify-center gap-2" type="submit" name="checkout">
+              <svg class="source-cart-checkout__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="11" x="5" y="11" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>
+              <span class="btn__text">JETZT SICHER ZUR KASSE</span>
+            </button>
           </form>
         </div>
         <div class="cart-trust-badges text-center w-full">

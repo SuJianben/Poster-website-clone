@@ -590,9 +590,9 @@ cart-drawer[hidden] {
 
 .cart-drawer .drawer__footer-buttons {
   margin-top: 14px;
-  margin-right: calc(0px - var(--source-cart-footer-inline-end));
-  margin-left: calc(0px - var(--source-cart-footer-inline-start));
-  inline-size: calc(100% + var(--source-cart-footer-inline-start) + var(--source-cart-footer-inline-end));
+  margin-right: 10px;
+  margin-left: 10px;
+  inline-size: calc(100% - 20px);
 }
 
 .cart-drawer .drawer__footer-buttons .btn {
@@ -602,8 +602,16 @@ cart-drawer[hidden] {
   color: #fff;
   font-size: 13px;
   font-weight: 800;
-  min-height: 48px;
+  min-height: 44px;
   padding: 10px 16px;
+}
+
+.cart-drawer .drawer__footer-buttons .source-cart-checkout__icon {
+  flex: 0 0 auto;
+  height: 16px;
+  position: relative;
+  width: 16px;
+  z-index: 1;
 }
 
 /* Keep the checkout label above the theme button sweep on desktop. */
