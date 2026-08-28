@@ -132,6 +132,11 @@
   object-fit: cover;
 }
 
+.spr-recs__card--little-artists .spr-recs__image {
+  object-fit: contain;
+  object-position: center;
+}
+
 .spr-recs__image--main {
   opacity: 1;
   transition: opacity 1.2s;

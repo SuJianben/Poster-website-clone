@@ -10,6 +10,11 @@
   assign atelier_edition_key = 'custom'
   assign atelier_drawer_title = ''
   assign atelier_drawer_description = ''
+  assign is_little_artists = false
+
+  if card_product.tags contains 'Little Artists Big Dreams'
+    assign is_little_artists = true
+  endif
 
   if card_product.images.size > 1
     assign card_hover_image = card_product.images[1] | image_url: width: 900
@@ -67,7 +72,7 @@
 -%}
 
 <article
-  class="spr-recs__card"
+  class="spr-recs__card{% if is_little_artists %} spr-recs__card--little-artists{% endif %}"
   data-spr-recommendation-card
   data-product-title="{{ card_title | escape }}"
   data-product-position="{{ position }}"
