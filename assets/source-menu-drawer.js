@@ -28,8 +28,12 @@
 
   const syncHeaderHeight = (drawer) => {
     const headerTop = getHostHeader(drawer)?.querySelector('.header__top');
-    const headerHeight = Math.ceil(headerTop?.getBoundingClientRect().height || 56);
-    drawer.style.setProperty('--source-menu-drawer-header-height', `${headerHeight}px`);
+    const headerRect = headerTop?.getBoundingClientRect();
+    const viewportHeight = window.visualViewport?.height || window.innerHeight;
+    const headerOffset = headerRect?.bottom > 0 && headerRect.bottom < viewportHeight
+      ? headerRect.bottom
+      : headerRect?.height || 56;
+    drawer.style.setProperty('--source-menu-drawer-header-height', `${Math.ceil(headerOffset)}px`);
   };
 
   const updateTriggerState = (drawer, isOpen) => {
