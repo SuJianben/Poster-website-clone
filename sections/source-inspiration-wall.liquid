@@ -62,15 +62,15 @@
     <div class="inspiration-wall__modal-shell">
       <button class="inspiration-wall__close" type="button" data-inspiration-close aria-label="Close image details">×</button>
       <button class="inspiration-wall__nav inspiration-wall__nav--prev" type="button" data-inspiration-prev aria-label="Previous photo">‹</button>
-      <div class="inspiration-wall__modal-image"><img src="" alt="" width="1200" height="1200" data-inspiration-modal-image></div>
+      <div class="inspiration-wall__modal-image"><img alt="" width="1200" height="1200" data-inspiration-modal-image></div>
       <article class="inspiration-wall__modal-content">
         <p class="inspiration-wall__source">{{ section.settings.source_label }}</p>
         <h2 data-inspiration-username></h2>
         <p class="inspiration-wall__date" data-inspiration-date></p>
         <p class="inspiration-wall__caption" data-inspiration-caption></p>
         <div class="inspiration-wall__votes"><button type="button" data-inspiration-like aria-pressed="false">♥ <span data-inspiration-likes>0</span></button><span>● <span data-inspiration-comments>0</span></span></div>
-        <a class="inspiration-wall__product" href="#" data-inspiration-product hidden>
-          <img src="" alt="" width="190" height="125" data-inspiration-product-image>
+        <a class="inspiration-wall__product" href="{{ routes.root_url }}" data-inspiration-product hidden>
+          <img alt="" width="190" height="125" data-inspiration-product-image>
           <span data-inspiration-product-title></span>
         </a>
       </article>
