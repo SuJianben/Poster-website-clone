@@ -1,6 +1,7 @@
 (() => {
   const DRAWER_SELECTOR = '#MenuDrawer';
   const OPEN_CLASS = 'source-menu-drawer-open';
+  const MOUNTED_CLASS = 'source-menu-drawer-mounted';
   const CLOSE_DELAY = 820;
 
   const getTriggers = (drawer) => [...document.querySelectorAll('.menu-drawer-button')]
@@ -16,6 +17,7 @@
       drawer.sourceMenuDrawerOriginalNextSibling = drawer.nextSibling;
     }
     if (drawer.parentNode !== document.body) document.body.appendChild(drawer);
+    drawer.classList.add(MOUNTED_CLASS);
   };
 
   const restoreDrawer = (drawer) => {
@@ -34,6 +36,14 @@
       ? headerRect.bottom
       : headerRect?.height || 56;
     drawer.style.setProperty('--source-menu-drawer-header-height', `${Math.ceil(headerOffset)}px`);
+  };
+
+  const releaseDrawerLayout = (drawer) => {
+    document.documentElement.classList.remove('source-menu-drawer-active');
+    document.body.classList.remove('source-menu-drawer-active');
+    drawer.classList.remove(MOUNTED_CLASS);
+    drawer.hidden = true;
+    restoreDrawer(drawer);
   };
 
   const updateTriggerState = (drawer, isOpen) => {
@@ -94,14 +104,11 @@
     drawer.querySelectorAll('details[is="menu-drawer-details"]').forEach((details) => {
       closeSubmenu(details);
     });
-    document.documentElement.classList.remove('source-menu-drawer-active');
-    document.body.classList.remove('source-menu-drawer-active');
     updateHostState(drawer, false);
 
     drawer.sourceMenuDrawerCloseTimer = window.setTimeout(() => {
       if (!drawer.hasAttribute('open')) {
-        drawer.hidden = true;
-        restoreDrawer(drawer);
+        releaseDrawerLayout(drawer);
       }
     }, CLOSE_DELAY);
 
