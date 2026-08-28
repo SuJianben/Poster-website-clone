@@ -7,31 +7,27 @@
   <button class="atelier-drawer-overlay" type="button" data-atelier-close aria-label="Close"></button>
   <aside class="atelier-drawer" aria-hidden="true" aria-labelledby="atelier-drawer-title" role="dialog">
     <div class="atelier-drawer__header">
-      <span id="atelier-drawer-title" class="atelier-drawer__title" data-atelier-drawer-title>{% if is_english %}{{ settings.atelier_drawer_title_en | escape }}{% else %}{{ settings.atelier_drawer_title_de | escape }}{% endif %}</span>
+      <span id="atelier-drawer-title" class="atelier-drawer__title" data-atelier-drawer-title>{{ settings.atelier_drawer_title_en | escape }}</span>
       <button class="atelier-drawer__close" type="button" data-atelier-close aria-label="{% if is_english %}Close{% else %}Schließen{% endif %}">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
       </button>
     </div>
     <div class="atelier-drawer__content" data-atelier-drawer-content>
-      {% if is_english %}
-        <p class="drawer-intro" data-atelier-drawer-intro>{{ settings.atelier_drawer_intro_en | escape | newline_to_br }}</p>
-      {% else %}
-        <p class="drawer-intro" data-atelier-drawer-intro>{{ settings.atelier_drawer_intro_de | escape | newline_to_br }}</p>
-      {% endif %}
+      <p class="drawer-intro" data-atelier-drawer-intro>{{ settings.atelier_drawer_intro_en | escape | newline_to_br }}</p>
       <div class="drawer-section">
         <div class="drawer-separator">-----</div>
-        <h4>{% if is_english %}{{ settings.atelier_drawer_limited_title_en | escape }}{% else %}{{ settings.atelier_drawer_limited_title_de | escape }}{% endif %}</h4>
-        <p>{% if is_english %}{{ settings.atelier_drawer_limited_text_en | escape | newline_to_br }}{% else %}{{ settings.atelier_drawer_limited_text_de | escape | newline_to_br }}{% endif %}</p>
+        <h4>{{ settings.atelier_drawer_limited_title_en | escape }}</h4>
+        <p>{{ settings.atelier_drawer_limited_text_en | escape | newline_to_br }}</p>
       </div>
       <div class="drawer-section">
         <div class="drawer-separator">-----</div>
-        <h4>{% if is_english %}{{ settings.atelier_drawer_exclusive_title_en | escape }}{% else %}{{ settings.atelier_drawer_exclusive_title_de | escape }}{% endif %}</h4>
-        <p>{% if is_english %}{{ settings.atelier_drawer_exclusive_text_en | escape | newline_to_br }}{% else %}{{ settings.atelier_drawer_exclusive_text_de | escape | newline_to_br }}{% endif %}</p>
+        <h4>{{ settings.atelier_drawer_exclusive_title_en | escape }}</h4>
+        <p>{{ settings.atelier_drawer_exclusive_text_en | escape | newline_to_br }}</p>
       </div>
       <div class="drawer-section">
         <div class="drawer-separator">-----</div>
-        <h4>{% if is_english %}{{ settings.atelier_drawer_essentials_title_en | escape }}{% else %}{{ settings.atelier_drawer_essentials_title_de | escape }}{% endif %}</h4>
-        <p>{% if is_english %}{{ settings.atelier_drawer_essentials_text_en | escape | newline_to_br }}{% else %}{{ settings.atelier_drawer_essentials_text_de | escape | newline_to_br }}{% endif %}</p>
+        <h4>{{ settings.atelier_drawer_essentials_title_en | escape }}</h4>
+        <p>{{ settings.atelier_drawer_essentials_text_en | escape | newline_to_br }}</p>
       </div>
     </div>
   </aside>
