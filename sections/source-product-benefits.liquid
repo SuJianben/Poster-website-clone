@@ -15,8 +15,8 @@
         </svg>
       </div>
       <div class="spf-benefits__content">
-        <h4 class="spf-benefits__title">Premium Qualit&auml;t</h4>
-        <p class="spf-benefits__description">Handgefertigt in deutscher Manufaktur mit zertifizierten Materialien.</p>
+        <h4 class="spf-benefits__title">{{ section.settings.benefit_1_title | escape }}</h4>
+        <p class="spf-benefits__description">{{ section.settings.benefit_1_description | escape }}</p>
       </div>
     </article>
 
@@ -28,8 +28,8 @@
         </svg>
       </div>
       <div class="spf-benefits__content">
-        <h4 class="spf-benefits__title">Zufrieden oder Geld zur&uuml;ck</h4>
-        <p class="spf-benefits__description">100 % Zufriedenheit oder Geld-zur&uuml;ck-Garantie.</p>
+        <h4 class="spf-benefits__title">{{ section.settings.benefit_2_title | escape }}</h4>
+        <p class="spf-benefits__description">{{ section.settings.benefit_2_description | escape }}</p>
       </div>
     </article>
 
@@ -38,8 +38,8 @@
         <img src="https://cdn.shopify.com/s/files/1/0601/1253/5810/files/delivery-truck.png?v=1774543641" alt="" width="44" height="44" loading="lazy">
       </div>
       <div class="spf-benefits__content">
-        <h4 class="spf-benefits__title">Free Shipping over 49€</h4>
-        <p class="spf-benefits__description">We ship your order quickly and extremely securely packed.</p>
+        <h4 class="spf-benefits__title">{{ section.settings.benefit_3_title | escape }}</h4>
+        <p class="spf-benefits__description">{{ section.settings.benefit_3_description | escape }}</p>
       </div>
     </article>
 
@@ -54,13 +54,30 @@
         </svg>
       </div>
       <div class="spf-benefits__content">
-        <h4 class="spf-benefits__title">30 Tage R&uuml;ckgaberecht</h4>
-        <p class="spf-benefits__description">No ifs or buts – test your artwork completely risk-free.</p>
+        <h4 class="spf-benefits__title">{{ section.settings.benefit_4_title | escape }}</h4>
+        <p class="spf-benefits__description">{{ section.settings.benefit_4_description | escape }}</p>
       </div>
     </article>
   </div>
 </section>
 
 {% schema %}
-{"name":"商品卖点","settings":[],"presets":[{"name":"商品卖点"}]}
+{
+  "name": "商品卖点",
+  "settings": [
+    { "type": "header", "content": "卖点 1" },
+    { "type": "text", "id": "benefit_1_title", "label": "标题", "default": "Premium Qualität" },
+    { "type": "text", "id": "benefit_1_description", "label": "说明", "default": "Handgefertigt in deutscher Manufaktur mit zertifizierten Materialien." },
+    { "type": "header", "content": "卖点 2" },
+    { "type": "text", "id": "benefit_2_title", "label": "标题", "default": "Zufrieden oder Geld zurück" },
+    { "type": "text", "id": "benefit_2_description", "label": "说明", "default": "100 % Zufriedenheit oder Geld-zurück-Garantie." },
+    { "type": "header", "content": "卖点 3" },
+    { "type": "text", "id": "benefit_3_title", "label": "标题", "default": "Free Shipping over 49€" },
+    { "type": "text", "id": "benefit_3_description", "label": "说明", "default": "We ship your order quickly and extremely securely packed." },
+    { "type": "header", "content": "卖点 4" },
+    { "type": "text", "id": "benefit_4_title", "label": "标题", "default": "30 Tage Rückgaberecht" },
+    { "type": "text", "id": "benefit_4_description", "label": "说明", "default": "No ifs or buts – test your artwork completely risk-free." }
+  ],
+  "presets": [{ "name": "商品卖点" }]
+}
 {% endschema %}
