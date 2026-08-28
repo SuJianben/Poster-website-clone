@@ -1,12 +1,10 @@
 {% liquid
   assign secondary_image = product.media[1].preview_image
-  assign use_native_card_ratio = false
-  assign card_image_aspect_ratio = 1
+  assign is_little_artists = false
+  assign card_image_style = blank
   if product.tags contains 'Little Artists Big Dreams'
-    assign use_native_card_ratio = true
-    if product.featured_image != blank
-      assign card_image_aspect_ratio = product.featured_image.aspect_ratio | default: 1
-    endif
+    assign is_little_artists = true
+    assign card_image_style = 'object-fit: contain !important; object-position: center center;'
   endif
   assign material = product.type | default: 'Leinwand'
   assign is_on_sale = false
@@ -75,19 +73,19 @@
 %}
 
 <div class="f-column swiper-slide">
-  <div class="product-card product-card-style-standard color-inherit">
+  <div class="product-card product-card-style-standard color-inherit{% if is_little_artists %} product-card--little-artists{% endif %}">
     <div class="product-card__wrapper h-full">
-      <div class="product-card__image-wrapper{% if secondary_image != blank %} has-second-image{% endif %} color-scheme-1 bg-none"{% if use_native_card_ratio %} style="aspect-ratio: auto !important;"{% endif %}>
+      <div class="product-card__image-wrapper{% if secondary_image != blank %} has-second-image{% endif %} color-scheme-1 bg-none">
         <a href="{{ product.url }}" aria-label="{{ product.title | escape }}" tabindex="-1">
           <motion-element data-motion="zoom-out-sm" class="block">
-            <div class="media-wrapper product-card__image product-card__image--main loaded" style="--aspect-ratio: {% if use_native_card_ratio %}{{ card_image_aspect_ratio }}{% else %}1/1{% endif %};{% if use_native_card_ratio %} aspect-ratio: auto !important;{% endif %}">
+            <div class="media-wrapper product-card__image product-card__image--main loaded" style="--aspect-ratio: 1/1;">
               {% if product.featured_image != blank %}
-                {{ product.featured_image | image_url: width: 1080 | image_tag: alt: product.title, loading: 'lazy', class: 'motion-reduce', sizes: '(max-width: 767px) calc((100vw - 30px) / 2), (max-width: 1023px) calc((100vw - 30px) / 3), calc(100vw / 5)', is: 'image-lazy' }}
+                {{ product.featured_image | image_url: width: 1080 | image_tag: alt: product.title, loading: 'lazy', class: 'motion-reduce', style: card_image_style, sizes: '(max-width: 767px) calc((100vw - 30px) / 2), (max-width: 1023px) calc((100vw - 30px) / 3), calc(100vw / 5)', is: 'image-lazy' }}
               {% endif %}
             </div>
             {% if secondary_image != blank %}
               <div class="media-wrapper product-card__image product-card__image--second inset-full hidden md:block loaded" style="--aspect-ratio: 1/1;">
-                {{ secondary_image | image_url: width: 900 | image_tag: alt: product.title, loading: 'lazy', class: 'motion-reduce', sizes: '(max-width: 767px) calc((100vw - 30px) / 2), (max-width: 1023px) calc((100vw - 30px) / 3), calc(100vw / 5)', is: 'image-lazy' }}
+                {{ secondary_image | image_url: width: 900 | image_tag: alt: product.title, loading: 'lazy', class: 'motion-reduce', style: card_image_style, sizes: '(max-width: 767px) calc((100vw - 30px) / 2), (max-width: 1023px) calc((100vw - 30px) / 3), calc(100vw / 5)', is: 'image-lazy' }}
               </div>
             {% endif %}
           </motion-element>
