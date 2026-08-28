@@ -69,9 +69,16 @@
 
   html.source-menu-drawer-active,
   body.source-menu-drawer-active {
-    height: 100%;
     overflow: hidden;
     overscroll-behavior: none;
+  }
+
+  body.source-menu-drawer-active .header-sticky {
+    pointer-events: auto;
+  }
+
+  body.source-menu-drawer-active .header-sticky .header {
+    transform: translateY(0) !important;
   }
 
   body.source-menu-drawer-active .shopify-section-group-header-group .section--scrolling-promotion {

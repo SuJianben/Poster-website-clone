@@ -6,12 +6,30 @@
   const getTriggers = (drawer) => [...document.querySelectorAll('.menu-drawer-button')]
     .filter((button) => button.getAttribute('aria-controls') === drawer.id);
 
-  const getHostHeader = (drawer) => drawer.closest('header');
+  const getHostHeader = (drawer) => drawer.sourceMenuDrawerHostHeader
+    || drawer.closest('header')
+    || getTriggers(drawer)[0]?.closest('header');
+
+  const mountDrawer = (drawer) => {
+    if (!drawer.sourceMenuDrawerOriginalParent) {
+      drawer.sourceMenuDrawerOriginalParent = drawer.parentNode;
+      drawer.sourceMenuDrawerOriginalNextSibling = drawer.nextSibling;
+    }
+    if (drawer.parentNode !== document.body) document.body.appendChild(drawer);
+  };
+
+  const restoreDrawer = (drawer) => {
+    const parent = drawer.sourceMenuDrawerOriginalParent;
+    const nextSibling = drawer.sourceMenuDrawerOriginalNextSibling;
+    if (!parent?.isConnected) return;
+    if (nextSibling?.parentNode === parent) parent.insertBefore(drawer, nextSibling);
+    else parent.appendChild(drawer);
+  };
 
   const syncHeaderHeight = (drawer) => {
     const headerTop = getHostHeader(drawer)?.querySelector('.header__top');
-    const headerBottom = Math.ceil(headerTop?.getBoundingClientRect().bottom || 56);
-    drawer.style.setProperty('--source-menu-drawer-header-height', `${headerBottom}px`);
+    const headerHeight = Math.ceil(headerTop?.getBoundingClientRect().height || 56);
+    drawer.style.setProperty('--source-menu-drawer-header-height', `${headerHeight}px`);
   };
 
   const updateTriggerState = (drawer, isOpen) => {
@@ -65,6 +83,8 @@
   const closeDrawer = (drawer, { restoreFocus = false } = {}) => {
     if (!drawer || drawer.hidden) return;
 
+    window.clearTimeout(drawer.sourceMenuDrawerCloseTimer);
+
     drawer.removeAttribute('open');
     drawer.classList.remove(OPEN_CLASS);
     drawer.querySelectorAll('details[is="menu-drawer-details"]').forEach((details) => {
@@ -74,16 +94,21 @@
     document.body.classList.remove('source-menu-drawer-active');
     updateHostState(drawer, false);
 
-    window.setTimeout(() => {
-      if (!drawer.hasAttribute('open')) drawer.hidden = true;
+    drawer.sourceMenuDrawerCloseTimer = window.setTimeout(() => {
+      if (!drawer.hasAttribute('open')) {
+        drawer.hidden = true;
+        restoreDrawer(drawer);
+      }
     }, CLOSE_DELAY);
 
     if (restoreFocus) getTriggers(drawer)[0]?.focus();
   };
 
   const openDrawer = (drawer) => {
-    if (!drawer || !drawer.hidden) return;
+    if (!drawer || drawer.hasAttribute('open')) return;
 
+    window.clearTimeout(drawer.sourceMenuDrawerCloseTimer);
+    mountDrawer(drawer);
     drawer.hidden = false;
     document.documentElement.classList.add('source-menu-drawer-active');
     document.body.classList.add('source-menu-drawer-active');
@@ -100,6 +125,7 @@
     if (!drawer || drawer.dataset.sourceMenuDrawerReady === 'true') return;
 
     drawer.dataset.sourceMenuDrawerReady = 'true';
+    drawer.sourceMenuDrawerHostHeader = drawer.closest('header');
     drawer.setAttribute('role', 'dialog');
     drawer.setAttribute('aria-modal', 'true');
     updateTriggerState(drawer, false);
@@ -110,8 +136,8 @@
         // cannot open a competing drawer state without the active body class.
         event.preventDefault();
         event.stopImmediatePropagation();
-        if (drawer.hidden) openDrawer(drawer);
-        else closeDrawer(drawer);
+        if (drawer.hasAttribute('open')) closeDrawer(drawer);
+        else openDrawer(drawer);
       }, true);
     });
 
