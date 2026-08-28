@@ -46,6 +46,11 @@
     height: 0;
   }
 
+  #MenuDrawer .hightlight-link--star_twinkle .star {
+    display: none;
+    animation: none;
+  }
+
   #MenuDrawer.source-menu-drawer-open .drawer__inner {
     position: absolute;
     inset: 0;
