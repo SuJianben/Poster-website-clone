@@ -3,34 +3,11 @@
 
 {%- liquid
   assign recommendation_collection = section.settings.recommendation_collection | default: collections.all
-  assign cart_quantity = cart.item_count
-  assign next_discount_count = 3
-  assign next_discount_percent = 15
-  if cart_quantity >= 3
-    assign next_discount_count = 4
-    assign next_discount_percent = 20
-  endif
-  if cart_quantity >= 4
-    assign next_discount_count = 5
-    assign next_discount_percent = 25
-  endif
 -%}
 
 <section class="scc-cart" data-scc-cart data-cart-count="{{ cart.item_count }}" data-section-id="{{ section.id }}">
   <div class="scc-cart__wrap">
     <nav class="scc-cart__crumbs" aria-label="Breadcrumb"><a href="{{ routes.root_url }}">Start</a><span>Dein Warenkorb</span></nav>
-
-    <section class="scc-cart__discount-track" aria-label="Mengenrabatt">
-      <p data-scc-tier-copy>{% if cart_quantity >= 5 %}Du hast dir 25% Rabatt 🏷️ gesichert.{% else %}Kaufen Sie {{ next_discount_count | minus: cart_quantity }} weitere Artikel, um {{ next_discount_percent }}% Rabatt 🏷️ zu erhalten.{% endif %}</p>
-      <ol data-scc-tiers>
-        {% assign discounts = '15|20|25' | split: '|' %}
-        {% assign quantities = '3|4|5' | split: '|' %}
-        {% for discount in discounts %}
-          {% assign quantity = quantities[forloop.index0] | plus: 0 %}
-          <li data-scc-tier="{{ quantity }}"{% if cart_quantity >= quantity %} class="is-reached"{% endif %}><span>{{ discount }}% Rabatt 🏷️</span><i aria-hidden="true">{% if cart_quantity >= quantity %}✓{% else %}✦{% endif %}</i><b>{{ quantity }} Artikel kaufen</b></li>
-        {% endfor %}
-      </ol>
-    </section>
 
     <h1 class="scc-cart__title">Ihr Warenkorb <span>({{ cart.item_count }})</span></h1>
 
