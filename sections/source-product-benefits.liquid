@@ -4,15 +4,19 @@
   <div class="spf-benefits__rail">
     <article class="spf-benefits__item">
       <div class="spf-benefits__icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24">
-          <rect x="2" y="3" width="16" height="13" rx="1"></rect>
-          <path d="M2 12l3-3 3 3"></path>
-          <path d="M6 10l3-3 5 5"></path>
-          <circle cx="6" cy="7" r="1.2" fill="var(--spf-benefit-icon)" stroke="none"></circle>
-          <path d="M15.5 17 l -1 4.5 l 2.5 -1.5 l 2.5 1.5 l -1 -4.5" fill="var(--spf-benefit-bg)"></path>
-          <circle cx="18" cy="14" r="4.5" fill="var(--spf-benefit-bg)"></circle>
-          <polygon points="18,11.5 18.7,13 20.3,13.2 19,14.4 19.4,16 18,15.1 16.6,16 17,14.4 15.7,13.2 17.3,13" fill="var(--spf-benefit-icon)" stroke="none"></polygon>
-        </svg>
+        {% if section.settings.benefit_1_icon != blank %}
+          {{ section.settings.benefit_1_icon | image_url: width: 96 | image_tag: loading: 'lazy', alt: '' }}
+        {% else %}
+          <svg viewBox="0 0 24 24">
+            <rect x="2" y="3" width="16" height="13" rx="1"></rect>
+            <path d="M2 12l3-3 3 3"></path>
+            <path d="M6 10l3-3 5 5"></path>
+            <circle cx="6" cy="7" r="1.2" fill="var(--spf-benefit-icon)" stroke="none"></circle>
+            <path d="M15.5 17 l -1 4.5 l 2.5 -1.5 l 2.5 1.5 l -1 -4.5" fill="var(--spf-benefit-bg)"></path>
+            <circle cx="18" cy="14" r="4.5" fill="var(--spf-benefit-bg)"></circle>
+            <polygon points="18,11.5 18.7,13 20.3,13.2 19,14.4 19.4,16 18,15.1 16.6,16 17,14.4 15.7,13.2 17.3,13" fill="var(--spf-benefit-icon)" stroke="none"></polygon>
+          </svg>
+        {% endif %}
       </div>
       <div class="spf-benefits__content">
         <h4 class="spf-benefits__title">{{ section.settings.benefit_1_title | escape }}</h4>
@@ -22,10 +26,14 @@
 
     <article class="spf-benefits__item">
       <div class="spf-benefits__icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-          <path d="M9 12l2 2 4-4"></path>
-        </svg>
+        {% if section.settings.benefit_2_icon != blank %}
+          {{ section.settings.benefit_2_icon | image_url: width: 96 | image_tag: loading: 'lazy', alt: '' }}
+        {% else %}
+          <svg viewBox="0 0 24 24">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            <path d="M9 12l2 2 4-4"></path>
+          </svg>
+        {% endif %}
       </div>
       <div class="spf-benefits__content">
         <h4 class="spf-benefits__title">{{ section.settings.benefit_2_title | escape }}</h4>
@@ -35,7 +43,11 @@
 
     <article class="spf-benefits__item">
       <div class="spf-benefits__icon" aria-hidden="true">
-        <img src="https://cdn.shopify.com/s/files/1/0601/1253/5810/files/delivery-truck.png?v=1774543641" alt="" width="44" height="44" loading="lazy">
+        {% if section.settings.benefit_3_icon != blank %}
+          {{ section.settings.benefit_3_icon | image_url: width: 96 | image_tag: loading: 'lazy', alt: '' }}
+        {% else %}
+          <img src="https://cdn.shopify.com/s/files/1/0601/1253/5810/files/delivery-truck.png?v=1774543641" alt="" width="44" height="44" loading="lazy">
+        {% endif %}
       </div>
       <div class="spf-benefits__content">
         <h4 class="spf-benefits__title">{{ section.settings.benefit_3_title | escape }}</h4>
@@ -45,13 +57,17 @@
 
     <article class="spf-benefits__item">
       <div class="spf-benefits__icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24">
-          <path d="M12 3 L6 6 v6 l6 3 l6 -3 V6 z"></path>
-          <polyline points="6 6 12 9 18 6"></polyline>
-          <line x1="12" y1="9" x2="12" y2="15"></line>
-          <path d="M9 22 l-3 -3 l3 -3"></path>
-          <path d="M6 19 h8 a3 3 0 0 0 3 -3 v-1"></path>
-        </svg>
+        {% if section.settings.benefit_4_icon != blank %}
+          {{ section.settings.benefit_4_icon | image_url: width: 96 | image_tag: loading: 'lazy', alt: '' }}
+        {% else %}
+          <svg viewBox="0 0 24 24">
+            <path d="M12 3 L6 6 v6 l6 3 l6 -3 V6 z"></path>
+            <polyline points="6 6 12 9 18 6"></polyline>
+            <line x1="12" y1="9" x2="12" y2="15"></line>
+            <path d="M9 22 l-3 -3 l3 -3"></path>
+            <path d="M6 19 h8 a3 3 0 0 0 3 -3 v-1"></path>
+          </svg>
+        {% endif %}
       </div>
       <div class="spf-benefits__content">
         <h4 class="spf-benefits__title">{{ section.settings.benefit_4_title | escape }}</h4>
@@ -66,15 +82,19 @@
   "name": "商品卖点",
   "settings": [
     { "type": "header", "content": "卖点 1" },
+    { "type": "image_picker", "id": "benefit_1_icon", "label": "图标" },
     { "type": "text", "id": "benefit_1_title", "label": "标题", "default": "Premium Qualität" },
     { "type": "text", "id": "benefit_1_description", "label": "说明", "default": "Handgefertigt in deutscher Manufaktur mit zertifizierten Materialien." },
     { "type": "header", "content": "卖点 2" },
+    { "type": "image_picker", "id": "benefit_2_icon", "label": "图标" },
     { "type": "text", "id": "benefit_2_title", "label": "标题", "default": "Zufrieden oder Geld zurück" },
     { "type": "text", "id": "benefit_2_description", "label": "说明", "default": "100 % Zufriedenheit oder Geld-zurück-Garantie." },
     { "type": "header", "content": "卖点 3" },
+    { "type": "image_picker", "id": "benefit_3_icon", "label": "图标" },
     { "type": "text", "id": "benefit_3_title", "label": "标题", "default": "Free Shipping over 49€" },
     { "type": "text", "id": "benefit_3_description", "label": "说明", "default": "We ship your order quickly and extremely securely packed." },
     { "type": "header", "content": "卖点 4" },
+    { "type": "image_picker", "id": "benefit_4_icon", "label": "图标" },
     { "type": "text", "id": "benefit_4_title", "label": "标题", "default": "30 Tage Rückgaberecht" },
     { "type": "text", "id": "benefit_4_description", "label": "说明", "default": "No ifs or buts – test your artwork completely risk-free." }
   ],
