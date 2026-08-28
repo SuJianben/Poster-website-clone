@@ -51,11 +51,14 @@
             <a class="scc-cart__recommendation" href="{{ product.url }}">
               <span class="scc-cart__recommendation-image">{% if product.featured_image %}{{ product.featured_image | image_url: width: 720 | image_tag: loading: 'lazy', widths: '360, 540, 720', alt: product.title }}{% endif %}</span>
               {% if forloop.index == 1 %}<em>TRENDING</em>{% elsif forloop.index == 2 %}<em>PERSONALISIERBAR</em>{% elsif product.compare_at_price > product.price %}<em>-{{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price }}%</em>{% endif %}
-              <small>{{ product.vendor | default: 'ATELIER EXCLUSIVE' }}</small><strong>{{ product.title }}</strong><b>Ab {{ product.price | money }}</b>
+              <small>{{ product.vendor | default: 'ATELIER EXCLUSIVE' }}</small><strong>{{ product.title }}</strong><span class="scc-cart__recommendation-type">{{ product.type | default: 'POSTERS' }}</span><b>Ab {{ product.price | money }}</b>
             </a>
           {% endfor %}
         </div></div>
-        <div class="scc-cart__recommendation-nav"><button type="button" data-scc-recommendation-prev aria-label="Vorherige Empfehlungen">‹</button><button type="button" data-scc-recommendation-next aria-label="Nächste Empfehlungen">›</button></div>
+        <div class="scc-cart__recommendation-controls">
+          <div class="scc-cart__recommendation-progress" aria-hidden="true"><i data-scc-recommendation-progress></i></div>
+          <div class="scc-cart__recommendation-nav"><button type="button" data-scc-recommendation-prev aria-label="Vorherige Empfehlungen">‹</button><button type="button" data-scc-recommendation-next aria-label="Nächste Empfehlungen">›</button></div>
+        </div>
       </section>
     {% endif %}
   </div>
