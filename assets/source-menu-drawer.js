@@ -75,6 +75,7 @@
     drawer.querySelectorAll('details[is="menu-drawer-details"]').forEach((details) => {
       closeSubmenu(details);
     });
+    document.documentElement.classList.remove('source-menu-drawer-active');
     document.body.classList.remove('source-menu-drawer-active');
     updateHostState(drawer, false);
 
@@ -89,6 +90,7 @@
     if (!drawer || !drawer.hidden) return;
 
     drawer.hidden = false;
+    document.documentElement.classList.add('source-menu-drawer-active');
     document.body.classList.add('source-menu-drawer-active');
     updateHostState(drawer, true);
 
