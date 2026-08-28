@@ -57,10 +57,10 @@
     ],
     "progress": {
       "enabled": {{ settings.sp_progress_on | default: true, allow_false: true | json }},
-      "nextCopy": {{ settings.sp_progress_next | default: 'Kaufen Sie {remaining} weitere Artikel, um {discount}% Rabatt zu erhalten.' | json }},
+      "nextCopy": {{ settings.sp_progress_next | json }},
       "completeCopy": {{ settings.sp_progress_done | default: 'Sie haben sich den maximalen Mengenrabatt gesichert.' | json }},
-      "discountLabel": {{ settings.sp_progress_disc | default: '{discount}% Rabatt' | json }},
-      "goalTemplate": {{ settings.sp_progress_goal | default: '{quantity} Artikel kaufen' | json }},
+      "discountLabel": {{ settings.sp_progress_disc | json }},
+      "goalTemplate": {{ settings.sp_progress_goal | json }},
       "tierCount": {{ settings.sp_tier_count | default: 5 | json }},
       "tiers": [
         { "quantity": {{ settings.sp_t1_qty | default: 1 | json }}, "discount": {{ settings.sp_t1_disc | default: 5 | json }} },
