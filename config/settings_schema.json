@@ -13,7 +13,7 @@
       { "type": "checkbox", "id": "sp_o1_enabled", "label": "启用优惠 1", "default": true },
       { "type": "text", "id": "sp_o1_badge", "label": "优惠高亮文字", "default": "-10%" },
       { "type": "text", "id": "sp_o1_title", "label": "优惠标题", "default": "Rabatt für Newsletter Anmeldung" },
-      { "type": "textarea", "id": "sp_o1_desc", "label": "优惠说明", "default": "" },
+      { "type": "textarea", "id": "sp_o1_desc", "label": "优惠说明" },
       { "type": "text", "id": "sp_o1_btn", "label": "优惠按钮文字", "default": "Zur Anmeldung" },
       { "type": "url", "id": "sp_o1_link", "label": "优惠跳转链接" },
       {
@@ -65,10 +65,10 @@
 
       { "type": "header", "content": "优惠内容 4" },
       { "type": "checkbox", "id": "sp_o4_enabled", "label": "启用优惠 4", "default": false },
-      { "type": "text", "id": "sp_o4_badge", "label": "优惠高亮文字", "default": "" },
-      { "type": "text", "id": "sp_o4_title", "label": "优惠标题", "default": "" },
-      { "type": "textarea", "id": "sp_o4_desc", "label": "优惠说明", "default": "" },
-      { "type": "text", "id": "sp_o4_btn", "label": "优惠按钮文字", "default": "" },
+      { "type": "text", "id": "sp_o4_badge", "label": "优惠高亮文字" },
+      { "type": "text", "id": "sp_o4_title", "label": "优惠标题" },
+      { "type": "textarea", "id": "sp_o4_desc", "label": "优惠说明" },
+      { "type": "text", "id": "sp_o4_btn", "label": "优惠按钮文字" },
       { "type": "url", "id": "sp_o4_link", "label": "优惠跳转链接" },
       {
         "type": "select",
@@ -83,10 +83,10 @@
 
       { "type": "header", "content": "优惠内容 5" },
       { "type": "checkbox", "id": "sp_o5_enabled", "label": "启用优惠 5", "default": false },
-      { "type": "text", "id": "sp_o5_badge", "label": "优惠高亮文字", "default": "" },
-      { "type": "text", "id": "sp_o5_title", "label": "优惠标题", "default": "" },
-      { "type": "textarea", "id": "sp_o5_desc", "label": "优惠说明", "default": "" },
-      { "type": "text", "id": "sp_o5_btn", "label": "优惠按钮文字", "default": "" },
+      { "type": "text", "id": "sp_o5_badge", "label": "优惠高亮文字" },
+      { "type": "text", "id": "sp_o5_title", "label": "优惠标题" },
+      { "type": "textarea", "id": "sp_o5_desc", "label": "优惠说明" },
+      { "type": "text", "id": "sp_o5_btn", "label": "优惠按钮文字" },
       { "type": "url", "id": "sp_o5_link", "label": "优惠跳转链接" },
       {
         "type": "select",
@@ -134,6 +134,32 @@
       { "type": "number", "id": "sp_t4_disc", "label": "档位 4 折扣百分比", "default": 20 },
       { "type": "number", "id": "sp_t5_qty", "label": "档位 5 商品数量", "default": 5 },
       { "type": "number", "id": "sp_t5_disc", "label": "档位 5 折扣百分比", "default": 25 }
+    ]
+  },
+  {
+    "name": "商品版本弹窗",
+    "settings": [
+      { "type": "paragraph", "content": "配置商品版本标签按钮点击后显示的全局弹窗内容。弹窗会根据店铺当前语言自动显示英文或德文。" },
+
+      { "type": "header", "content": "英文内容" },
+      { "type": "text", "id": "atelier_drawer_title_en", "label": "弹窗标题", "default": "THREE DIFFERENT EDITIONS" },
+      { "type": "textarea", "id": "atelier_drawer_intro_en", "label": "开头说明", "default": "At DotComCanvas, we redefine wall art. Our three categories offer you access to exclusive art - from entry-level to rare investment pieces." },
+      { "type": "text", "id": "atelier_drawer_limited_title_en", "label": "版本一名称", "default": "LIMITED ATELIER EXCLUSIVE" },
+      { "type": "textarea", "id": "atelier_drawer_limited_text_en", "label": "版本一说明", "default": "The ultimate statement. Exclusive artworks available only through us. Strictly limited and highly sought after." },
+      { "type": "text", "id": "atelier_drawer_exclusive_title_en", "label": "版本二名称", "default": "ATELIER EXCLUSIVE" },
+      { "type": "textarea", "id": "atelier_drawer_exclusive_text_en", "label": "版本二说明", "default": "A collection of exclusive art pieces. These unique designs are created directly for us." },
+      { "type": "text", "id": "atelier_drawer_essentials_title_en", "label": "版本三名称", "default": "ESSENTIALS" },
+      { "type": "textarea", "id": "atelier_drawer_essentials_text_en", "label": "版本三说明", "default": "Timeless favorites and bestsellers from artists who have chosen not to limit their works." },
+
+      { "type": "header", "content": "德文内容" },
+      { "type": "text", "id": "atelier_drawer_title_de", "label": "弹窗标题", "default": "DREI VERSCHIEDENE EDITIONEN" },
+      { "type": "textarea", "id": "atelier_drawer_intro_de", "label": "开头说明", "default": "Bei DotComCanvas definieren wir Wandkunst neu. Unsere drei Kategorien bieten dir Zugang zu exklusiver Kunst - vom Einstieg bis zum seltenen Investment-Piece." },
+      { "type": "text", "id": "atelier_drawer_limited_title_de", "label": "版本一名称", "default": "LIMITED ATELIER EXCLUSIVE" },
+      { "type": "textarea", "id": "atelier_drawer_limited_text_de", "label": "版本一说明", "default": "Das ultimative Statement. Exklusive Kunstwerke, die nur bei uns zu kaufen sind. Dazu noch streng limitiert und heiß begehrt." },
+      { "type": "text", "id": "atelier_drawer_exclusive_title_de", "label": "版本二名称", "default": "ATELIER EXCLUSIVE" },
+      { "type": "textarea", "id": "atelier_drawer_exclusive_text_de", "label": "版本二说明", "default": "Eine Sammlung exklusiver Kunststücke. Diese einzigartigen Designs werden direkt für uns entworfen." },
+      { "type": "text", "id": "atelier_drawer_essentials_title_de", "label": "版本三名称", "default": "ESSENTIALS" },
+      { "type": "textarea", "id": "atelier_drawer_essentials_text_de", "label": "版本三说明", "default": "Zeitlose Favoriten und Bestseller von Künstlern, die sich entschieden haben, ihre Werke nicht zu begrenzen." }
     ]
   }
 ]
