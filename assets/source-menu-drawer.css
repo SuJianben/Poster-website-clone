@@ -26,6 +26,26 @@
     will-change: transform;
   }
 
+  #MenuDrawer .drawer__content,
+  #MenuDrawer .drawer__content > nav,
+  #MenuDrawer .menu-drawer__menus {
+    min-height: 0;
+  }
+
+  #MenuDrawer .v-scrollable {
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  #MenuDrawer .v-scrollable::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
   #MenuDrawer.source-menu-drawer-open .drawer__inner {
     position: absolute;
     inset: 0;
