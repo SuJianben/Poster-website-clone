@@ -108,16 +108,6 @@
                   {% for item in search.results %}
                     {% if item.object_type == 'product' %}
                       {% render 'source-bestsellers-product-card', product: item %}
-                    {% else %}
-                      <article class="sp-search__content-result">
-                        <a href="{{ item.url }}">
-                          {% if item.image != blank %}
-                            {{ item.image | image_url: width: 800 | image_tag: loading: 'lazy', alt: item.title }}
-                          {% endif %}
-                          <h2>{{ item.title }}</h2>
-                          {% if item.content != blank %}<p>{{ item.content | strip_html | truncatewords: 24 }}</p>{% endif %}
-                        </a>
-                      </article>
                     {% endif %}
                   {% endfor %}
                 </div>

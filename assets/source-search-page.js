@@ -4,6 +4,14 @@
   function initSearchSection(section) {
     if (section.dataset.sourceSearchReady === 'true') return;
 
+    const currentUrl = new URL(window.location.href);
+    if (currentUrl.searchParams.get('q') && currentUrl.searchParams.get('type') !== 'product') {
+      currentUrl.searchParams.set('type', 'product');
+      currentUrl.searchParams.set('options[prefix]', 'last');
+      window.location.replace(currentUrl.toString());
+      return;
+    }
+
     const form = section.querySelector('[data-sp-search-form]');
     const input = section.querySelector('[data-sp-search-input]');
     const reset = section.querySelector('[data-sp-search-reset]');

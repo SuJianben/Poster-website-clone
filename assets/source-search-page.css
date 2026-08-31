@@ -489,11 +489,18 @@
   }
 
   .sp-search__form {
-    grid-template-columns: minmax(0, 1fr) 52px;
+    display: flex;
+    gap: 8px;
   }
 
   .sp-search__input {
+    flex: 1 1 auto;
+    width: 0;
     padding-right: 66px;
+  }
+
+  .sp-search__submit {
+    flex: 0 0 52px;
   }
 
   .sp-search__reset {
