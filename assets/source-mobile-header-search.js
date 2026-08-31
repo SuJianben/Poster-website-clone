@@ -26,6 +26,7 @@
     const close = panel?.querySelector('.header__search-close');
     const resultsPanel = panel?.querySelector('.search__content');
     const resultsContainer = resultsPanel?.querySelector('[role="listbox"]');
+    const searchIcon = panel?.querySelector('.search__icon-search svg');
     const cache = new Map();
     let requestTimer;
     let requestController;
@@ -77,16 +78,76 @@
       showResults();
     };
 
+    const createJsonResult = (item, type) => {
+      const link = document.createElement('a');
+      link.className = 'source-predictive-result';
+      link.setAttribute('role', 'option');
+
+      if (type === 'query') {
+        const queryText = item.text || item.styled_text || '';
+        link.href = `${window.Shopify?.routes?.root || '/'}search?q=${encodeURIComponent(queryText)}`;
+        if (searchIcon) {
+          const icon = searchIcon.cloneNode(true);
+          icon.classList.add('source-predictive-result__icon');
+          link.append(icon);
+        }
+        link.append(document.createTextNode(queryText));
+        return link;
+      }
+
+      link.href = item.url || '#';
+      link.append(document.createTextNode(item.title || ''));
+      return link;
+    };
+
+    const appendJsonGroup = (title, items, type) => {
+      if (!resultsContainer || !items?.length) return;
+      const group = document.createElement('section');
+      group.className = 'source-predictive-group';
+      const heading = document.createElement('h3');
+      heading.className = 'source-predictive-group__title';
+      heading.textContent = title;
+      group.append(heading);
+      const list = document.createElement('div');
+      list.className = 'source-predictive-group__list';
+      items.forEach((item) => list.append(createJsonResult(item, type)));
+      group.append(list);
+      resultsContainer.append(group);
+    };
+
+    const renderJsonResults = (data) => {
+      if (!resultsContainer) return;
+      const results = data?.resources?.results || {};
+      resultsContainer.replaceChildren();
+      appendJsonGroup('Vorschläge', results.queries, 'query');
+      appendJsonGroup('Sammlungen', results.collections, 'collection');
+      appendJsonGroup('Artikel und Seiten', [...(results.articles || []), ...(results.pages || [])], 'page');
+      appendJsonGroup('Produkte', results.products, 'product');
+      if (!resultsContainer.childElementCount) renderResults('');
+      else showResults();
+    };
+
+    const addPreviewParams = (url) => {
+      const currentParams = new URLSearchParams(window.location.search);
+      ['preview_theme_id', 'preview_token', '_fd', 'pb'].forEach((name) => {
+        const value = currentParams.get(name);
+        if (value) url.searchParams.set(name, value);
+      });
+      return url;
+    };
+
     const loadResults = async (query) => {
       if (cache.has(query)) {
-        renderResults(cache.get(query));
+        const cachedResult = cache.get(query);
+        if (typeof cachedResult === 'string') renderResults(cachedResult);
+        else renderJsonResults(cachedResult);
         return;
       }
 
       requestController?.abort();
       requestController = new AbortController();
       const root = window.Shopify?.routes?.root || '/';
-      const url = new URL(`${root}search/suggest`, window.location.origin);
+      const url = addPreviewParams(new URL(`${root}search/suggest`, window.location.origin));
       url.searchParams.set('q', query);
       url.searchParams.set('section_id', 'predictive-search');
       url.searchParams.set('resources[type]', 'query,product,collection,page,article');
@@ -96,15 +157,34 @@
       try {
         const response = await fetch(url, {
           headers: { Accept: 'text/html' },
+          credentials: 'same-origin',
           signal: requestController.signal,
         });
         if (!response.ok) throw new Error(`Predictive search failed: ${response.status}`);
         const markup = await response.text();
+        if (!markup.includes('data-source-predictive-results')) {
+          throw new Error('Predictive search section was not rendered');
+        }
         cache.set(query, markup);
         if (input.value.trim() === query) renderResults(markup);
       } catch (error) {
-        if (error.name !== 'AbortError') {
-          renderResults('');
+        if (error.name === 'AbortError') return;
+        const fallbackUrl = addPreviewParams(new URL(`${root}search/suggest.json`, window.location.origin));
+        fallbackUrl.searchParams.set('q', query);
+        fallbackUrl.searchParams.set('resources[type]', 'query,product,collection,page,article');
+        fallbackUrl.searchParams.set('resources[limit]', '10');
+        try {
+          const fallbackResponse = await fetch(fallbackUrl, {
+            headers: { Accept: 'application/json' },
+            credentials: 'same-origin',
+            signal: requestController.signal,
+          });
+          if (!fallbackResponse.ok) throw new Error(`Predictive search fallback failed: ${fallbackResponse.status}`);
+          const data = await fallbackResponse.json();
+          cache.set(query, data);
+          if (input.value.trim() === query) renderJsonResults(data);
+        } catch (fallbackError) {
+          if (fallbackError.name !== 'AbortError') renderResults('');
         }
       }
     };
