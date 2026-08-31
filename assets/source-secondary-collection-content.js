@@ -55,6 +55,8 @@
     const cards = section.querySelectorAll('.collection-list__items > .f-column');
     cards.forEach((card, index) => {
       card.hidden = index >= data.cards.length || !data.cards[index]?.collection;
+      if (card.hidden) card.style.setProperty('display', 'none', 'important');
+      else card.style.removeProperty('display');
     });
     data.cards.forEach((card, index) => applyCard(cards[card.index ?? index], card));
   }

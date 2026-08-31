@@ -66,6 +66,8 @@
     cards.forEach((card, index) => {
       const review = data.reviews[index];
       card.hidden = !review || !(review.title || review.message || review.author || review.product);
+      if (card.hidden) card.style.setProperty('display', 'none', 'important');
+      else card.style.removeProperty('display');
     });
     data.reviews.forEach((review) => applyReview(cards[review.index], review));
 

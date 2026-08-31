@@ -71,7 +71,11 @@
       `.favorite-products__media .swiper-slide[data-index="${index}"]`,
     ].forEach((selector) => {
       const slide = root.querySelector(selector);
-      if (slide) slide.hidden = !visible;
+      if (slide) {
+        slide.hidden = !visible;
+        if (visible) slide.style.removeProperty('display');
+        else slide.style.setProperty('display', 'none', 'important');
+      }
     });
   }
 

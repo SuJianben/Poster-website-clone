@@ -69,23 +69,34 @@
     }
 
     const section = script.closest('.shopify-section') || document;
+    const copyrightLink = section.querySelector('.footer__copyright a');
+    if (copyrightLink) {
+      copyrightLink.textContent = config.shopName || '';
+      copyrightLink.href = '/';
+    }
     const menuBlocks = section.querySelectorAll('.footer-block--menu');
     const menuConfigs = [config.menus?.service, config.menus?.information, config.menus?.collaboration, config.menus?.general];
     menuBlocks.forEach((block, index) => updateMenu(block, menuConfigs[index]));
 
     const contactBlock = section.querySelector('.footer-block--contact_information');
     if (contactBlock) {
-      const hasContact = Boolean(config.contact?.heading || config.contact?.address || config.contact?.email);
+      const hasContact = Boolean(config.contact?.address || config.contact?.email);
       contactBlock.hidden = !hasContact;
+      if (hasContact) contactBlock.style.removeProperty('display');
+      else contactBlock.style.setProperty('display', 'none', 'important');
       updateText(contactBlock.querySelector('.footer-block__heading'), config.contact?.heading);
       updateAddress(contactBlock.querySelector('.footer-info__address span'), config.contact?.address);
       const email = contactBlock.querySelector('.footer-info__email a');
       if (email && config.contact?.email) {
         email.textContent = config.contact.email;
         email.href = `mailto:${config.contact.email}`;
-        email.closest('.footer-info__email')?.removeAttribute('hidden');
+        const emailRow = email.closest('.footer-info__email');
+        emailRow?.removeAttribute('hidden');
+        emailRow?.style.removeProperty('display');
       } else {
-        email?.closest('.footer-info__email')?.setAttribute('hidden', '');
+        const emailRow = email?.closest('.footer-info__email');
+        emailRow?.setAttribute('hidden', '');
+        emailRow?.style.setProperty('display', 'none', 'important');
       }
     }
 
@@ -93,6 +104,7 @@
     if (config.awardsImage) {
       const image = awardsBlock?.querySelector('img');
       awardsBlock?.removeAttribute('hidden');
+      awardsBlock?.style.removeProperty('display');
       if (image) {
         image.src = config.awardsImage;
         image.removeAttribute('srcset');
@@ -100,13 +112,19 @@
       }
     } else {
       awardsBlock?.setAttribute('hidden', '');
+      awardsBlock?.style.setProperty('display', 'none', 'important');
     }
 
     Object.entries(config.social || {}).forEach(([network, url]) => {
       const link = section.querySelector(`.social__link:has(.icon-${network})`);
       if (!link) return;
       link.hidden = !url;
-      if (url) link.href = url;
+      if (url) {
+        link.href = url;
+        link.style.removeProperty('display');
+      } else {
+        link.style.setProperty('display', 'none', 'important');
+      }
     });
   }
 
