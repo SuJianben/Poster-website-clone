@@ -89,7 +89,7 @@
 
   body.source-menu-drawer-active .header__top,
   body.source-menu-drawer-active .header__bottom {
-    border-block-end-color: transparent !important;
+    border-block-end-color: rgb(var(--color-background, 255, 255, 255)) !important;
     box-shadow: none !important;
   }
 
