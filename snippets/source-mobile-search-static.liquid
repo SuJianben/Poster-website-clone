@@ -22,6 +22,8 @@
     <h3 class="source-predictive-group__title">Produkte</h3>
     <div class="source-predictive-group__list" data-source-live-list="product"></div>
   </section>
+
+  <p class="source-predictive-empty" data-source-live-empty hidden>Keine passenden Produkte gefunden.</p>
 </div>
 
 <script>
@@ -57,7 +59,7 @@
       link.className = 'source-predictive-result';
       if (type === 'query') {
         const text = item.text || item.styled_text || item.title || '';
-        link.href = `/search?q=${encodeURIComponent(text)}&type=product`;
+        link.href = item.url || `/search?q=${encodeURIComponent(text)}&type=product`;
         link.insertAdjacentHTML('afterbegin', searchIcon);
         link.append(document.createTextNode(text));
       } else {
@@ -79,6 +81,8 @@
       renderGroup('query', queries.slice(0, 10));
       renderGroup('collection', collections.slice(0, 10));
       renderGroup('product', products.slice(0, 10));
+      const empty = panel.querySelector('[data-source-live-empty]');
+      if (empty) empty.hidden = queries.length + collections.length + products.length > 0;
     };
 
     const renderLocal = (query) => {
@@ -93,19 +97,29 @@
           seen.add(key);
           return true;
         })
-        .map((item) => ({ text: item.title }));
-      if (!queries.length) queries.push({ text: query });
+        .map((item) => ({ text: item.title, url: item.url }));
       render({ queries, collections, products });
     };
 
     const renderRemote = (data) => {
       const results = data?.resources?.results || {};
-      const hasResults = [results.queries, results.collections, results.products].some((items) => items?.length);
+      const products = results.products || [];
+      const collections = results.collections || [];
+      const hasResults = [collections, products].some((items) => items.length);
       if (!hasResults) return;
+      const seen = new Set();
+      const queries = [...products, ...collections]
+        .filter((item) => {
+          const key = item.title?.toLocaleLowerCase();
+          if (!key || seen.has(key)) return false;
+          seen.add(key);
+          return true;
+        })
+        .map((item) => ({ text: item.title, url: item.url }));
       render({
-        queries: results.queries || [],
-        collections: results.collections || [],
-        products: results.products || [],
+        queries,
+        collections,
+        products,
       });
     };
 
@@ -118,7 +132,7 @@
       controller = new AbortController();
       const url = new URL('/search/suggest.json', window.location.origin);
       url.searchParams.set('q', query);
-      url.searchParams.set('resources[type]', 'query,product,collection');
+      url.searchParams.set('resources[type]', 'product,collection');
       url.searchParams.set('resources[limit]', '10');
       try {
         const response = await fetch(url, {
@@ -212,6 +226,13 @@
       line-height: 1.35;
       min-height: 20px;
       text-decoration: none;
+    }
+
+    .source-static-predictive .source-predictive-empty {
+      color: #606060;
+      font-size: 14px;
+      font-weight: 600;
+      margin: 0;
     }
   }
 </style>
