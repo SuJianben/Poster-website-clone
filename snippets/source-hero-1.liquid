@@ -14,7 +14,8 @@
   <style data-shopify>
     #shopify-section-{{ section.id }} .page-width--full { --page-padding: 0; }
 
-    #shopify-section-{{ section.id }} .source-hero__desktop-video {
+    #shopify-section-{{ section.id }} .source-hero__desktop-video,
+    #shopify-section-{{ section.id }} .source-hero__mobile-video {
       position: absolute;
       inset: 0;
       display: block;
@@ -24,7 +25,11 @@
       pointer-events: none;
     }
 
-    #shopify-section-{{ section.id }} .source-hero__image-fallback--with-video {
+    #shopify-section-{{ section.id }} .source-hero__mobile-video {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .source-hero__image-fallback--desktop-video {
       display: none;
     }
 
@@ -33,17 +38,24 @@
         display: none;
       }
 
-      #shopify-section-{{ section.id }} .source-hero__image-fallback--with-video {
+      #shopify-section-{{ section.id }} .source-hero__mobile-video,
+      #shopify-section-{{ section.id }} .source-hero__image-fallback--desktop-video {
         display: block;
+      }
+
+      #shopify-section-{{ section.id }} .source-hero__image-fallback--mobile-video {
+        display: none;
       }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      #shopify-section-{{ section.id }} .source-hero__desktop-video {
+      #shopify-section-{{ section.id }} .source-hero__desktop-video,
+      #shopify-section-{{ section.id }} .source-hero__mobile-video {
         display: none;
       }
 
-      #shopify-section-{{ section.id }} .source-hero__image-fallback--with-video {
+      #shopify-section-{{ section.id }} .source-hero__image-fallback--desktop-video,
+      #shopify-section-{{ section.id }} .source-hero__image-fallback--mobile-video {
         display: block;
       }
     }
@@ -64,8 +76,15 @@
                     {% endfor %}
                   </video>
                 {% endif %}
+                {% if section.settings.mobile_video != blank %}
+                  <video class="source-hero__mobile-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true"{% if section.settings.mobile_video.preview_image != blank %} poster="{{ section.settings.mobile_video.preview_image | image_url: width: 1000 }}"{% endif %}>
+                    {% for source in section.settings.mobile_video.sources %}
+                      <source src="{{ source.url }}" type="{{ source.mime_type }}">
+                    {% endfor %}
+                  </video>
+                {% endif %}
                 <motion-element class="w-full h-full block" data-motion="zoom-out" hold>
-                  <picture class="media media--height media-wrapper block w-full h-full relative overflow-hidden{% if section.settings.desktop_video != blank %} source-hero__image-fallback--with-video{% endif %}">
+                  <picture class="media media--height media-wrapper block w-full h-full relative overflow-hidden{% if section.settings.desktop_video != blank %} source-hero__image-fallback--desktop-video{% endif %}{% if section.settings.mobile_video != blank %} source-hero__image-fallback--mobile-video{% endif %}">
                     {% if section.settings.mobile_image != blank %}
                       <source media="(max-width: 767px)" srcset="{{ section.settings.mobile_image | image_url: width: 1000 }}" width="{{ section.settings.mobile_image.width }}" height="{{ section.settings.mobile_image.height }}">
                     {% else %}

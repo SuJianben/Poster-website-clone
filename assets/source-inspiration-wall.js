@@ -1,12 +1,16 @@
 (() => {
-  document.querySelectorAll('[data-inspiration-wall]').forEach((wall) => {
+  const initWall = (wall) => {
+    if (wall.dataset.inspirationWallInitialized === 'true') return;
+    wall.dataset.inspirationWallInitialized = 'true';
     const moreButton = wall.querySelector('[data-inspiration-more]');
     const modal = wall.querySelector('[data-inspiration-modal]');
     const tiles = Array.from(wall.querySelectorAll('[data-inspiration-tile]'));
     const modalImage = wall.querySelector('[data-inspiration-modal-image]');
     const username = wall.querySelector('[data-inspiration-username]');
+    const date = wall.querySelector('[data-inspiration-date]');
     const caption = wall.querySelector('[data-inspiration-caption]');
     const likes = wall.querySelector('[data-inspiration-likes]');
+    const comments = wall.querySelector('[data-inspiration-comments]');
     const product = wall.querySelector('[data-inspiration-product]');
     const productImage = wall.querySelector('[data-inspiration-product-image]');
     const productTitle = wall.querySelector('[data-inspiration-product-title]');
@@ -15,17 +19,25 @@
     let activeIndex = 0;
     const hiddenTiles = () => tiles.filter((tile) => tile.classList.contains('is-hidden'));
     const render = (index) => {
+      if (!tiles.length) return;
       activeIndex = (index + tiles.length) % tiles.length;
       const tile = tiles[activeIndex];
       modalImage.src = tile.dataset.image;
       modalImage.alt = tile.querySelector('img').alt;
       username.textContent = tile.dataset.username;
+      date.textContent = tile.dataset.date || '';
+      date.hidden = !tile.dataset.date;
       caption.textContent = tile.dataset.caption;
       likes.textContent = tile.dataset.likes;
-      productImage.src = tile.dataset.productImage;
-      productImage.alt = tile.dataset.productTitle;
-      productTitle.textContent = tile.dataset.productTitle;
-      product.href = '/products/berit-mogensen-lopez-improvise';
+      comments.textContent = tile.dataset.comments || '0';
+      const hasProduct = Boolean(tile.dataset.productUrl && tile.dataset.productImage);
+      product.hidden = !hasProduct;
+      if (hasProduct) {
+        productImage.src = tile.dataset.productImage;
+        productImage.alt = tile.dataset.productTitle;
+        productTitle.textContent = tile.dataset.productTitle;
+        product.href = tile.dataset.productUrl;
+      }
       likeButton.setAttribute('aria-pressed', 'false');
       thumbs.querySelectorAll('button').forEach((thumb, thumbIndex) => {
         thumb.classList.toggle('is-active', thumbIndex === activeIndex);
@@ -68,5 +80,12 @@
       if (event.key === 'ArrowLeft') render(activeIndex - 1);
       if (event.key === 'ArrowRight') render(activeIndex + 1);
     });
-  });
+  };
+
+  const initAll = (root = document) => {
+    root.querySelectorAll('[data-inspiration-wall]').forEach(initWall);
+  };
+
+  initAll();
+  document.addEventListener('shopify:section:load', (event) => initAll(event.target));
 })();

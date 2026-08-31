@@ -9,11 +9,6 @@
   @media(max-width:549px){.inspiration-wall__modal{display:block;background:#fff}.inspiration-wall__modal-shell{width:100vw;height:100dvh}}
 </style>
 
-{% liquid
-  assign fallback_images = 'https://cdn.stamped.io/uploads/instagram/228253_17982961991632197_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_17983635983465494_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_18027296926740370_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_18409242106058899_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_17849629965132991_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_17887485995917154_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_17985448340402894_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_17985703427386591_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_17996421116240631_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_18215387413283079_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_17918667689842490_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_18077767885439204_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_18032030818741035_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_18305893477131358_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_17969030990652784_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_17982301946406867_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_17928248822715182_high.jpg?tr=h-500|https://cdn.stamped.io/uploads/instagram/228253_17981617157405940_high.jpg?tr=h-500'
-  assign fallback_images = fallback_images | split: '|'
-%}
-
 <section class="inspiration-wall" data-inspiration-wall>
   <header class="inspiration-wall__heading">
     <h1>{{ section.settings.heading }}</h1>
@@ -23,45 +18,59 @@
   </header>
 
   <div class="inspiration-wall__grid" data-inspiration-grid>
-    {% for image in fallback_images %}
-      {% liquid
-        assign username = 'dotcomcanvas'
-        assign product_title = 'DOTCOMCANVAS Wall Art'
-        assign product_image = image
-        assign caption = 'Discover original wall art, created to bring personality and colour to your space.'
-        if forloop.first
-          assign product_title = 'Smells like Success'
-          assign product_image = 'https://cdn.shopify.com/s/files/1/0601/1253/5810/files/LeinwandbildSmellslikeSuccessCocoChanelParfumPopArt10.jpg?tr=h-180'
-          assign caption = 'SMELLS LIKE SUCCESS - New Art 🔥 Artist: STEFAN BAMERT 🎨 BUY 1 - GET 1 for FREE. Each week new art drops here — do not miss your chance to get your favourite art. Premium Acrylic Glass • Premium Canvas. Do you like this art?'
-        elsif forloop.index == 9
-          assign username = 'julianhelbigecom'
-          assign caption = 'A special customer interior featuring DOTCOMCANVAS art.'
-        endif
-      %}
-      <button class="inspiration-wall__tile{% if forloop.index > 12 %} is-hidden{% endif %}" type="button" data-inspiration-tile data-index="{{ forloop.index0 }}" data-image="{{ image }}" data-username="{{ username }}" data-caption="{{ caption | escape }}" data-product-title="{{ product_title }}" data-product-image="{{ product_image }}" data-likes="{{ forloop.index | times: 7 | plus: 8 }}">
-        <img src="{{ image }}" alt="{{ section.settings.image_alt }} {{ forloop.index }}" loading="{% if forloop.index < 7 %}eager{% else %}lazy{% endif %}" width="500" height="500">
-        <span>SHOP THE LOOK</span>
-      </button>
-    {% endfor %}
+    {% assign tile_count = 0 %}
+    {% if section.blocks.size > 0 %}
+      {% for block in section.blocks %}
+        {% liquid
+          assign tile_product = block.settings.product
+          assign tile_image = block.settings.image | default: tile_product.featured_image
+          assign tile_product_image = tile_product.featured_image
+          assign tile_username = block.settings.username | default: shop.name
+          assign tile_caption = block.settings.caption
+          assign tile_alt = block.settings.image_alt | default: tile_product.title | default: section.settings.image_alt
+        %}
+        {% if tile_image != blank %}
+          {% assign tile_count = tile_count | plus: 1 %}
+          <button class="inspiration-wall__tile{% if tile_count > 12 %} is-hidden{% endif %}" type="button" data-inspiration-tile data-index="{{ tile_count | minus: 1 }}" data-image="{{ tile_image | image_url: width: 1600 }}" data-username="{{ tile_username | escape }}" data-caption="{{ tile_caption | escape }}" data-date="{{ block.settings.date_label | escape }}" data-product-title="{{ tile_product.title | escape }}" data-product-image="{% if tile_product_image != blank %}{{ tile_product_image | image_url: width: 600 }}{% endif %}" data-product-url="{{ tile_product.url }}" data-likes="{{ block.settings.likes | default: 0 | escape }}" data-comments="{{ block.settings.comments | default: 0 | escape }}" {{ block.shopify_attributes }}>
+            {{ tile_image | image_url: width: 900 | image_tag: alt: tile_alt, loading: 'lazy', widths: '240, 360, 500, 720, 900', sizes: '(max-width: 549px) 50vw, (max-width: 989px) 33vw, 17vw' }}
+            <span>{{ section.settings.tile_label }}</span>
+          </button>
+        {% endif %}
+      {% endfor %}
+    {% else %}
+      {% assign source_collection = section.settings.collection | default: collections.all %}
+      {% for tile_product in source_collection.products limit: 18 %}
+        {% if tile_product.featured_image != blank %}
+          {% assign tile_count = tile_count | plus: 1 %}
+          {% assign tile_caption = tile_product.description | strip_html | truncate: 220 %}
+          <button class="inspiration-wall__tile{% if tile_count > 12 %} is-hidden{% endif %}" type="button" data-inspiration-tile data-index="{{ tile_count | minus: 1 }}" data-image="{{ tile_product.featured_image | image_url: width: 1600 }}" data-username="{{ shop.name | escape }}" data-caption="{{ tile_caption | escape }}" data-date="" data-product-title="{{ tile_product.title | escape }}" data-product-image="{{ tile_product.featured_image | image_url: width: 600 }}" data-product-url="{{ tile_product.url }}" data-likes="0" data-comments="0">
+            {{ tile_product.featured_image | image_url: width: 900 | image_tag: alt: tile_product.title, loading: 'lazy', widths: '240, 360, 500, 720, 900', sizes: '(max-width: 549px) 50vw, (max-width: 989px) 33vw, 17vw' }}
+            <span>{{ section.settings.tile_label }}</span>
+          </button>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
   </div>
 
-  <div class="inspiration-wall__more-wrap">
-    <button class="inspiration-wall__more" type="button" data-inspiration-more>{{ section.settings.load_more_label }}</button>
-  </div>
+  {% if tile_count > 12 %}
+    <div class="inspiration-wall__more-wrap">
+      <button class="inspiration-wall__more" type="button" data-inspiration-more>{{ section.settings.load_more_label }}</button>
+    </div>
+  {% endif %}
 
   <div class="inspiration-wall__modal" data-inspiration-modal role="dialog" aria-modal="true" aria-label="Instagram image details" hidden>
     <div class="inspiration-wall__modal-shell">
       <button class="inspiration-wall__close" type="button" data-inspiration-close aria-label="Close image details">×</button>
       <button class="inspiration-wall__nav inspiration-wall__nav--prev" type="button" data-inspiration-prev aria-label="Previous photo">‹</button>
-      <div class="inspiration-wall__modal-image"><img src="" alt="" data-inspiration-modal-image></div>
+      <div class="inspiration-wall__modal-image"><img alt="" width="1200" height="1200" data-inspiration-modal-image></div>
       <article class="inspiration-wall__modal-content">
-        <p class="inspiration-wall__source">Instagram</p>
+        <p class="inspiration-wall__source">{{ section.settings.source_label }}</p>
         <h2 data-inspiration-username></h2>
-        <p class="inspiration-wall__date">30 months ago</p>
+        <p class="inspiration-wall__date" data-inspiration-date></p>
         <p class="inspiration-wall__caption" data-inspiration-caption></p>
-        <div class="inspiration-wall__votes"><button type="button" data-inspiration-like aria-pressed="false">♥ <span data-inspiration-likes>0</span></button><span>● 0</span></div>
-        <a class="inspiration-wall__product" href="/products/berit-mogensen-lopez-improvise" data-inspiration-product>
-          <img src="" alt="" data-inspiration-product-image>
+        <div class="inspiration-wall__votes"><button type="button" data-inspiration-like aria-pressed="false">♥ <span data-inspiration-likes>0</span></button><span>● <span data-inspiration-comments>0</span></span></div>
+        <a class="inspiration-wall__product" href="{{ routes.root_url }}" data-inspiration-product hidden>
+          <img alt="" width="190" height="125" data-inspiration-product-image>
           <span data-inspiration-product-title></span>
         </a>
       </article>
@@ -76,10 +85,30 @@
   "name": "灵感图片墙",
   "settings": [
     { "type": "text", "id": "heading", "label": "标题", "default": "Shop the Look" },
-    { "type": "text", "id": "image_alt", "label": "图片替代文字前缀", "default": "DOTCOMCANVAS interior inspiration" },
+    { "type": "collection", "id": "collection", "label": "自动商品系列", "info": "未添加灵感图片区块时，自动显示这个系列的商品；留空时显示全部商品。" },
+    { "type": "text", "id": "image_alt", "label": "默认图片替代文字", "default": "Interior inspiration" },
+    { "type": "text", "id": "tile_label", "label": "图片悬停文字", "default": "SHOP THE LOOK" },
     { "type": "text", "id": "load_more_label", "label": "加载更多按钮文字", "default": "Load More" },
+    { "type": "text", "id": "source_label", "label": "弹窗来源文字", "default": "Instagram" },
     { "type": "url", "id": "instagram_url", "label": "Instagram 链接" }
   ],
+  "blocks": [
+    {
+      "type": "look",
+      "name": "灵感图片",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "灵感图片", "info": "未选择时使用关联商品的主图。" },
+        { "type": "product", "id": "product", "label": "关联商品" },
+        { "type": "text", "id": "image_alt", "label": "图片替代文字" },
+        { "type": "text", "id": "username", "label": "用户名或作者", "default": "My shop" },
+        { "type": "textarea", "id": "caption", "label": "图片说明" },
+        { "type": "text", "id": "date_label", "label": "日期文字" },
+        { "type": "text", "id": "likes", "label": "点赞数", "default": "0" },
+        { "type": "text", "id": "comments", "label": "评论数", "default": "0" }
+      ]
+    }
+  ],
+  "max_blocks": 50,
   "presets": [{ "name": "灵感图片墙" }]
 }
 {% endschema %}
