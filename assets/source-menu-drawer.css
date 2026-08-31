@@ -1,7 +1,7 @@
 @media (max-width: 1023px) {
   #MenuDrawer.source-menu-drawer-mounted {
     position: fixed;
-    inset: var(--source-menu-drawer-header-height, 56px) 0 0;
+    inset: calc(var(--source-menu-drawer-header-height, 56px) - 1px) 0 0;
     z-index: 1000;
     display: block;
     width: 100%;
@@ -87,8 +87,18 @@
     transform: translateY(0) !important;
   }
 
+  body.source-menu-drawer-active .header-sticky,
+  body.source-menu-drawer-active .header-section,
+  body.source-menu-drawer-active .header,
   body.source-menu-drawer-active .header__top {
-    border-block-end: 0 !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    outline: 0 !important;
+  }
+
+  body.source-menu-drawer-active .header__top::before,
+  body.source-menu-drawer-active .header__top::after {
+    border: 0 !important;
     box-shadow: none !important;
   }
 
