@@ -1,16 +1,17 @@
 (() => {
   const DATA_SELECTOR = 'script[data-source-announcement-overrides]';
   const STARS = '★★★★★';
+  const EMPTY_IMAGE = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
 
   function replaceText(element, value) {
-    if (element && value) element.textContent = value;
+    if (element) element.textContent = value || '';
   }
 
   function updateImage(image, source, alt) {
-    if (!image || !source) return;
-    image.src = source;
+    if (!image) return;
+    image.src = source || EMPTY_IMAGE;
     image.removeAttribute('srcset');
-    if (alt) image.alt = alt;
+    image.alt = alt || '';
   }
 
   function applyReview(card, review) {
@@ -23,20 +24,27 @@
     replaceText(card.querySelector('.source-reviews-card__message'), review.message);
     replaceText(card.querySelector('.source-reviews-card__author'), review.author);
 
+    const starElement = card.querySelector('.source-reviews-card__stars');
     if (review.rating) {
       const stars = STARS.slice(0, review.rating);
-      const starElement = card.querySelector('.source-reviews-card__stars');
       replaceText(starElement, stars);
       starElement?.setAttribute('aria-label', `${review.rating} von 5 Sternen`);
+    } else {
+      replaceText(starElement);
+      starElement?.removeAttribute('aria-label');
     }
 
     const titleLink = card.querySelector('.source-reviews-card__title');
     const productLink = review.link || review.product?.url;
-    if (titleLink && productLink) titleLink.href = productLink;
+    if (titleLink) {
+      if (productLink) titleLink.href = productLink;
+      else titleLink.removeAttribute('href');
+    }
 
-    if (!review.product) return;
-    replaceText(card.querySelector('.source-reviews-card__product-name'), review.product.title);
-    updateImage(card.querySelector('.source-reviews-card__product img'), review.product.image, review.product.title);
+    const productElement = card.querySelector('.source-reviews-card__product');
+    productElement?.toggleAttribute('hidden', !review.product);
+    replaceText(card.querySelector('.source-reviews-card__product-name'), review.product?.title);
+    updateImage(card.querySelector('.source-reviews-card__product img'), review.product?.image, review.product?.title);
   }
 
   function applyOverrides(dataElement) {
@@ -55,6 +63,10 @@
     replaceText(carousel.querySelector('.source-reviews-carousel__summary span:last-child'), data.reviewCount);
 
     const cards = carousel.querySelectorAll('.source-reviews-card');
+    cards.forEach((card, index) => {
+      const review = data.reviews[index];
+      card.hidden = !review || !(review.title || review.message || review.author || review.product);
+    });
     data.reviews.forEach((review) => applyReview(cards[review.index], review));
 
     if (section.dataset.sourceAnnouncementEditorReady !== 'true') {

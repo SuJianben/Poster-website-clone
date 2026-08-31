@@ -1,24 +1,25 @@
 (() => {
   const DATA_SELECTOR = 'script[data-source-secondary-collection-overrides]';
+  const EMPTY_IMAGE = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
 
   function replaceText(element, value) {
-    if (element && value) element.textContent = value;
+    if (element) element.textContent = value || '';
   }
 
   function updateImage(image, source, alt) {
-    if (!image || !source) return;
-    image.src = source;
+    if (!image) return;
+    image.src = source || EMPTY_IMAGE;
     image.removeAttribute('srcset');
-    if (alt) image.alt = alt;
+    image.alt = alt || '';
   }
 
   function replaceCardTitle(element, value) {
-    if (!element || !value) return;
+    if (!element) return;
     const textNode = Array.from(element.childNodes).find((node) => node.nodeType === Node.TEXT_NODE);
     if (textNode) {
-      textNode.textContent = value;
+      textNode.textContent = value || '';
     } else {
-      element.prepend(document.createTextNode(value));
+      element.prepend(document.createTextNode(value || ''));
     }
   }
 
@@ -32,8 +33,11 @@
     const resolvedTitle = data.title || data.collection?.title;
 
     replaceCardTitle(title, resolvedTitle);
-    if (link && data.collection?.url) link.href = data.collection.url;
-    if (data.collection) updateImage(card.querySelector('img'), data.collection.image, resolvedTitle || data.collection.title);
+    if (link) {
+      if (data.collection?.url) link.href = data.collection.url;
+      else link.removeAttribute('href');
+    }
+    updateImage(card.querySelector('img'), data.collection?.image, resolvedTitle || data.collection?.title);
   }
 
   function applyOverrides(dataElement) {
@@ -49,6 +53,9 @@
 
     replaceText(section.querySelector('.section__heading motion-element'), data.heading);
     const cards = section.querySelectorAll('.collection-list__items > .f-column');
+    cards.forEach((card, index) => {
+      card.hidden = index >= data.cards.length || !data.cards[index]?.collection;
+    });
     data.cards.forEach((card, index) => applyCard(cards[card.index ?? index], card));
   }
 

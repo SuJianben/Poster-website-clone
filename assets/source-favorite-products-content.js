@@ -1,14 +1,16 @@
 (() => {
   const DATA_SELECTOR = 'script[data-source-favorite-overrides]';
+  const EMPTY_IMAGE = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
 
   function replaceText(element, value) {
-    if (element && value) element.textContent = value;
+    if (element) element.textContent = value || '';
   }
 
   function replaceMultilineText(element, value) {
-    if (!element || !value) return;
+    if (!element) return;
 
     element.replaceChildren();
+    if (!value) return;
     value.split(/\r?\n/).forEach((line, index) => {
       if (index) element.append(document.createElement('br'));
       element.append(document.createTextNode(line));
@@ -16,14 +18,24 @@
   }
 
   function updateImage(image, source, alt) {
-    if (!image || !source) return;
-    image.src = source;
+    if (!image) return;
+    image.src = source || EMPTY_IMAGE;
     image.removeAttribute('srcset');
-    if (alt) image.alt = alt;
+    image.alt = alt || '';
   }
 
   function applyProduct(slide, product) {
-    if (!slide || !product) return;
+    if (!slide) return;
+
+    if (!product) {
+      slide.querySelectorAll('.product-card a[href]').forEach((link) => link.removeAttribute('href'));
+      updateImage(slide.querySelector('.product-card__image--main img'));
+      slide.querySelector('.product-card__image--second')?.classList.add('hidden');
+      replaceText(slide.querySelector('.product-card__title .reversed-link__text'));
+      replaceText(slide.querySelector('.product-card__material'));
+      replaceText(slide.querySelector('.f-price-item--regular'));
+      return;
+    }
 
     slide.querySelectorAll('.product-card a[href]').forEach((link) => {
       link.href = product.url;
@@ -46,11 +58,21 @@
   }
 
   function applyScene(root, index, source) {
-    if (!source) return;
     const mediaSlide = root.querySelector(`.favorite-products__media .swiper-slide[data-index="${index}"]`);
     const productSlide = root.querySelector(`.favorite-products__products > .swiper-wrapper > .swiper-slide[data-index="${index}"]`);
     updateImage(mediaSlide?.querySelector('img'), source);
     updateImage(productSlide?.querySelector('.favorite-product__bg img'), source);
+  }
+
+  function setSlideVisibility(root, index, visible) {
+    [
+      `.favorite-products__testimonials .swiper-slide[data-index="${index}"]`,
+      `.favorite-products__products > .swiper-wrapper > .swiper-slide[data-index="${index}"]`,
+      `.favorite-products__media .swiper-slide[data-index="${index}"]`,
+    ].forEach((selector) => {
+      const slide = root.querySelector(selector);
+      if (slide) slide.hidden = !visible;
+    });
   }
 
   function applyOverrides(dataElement) {
@@ -67,7 +89,18 @@
 
     replaceText(root.querySelector('.favorite-products__testimonials .section__heading'), data.heading);
 
+    const capturedSlideCount = root.querySelectorAll('.favorite-products__testimonials .swiper-slide[data-index]').length;
+    for (let index = data.slides.length; index < capturedSlideCount; index += 1) {
+      setSlideVisibility(root, index, false);
+    }
+
     data.slides.forEach((slideData) => {
+      const hasContent = Boolean(
+        slideData.title || slideData.body || slideData.name || slideData.location ||
+        slideData.sceneImage || slideData.product
+      );
+      setSlideVisibility(root, slideData.index, hasContent);
+
       const testimonialSlide = root.querySelector(`.favorite-products__testimonials .swiper-slide[data-index="${slideData.index}"]`);
       if (testimonialSlide) {
         replaceText(testimonialSlide.querySelector('.testimonial__content h2'), slideData.title);

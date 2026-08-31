@@ -143,7 +143,7 @@
 
       { "type": "header", "content": "弹窗内容" },
       { "type": "text", "id": "atelier_drawer_title_en", "label": "弹窗标题", "default": "THREE DIFFERENT EDITIONS" },
-      { "type": "textarea", "id": "atelier_drawer_intro_en", "label": "开头说明", "default": "At DotComCanvas, we redefine wall art. Our three categories offer you access to exclusive art - from entry-level to rare investment pieces." },
+      { "type": "textarea", "id": "atelier_drawer_intro_en", "label": "开头说明", "default": "Explore three carefully curated art editions, from accessible favorites to rare investment pieces." },
       { "type": "text", "id": "atelier_drawer_limited_title_en", "label": "版本一名称", "default": "LIMITED ATELIER EXCLUSIVE" },
       { "type": "textarea", "id": "atelier_drawer_limited_text_en", "label": "版本一说明", "default": "The ultimate statement. Exclusive artworks available only through us. Strictly limited and highly sought after." },
       { "type": "text", "id": "atelier_drawer_exclusive_title_en", "label": "版本二名称", "default": "ATELIER EXCLUSIVE" },

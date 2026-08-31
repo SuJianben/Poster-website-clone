@@ -3,7 +3,7 @@
   const TRANSITION_MS = 300;
 
   function slidesFor(root, selector) {
-    return Array.from(root.querySelectorAll(`${selector} > .swiper-wrapper > .swiper-slide`));
+    return Array.from(root.querySelectorAll(`${selector} > .swiper-wrapper > .swiper-slide:not([hidden])`));
   }
 
   function render(root, index) {
