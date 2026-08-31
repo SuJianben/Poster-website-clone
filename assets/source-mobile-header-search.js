@@ -115,7 +115,7 @@
 
       if (type === 'query') {
         const queryText = item.text || item.styled_text || '';
-        link.href = `${window.Shopify?.routes?.root || '/'}search?q=${encodeURIComponent(queryText)}&type=product&options%5Bprefix%5D=last`;
+        link.href = `${window.Shopify?.routes?.root || '/'}search?q=${encodeURIComponent(queryText)}&type=product`;
         if (searchIcon) {
           const icon = searchIcon.cloneNode(true);
           icon.classList.add('source-predictive-result__icon');

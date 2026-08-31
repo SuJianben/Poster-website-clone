@@ -92,9 +92,9 @@
       const suggestions = [...products, ...collections]
         .filter((item, index, items) => items.findIndex((candidate) => candidate.title === item.title) === index)
         .slice(0, 8)
-        .map((item) => ({ title: item.title, url: `/search?q=${encodeURIComponent(item.title)}&type=product&options%5Bprefix%5D=last` }));
+        .map((item) => ({ title: item.title, url: `/search?q=${encodeURIComponent(item.title)}&type=product` }));
 
-      if (!suggestions.length) suggestions.push({ title: query, url: `/search?q=${encodeURIComponent(query)}&type=product&options%5Bprefix%5D=last` });
+      if (!suggestions.length) suggestions.push({ title: query, url: `/search?q=${encodeURIComponent(query)}&type=product` });
 
       container.replaceChildren();
       appendGroup(container, 'Vorschläge', suggestions, true);
