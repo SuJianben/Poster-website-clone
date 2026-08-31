@@ -1,3 +1,4 @@
+/* Mobile header search and predictive result panel. */
 @media (max-width: 1023px) {
   .header .header__search {
     align-items: start !important;

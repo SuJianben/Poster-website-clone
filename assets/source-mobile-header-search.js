@@ -1,4 +1,5 @@
 (() => {
+  // Mobile search uses Shopify's server-rendered predictive results.
   const mobileQuery = window.matchMedia('(max-width: 1023px)');
 
   function initHeaderSearch(header) {
