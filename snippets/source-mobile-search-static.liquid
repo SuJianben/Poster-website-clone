@@ -1,0 +1,96 @@
+<div class="source-static-predictive" aria-label="Search suggestions">
+  <section class="source-predictive-group">
+    <h3 class="source-predictive-group__title">Vorschläge</h3>
+    <div class="source-predictive-group__list">
+      <a class="source-predictive-result" href="/search?q=Soft%20Heart%20Print&type=product">
+        <svg class="source-predictive-result__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="4.75" stroke="currentColor" stroke-width="1.5"/><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Soft Heart Print
+      </a>
+      <a class="source-predictive-result" href="/search?q=Little%20Sunflower%20Print&type=product">
+        <svg class="source-predictive-result__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="4.75" stroke="currentColor" stroke-width="1.5"/><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Little Sunflower Print
+      </a>
+      <a class="source-predictive-result" href="/search?q=Curious%20Sloth%20Print&type=product">
+        <svg class="source-predictive-result__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="4.75" stroke="currentColor" stroke-width="1.5"/><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Curious Sloth Print
+      </a>
+      <a class="source-predictive-result" href="/search?q=Robot%20King%20Print&type=product">
+        <svg class="source-predictive-result__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="4.75" stroke="currentColor" stroke-width="1.5"/><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Robot King Print
+      </a>
+    </div>
+  </section>
+
+  <section class="source-predictive-group">
+    <h3 class="source-predictive-group__title">Sammlungen</h3>
+    <div class="source-predictive-group__list">
+      <a class="source-predictive-result" href="/collections/儿童手绘">Children's Hand-Drawn Art</a>
+      <a class="source-predictive-result" href="/collections/bestseller">Bestseller</a>
+      <a class="source-predictive-result" href="/collections/poster">Poster</a>
+    </div>
+  </section>
+
+  <section class="source-predictive-group">
+    <h3 class="source-predictive-group__title">Produkte</h3>
+    <div class="source-predictive-group__list">
+      {% for product in collections.all.products limit: 10 %}
+        <a class="source-predictive-result" href="{{ product.url }}">{{ product.title | escape }}</a>
+      {% endfor %}
+    </div>
+  </section>
+</div>
+
+<style>
+  @media (max-width: 1023px) {
+    .shopify-section:has(> .source-static-predictive) {
+      position: relative;
+      z-index: 31;
+    }
+
+    .source-static-predictive {
+      background: #fff;
+      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.08);
+      display: none;
+      inset-inline: 0;
+      max-height: calc(100vh - 158px);
+      overflow-y: auto;
+      padding: 18px 30px 38px;
+      position: absolute;
+      top: calc(100% + 74px);
+      z-index: 32;
+    }
+
+    .shopify-section:has(> .source-static-predictive):has(.header__search.mobile-search-active .search__input:not(:placeholder-shown)) > .source-static-predictive {
+      display: block;
+    }
+
+    .source-static-predictive .source-predictive-group + .source-predictive-group {
+      margin-top: 28px;
+    }
+
+    .source-static-predictive .source-predictive-group__title {
+      color: #111;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.3;
+      margin: 0 0 13px;
+    }
+
+    .source-static-predictive .source-predictive-group__list {
+      display: grid;
+      gap: 9px;
+    }
+
+    .source-static-predictive .source-predictive-result {
+      align-items: center;
+      color: #606060;
+      display: flex;
+      font-size: 14px;
+      font-weight: 600;
+      gap: 8px;
+      line-height: 1.35;
+      min-height: 20px;
+      text-decoration: none;
+    }
+  }
+</style>
