@@ -194,15 +194,18 @@
 
     .source-static-predictive {
       background: #fff;
+      box-sizing: border-box;
       box-shadow: 0 12px 20px rgba(0, 0, 0, 0.08);
       display: none;
-      inset-inline: 0;
+      left: 15px;
       max-height: calc(100vh - 148px);
       overflow-y: auto;
       padding: 18px 30px 38px;
       pointer-events: auto !important;
       position: absolute;
+      right: 15px;
       top: calc(100% + 60px);
+      width: auto;
       z-index: 32;
     }
 
@@ -248,6 +251,13 @@
       font-size: 14px;
       font-weight: 600;
       margin: 0;
+    }
+  }
+
+  @media (max-width: 359px) {
+    .source-static-predictive {
+      left: 14px;
+      right: 14px;
     }
   }
 </style>
