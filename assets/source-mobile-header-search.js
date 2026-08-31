@@ -25,7 +25,6 @@
     const close = panel?.querySelector('.header__search-close');
     const resultsPanel = panel?.querySelector('.search__content');
     const resultsContainer = resultsPanel?.querySelector('[role="listbox"]');
-    const searchIcon = panel?.querySelector('.search__icon-search svg');
     const cache = new Map();
     let requestTimer;
     let requestController;
@@ -58,61 +57,13 @@
       setResultsHeight();
     };
 
-    const createResult = (item, type) => {
-      const link = document.createElement('a');
-      link.className = 'source-predictive-result';
-      link.setAttribute('role', 'option');
-
-      if (type === 'query') {
-        const query = item.text || item.styled_text || '';
-        link.href = `${window.Shopify?.routes?.root || '/'}search?q=${encodeURIComponent(query)}`;
-        if (searchIcon) {
-          const icon = searchIcon.cloneNode(true);
-          icon.classList.add('source-predictive-result__icon');
-          link.append(icon);
-        }
-        link.append(document.createTextNode(query));
-        return link;
-      }
-
-      link.href = item.url || '#';
-      if (type === 'product' && item.featured_image?.url) {
-        const image = document.createElement('img');
-        image.className = 'source-predictive-result__image';
-        image.src = item.featured_image.url;
-        image.alt = '';
-        image.loading = 'lazy';
-        link.append(image);
-      }
-      link.append(document.createTextNode(item.title || ''));
-      return link;
-    };
-
-    const appendResultGroup = (title, items, type) => {
-      if (!resultsContainer || !items?.length) return;
-      const group = document.createElement('section');
-      group.className = 'source-predictive-group';
-
-      const heading = document.createElement('h3');
-      heading.className = 'source-predictive-group__title';
-      heading.textContent = title;
-      group.append(heading);
-
-      const list = document.createElement('div');
-      list.className = 'source-predictive-group__list';
-      items.forEach((item) => list.append(createResult(item, type)));
-      group.append(list);
-      resultsContainer.append(group);
-    };
-
-    const renderResults = (data) => {
+    const renderResults = (markup) => {
       if (!resultsContainer) return;
-      const results = data?.resources?.results || {};
-      resultsContainer.replaceChildren();
-      appendResultGroup('Vorschläge', results.queries, 'query');
-      appendResultGroup('Sammlungen', results.collections, 'collection');
-      appendResultGroup('Produkte', results.products, 'product');
-      appendResultGroup('Artikel und Seiten', [...(results.articles || []), ...(results.pages || [])], 'page');
+      const documentFragment = new DOMParser().parseFromString(markup, 'text/html');
+      const renderedResults = documentFragment.querySelector('[data-source-predictive-results]');
+      resultsContainer.replaceChildren(
+        ...[...(renderedResults?.childNodes || [])].map((child) => child.cloneNode(true))
+      );
 
       if (!resultsContainer.childElementCount) {
         const empty = document.createElement('p');
@@ -132,23 +83,26 @@
       requestController?.abort();
       requestController = new AbortController();
       const root = window.Shopify?.routes?.root || '/';
-      const url = new URL(`${root}search/suggest.json`, window.location.origin);
+      const url = new URL(`${root}search/suggest`, window.location.origin);
       url.searchParams.set('q', query);
+      url.searchParams.set('section_id', 'predictive-search');
       url.searchParams.set('resources[type]', 'query,product,collection,page,article');
       url.searchParams.set('resources[limit]', '10');
       url.searchParams.set('resources[options][unavailable_products]', 'last');
 
       try {
         const response = await fetch(url, {
-          headers: { Accept: 'application/json' },
+          headers: { Accept: 'text/html' },
           signal: requestController.signal,
         });
         if (!response.ok) throw new Error(`Predictive search failed: ${response.status}`);
-        const data = await response.json();
-        cache.set(query, data);
-        if (input.value.trim() === query) renderResults(data);
+        const markup = await response.text();
+        cache.set(query, markup);
+        if (input.value.trim() === query) renderResults(markup);
       } catch (error) {
-        if (error.name !== 'AbortError') hideResults();
+        if (error.name !== 'AbortError') {
+          renderResults('');
+        }
       }
     };
 
