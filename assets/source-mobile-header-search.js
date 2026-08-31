@@ -46,12 +46,14 @@
     const hideResults = () => {
       if (!resultsPanel) return;
       resultsPanel.classList.remove('source-mobile-predictive-active');
+      resultsPanel.classList.add('hidden');
       resultsPanel.hidden = true;
       input.setAttribute('aria-expanded', 'false');
     };
 
     const showResults = () => {
       if (!resultsPanel) return;
+      resultsPanel.classList.remove('hidden');
       resultsPanel.hidden = false;
       resultsPanel.classList.add('source-mobile-predictive-active');
       input.setAttribute('aria-expanded', 'true');
