@@ -178,8 +178,14 @@
 <style>
   @media (max-width: 1023px) {
     .shopify-section:has(> .source-static-predictive) {
+      pointer-events: auto !important;
       position: relative;
       z-index: 31;
+    }
+
+    .header-sticky:has(.source-static-predictive),
+    body:not(.header-pinned) .header-sticky:has(.header__search.mobile-search-active) {
+      pointer-events: auto !important;
     }
 
     .source-static-predictive {
@@ -190,6 +196,7 @@
       max-height: calc(100vh - 148px);
       overflow-y: auto;
       padding: 18px 30px 38px;
+      pointer-events: auto !important;
       position: absolute;
       top: calc(100% + 60px);
       z-index: 32;
@@ -225,7 +232,11 @@
       gap: 8px;
       line-height: 1.35;
       min-height: 20px;
+      pointer-events: auto !important;
+      position: relative;
       text-decoration: none;
+      touch-action: manipulation;
+      z-index: 1;
     }
 
     .source-static-predictive .source-predictive-empty {
