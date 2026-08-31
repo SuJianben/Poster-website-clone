@@ -650,7 +650,7 @@
             "customer_name": "555",
             "customer_location": "66666",
             "product": "be-proud-print",
-            "scene_image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg"
+            "scene_image": "shopify://shop_images/03_detailed_poster_image_ffaafbcf-8229-4800-aaf4-e85dccd6d749.jpg"
           }
         },
         "slide_kQGGqG": {
@@ -780,21 +780,21 @@
         "collection_card_rmCYiB": {
           "type": "collection_card",
           "settings": {
-            "collection": "anime-posters",
+            "collection": "儿童手绘",
             "title": ""
           }
         },
         "collection_card_69gxxV": {
           "type": "collection_card",
           "settings": {
-            "collection": "anime-posters",
+            "collection": "figurative-posters",
             "title": ""
           }
         },
         "collection_card_C9WypB": {
           "type": "collection_card",
           "settings": {
-            "collection": "space-posters",
+            "collection": "horror-posters",
             "title": ""
           }
         },
