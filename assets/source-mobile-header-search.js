@@ -5,6 +5,20 @@
     if (header.dataset.sourceMobileSearchReady === 'true') return;
 
     const panel = header.querySelector('.header__search');
+    const nativePredictiveSearch = panel?.querySelector('predictive-search');
+
+    if (mobileQuery.matches && nativePredictiveSearch) {
+      const searchShell = document.createElement('div');
+      [...nativePredictiveSearch.attributes].forEach(({ name, value }) => {
+        searchShell.setAttribute(name, value);
+      });
+      searchShell.classList.add('source-predictive-search-shell');
+      [...nativePredictiveSearch.childNodes].forEach((child) => {
+        searchShell.append(child.cloneNode(true));
+      });
+      nativePredictiveSearch.replaceWith(searchShell);
+    }
+
     const trigger = header.querySelector('.custom-search .search__icon-search');
     const input = panel?.querySelector('input[type="search"]');
     const reset = panel?.querySelector('.search__reset');
