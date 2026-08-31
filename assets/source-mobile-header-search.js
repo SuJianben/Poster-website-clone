@@ -1,0 +1,214 @@
+(() => {
+  const mobileQuery = window.matchMedia('(max-width: 1023px)');
+
+  function initHeaderSearch(header) {
+    if (header.dataset.sourceMobileSearchReady === 'true') return;
+
+    const panel = header.querySelector('.header__search');
+    const trigger = header.querySelector('.custom-search .search__icon-search');
+    const input = panel?.querySelector('input[type="search"]');
+    const reset = panel?.querySelector('.search__reset');
+    const close = panel?.querySelector('.header__search-close');
+    const resultsPanel = panel?.querySelector('.search__content');
+    const resultsContainer = resultsPanel?.querySelector('[role="listbox"]');
+    const searchIcon = panel?.querySelector('.search__icon-search svg');
+    const cache = new Map();
+    let requestTimer;
+    let requestController;
+
+    if (!panel || !input) return;
+
+    if (resultsContainer?.id) {
+      input.setAttribute('aria-controls', resultsContainer.id);
+      input.setAttribute('aria-owns', resultsContainer.id);
+    }
+
+    const setResultsHeight = () => {
+      if (!resultsPanel || !mobileQuery.matches) return;
+      const top = resultsPanel.getBoundingClientRect().top;
+      resultsPanel.style.maxHeight = `${Math.max(180, window.innerHeight - top)}px`;
+    };
+
+    const hideResults = () => {
+      if (!resultsPanel) return;
+      resultsPanel.classList.remove('source-mobile-predictive-active');
+      resultsPanel.hidden = true;
+      input.setAttribute('aria-expanded', 'false');
+    };
+
+    const showResults = () => {
+      if (!resultsPanel) return;
+      resultsPanel.hidden = false;
+      resultsPanel.classList.add('source-mobile-predictive-active');
+      input.setAttribute('aria-expanded', 'true');
+      setResultsHeight();
+    };
+
+    const createResult = (item, type) => {
+      const link = document.createElement('a');
+      link.className = 'source-predictive-result';
+      link.setAttribute('role', 'option');
+
+      if (type === 'query') {
+        const query = item.text || item.styled_text || '';
+        link.href = `${window.Shopify?.routes?.root || '/'}search?q=${encodeURIComponent(query)}`;
+        if (searchIcon) {
+          const icon = searchIcon.cloneNode(true);
+          icon.classList.add('source-predictive-result__icon');
+          link.append(icon);
+        }
+        link.append(document.createTextNode(query));
+        return link;
+      }
+
+      link.href = item.url || '#';
+      if (type === 'product' && item.featured_image?.url) {
+        const image = document.createElement('img');
+        image.className = 'source-predictive-result__image';
+        image.src = item.featured_image.url;
+        image.alt = '';
+        image.loading = 'lazy';
+        link.append(image);
+      }
+      link.append(document.createTextNode(item.title || ''));
+      return link;
+    };
+
+    const appendResultGroup = (title, items, type) => {
+      if (!resultsContainer || !items?.length) return;
+      const group = document.createElement('section');
+      group.className = 'source-predictive-group';
+
+      const heading = document.createElement('h3');
+      heading.className = 'source-predictive-group__title';
+      heading.textContent = title;
+      group.append(heading);
+
+      const list = document.createElement('div');
+      list.className = 'source-predictive-group__list';
+      items.forEach((item) => list.append(createResult(item, type)));
+      group.append(list);
+      resultsContainer.append(group);
+    };
+
+    const renderResults = (data) => {
+      if (!resultsContainer) return;
+      const results = data?.resources?.results || {};
+      resultsContainer.replaceChildren();
+      appendResultGroup('Vorschläge', results.queries, 'query');
+      appendResultGroup('Sammlungen', results.collections, 'collection');
+      appendResultGroup('Produkte', results.products, 'product');
+      appendResultGroup('Artikel und Seiten', [...(results.articles || []), ...(results.pages || [])], 'page');
+
+      if (!resultsContainer.childElementCount) {
+        const empty = document.createElement('p');
+        empty.className = 'source-predictive-empty';
+        empty.textContent = 'Keine Ergebnisse gefunden.';
+        resultsContainer.append(empty);
+      }
+      showResults();
+    };
+
+    const loadResults = async (query) => {
+      if (cache.has(query)) {
+        renderResults(cache.get(query));
+        return;
+      }
+
+      requestController?.abort();
+      requestController = new AbortController();
+      const root = window.Shopify?.routes?.root || '/';
+      const url = new URL(`${root}search/suggest.json`, window.location.origin);
+      url.searchParams.set('q', query);
+      url.searchParams.set('resources[type]', 'query,product,collection,page,article');
+      url.searchParams.set('resources[limit]', '10');
+      url.searchParams.set('resources[options][unavailable_products]', 'last');
+
+      try {
+        const response = await fetch(url, {
+          headers: { Accept: 'application/json' },
+          signal: requestController.signal,
+        });
+        if (!response.ok) throw new Error(`Predictive search failed: ${response.status}`);
+        const data = await response.json();
+        cache.set(query, data);
+        if (input.value.trim() === query) renderResults(data);
+      } catch (error) {
+        if (error.name !== 'AbortError') hideResults();
+      }
+    };
+
+    const syncReset = () => {
+      if (!reset) return;
+      const hasValue = input.value.trim().length > 0;
+      reset.hidden = !hasValue;
+      panel.classList.toggle('source-mobile-search-filled', hasValue);
+    };
+
+    input.addEventListener('input', () => {
+      syncReset();
+      window.clearTimeout(requestTimer);
+      const query = input.value.trim();
+      if (!query || !mobileQuery.matches) {
+        requestController?.abort();
+        hideResults();
+        return;
+      }
+      requestTimer = window.setTimeout(() => loadResults(query), 180);
+    });
+
+    panel.querySelector('form')?.addEventListener('reset', () => {
+      window.requestAnimationFrame(() => {
+        syncReset();
+        hideResults();
+        input.focus();
+      });
+    });
+
+    const setOpen = (isOpen) => {
+      panel.classList.toggle('mobile-search-active', isOpen);
+      trigger?.setAttribute('aria-expanded', String(isOpen));
+      if (!isOpen) hideResults();
+      if (isOpen && mobileQuery.matches) {
+        window.requestAnimationFrame(() => input.focus({ preventScroll: true }));
+      }
+    };
+
+    trigger?.setAttribute('aria-expanded', String(panel.classList.contains('mobile-search-active')));
+    trigger?.addEventListener('click', (event) => {
+      if (!mobileQuery.matches) return;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      setOpen(!panel.classList.contains('mobile-search-active'));
+    });
+
+    close?.addEventListener('click', (event) => {
+      if (!mobileQuery.matches) return;
+      event.preventDefault();
+      setOpen(false);
+    });
+
+    input.addEventListener('keydown', (event) => {
+      if (event.key !== 'Escape' || !mobileQuery.matches) return;
+      setOpen(false);
+      trigger?.focus({ preventScroll: true });
+    });
+
+    mobileQuery.addEventListener('change', (event) => {
+      if (!event.matches) setOpen(false);
+    });
+    window.addEventListener('resize', setResultsHeight, { passive: true });
+
+    syncReset();
+    hideResults();
+    header.dataset.sourceMobileSearchReady = 'true';
+  }
+
+  const init = (scope = document) => {
+    const headers = scope.matches?.('.header') ? [scope] : [...scope.querySelectorAll('.header')];
+    headers.forEach(initHeaderSearch);
+  };
+
+  init();
+  document.addEventListener('shopify:section:load', (event) => init(event.target));
+})();
