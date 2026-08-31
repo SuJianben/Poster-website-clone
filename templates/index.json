@@ -477,7 +477,7 @@
         "collection_motivation": {
           "type": "collection",
           "settings": {
-            "collection": "wandbilder-motivation",
+            "collection": "figurative-posters",
             "image_url": "",
             "label": "Motivierende Wandbilder"
           }
@@ -485,7 +485,7 @@
         "collection_religion": {
           "type": "collection",
           "settings": {
-            "collection": "wandbilder-spiritualitat-religion",
+            "collection": "儿童手绘",
             "image_url": "",
             "label": "Religiöse Wandbilder"
           }
@@ -493,7 +493,7 @@
         "collection_crypto": {
           "type": "collection",
           "settings": {
-            "collection": "wandbild-bitcoin-crypto",
+            "collection": "floral-posters",
             "image_url": "",
             "label": "Crypto Wandbilder"
           }
@@ -501,7 +501,7 @@
         "collection_auto": {
           "type": "collection",
           "settings": {
-            "collection": "auto-wandbilder-und-poster",
+            "collection": "landscape-posters",
             "image_url": "",
             "label": "Auto Wandbilder"
           }
@@ -509,7 +509,7 @@
         "collection_abstract": {
           "type": "collection",
           "settings": {
-            "collection": "abstract-posters",
+            "collection": "movie-posters",
             "image_url": "",
             "label": "Abstrakte Wandbilder"
           }
@@ -517,7 +517,7 @@
         "collection_pop_art": {
           "type": "collection",
           "settings": {
-            "collection": "pop-art",
+            "collection": "still-life-posters",
             "image_url": "",
             "label": "Pop Art Wandbilder"
           }
@@ -525,7 +525,7 @@
         "collection_blattgold": {
           "type": "collection",
           "settings": {
-            "collection": "blattgold-bilder",
+            "collection": "time-series-posters",
             "image_url": "",
             "label": "Blattgold Wandbilder"
           }
