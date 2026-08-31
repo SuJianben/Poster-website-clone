@@ -81,6 +81,7 @@
 
   body.source-menu-drawer-active .header-sticky {
     pointer-events: auto;
+    z-index: 1001;
   }
 
   body.source-menu-drawer-active .header-sticky .header {
