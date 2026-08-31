@@ -1,10 +1,5 @@
 {% if section.settings.enabled %}
-  {% if section.blocks.size > 0 %}
-    {% render 'source-personal-configurable', section: section %}
-  {% else %}
-    {% render 'source-personal-1' %}
-    {% render 'source-personal-2' %}
-  {% endif %}
+  {% render 'source-personal-configurable', section: section %}
 {% endif %}
 {% schema %}
 {

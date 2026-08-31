@@ -6,7 +6,11 @@
   }
 
   function updateAddress(element, value) {
-    if (!element || !value) return;
+    if (!element) return;
+    if (!value) {
+      element.replaceChildren();
+      return;
+    }
     const fragment = document.createDocumentFragment();
     value.split(/\r?\n/).forEach((line, index) => {
       if (index) fragment.append(document.createElement('br'));
@@ -18,7 +22,11 @@
   function updateMenu(menuBlock, config) {
     if (!menuBlock || !config) return;
     updateText(menuBlock.querySelector('.footer-block__heading'), config.heading);
-    if (!Array.isArray(config.links) || !config.links.length) return;
+    if (!Array.isArray(config.links) || !config.links.length) {
+      menuBlock.hidden = true;
+      return;
+    }
+    menuBlock.hidden = false;
 
     const list = menuBlock.querySelector('.linklist');
     const templateItem = list && list.querySelector('li');
@@ -67,28 +75,38 @@
 
     const contactBlock = section.querySelector('.footer-block--contact_information');
     if (contactBlock) {
+      const hasContact = Boolean(config.contact?.heading || config.contact?.address || config.contact?.email);
+      contactBlock.hidden = !hasContact;
       updateText(contactBlock.querySelector('.footer-block__heading'), config.contact?.heading);
       updateAddress(contactBlock.querySelector('.footer-info__address span'), config.contact?.address);
       const email = contactBlock.querySelector('.footer-info__email a');
       if (email && config.contact?.email) {
         email.textContent = config.contact.email;
         email.href = `mailto:${config.contact.email}`;
+        email.closest('.footer-info__email')?.removeAttribute('hidden');
+      } else {
+        email?.closest('.footer-info__email')?.setAttribute('hidden', '');
       }
     }
 
+    const awardsBlock = section.querySelector('.footer-block--image_text');
     if (config.awardsImage) {
-      const image = section.querySelector('.footer-block--image_text img');
+      const image = awardsBlock?.querySelector('img');
+      awardsBlock?.removeAttribute('hidden');
       if (image) {
         image.src = config.awardsImage;
         image.removeAttribute('srcset');
         image.closest('picture')?.querySelectorAll('source').forEach((source) => source.remove());
       }
+    } else {
+      awardsBlock?.setAttribute('hidden', '');
     }
 
     Object.entries(config.social || {}).forEach(([network, url]) => {
-      if (!url) return;
       const link = section.querySelector(`.social__link:has(.icon-${network})`);
-      if (link) link.href = url;
+      if (!link) return;
+      link.hidden = !url;
+      if (url) link.href = url;
     });
   }
 

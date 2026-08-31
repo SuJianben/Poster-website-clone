@@ -47,10 +47,10 @@
         "menu_collaboration": "main-menu",
         "general_heading": "Allgemein",
         "menu_general": "main-menu",
-        "contact_heading": "Über Uns",
-        "contact_address": "Palmstraße 17, 09130 Chemnitz, Germany",
-        "contact_email": "service@dotcomcanvas.de",
-        "awards_image": "shopify://shop_images/Screenshot_2026-02-01_000936.webp",
+        "contact_heading": "Contact",
+        "contact_address": "",
+        "contact_email": "",
+        "awards_image": "",
         "facebook_url": "",
         "instagram_url": "",
         "tiktok_url": ""
@@ -62,7 +62,7 @@
         "enabled": true,
         "logo_width": 53,
         "logo_width_mobile": 90,
-        "logo_alt": "DOTCOMCANVAS®",
+        "logo_alt": "",
         "logo_link": ""
       }
     }

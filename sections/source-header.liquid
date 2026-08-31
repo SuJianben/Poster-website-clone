@@ -1,6 +1,7 @@
 {% if section.settings.enabled %}
 <style>.cart-icon cart-count { visibility: hidden; }</style>
 {{ 'source-header-logo.css' | asset_url | stylesheet_tag }}
+{{ 'source-header-card-base.css' | asset_url | stylesheet_tag }}
 {% render 'source-header-1' %}
 {% render 'source-header-2' %}
 {% render 'source-header-config', section: section %}

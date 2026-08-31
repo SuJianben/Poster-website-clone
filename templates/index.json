@@ -238,8 +238,8 @@
           "type": "gallery_item",
           "settings": {
             "image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg",
-            "image_url": "https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-2f6c3ae69b2d-Mo-vlog-dotcomcanvas-1_d62ed114-44da-486c-9971-fac32e52ca02.jpg?v=1771097240&width=1100",
-            "avatar_url": "https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-ddce8e063798-Screenshot_2026-02-14_202843.png?v=1771097345&width=80",
+            "image_url": "",
+            "avatar_url": "",
             "name": "哇哇哇哇",
             "reference_name": "Mo Vlogs",
             "link": ""
@@ -249,8 +249,8 @@
           "type": "gallery_item",
           "settings": {
             "image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg",
-            "image_url": "https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-c6eef3ba785a-GeissensFeedbackvip.jpg?v=1762863812&width=1100",
-            "avatar_url": "https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-c6eef3ba785a-GeissensFeedbackvip.jpg?v=1762863812&width=80",
+            "image_url": "",
+            "avatar_url": "",
             "name": "哇哇哇哇",
             "reference_name": "Die Geissens",
             "link": ""
@@ -260,8 +260,8 @@
           "type": "gallery_item",
           "settings": {
             "image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg",
-            "image_url": "https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-260f8304bf7b-knossi_93156580_680586532743168_4863580538485880894_n.webp?v=1771097100&width=1100",
-            "avatar_url": "https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-534bb7e89ee7-Screenshot_2026-02-13_054717.png?v=1770958655&width=80",
+            "image_url": "",
+            "avatar_url": "",
             "name": "哇哇哇哇",
             "reference_name": "Knossi",
             "link": ""
@@ -271,8 +271,8 @@
           "type": "gallery_item",
           "settings": {
             "image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg",
-            "image_url": "https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-b57f8f2593cb-Jeremy_Fragrance.jpg?v=1683058694&width=1100",
-            "avatar_url": "https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-b57f8f2593cb-Jeremy_Fragrance.jpg?v=1683058694&width=80",
+            "image_url": "",
+            "avatar_url": "",
             "name": "哇哇哇哇",
             "reference_name": "Jeremy Fragrance",
             "link": ""
@@ -282,8 +282,8 @@
           "type": "gallery_item",
           "settings": {
             "image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg",
-            "image_url": "https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-0a53e89a8f81-vip25_1_torben_platzer_dotcomcanvas_auftragsarbeit.jpg?v=1665234527&width=1100",
-            "avatar_url": "https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-0a53e89a8f81-vip25_1_torben_platzer_dotcomcanvas_auftragsarbeit.jpg?v=1665234527&width=80",
+            "image_url": "",
+            "avatar_url": "",
             "name": "哇哇哇哇",
             "reference_name": "Torben Platzer",
             "link": ""
@@ -293,7 +293,7 @@
           "type": "gallery_item",
           "settings": {
             "image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg",
-            "image_url": "https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-baea5a668323-Philip-Hopf-Auftragsarbeit_889de7b8-5f82-401d-b4bd-27146f3eb2f8.jpg?v=1762863374&width=1100",
+            "image_url": "",
             "avatar_url": "",
             "name": "哇哇哇哇",
             "reference_name": "Philip Hopf",
@@ -476,7 +476,7 @@
           "type": "collection",
           "settings": {
             "collection": "wandbilder-motivation",
-            "image_url": "https://dotcomcanvas.de/cdn/shop/files/Website-Banner-1_663fc90c-e0b3-4c18-8f76-5d0422e49f57.jpg?v=1686995856&width=1920",
+            "image_url": "",
             "label": "Motivierende Wandbilder"
           }
         },
@@ -484,7 +484,7 @@
           "type": "collection",
           "settings": {
             "collection": "wandbilder-spiritualitat-religion",
-            "image_url": "https://dotcomcanvas.de/cdn/shop/files/J6.jpg?v=1768759398&width=1080",
+            "image_url": "",
             "label": "Religiöse Wandbilder"
           }
         },
@@ -492,7 +492,7 @@
           "type": "collection",
           "settings": {
             "collection": "wandbild-bitcoin-crypto",
-            "image_url": "https://dotcomcanvas.de/cdn/shop/files/lifestyle-crypto-duck-customer.jpg?v=1678373273&width=1080",
+            "image_url": "",
             "label": "Crypto Wandbilder"
           }
         },
@@ -500,7 +500,7 @@
           "type": "collection",
           "settings": {
             "collection": "auto-wandbilder-und-poster",
-            "image_url": "https://dotcomcanvas.de/cdn/shop/files/Ferrari-car---1x1.jpg?v=1768755109&width=1350",
+            "image_url": "",
             "label": "Auto Wandbilder"
           }
         },
@@ -508,7 +508,7 @@
           "type": "collection",
           "settings": {
             "collection": "abstract-posters",
-            "image_url": "https://dotcomcanvas.de/cdn/shop/files/LeinwandbildWarriorInsideKunstdruckWandbildRoom1.jpg?v=1747583285&width=1080",
+            "image_url": "",
             "label": "Abstrakte Wandbilder"
           }
         },
@@ -516,7 +516,7 @@
           "type": "collection",
           "settings": {
             "collection": "pop-art",
-            "image_url": "https://dotcomcanvas.de/cdn/shop/collections/Leinwandbild_Fast_Bunny_Kunstwerk_Banner_Square_Gemini_48035e33-d324-4b0c-9a7a-60ab3be8e8a0.png?v=1773375338&width=971",
+            "image_url": "",
             "label": "Pop Art Wandbilder"
           }
         },
@@ -524,7 +524,7 @@
           "type": "collection",
           "settings": {
             "collection": "blattgold-bilder",
-            "image_url": "https://dotcomcanvas.de/cdn/shop/files/AcrylglasbildMoreMoneyDuck2.0ComicCartoonWandbildKunstdruck5_da8ded98-af72-4dcb-90e2-f8c75a76f07a.jpg?v=1768385239&width=1080",
+            "image_url": "",
             "label": "Blattgold Wandbilder"
           }
         }

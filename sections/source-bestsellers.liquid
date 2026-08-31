@@ -1,11 +1,5 @@
 {% if section.settings.enabled %}
-  {% if section.blocks.size > 0 %}
-    {% render 'source-bestsellers-configurable', section: section %}
-  {% else %}
-    {% render 'source-bestsellers-1' %}
-    {% render 'source-bestsellers-2' %}
-    {% render 'source-bestsellers-3' %}
-  {% endif %}
+  {% render 'source-bestsellers-configurable', section: section %}
 {% endif %}
 {% schema %}
 {

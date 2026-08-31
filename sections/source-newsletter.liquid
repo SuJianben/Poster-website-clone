@@ -1,4 +1,5 @@
 {% if section.settings.enabled %}
+  {{ 'source-newsletter-base.css' | asset_url | stylesheet_tag }}
   {% render 'source-newsletter-1' %}
   <script src="{{ 'source-newsletter-content.js' | asset_url }}" defer="defer"></script>
   {% if section.settings.heading != blank or section.settings.subheading != blank or section.settings.email_placeholder != blank or section.settings.button_label != blank or section.settings.success_message != blank %}

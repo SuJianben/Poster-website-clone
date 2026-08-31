@@ -1,6 +1,12 @@
+{% liquid
+  assign source_header_menu = section.settings.menu
+  if source_header_menu == blank
+    assign source_header_menu = linklists['main-menu']
+  endif
+%}
 {% capture source_header_navigation %}
 [
-  {% for link in section.settings.menu.links %}
+  {% for link in source_header_menu.links %}
     {
       "title": {{ link.title | json }},
       "url": {{ link.url | json }},
@@ -57,10 +63,10 @@
   theme. Render a lightweight copy from the selected Shopify menu so mobile and
   desktop always use the same links and labels.
 {% endcomment %}
-{% if section.settings.menu != blank %}
+{% if source_header_menu != blank %}
   <template data-source-header-desktop-menu>
     <ul class="flex flex-wrap" role="list">
-      {% for link in section.settings.menu.links %}
+      {% for link in source_header_menu.links %}
         {% assign source_menu_index = forloop.index0 %}
         <li
           class="inline-flex items-center"
@@ -123,7 +129,7 @@
 
   <template data-source-header-mobile-menu>
     <ul class="flex-grow" role="list">
-      {% for link in section.settings.menu.links %}
+      {% for link in source_header_menu.links %}
         <li class="menu-drawer__item" data-source-mobile-menu-index="{{ forloop.index0 }}">
           {% if link.links.size > 0 %}
             <details is="menu-drawer-details" level="top" data-source-mobile-menu-details>

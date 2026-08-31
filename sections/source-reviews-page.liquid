@@ -42,10 +42,7 @@
             assign hero_image_width = block.settings.image.width
             assign hero_image_height = block.settings.image.height
           endif
-          if hero_image_src == blank
-            assign hero_image_src = 'https://dotcomcanvas.de/cdn/shop/files/Trustpilot_Kunden_Bewertungen_Reviews_Fotos_Banner.png?v=1773373385&width=2400'
-          endif
-          assign hero_alt = block.settings.alt | default: 'DOTCOMCANVAS customer artwork and reviews'
+          assign hero_alt = block.settings.alt | default: shop.name
         -%}
         <section
           class="srp-page__hero"
@@ -53,13 +50,17 @@
           aria-label="{{ block.settings.aria_label | default: block.settings.heading | default: page_label | escape }}"
           {{ block.shopify_attributes }}
         >
-          <img
-            src="{{ hero_image_src | escape }}"
-            width="{{ hero_image_width }}"
-            height="{{ hero_image_height }}"
-            alt="{{ hero_alt | escape }}"
-            loading="eager"
-          >
+          {%- if hero_image_src != blank -%}
+            <img
+              src="{{ hero_image_src | escape }}"
+              width="{{ hero_image_width }}"
+              height="{{ hero_image_height }}"
+              alt="{{ hero_alt | escape }}"
+              loading="eager"
+            >
+          {%- elsif request.design_mode -%}
+            {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          {%- endif -%}
           <div class="srp-page__hero-copy image-with-text-ovelay__content-wrapper content-overlay content-overlay--middle-center-mobile content-overlay--middle-center color-scheme-inverse" data-srp-hero-copy>
             <div class="srp-page__hero-rich-text relative z-1 rich-text text-center md:text-center">
               {%- if block.settings.heading != blank -%}
@@ -220,7 +221,7 @@
       "settings": [
         { "type": "image_picker", "id": "image", "label": "图片" },
         { "type": "text", "id": "image_url", "label": "图片外链（可选）" },
-        { "type": "text", "id": "alt", "label": "图片替代文本", "default": "DOTCOMCANVAS customer artwork and reviews" },
+        { "type": "text", "id": "alt", "label": "图片替代文本" },
         { "type": "text", "id": "aria_label", "label": "模块无障碍名称", "default": "Unsere Glücklichen Kunden" },
         { "type": "text", "id": "heading", "label": "主标题", "default": "Unsere Glücklichen Kunden" },
         { "type": "richtext", "id": "subheading", "label": "副标题", "default": "<p>Echte Bewertungen, Echte Inspiration</p>" },

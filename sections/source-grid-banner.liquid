@@ -1,9 +1,5 @@
 {% if section.settings.enabled %}
-  {% if section.blocks.size > 0 %}
-    {% render 'source-grid-banner-configurable', section: section %}
-  {% else %}
-    {% render 'source-grid-banner-1' %}
-  {% endif %}
+  {% render 'source-grid-banner-configurable', section: section %}
 {% endif %}
 {% schema %}
 {

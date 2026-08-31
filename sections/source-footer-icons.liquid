@@ -1,4 +1,5 @@
 {% if section.settings.enabled %}
+  {{ 'source-footer-icons-base.css' | asset_url | stylesheet_tag }}
   {% render 'source-footer-icons-1' %}
   <script src="{{ 'source-footer-icons-content.js' | asset_url }}" defer="defer"></script>
   {% if section.settings.heading_prefix != blank or section.settings.heading_highlight != blank or section.blocks.size > 0 %}

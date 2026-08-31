@@ -12,9 +12,11 @@
 <section class="inspiration-wall" data-inspiration-wall>
   <header class="inspiration-wall__heading">
     <h1>{{ section.settings.heading }}</h1>
-    <a class="inspiration-wall__instagram" href="{{ section.settings.instagram_url | default: 'https://www.instagram.com/dotcomcanvas/' }}" target="_blank" rel="noopener" aria-label="Follow DOTCOMCANVAS on Instagram">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.8" r="1"></circle></svg>
-    </a>
+    {% if section.settings.instagram_url != blank %}
+      <a class="inspiration-wall__instagram" href="{{ section.settings.instagram_url }}" target="_blank" rel="noopener" aria-label="Follow {{ shop.name | escape }} on Instagram">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.8" r="1"></circle></svg>
+      </a>
+    {% endif %}
   </header>
 
   <div class="inspiration-wall__grid" data-inspiration-grid>

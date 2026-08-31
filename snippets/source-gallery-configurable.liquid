@@ -1,5 +1,5 @@
 <div id="shopify-section-{{ section.id }}" class="shopify-section">
-  <link href="https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-148830c6578d-section-scrolling-gallery-image.css?v=144523477498646606071780837157" rel="stylesheet" type="text/css" media="all">
+  {{ 'source-gallery-base.css' | asset_url | stylesheet_tag }}
   <style data-shopify>
     #shopify-section-{{ section.id }} { --section-padding-top: 40px; --section-padding-bottom: 40px; --duration: 30s; }
   </style>

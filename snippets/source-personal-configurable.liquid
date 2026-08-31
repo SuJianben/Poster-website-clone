@@ -1,5 +1,5 @@
 <div id="shopify-section-{{ section.id }}" class="shopify-section">
-  <link href="https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-0cec7fa656f6-section-featured-collection.css?v=15356037298051793511780837133" rel="stylesheet" type="text/css" media="all">
+  {{ 'source-featured-collection-base.css' | asset_url | stylesheet_tag }}
   <style data-shopify>
     .section-{{ section.id }} { --section-padding-top: 30px; --section-padding-bottom: 30px; --f-columns-mobile: 2; --f-columns-lg: 5; --f-columns-md: 3; --f-columns-xl: 5; }
   </style>

@@ -1,4 +1,5 @@
 {% if section.settings.enabled %}
+  {{ 'source-collection-list-base.css' | asset_url | stylesheet_tag }}
   {% render 'source-collection-list-secondary-1' %}
   <script src="{{ 'source-secondary-collection-content.js' | asset_url }}" defer="defer"></script>
   {% if section.settings.heading != blank or section.blocks.size > 0 %}

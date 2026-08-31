@@ -1,5 +1,5 @@
 <section class="section section--padding collection-list color-scheme-10 source-materials-hub" style="--section-padding-top: 34px; --section-padding-bottom: 40px; --f-columns-mobile: 2; --f-columns-md: 3; --f-columns-lg: 5; --f-columns-xl: 5;">
-  <link href="https://cdn.shopify.com/s/files/1/1004/8690/5937/files/dcc-a1600fa13a89-section-collection-list.css?v=68985498160426086891780837125" rel="stylesheet" type="text/css" media="all">
+  {{ 'source-collection-list-base.css' | asset_url | stylesheet_tag }}
   <div class="section__container page-width page-width--full"><div class="section__wrapper">
     <div class="section__header s__header section__header--vertical spacing--normal rich-text rich-text--tight md:text-center text-center flex flex-col items-center md:items-center"><div class="section__header--text s__header--text rich-text rich-text--tight flex-1"><h1 class="section__heading rich-text__heading hd2">{{ section.settings.heading | default: collection.title }}</h1></div></div>
     <div class="section__content"><div class="collection-list__container"><div class="collection-list__inner"><div class="collection-list__items f-grid f-grid--gap-small f-grid--row-gap-small">

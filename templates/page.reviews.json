@@ -42,8 +42,8 @@
         "hero": {
           "type": "hero",
           "settings": {
-            "image_url": "https://dotcomcanvas.de/cdn/shop/files/Trustpilot_Kunden_Bewertungen_Reviews_Fotos_Banner.png?v=1773373385&width=2400",
-            "alt": "DOTCOMCANVAS customer artwork and reviews",
+            "image_url": "",
+            "alt": "Customer artwork and reviews",
             "aria_label": "Unsere Glücklichen Kunden",
             "heading": "Unsere Glücklichen Kunden",
             "subheading": "<p>Echte Bewertungen, Echte Inspiration</p>",

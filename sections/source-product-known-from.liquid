@@ -1,5 +1,11 @@
 {{ 'source-product-followup.css' | asset_url | stylesheet_tag }}
 
+{% assign has_media_logo = false %}
+{% for block in section.blocks %}
+  {% if block.settings.image != blank %}{% assign has_media_logo = true %}{% endif %}
+{% endfor %}
+
+{% if has_media_logo or request.design_mode %}
 <section class="spf-known" aria-labelledby="spf-known-{{ section.id }}" {{ section.shopify_attributes }}>
   <div class="spf-known__container">
     <header class="spf-known__header">
@@ -18,50 +24,31 @@
         {% if section.blocks.size > 0 %}
           {% for block in section.blocks %}
             {% assign logo_title = block.settings.title | default: 'Media logo' %}
-            {% assign fallback_url = blank %}
-            {% assign fallback_link = blank %}
             {% assign fallback_alt = logo_title %}
-            {% assign fallback_width = 500 %}
-            {% assign fallback_height = 500 %}
             {% assign legacy_image = blank %}
             {% case logo_title %}
               {% when 'German Brand Award' %}
                 {% assign legacy_image = section.settings.logo_1 %}
-                {% assign fallback_url = 'https://dotcomcanvas.de/cdn/shop/files/GBA23_HO_SPECIAL_MC_RGB_18e95b9b-9ef8-41df-97a1-2c05ba00f96a.png?v=1757412001&width=1262' %}
-                {% assign fallback_link = 'https://www.german-brand-award.com/preistraeger/galerie/detail/45110-dotcomcanvas.html' %}
-                {% assign fallback_width = 1262 %}
-                {% assign fallback_height = 727 %}
               {% when 'Growth Champion award' %}
                 {% assign legacy_image = section.settings.logo_2 %}
-                {% assign fallback_url = 'https://dotcomcanvas.de/cdn/shop/files/Logo-1_22c722b1-ad66-4b4b-bd17-812c1c9bc657.png?v=1769264255&width=200' %}
-                {% assign fallback_width = 200 %}
-                {% assign fallback_height = 116 %}
               {% when 'FT 1000 award' %}
                 {% assign legacy_image = section.settings.logo_3 %}
-                {% assign fallback_url = 'https://dotcomcanvas.de/cdn/shop/files/Logo-3.png?v=1769264343&width=250' %}
-                {% assign fallback_width = 250 %}
-                {% assign fallback_height = 145 %}
               {% when 'Business Insider' %}
                 {% assign legacy_image = section.settings.logo_4 %}
-                {% assign fallback_url = 'https://dotcomcanvas.de/cdn/shop/files/Business-Insider.png?v=1682845804&width=500' %}
               {% when 'Bloomberg' %}
                 {% assign legacy_image = section.settings.logo_5 %}
-                {% assign fallback_url = 'https://dotcomcanvas.de/cdn/shop/files/Bloomberg.png?v=1682845989&width=500' %}
               {% when 'Yahoo Finance' %}
                 {% assign legacy_image = section.settings.logo_6 %}
-                {% assign fallback_url = 'https://dotcomcanvas.de/cdn/shop/files/Yahoo-Finance.png?v=1682846040&width=500' %}
             {% endcase %}
             {% assign logo_image = block.settings.image | default: legacy_image %}
             {% assign logo_alt = block.settings.alt %}
             {% if logo_alt == blank and logo_image != blank %}{% assign logo_alt = logo_image.alt %}{% endif %}
             {% assign logo_alt = logo_alt | default: fallback_alt | default: 'Media logo' %}
-            {% assign logo_link = block.settings.link | default: fallback_link %}
+            {% assign logo_link = block.settings.link %}
             {% assign logo_media = blank %}
 
             {% if logo_image != blank %}
               {% capture logo_media %}{{ logo_image | image_url: width: 480 | image_tag: loading: 'lazy', widths: '120, 180, 240, 360, 480', sizes: '(max-width: 767px) 28vw, 120px', alt: logo_alt }}{% endcapture %}
-            {% elsif fallback_url != blank %}
-              {% capture logo_media %}<img src="{{ fallback_url }}" alt="{{ logo_alt | escape }}" width="{{ fallback_width }}" height="{{ fallback_height }}" loading="lazy">{% endcapture %}
             {% endif %}
 
             {% if logo_media != blank %}
@@ -78,21 +65,12 @@
               <div class="spf-known__item spf-known__item--empty" {{ block.shopify_attributes }}><span class="spf-known__media">&#x8BF7;&#x9009;&#x62E9;&#x5A92;&#x4F53; Logo &#x56FE;&#x7247;</span></div>
             {% endif %}
           {% endfor %}
-        {% else %}
-          {%- comment -%}Keep the original showcase visible until the first custom media block is added.{%- endcomment -%}
-          <a class="spf-known__item" href="https://www.german-brand-award.com/preistraeger/galerie/detail/45110-dotcomcanvas.html">
-            <span class="spf-known__media"><img src="https://dotcomcanvas.de/cdn/shop/files/GBA23_HO_SPECIAL_MC_RGB_18e95b9b-9ef8-41df-97a1-2c05ba00f96a.png?v=1757412001&width=1262" alt="German Brand Award" width="1262" height="727" loading="lazy"></span>
-          </a>
-          <span class="spf-known__item"><span class="spf-known__media"><img src="https://dotcomcanvas.de/cdn/shop/files/Logo-1_22c722b1-ad66-4b4b-bd17-812c1c9bc657.png?v=1769264255&width=200" alt="Growth Champion award" width="200" height="116" loading="lazy"></span></span>
-          <span class="spf-known__item"><span class="spf-known__media"><img src="https://dotcomcanvas.de/cdn/shop/files/Logo-3.png?v=1769264343&width=250" alt="FT 1000 award" width="250" height="145" loading="lazy"></span></span>
-          <span class="spf-known__item"><span class="spf-known__media"><img src="https://dotcomcanvas.de/cdn/shop/files/Business-Insider.png?v=1682845804&width=500" alt="Business Insider" width="500" height="500" loading="lazy"></span></span>
-          <span class="spf-known__item"><span class="spf-known__media"><img src="https://dotcomcanvas.de/cdn/shop/files/Bloomberg.png?v=1682845989&width=500" alt="Bloomberg" width="500" height="500" loading="lazy"></span></span>
-          <span class="spf-known__item"><span class="spf-known__media"><img src="https://dotcomcanvas.de/cdn/shop/files/Yahoo-Finance.png?v=1682846040&width=500" alt="Yahoo Finance" width="500" height="500" loading="lazy"></span></span>
         {% endif %}
       </div>
     </div>
   </div>
 </section>
+{% endif %}
 
 {% schema %}
 {
