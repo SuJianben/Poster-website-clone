@@ -30,8 +30,15 @@
     const cache = new Map();
     let requestTimer;
     let requestController;
+    let localSearchData = { products: [], collections: [] };
 
     if (!panel || !input) return;
+
+    try {
+      localSearchData = JSON.parse(document.getElementById('SourceMobileSearchData')?.textContent || '{}');
+    } catch (error) {
+      localSearchData = { products: [], collections: [] };
+    }
 
     if (resultsContainer?.id) {
       input.setAttribute('aria-controls', resultsContainer.id);
@@ -118,6 +125,17 @@
     const renderJsonResults = (data) => {
       if (!resultsContainer) return;
       const results = data?.resources?.results || {};
+      const hasResults = [
+        results.queries,
+        results.collections,
+        results.articles,
+        results.pages,
+        results.products,
+      ].some((items) => items?.length);
+      if (!hasResults) {
+        if (!resultsContainer.childElementCount) renderResults('');
+        return;
+      }
       resultsContainer.replaceChildren();
       appendJsonGroup('Vorschläge', results.queries, 'query');
       appendJsonGroup('Sammlungen', results.collections, 'collection');
@@ -125,6 +143,32 @@
       appendJsonGroup('Produkte', results.products, 'product');
       if (!resultsContainer.childElementCount) renderResults('');
       else showResults();
+    };
+
+    const renderLocalResults = (query) => {
+      if (!resultsContainer) return false;
+      const normalizedQuery = query.toLocaleLowerCase();
+      const matches = (item) => item.title?.toLocaleLowerCase().includes(normalizedQuery);
+      const products = (localSearchData.products || []).filter(matches).slice(0, 10);
+      const collections = (localSearchData.collections || []).filter(matches).slice(0, 10);
+      const seen = new Set();
+      const queries = [...products, ...collections]
+        .filter((item) => {
+          const key = item.title.toLocaleLowerCase();
+          if (seen.has(key)) return false;
+          seen.add(key);
+          return true;
+        })
+        .slice(0, 8)
+        .map((item) => ({ text: item.title }));
+
+      resultsContainer.replaceChildren();
+      appendJsonGroup('Vorschläge', queries, 'query');
+      appendJsonGroup('Sammlungen', collections, 'collection');
+      appendJsonGroup('Produkte', products, 'product');
+      if (!resultsContainer.childElementCount) return false;
+      showResults();
+      return true;
     };
 
     const addPreviewParams = (url) => {
@@ -162,7 +206,9 @@
         });
         if (!response.ok) throw new Error(`Predictive search failed: ${response.status}`);
         const markup = await response.text();
-        if (!markup.includes('data-source-predictive-results')) {
+        const parsedMarkup = new DOMParser().parseFromString(markup, 'text/html');
+        const renderedMarkup = parsedMarkup.querySelector('[data-source-predictive-results]');
+        if (!renderedMarkup?.childElementCount) {
           throw new Error('Predictive search section was not rendered');
         }
         cache.set(query, markup);
@@ -184,7 +230,7 @@
           cache.set(query, data);
           if (input.value.trim() === query) renderJsonResults(data);
         } catch (fallbackError) {
-          if (fallbackError.name !== 'AbortError') renderResults('');
+          if (fallbackError.name !== 'AbortError' && !resultsContainer?.childElementCount) renderResults('');
         }
       }
     };
@@ -205,6 +251,7 @@
         hideResults();
         return;
       }
+      renderLocalResults(query);
       requestTimer = window.setTimeout(() => loadResults(query), 180);
     });
 
