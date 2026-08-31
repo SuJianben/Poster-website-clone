@@ -13,6 +13,8 @@
       "type": "source-hero",
       "settings": {
         "enabled": true,
+        "desktop_video": "shopify://files/videos/banner_desktop_text.webm",
+        "mobile_video": "shopify://files/videos/banner_desktop_text.webm",
         "link": "shopify://collections/儿童手绘",
         "link_label": "",
         "product": "snappy-friends-print",

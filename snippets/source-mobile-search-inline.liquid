@@ -12,14 +12,6 @@
     if (window.__sourceInlineSearchReady) return;
     window.__sourceInlineSearchReady = true;
 
-    document.querySelectorAll('.header__search predictive-search').forEach((nativeSearch) => {
-      const shell = document.createElement('div');
-      [...nativeSearch.attributes].forEach(({ name, value }) => shell.setAttribute(name, value));
-      shell.classList.add('source-predictive-search-shell');
-      [...nativeSearch.childNodes].forEach((child) => shell.append(child.cloneNode(true)));
-      nativeSearch.replaceWith(shell);
-    });
-
     const fallbackRecords = [
       ['product', 'Little Sunflower Print', '/products/little-sunflower-print'],
       ['product', 'Soft Heart Print', '/products/soft-heart-print'],
