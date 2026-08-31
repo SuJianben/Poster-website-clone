@@ -1,44 +1,165 @@
-<div class="source-static-predictive" aria-label="Search suggestions">
-  <section class="source-predictive-group">
+<div class="source-static-predictive" aria-label="Search suggestions" data-source-live-search>
+  <div hidden data-source-live-records>
+    {% for product in collections.all.products limit: 50 %}
+      <a data-type="product" href="{{ product.url }}">{{ product.title | escape }}</a>
+    {% endfor %}
+    {% for collection in collections limit: 50 %}
+      <a data-type="collection" href="{{ collection.url }}">{{ collection.title | escape }}</a>
+    {% endfor %}
+  </div>
+
+  <section class="source-predictive-group" data-source-live-group="query">
     <h3 class="source-predictive-group__title">Vorschläge</h3>
-    <div class="source-predictive-group__list">
-      <a class="source-predictive-result" href="/search?q=Soft%20Heart%20Print&type=product">
-        <svg class="source-predictive-result__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="4.75" stroke="currentColor" stroke-width="1.5"/><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        Soft Heart Print
-      </a>
-      <a class="source-predictive-result" href="/search?q=Little%20Sunflower%20Print&type=product">
-        <svg class="source-predictive-result__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="4.75" stroke="currentColor" stroke-width="1.5"/><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        Little Sunflower Print
-      </a>
-      <a class="source-predictive-result" href="/search?q=Curious%20Sloth%20Print&type=product">
-        <svg class="source-predictive-result__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="4.75" stroke="currentColor" stroke-width="1.5"/><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        Curious Sloth Print
-      </a>
-      <a class="source-predictive-result" href="/search?q=Robot%20King%20Print&type=product">
-        <svg class="source-predictive-result__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="4.75" stroke="currentColor" stroke-width="1.5"/><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        Robot King Print
-      </a>
-    </div>
+    <div class="source-predictive-group__list" data-source-live-list="query"></div>
   </section>
 
-  <section class="source-predictive-group">
+  <section class="source-predictive-group" data-source-live-group="collection">
     <h3 class="source-predictive-group__title">Sammlungen</h3>
-    <div class="source-predictive-group__list">
-      <a class="source-predictive-result" href="/collections/儿童手绘">Children's Hand-Drawn Art</a>
-      <a class="source-predictive-result" href="/collections/bestseller">Bestseller</a>
-      <a class="source-predictive-result" href="/collections/poster">Poster</a>
-    </div>
+    <div class="source-predictive-group__list" data-source-live-list="collection"></div>
   </section>
 
-  <section class="source-predictive-group">
+  <section class="source-predictive-group" data-source-live-group="product">
     <h3 class="source-predictive-group__title">Produkte</h3>
-    <div class="source-predictive-group__list">
-      {% for product in collections.all.products limit: 10 %}
-        <a class="source-predictive-result" href="{{ product.url }}">{{ product.title | escape }}</a>
-      {% endfor %}
-    </div>
+    <div class="source-predictive-group__list" data-source-live-list="product"></div>
   </section>
 </div>
+
+<script>
+  (() => {
+    if (window.__sourceLiveSearchReady) return;
+    window.__sourceLiveSearchReady = true;
+
+    const panel = document.querySelector('[data-source-live-search]');
+    if (!panel) return;
+
+    const records = [...panel.querySelectorAll('[data-source-live-records] a')].map((link) => ({
+      type: link.dataset.type,
+      title: link.textContent.trim(),
+      url: link.getAttribute('href'),
+    }));
+    const lists = {
+      query: panel.querySelector('[data-source-live-list="query"]'),
+      collection: panel.querySelector('[data-source-live-list="collection"]'),
+      product: panel.querySelector('[data-source-live-list="product"]'),
+    };
+    const groups = {
+      query: panel.querySelector('[data-source-live-group="query"]'),
+      collection: panel.querySelector('[data-source-live-group="collection"]'),
+      product: panel.querySelector('[data-source-live-group="product"]'),
+    };
+    const searchIcon = '<svg class="source-predictive-result__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="4.75" stroke="currentColor" stroke-width="1.5"></circle><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg>';
+    const cache = new Map();
+    let timer;
+    let controller;
+
+    const createLink = (item, type) => {
+      const link = document.createElement('a');
+      link.className = 'source-predictive-result';
+      if (type === 'query') {
+        const text = item.text || item.styled_text || item.title || '';
+        link.href = `/search?q=${encodeURIComponent(text)}&type=product`;
+        link.insertAdjacentHTML('afterbegin', searchIcon);
+        link.append(document.createTextNode(text));
+      } else {
+        link.href = item.url || '#';
+        link.append(document.createTextNode(item.title || ''));
+      }
+      return link;
+    };
+
+    const renderGroup = (type, items) => {
+      const list = lists[type];
+      const group = groups[type];
+      if (!list || !group) return;
+      list.replaceChildren(...items.map((item) => createLink(item, type)));
+      group.hidden = items.length === 0;
+    };
+
+    const render = ({ queries = [], collections = [], products = [] }) => {
+      renderGroup('query', queries.slice(0, 10));
+      renderGroup('collection', collections.slice(0, 10));
+      renderGroup('product', products.slice(0, 10));
+    };
+
+    const renderLocal = (query) => {
+      const normalized = query.toLocaleLowerCase();
+      const products = records.filter((item) => item.type === 'product' && item.title.toLocaleLowerCase().includes(normalized));
+      const collections = records.filter((item) => item.type === 'collection' && item.title.toLocaleLowerCase().includes(normalized));
+      const seen = new Set();
+      const queries = [...products, ...collections]
+        .filter((item) => {
+          const key = item.title.toLocaleLowerCase();
+          if (seen.has(key)) return false;
+          seen.add(key);
+          return true;
+        })
+        .map((item) => ({ text: item.title }));
+      if (!queries.length) queries.push({ text: query });
+      render({ queries, collections, products });
+    };
+
+    const renderRemote = (data) => {
+      const results = data?.resources?.results || {};
+      const hasResults = [results.queries, results.collections, results.products].some((items) => items?.length);
+      if (!hasResults) return;
+      render({
+        queries: results.queries || [],
+        collections: results.collections || [],
+        products: results.products || [],
+      });
+    };
+
+    const loadRemote = async (query) => {
+      if (cache.has(query)) {
+        renderRemote(cache.get(query));
+        return;
+      }
+      controller?.abort();
+      controller = new AbortController();
+      const url = new URL('/search/suggest.json', window.location.origin);
+      url.searchParams.set('q', query);
+      url.searchParams.set('resources[type]', 'query,product,collection');
+      url.searchParams.set('resources[limit]', '10');
+      try {
+        const response = await fetch(url, {
+          credentials: 'same-origin',
+          headers: { Accept: 'application/json' },
+          signal: controller.signal,
+        });
+        if (!response.ok) return;
+        const data = await response.json();
+        cache.set(query, data);
+        const activeInput = document.querySelector('.header__search input[type="search"]');
+        if (activeInput?.value.trim() === query) renderRemote(data);
+      } catch (error) {
+        if (error.name !== 'AbortError') console.warn('Predictive search request failed.');
+      }
+    };
+
+    document.addEventListener('input', (event) => {
+      if (!event.target.matches('.header__search input[type="search"]')) return;
+      const query = event.target.value.trim();
+      window.clearTimeout(timer);
+      if (!query) {
+        controller?.abort();
+        render({});
+        return;
+      }
+      renderLocal(query);
+      timer = window.setTimeout(() => loadRemote(query), 180);
+    }, true);
+
+    document.addEventListener('submit', (event) => {
+      const form = event.target;
+      if (!form.matches?.('.header__search form') || form.querySelector('input[name="type"]')) return;
+      const type = document.createElement('input');
+      type.type = 'hidden';
+      type.name = 'type';
+      type.value = 'product';
+      form.append(type);
+    }, true);
+  })();
+</script>
 
 <style>
   @media (max-width: 1023px) {
