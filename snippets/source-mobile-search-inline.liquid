@@ -1,0 +1,120 @@
+<div id="SourceInlineSearchRecords" hidden>
+  {% for product in collections.all.products limit: 50 %}
+    <a data-source-search-type="product" href="{{ product.url }}">{{ product.title | escape }}</a>
+  {% endfor %}
+  {% for collection in collections limit: 50 %}
+    <a data-source-search-type="collection" href="{{ collection.url }}">{{ collection.title | escape }}</a>
+  {% endfor %}
+</div>
+
+<script>
+  (() => {
+    if (window.__sourceInlineSearchReady) return;
+    window.__sourceInlineSearchReady = true;
+
+    const fallbackRecords = [
+      ['product', 'Little Sunflower Print', '/products/little-sunflower-print'],
+      ['product', 'Soft Heart Print', '/products/soft-heart-print'],
+      ['product', 'I Love You Print', '/products/i-love-you-print'],
+      ['product', 'Curious Sloth Print', '/products/curious-sloth-print'],
+      ['product', 'Robot King Print', '/products/robot-king-print'],
+      ['product', 'No Rules Print', '/products/no-rules-print'],
+      ['collection', "Children\'s Hand-Drawn Art", '/collections/儿童手绘'],
+      ['collection', 'Bestseller', '/collections/bestseller'],
+      ['collection', 'Personalisierbar', '/collections/personalisierbar'],
+      ['collection', 'Leinwand', '/collections/leinwand'],
+      ['collection', 'Acrylglas', '/collections/acrylglas'],
+      ['collection', 'Poster', '/collections/poster'],
+      ['collection', 'Abstrakt', '/collections/abstrakt'],
+    ];
+
+    const getRecords = () => {
+      const records = [...document.querySelectorAll('#SourceInlineSearchRecords a')].map((link) => ({
+        type: link.dataset.sourceSearchType,
+        title: link.textContent.trim(),
+        url: link.getAttribute('href'),
+      }));
+      return records.length
+        ? records
+        : fallbackRecords.map(([type, title, url]) => ({ type, title, url }));
+    };
+
+    const createLink = (title, url, isSuggestion = false) => {
+      const link = document.createElement('a');
+      link.className = 'source-predictive-result';
+      link.setAttribute('role', 'option');
+      link.href = url;
+      if (isSuggestion) {
+        link.insertAdjacentHTML('afterbegin', '<svg class="source-predictive-result__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="4.75" stroke="currentColor" stroke-width="1.5"></circle><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg>');
+      }
+      link.append(document.createTextNode(title));
+      return link;
+    };
+
+    const appendGroup = (container, heading, items, isSuggestion = false) => {
+      if (!items.length) return;
+      const section = document.createElement('section');
+      section.className = 'source-predictive-group';
+      const title = document.createElement('h3');
+      title.className = 'source-predictive-group__title';
+      title.textContent = heading;
+      const list = document.createElement('div');
+      list.className = 'source-predictive-group__list';
+      items.forEach((item) => list.append(createLink(item.title, item.url, isSuggestion)));
+      section.append(title, list);
+      container.append(section);
+    };
+
+    const hideResults = (input) => {
+      const content = input?.closest('.header__search')?.querySelector('.search__content');
+      if (!content) return;
+      content.classList.remove('source-mobile-predictive-active');
+      content.classList.add('hidden');
+      content.hidden = true;
+      input.setAttribute('aria-expanded', 'false');
+    };
+
+    const renderResults = (input) => {
+      const query = input.value.trim();
+      if (!query) {
+        hideResults(input);
+        return;
+      }
+
+      const content = input.closest('.header__search')?.querySelector('.search__content');
+      const container = content?.querySelector('[role="listbox"]');
+      if (!content || !container) return;
+
+      const normalized = query.toLocaleLowerCase();
+      const records = getRecords();
+      const products = records.filter((item) => item.type === 'product' && item.title.toLocaleLowerCase().includes(normalized)).slice(0, 10);
+      const collections = records.filter((item) => item.type === 'collection' && item.title.toLocaleLowerCase().includes(normalized)).slice(0, 10);
+      const suggestions = [...products, ...collections]
+        .filter((item, index, items) => items.findIndex((candidate) => candidate.title === item.title) === index)
+        .slice(0, 8)
+        .map((item) => ({ title: item.title, url: `/search?q=${encodeURIComponent(item.title)}` }));
+
+      if (!suggestions.length) suggestions.push({ title: query, url: `/search?q=${encodeURIComponent(query)}` });
+
+      container.replaceChildren();
+      appendGroup(container, 'Vorschläge', suggestions, true);
+      appendGroup(container, 'Sammlungen', collections);
+      appendGroup(container, 'Produkte', products);
+      content.classList.remove('hidden');
+      content.classList.add('source-mobile-predictive-active');
+      content.hidden = false;
+      content.style.display = 'block';
+      content.style.maxHeight = `${Math.max(180, window.innerHeight - content.getBoundingClientRect().top)}px`;
+      input.setAttribute('aria-expanded', 'true');
+    };
+
+    document.addEventListener('input', (event) => {
+      if (event.target.matches('.header__search input[type="search"]')) renderResults(event.target);
+    }, true);
+
+    document.addEventListener('reset', (event) => {
+      const input = event.target.querySelector?.('input[type="search"]');
+      if (input?.closest('.header__search')) requestAnimationFrame(() => hideResults(input));
+    }, true);
+  })();
+</script>
