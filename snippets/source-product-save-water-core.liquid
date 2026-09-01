@@ -6,6 +6,13 @@
   assign product_details_content = section.settings.product_details_content
   assign shipping_returns_heading = section.settings.shipping_returns_heading | default: 'Shipping and Returns'
   assign shipping_returns_content = section.settings.shipping_returns_content
+  assign css_frame_orientation = blank
+  if product.tags contains 'Kids Wall Art'
+    assign css_frame_orientation = 'portrait'
+    if product.tags contains 'Landscape'
+      assign css_frame_orientation = 'landscape'
+    endif
+  endif
   assign size_guide_image = blank
   assign size_guide_label = 'SIZE GUIDE'
   for block in section.blocks
@@ -57,10 +64,14 @@
             <button class="spx-product__thumb-control spx-product__thumb-control--down" type="button" aria-label="Show more product images" data-spx-thumb-scroll="1"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m7 10 5 5-5 5"/></svg></button>
           </div>
 
-          <div class="spx-product__main-image" data-spx-viewer>
-            <button class="spx-product__main-image-button" type="button" aria-label="Expand {{ product.title | escape }}" data-spx-open-zoom>
-              {% if selected_image != blank %}<img data-spx-main-image src="{{ selected_image | image_url: width: 1620 }}" alt="{{ product.title | escape }}">{% else %}{{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}{% endif %}
-            </button>
+          <div class="spx-product__main-image{% if css_frame_orientation != blank %} spx-product__main-image--css-frame spx-product__main-image--{{ css_frame_orientation }}{% endif %}" data-spx-viewer data-spx-active-index="0" data-spx-frame-tone="none">
+            <div class="spx-product__css-frame">
+              <div class="spx-product__css-frame-mat">
+                <button class="spx-product__main-image-button" type="button" aria-label="Expand {{ product.title | escape }}" data-spx-open-zoom>
+                  {% if selected_image != blank %}<img data-spx-main-image src="{{ selected_image | image_url: width: 1620 }}" alt="{{ product.title | escape }}">{% else %}{{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}{% endif %}
+                </button>
+              </div>
+            </div>
             <button class="spx-product__zoom-button" type="button" aria-label="Expand image" data-spx-open-zoom><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="5.5"/><path d="m15 15 4 4"/></svg></button>
           </div>
         </div>

@@ -17,6 +17,7 @@
   const viewer = product.querySelector('[data-spx-viewer]');
   const zoomStage = product.querySelector('.spx-product__zoom-stage');
   let activeIndex = Math.max(0, thumbs.findIndex((thumb) => thumb.classList.contains('is-active')));
+  let cssFrameTone = 'none';
   let unframedImageIndex = activeIndex;
   const unframedImageByContext = new Map();
   const toFrameMediaKey = (value) => String(value || '')
@@ -92,6 +93,7 @@
     if (!mainImage || !zoomImage || !thumbs.length) return;
     const nextIndex = Math.max(0, Math.min(thumbs.length - 1, index));
     activeIndex = nextIndex;
+    if (viewer) viewer.dataset.spxActiveIndex = String(activeIndex);
     const thumb = thumbs[activeIndex];
     if (!thumb) return;
     setImageSource(thumb.dataset.spxImage, direction);
@@ -128,6 +130,13 @@
     }
     return true;
   };
+
+  const setCssFrameTone = (tone = 'none') => {
+    cssFrameTone = tone || 'none';
+    if (viewer) viewer.dataset.spxFrameTone = cssFrameTone;
+  };
+
+  if (viewer) viewer.dataset.spxActiveIndex = String(activeIndex);
 
   thumbs.forEach((thumb, index) => thumb.addEventListener('click', () => setActiveImage(index)));
   nextButtons.forEach((button) => button.addEventListener('click', () => setActiveImage(activeIndex + 1, 1)));
@@ -337,6 +346,7 @@
       });
 
       const selectedFrameTone = getSelectedFrameTone();
+      setCssFrameTone(selectedFrameTone);
       const variantMediaIndex = syncVariantMedia(selectedVariant);
       if (variantMediaIndex >= 0) {
         if (selectedFrameTone === 'none') rememberUnframedImage(variantMediaIndex);
@@ -386,16 +396,23 @@
 
     const syncManualFrameImage = (control, frameTone) => {
       const configuredImage = control?.dataset.spxManualFrameImage || '';
-      if (configuredImage && setImageSource(configuredImage)) return;
+      if (configuredImage && setImageSource(configuredImage)) {
+        setCssFrameTone('none');
+        return;
+      }
       if (frameTone === 'none') {
+        setCssFrameTone('none');
         restoreUnframedImage();
         return;
       }
 
       const taggedImageIndex = findFrameMediaIndex(frameTone);
       if (taggedImageIndex >= 0) {
+        setCssFrameTone('none');
         setActiveImage(taggedImageIndex);
+        return;
       }
+      setCssFrameTone(frameTone);
     };
 
     const setManualFrame = (control) => {
