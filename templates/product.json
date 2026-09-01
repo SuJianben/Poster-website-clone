@@ -169,10 +169,6 @@
         "benefit_4_description": "No ifs or buts – test your artwork completely risk-free."
       }
     },
-    "source_showcase": {
-      "type": "source-product-showcase",
-      "settings": {}
-    },
     "source_known_from": {
       "type": "source-product-known-from",
       "blocks": {
@@ -390,7 +386,6 @@
   "order": [
     "main",
     "source_benefits",
-    "source_showcase",
     "source_known_from",
     "source_tabs",
     "source_recommendations",
