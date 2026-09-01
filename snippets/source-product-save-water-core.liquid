@@ -128,7 +128,36 @@
   </script>
 
   <dialog class="spx-product__size-guide-dialog" data-spx-size-guide-dialog aria-label="Size guide">
-    <div class="spx-product__size-guide-card"><div class="spx-product__size-guide-header"><span>{{ size_guide_label }}</span><button type="button" data-spx-close-size-guide aria-label="Close size guide"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m18 6-12 12M6 6l12 12"/></svg></button></div>{% if size_guide_image != blank %}<div class="spx-product__size-guide-image">{{ size_guide_image | image_url: width: 1800 | image_tag: alt: size_guide_image_alt, loading: 'lazy' }}</div>{% endif %}</div>
+    <div class="spx-product__size-guide-card">
+      <div class="spx-product__size-guide-header">
+        <span>{{ size_guide_label }}</span>
+        <button type="button" data-spx-close-size-guide aria-label="Close size guide"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m18 6-12 12M6 6l12 12"/></svg></button>
+      </div>
+      {% if size_guide_image != blank %}
+        <div class="spx-product__size-guide-image">{{ size_guide_image | image_url: width: 1800 | image_tag: alt: size_guide_image_alt, loading: 'lazy' }}</div>
+      {% else %}
+        <div class="spx-product__size-guide-table-wrap">
+          <table class="spx-product__size-guide-table">
+            <thead>
+              <tr><th scope="col">ROUNDED INCHES</th><th scope="col">EXACT INCHES</th><th scope="col">EXACT CENTIMETERS</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>5 x 7 in</td><td>5.1 x 7.1 in</td><td>13 x 18 cm</td></tr>
+              <tr><td>8 x 10 in</td><td>8 x 10 in</td><td>20.3 x 25.4 cm</td></tr>
+              <tr><td>8 x 12 in</td><td>8.3 x 11.8 in</td><td>21 x 30 cm</td></tr>
+              <tr><td>11 x 14 in</td><td>11 x 14 in</td><td>27.9 x 35.6 cm</td></tr>
+              <tr><td>12 x 16 in</td><td>11.8 x 15.7 in</td><td>30 x 40 cm</td></tr>
+              <tr><td>16 x 20 in</td><td>15.7 x 19.7 in</td><td>40 x 50 cm</td></tr>
+              <tr><td>20 x 20 in</td><td>19.7 x 19.7 in</td><td>50 x 50 cm</td></tr>
+              <tr><td>20 x 28 in</td><td>19.7 x 27.6 in</td><td>50 x 70 cm</td></tr>
+              <tr><td>28 x 39 in</td><td>27.6 x 39.4 in</td><td>70 x 100 cm</td></tr>
+              <tr><td>40 x 55 in</td><td>40 x 55 in</td><td>101.6 x 139.7 cm</td></tr>
+              <tr><td>39 x 59 in</td><td>39.4 x 59.1 in</td><td>100 x 150 cm</td></tr>
+            </tbody>
+          </table>
+        </div>
+      {% endif %}
+    </div>
   </dialog>
   <button class="spx-product__back-to-top" type="button" aria-label="Back to top" data-spx-back-to-top>
     <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="m6 14 6-6 6 6"/></svg>
