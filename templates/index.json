@@ -99,7 +99,7 @@
         "collection_tab_4pbgRQ": {
           "type": "collection_tab",
           "settings": {
-            "collection": "儿童手绘",
+            "collection": "kids-wall-art",
             "custom_link": "",
             "label": "",
             "promo_heading": "",
@@ -467,7 +467,7 @@
         "collection_motivation": {
           "type": "collection",
           "settings": {
-            "collection": "figurative-posters",
+            "collection": "kids-wall-art",
             "image_url": "",
             "label": "Motivierende Wandbilder"
           }
@@ -475,7 +475,7 @@
         "collection_religion": {
           "type": "collection",
           "settings": {
-            "collection": "儿童手绘",
+            "collection": "kids-wall-art",
             "image_url": "",
             "label": "Religiöse Wandbilder"
           }
