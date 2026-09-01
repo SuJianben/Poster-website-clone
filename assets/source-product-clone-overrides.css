@@ -59,6 +59,92 @@ product-info.source-product {
   object-fit: cover;
 }
 
+/* Kids Wall Art: crop the artwork out of its square cover image and present it
+   as a real print with an oak moulding and a wide white mount. */
+.source-product .source-product-css-frame-stage {
+  display: grid;
+  place-items: center;
+  background: #f4f2ed;
+}
+
+.source-product .source-product-css-frame {
+  position: relative !important;
+  inset: auto !important;
+  display: grid;
+  box-sizing: border-box;
+  padding: clamp(7px, 1.05vw, 14px);
+  background:
+    linear-gradient(90deg, rgb(104 70 43 / 18%), transparent 16%, rgb(255 255 255 / 20%) 46%, transparent 72%, rgb(87 57 34 / 18%)),
+    repeating-linear-gradient(4deg, #c7a47f 0 2px, #d8b996 2px 4px, #bd936c 4px 6px, #d2ad86 6px 9px);
+  border: 1px solid #a9815d;
+  box-shadow:
+    0 1px 1px rgb(52 36 24 / 18%),
+    0 9px 18px rgb(52 36 24 / 18%),
+    0 25px 45px rgb(52 36 24 / 10%);
+  isolation: isolate;
+}
+
+.source-product .source-product-css-frame::after {
+  position: absolute;
+  inset: clamp(7px, 1.05vw, 14px);
+  z-index: 2;
+  border: 1px solid rgb(82 52 30 / 20%);
+  box-shadow: inset 0 2px 4px rgb(38 24 14 / 18%);
+  content: '';
+  pointer-events: none;
+}
+
+.source-product .source-product-css-frame--portrait {
+  width: min(72%, 430px);
+  aspect-ratio: 0.72;
+}
+
+.source-product .source-product-css-frame--landscape {
+  width: min(82%, 570px);
+  aspect-ratio: 1.385;
+}
+
+.source-product .source-product-css-frame__mat {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  min-width: 0;
+  min-height: 0;
+  padding: clamp(16px, 3vw, 38px);
+  background: #fffefa;
+  box-shadow: inset 0 0 0 1px rgb(75 58 43 / 8%);
+}
+
+.source-product .source-product-css-frame__art {
+  position: relative !important;
+  inset: auto !important;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden;
+  background: #f8f1e5;
+  box-shadow: 0 1px 3px rgb(45 34 24 / 18%);
+}
+
+.source-product .source-product-css-frame__art .product__media-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  max-width: none;
+  max-height: none;
+  object-fit: fill;
+  transform: translate(-50%, -50%);
+}
+
+.source-product .source-product-css-frame--portrait .product__media-image {
+  width: 193.25%;
+  height: auto;
+}
+
+.source-product .source-product-css-frame--landscape .product__media-image {
+  width: 129.25%;
+  height: auto;
+}
+
 .source-product .product__thumbs-container {
   display: block;
   width: 100%;
