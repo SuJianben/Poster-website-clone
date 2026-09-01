@@ -357,6 +357,7 @@
 
         frameOptionGroup.querySelectorAll('[data-spx-variant-value]').forEach((control) => {
           const priceOutput = control.querySelector('[data-spx-frame-price]');
+          const compareOutput = control.querySelector('[data-spx-frame-compare]');
           if (!priceOutput) return;
           const candidateValues = [...selectedValues];
           candidateValues[frameOptionIndex] = control.dataset.optionValue;
@@ -364,6 +365,10 @@
             .every((value, index) => value === candidateValues[index]));
           const surcharge = candidateVariant && unframedVariant ? candidateVariant.price - unframedVariant.price : 0;
           priceOutput.textContent = surcharge > 0 ? `+${moneyFormatter.format(surcharge / 100)}` : '';
+          if (compareOutput) {
+            const regularSurcharge = surcharge > 0 ? Math.round(surcharge / 0.85) : 0;
+            compareOutput.textContent = regularSurcharge > 0 ? moneyFormatter.format(regularSurcharge / 100) : '';
+          }
         });
       }
 
