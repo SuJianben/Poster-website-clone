@@ -324,12 +324,13 @@
       if (variantIdInput) variantIdInput.value = selectedVariant?.id || '';
 
       const dynamicPrice = product.querySelector('[data-spx-dynamic-price] [data-spx-price-output]');
+      const currency = window.Shopify?.currency?.active || 'USD';
+      const moneyFormatter = new Intl.NumberFormat(document.documentElement.lang || 'en', {
+        style: 'currency',
+        currency
+      });
       if (selectedVariant && dynamicPrice) {
-        const currency = window.Shopify?.currency?.active || 'EUR';
-        dynamicPrice.textContent = new Intl.NumberFormat(document.documentElement.lang || 'en', {
-          style: 'currency',
-          currency
-        }).format(selectedVariant.price / 100);
+        dynamicPrice.textContent = moneyFormatter.format(selectedVariant.price / 100);
       }
 
       optionGroups.forEach((group, optionIndex) => {
@@ -344,6 +345,27 @@
           control.disabled = !available;
         });
       });
+
+      if (frameOptionGroup) {
+        const frameOptionIndex = optionGroups.indexOf(frameOptionGroup);
+        const unframedControl = [...frameOptionGroup.querySelectorAll('[data-spx-variant-value]')]
+          .find((control) => normalizeFrameTone(control.dataset.optionValue) === 'none');
+        const unframedValues = [...selectedValues];
+        if (unframedControl) unframedValues[frameOptionIndex] = unframedControl.dataset.optionValue;
+        const unframedVariant = variants.find((variant) => optionValuesForVariant(variant)
+          .every((value, index) => value === unframedValues[index]));
+
+        frameOptionGroup.querySelectorAll('[data-spx-variant-value]').forEach((control) => {
+          const priceOutput = control.querySelector('[data-spx-frame-price]');
+          if (!priceOutput) return;
+          const candidateValues = [...selectedValues];
+          candidateValues[frameOptionIndex] = control.dataset.optionValue;
+          const candidateVariant = variants.find((variant) => optionValuesForVariant(variant)
+            .every((value, index) => value === candidateValues[index]));
+          const surcharge = candidateVariant && unframedVariant ? candidateVariant.price - unframedVariant.price : 0;
+          priceOutput.textContent = surcharge > 0 ? `+${moneyFormatter.format(surcharge / 100)}` : '';
+        });
+      }
 
       const selectedFrameTone = getSelectedFrameTone();
       setCssFrameTone(selectedFrameTone);

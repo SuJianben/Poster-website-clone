@@ -189,7 +189,7 @@
 .spx-product .spx-product__material-option.is-selected { border-color:#111; box-shadow:inset 0 0 0 1px #111; color:#111; }
 .spx-product .spx-product__material-option:disabled { border-color:#ddd; color:#aaa; cursor:not-allowed; opacity:.55; text-decoration:line-through; }
 .spx-product__frame-options { display:flex; flex-wrap:wrap; gap:9px; }
-.spx-product .spx-product__frame-option { display:block; width:64px; min-width:64px; height:50px; padding:0; overflow:hidden; border:1px solid transparent; border-radius:3px; background:#f2f2f2; cursor:pointer; transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease; }
+.spx-product .spx-product__frame-option { position:relative; display:block; width:64px; min-width:64px; height:50px; margin-bottom:20px; padding:0; overflow:visible; border:1px solid transparent; border-radius:3px; background:#f2f2f2; cursor:pointer; transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease; }
 .spx-product .spx-product__frame-option:hover:not(:disabled) { transform:translateY(-1px); }
 .spx-product .spx-product__frame-option.is-selected { border:2px solid #111; }
 .spx-product .spx-product__frame-option:focus-visible { outline:2px solid #111; outline-offset:2px; }
@@ -204,6 +204,7 @@
 .spx-product__frame-swatch--black { --spx-frame-color:#101010; }
 .spx-product__frame-swatch--silver { --spx-frame-color:#a8adb0; }
 .spx-product__frame-swatch--gold { --spx-frame-color:#b28a35; }
+.spx-product__frame-price { position:absolute; top:calc(100% + 4px); left:50%; display:block; color:#c40000; font-size:11px; font-weight:700; line-height:1; white-space:nowrap; transform:translateX(-50%); }
 .spx-product__addon { margin:21px 0 0; }
 .spx-product__addon-heading { margin:0 0 9px; color:#111; font-size:14px; font-weight:700; line-height:1.2; }
 .spx-product__addon-control { display:flex; align-items:center; gap:9px; color:#333; cursor:pointer; }
@@ -385,7 +386,7 @@ body.modal-showing .spx-product__back-to-top, body.modal-show .spx-product__back
   .spx-product__option-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .spx-product__material-options { gap: 7px; }
   .spx-product .spx-product__material-option { min-height: 40px; padding: 7px 12px; font-size: 13px; }
-  .spx-product__frame-options { flex-wrap: nowrap; gap: 7px; max-width: 100%; padding-bottom: 2px; overflow-x: auto; scrollbar-width: none; }
+  .spx-product__frame-options { flex-wrap: nowrap; gap: 7px; max-width: 100%; padding-bottom: 2px; overflow-x: auto; overflow-y: visible; scrollbar-width: none; }
   .spx-product__frame-options::-webkit-scrollbar { display: none; }
   .spx-product .spx-product__frame-option { width: 58px; min-width: 58px; height: 45px; }
   .spx-product__addon { margin-top: 18px; }
