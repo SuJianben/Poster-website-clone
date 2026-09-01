@@ -6,6 +6,14 @@
       assign only_image = false
     endunless
   endfor
+
+  assign css_frame_orientation = blank
+  if product.tags contains 'Kids Wall Art'
+    assign css_frame_orientation = 'portrait'
+    if product.tags contains 'Landscape'
+      assign css_frame_orientation = 'landscape'
+    endif
+  endif
 %}
 
 <media-gallery
@@ -35,6 +43,11 @@
               assign media_loading = 'eager'
               assign media_fetchpriority = 'high'
             endif
+
+            assign use_css_frame = false
+            if forloop.first and media.media_type == 'image' and css_frame_orientation != blank
+              assign use_css_frame = true
+            endif
           %}
           <div
             id="Slide-{{ section.id }}-{{ media.id }}"
@@ -48,9 +61,13 @@
               data-pswp-height="{{ media.preview_image.height }}"
             {% endif %}
           >
-            <div class="product__media-item-container relative flex overflow-hidden blocks-radius media-type-{{ media.media_type }}" style="--aspect-ratio: 1;">
+            <div class="product__media-item-container relative flex overflow-hidden blocks-radius media-type-{{ media.media_type }}{% if use_css_frame %} source-product-css-frame-stage{% endif %}" style="--aspect-ratio: 1;">
               {% if media.media_type == 'image' %}
-                <motion-element class="block product__media media-wrapper" data-motion="zoom-out-sm">
+                {% if use_css_frame %}
+                  <div class="source-product-css-frame source-product-css-frame--{{ css_frame_orientation }}" aria-hidden="true">
+                    <div class="source-product-css-frame__mat">
+                {% endif %}
+                <motion-element class="block product__media media-wrapper{% if use_css_frame %} source-product-css-frame__art{% endif %}" data-motion="zoom-out-sm">
                   {{ media.preview_image
                     | image_url: width: 1946
                     | image_tag:
@@ -61,6 +78,10 @@
                       class: 'product__media-image'
                   }}
                 </motion-element>
+                {% if use_css_frame %}
+                    </div>
+                  </div>
+                {% endif %}
                 <div class="product__media-icon btn btn--white btn--small btn--icon btn--icon-circle" aria-hidden="true">
                   <span class="btn__text flex items-center">
                     <svg class="icon icon-zoom icon--medium" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.875" cy="10.875" r="7.875"></circle><path d="m16.443 16.445 4.557 4.557"></path></svg>
