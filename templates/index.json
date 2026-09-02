@@ -468,6 +468,7 @@
           "type": "collection",
           "settings": {
             "collection": "kids-wall-art",
+            "image": "shopify://shop_images/072-4.jpg",
             "image_url": "",
             "label": "Motivierende Wandbilder"
           }
@@ -476,6 +477,7 @@
           "type": "collection",
           "settings": {
             "collection": "kids-wall-art",
+            "image": "shopify://shop_images/090-4.jpg",
             "image_url": "",
             "label": "Religiöse Wandbilder"
           }
@@ -484,6 +486,7 @@
           "type": "collection",
           "settings": {
             "collection": "floral-posters",
+            "image": "shopify://shop_images/089-4.jpg",
             "image_url": "",
             "label": "Crypto Wandbilder"
           }
@@ -492,6 +495,7 @@
           "type": "collection",
           "settings": {
             "collection": "landscape-posters",
+            "image": "shopify://shop_images/088-4.jpg",
             "image_url": "",
             "label": "Auto Wandbilder"
           }
@@ -500,6 +504,7 @@
           "type": "collection",
           "settings": {
             "collection": "movie-posters",
+            "image": "shopify://shop_images/087-2.jpg",
             "image_url": "",
             "label": "Abstrakte Wandbilder"
           }
@@ -508,6 +513,7 @@
           "type": "collection",
           "settings": {
             "collection": "still-life-posters",
+            "image": "shopify://shop_images/083-4.jpg",
             "image_url": "",
             "label": "Pop Art Wandbilder"
           }
@@ -516,6 +522,7 @@
           "type": "collection",
           "settings": {
             "collection": "time-series-posters",
+            "image": "shopify://shop_images/079-4.jpg",
             "image_url": "",
             "label": "Blattgold Wandbilder"
           }
