@@ -1,3 +1,4 @@
+/* Schema refresh: preserve and import existing media logo blocks. */
 /*
  * ------------------------------------------------------------
  * IMPORTANT: The contents of this file are auto-generated.
@@ -14,29 +15,19 @@
       "blocks": {
         "top_badge": {
           "type": "top_badge",
-          "settings": {
-            "text": "Trendande"
-          }
+          "settings": { "text": "Trendande" }
         },
         "brand_banner": {
           "type": "brand_banner",
-          "settings": {
-            "text": "Över 60 000 kunder älskar våra premiumväggbilder."
-          }
+          "settings": { "text": "Över 60 000 kunder älskar våra premiumväggbilder." }
         },
         "reviews": {
           "type": "reviews",
-          "settings": {
-            "count": "2 861",
-            "label": "Verifierade recensioner"
-          }
+          "settings": { "count": "2 861", "label": "Verifierade recensioner" }
         },
         "title": {
           "type": "title",
-          "settings": {
-            "use_product_title": true,
-            "heading": "Save Water - Poster"
-          }
+          "settings": { "use_product_title": true, "heading": "Save Water - Poster" }
         },
         "artist": {
           "type": "artist",
@@ -51,11 +42,7 @@
         },
         "price": {
           "type": "price",
-          "settings": {
-            "use_product_price": true,
-            "price_text": "$29.00",
-            "shipping_text": "Fri frakt."
-          }
+          "settings": { "use_product_price": true, "price_text": "$29.00", "shipping_text": "Fri frakt." }
         },
         "variant_picker": {
           "type": "variant_picker",
@@ -79,10 +66,15 @@
             "black_label": "Svart",
             "silver_label": "Silver",
             "gold_label": "Guld",
+            "none_image": "",
             "none_image_url": "",
+            "white_image": "",
             "white_image_url": "",
+            "black_image": "",
             "black_image_url": "",
+            "silver_image": "",
             "silver_image_url": "",
+            "gold_image": "",
             "gold_image_url": "",
             "save_to_cart": true
           }
@@ -149,29 +141,14 @@
         "benefits",
         "payment_trust"
       ],
-      "settings": {
-        "product_details_heading": "Produktdetaljer",
-        "product_details_content": "",
-        "shipping_returns_heading": "Leverans och returer",
-        "shipping_returns_content": ""
-      }
+      "settings": {}
     },
     "source_benefits": {
       "type": "source-product-benefits",
-      "settings": {
-        "benefit_1_title": "Premium Qualität",
-        "benefit_1_description": "Handgefertigt in deutscher Manufaktur mit zertifizierten Materialien.",
-        "benefit_2_title": "Zufrieden oder Geld zurück",
-        "benefit_2_description": "100 % Zufriedenheit oder Geld-zurück-Garantie.",
-        "benefit_3_title": "Free Shipping over 49€",
-        "benefit_3_description": "We ship your order quickly and extremely securely packed.",
-        "benefit_4_title": "30 Tage Rückgaberecht",
-        "benefit_4_description": "No ifs or buts – test your artwork completely risk-free."
-      }
+      "settings": {}
     },
     "source_showcase": {
       "type": "source-product-showcase",
-      "disabled": true,
       "settings": {}
     },
     "source_known_from": {
@@ -191,7 +168,6 @@
           "settings": {
             "title": "Growth Champion award",
             "alt": "Growth Champion award",
-            "link": "",
             "open_new_tab": false
           }
         },
@@ -200,7 +176,6 @@
           "settings": {
             "title": "FT 1000 award",
             "alt": "FT 1000 award",
-            "link": "",
             "open_new_tab": false
           }
         },
@@ -209,7 +184,6 @@
           "settings": {
             "title": "Business Insider",
             "alt": "Business Insider",
-            "link": "",
             "open_new_tab": false
           }
         },
@@ -218,7 +192,6 @@
           "settings": {
             "title": "Bloomberg",
             "alt": "Bloomberg",
-            "link": "",
             "open_new_tab": false
           }
         },
@@ -227,7 +200,6 @@
           "settings": {
             "title": "Yahoo Finance",
             "alt": "Yahoo Finance",
-            "link": "",
             "open_new_tab": false
           }
         }
@@ -240,46 +212,13 @@
         "media_logo_bloomberg",
         "media_logo_yahoo_finance"
       ],
-      "disabled": true,
       "settings": {
-        "heading": "Bekannt aus",
-        "section_link_label": "",
-        "section_link": ""
+        "heading": "Bekannt aus"
       }
     },
     "source_tabs": {
       "type": "source-product-tabs-content",
-      "settings": {
-        "description_label": "Beskrivning",
-        "fair_label": "Fair Pricing",
-        "artist_label": "Artist Information",
-        "materials_label": "Material & Workmanship",
-        "shipping_label": "Leverans och returer",
-        "security_label": "Security",
-        "description_heading": "",
-        "description_content": "",
-        "show_signature": false,
-        "signature_alt": "",
-        "fair_gallery_price": "$1,000",
-        "fair_gallery_label": "Traditional\nGallery",
-        "fair_artwork_price": "$94",
-        "fair_logo_alt": "",
-        "fair_heading": "Fair Pricing",
-        "fair_content": "",
-        "artist_image_alt": "",
-        "artist_heading": "",
-        "artist_content": "",
-        "materials_main_alt": "Canvas material close-up",
-        "materials_second_alt": "Canvas stretcher frame close-up",
-        "materials_heading": "Details about Canvas Prints:",
-        "materials_content": "",
-        "shipping_delivery_heading": "Leverans",
-        "shipping_delivery_content": "<ul><li><strong>Shipping Costs:</strong> Free worldwide shipping on orders over <strong>€49</strong>.</li><li><strong>Security:</strong> Safe and fast shipping including tracking.</li><li><strong>Delivery Time:</strong> 2–5 business days worldwide (may vary depending on product size and material).</li></ul><p><strong>International Shipping:</strong> Please note that deliveries outside the EU may be subject to customs duties or import taxes. These costs are levied by the destination country and are the responsibility of the recipient.</p>",
-        "shipping_returns_heading": "Returns & Exchanges",
-        "shipping_returns_content": "",
-        "shipping_policy_content": "",
-        "security_content": ""
-      }
+      "settings": {}
     },
     "source_recommendations": {
       "type": "source-product-recommendations",
@@ -300,7 +239,6 @@
             "rating": 5,
             "title": "7 beautiful acrylglas work in my home",
             "body": "I have ordered paintings over the years and i am very proud of the acrylglas work. They are my home decoration items and guests immediately notice them.",
-            "product": "",
             "product_name": "Shit Happens - Acrylglas - 40 X 40 CM / Ohne Rahmen",
             "verified": true,
             "verified_label": "Verified Buyer",
@@ -320,14 +258,10 @@
             "rating": 4,
             "title": "Awesome company",
             "body": "The colours and attention to detail are top quality. Customer service was fantastic and delivery was reliable.",
-            "product": "",
             "product_name": "",
             "verified": false,
             "verified_label": "Verified Buyer",
             "country": "",
-            "image_1_url": "",
-            "image_2_url": "",
-            "image_3_url": "",
             "helpful_count": 0
           }
         },
@@ -340,14 +274,11 @@
             "rating": 5,
             "title": "5/5",
             "body": "Ordering was very easy and the product arrived in about a week. The artwork feels high quality and I would order again.",
-            "product": "",
             "product_name": "Queen Card - Acrylglas",
             "verified": true,
             "verified_label": "Verified Buyer",
             "country": "Finland",
             "image_1_url": "https://cdn.stamped.io/tr:w-350:/uploads/photos/228253_8202634854666_e52e860b_9db8_4f3c_8a81_0cd68bfa9de8.jpg?",
-            "image_2_url": "",
-            "image_3_url": "",
             "helpful_count": 1
           }
         },
@@ -360,14 +291,11 @@
             "rating": 3,
             "title": "Bild",
             "body": "Hat alles super geklappt, Qualität ist gut und Lieferung war schnell.",
-            "product": "",
             "product_name": "Old Money Duck",
             "verified": true,
             "verified_label": "Verified Buyer",
             "country": "Switzerland",
             "image_1_url": "https://cdn.stamped.io/tr:w-350:/uploads/photos/228253_10484023623946_f6621af5_7a5c_4871_8105_f5465414762a_r1780202711687.jpg?v=1780202711",
-            "image_2_url": "",
-            "image_3_url": "",
             "helpful_count": 2
           }
         }
@@ -379,23 +307,16 @@
         "manual_review_daniel"
       ],
       "settings": {
-        "review_source": "manual",
         "heading": "Über 60.000 zufriedene Kunden",
-        "use_custom_summary": false,
         "average_rating": "4,9",
         "review_count": "2626",
+        "review_source": "manual",
+        "use_custom_summary": false,
         "default_filter": "recent",
         "reviews_per_page": 12
       }
     }
   },
-  "order": [
-    "main",
-    "source_benefits",
-    "source_showcase",
-    "source_known_from",
-    "source_tabs",
-    "source_recommendations",
-    "source_reviews"
-  ]
+  "order": ["main", "source_benefits", "source_showcase", "source_known_from", "source_tabs", "source_recommendations", "source_reviews"]
 }
+

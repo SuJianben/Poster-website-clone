@@ -180,7 +180,7 @@
           {% if option_name_downcase contains 'size' or option_name_downcase contains 'größe' %}{% assign is_size_option = true %}{% endif %}
           {% if option_handle contains 'size' or option_handle contains 'gross' %}{% assign is_size_option = true %}{% endif %}
           {% if option_handle contains 'material' %}{% assign is_material_option = true %}{% endif %}
-          {% if option_handle contains 'frame' or option_handle contains 'rahmen' %}{% assign is_frame_option = true %}{% endif %}
+          {% if option_handle contains 'frame' or option_handle contains 'rahmen' or option_handle contains 'ram' %}{% assign is_frame_option = true %}{% endif %}
           {% assign option_display_order = 10 %}
           {% if is_material_option %}{% assign option_display_order = 1 %}{% elsif is_size_option %}{% assign option_display_order = 2 %}{% elsif is_frame_option %}{% assign option_display_order = 3 %}{% endif %}
           <div class="spx-product__option-group{% if is_size_option %} spx-product__size-group{% endif %}{% if is_material_option %} spx-product__material-group{% endif %}{% if is_frame_option %} spx-product__frame-group{% endif %}" style="--spx-option-order: {{ option_display_order }};" data-spx-variant-option{% if is_frame_option %} data-spx-frame-option{% endif %} data-option-index="{{ option.position | minus: 1 }}">
@@ -215,9 +215,9 @@
                   {% if is_frame_option %}
                     {% assign frame_tone = 'natural' %}
                     {% assign frame_value_downcase = option_value_label | downcase %}
-                    {% if frame_value_downcase contains 'none' or frame_value_downcase contains 'ohne' or frame_value_downcase contains 'no frame' %}{% assign frame_tone = 'none' %}{% endif %}
-                    {% if frame_value_downcase contains 'white' or frame_value_downcase contains 'weiss' %}{% assign frame_tone = 'white' %}{% endif %}
-                    {% if frame_value_downcase contains 'black' or frame_value_downcase contains 'schwarz' %}{% assign frame_tone = 'black' %}{% endif %}
+                    {% if frame_value_downcase contains 'none' or frame_value_downcase contains 'ohne' or frame_value_downcase contains 'no frame' or frame_value_downcase contains 'ingen ram' %}{% assign frame_tone = 'none' %}{% endif %}
+                    {% if frame_value_downcase contains 'white' or frame_value_downcase contains 'weiss' or frame_value_downcase == 'vit' %}{% assign frame_tone = 'white' %}{% endif %}
+                    {% if frame_value_downcase contains 'black' or frame_value_downcase contains 'schwarz' or frame_value_downcase == 'svart' %}{% assign frame_tone = 'black' %}{% endif %}
                     {% if frame_value_downcase contains 'silver' or frame_value_downcase contains 'silber' %}{% assign frame_tone = 'silver' %}{% endif %}
                     {% if frame_value_downcase contains 'gold' %}{% assign frame_tone = 'gold' %}{% endif %}
                     <button type="button" class="spx-product__frame-option{% if value == option.selected_value %} is-selected{% endif %}" data-spx-variant-value data-spx-frame-tone="{{ frame_tone }}" data-option-value="{{ option_value_label | escape }}" aria-label="{{ option_value_label | escape }}" aria-pressed="{% if value == option.selected_value %}true{% else %}false{% endif %}" title="{{ option_value_label | escape }}"{% unless value.available %} disabled{% endunless %}>
@@ -244,7 +244,7 @@
     {% assign has_native_frame_option = false %}
     {% for option in product.options_with_values %}
       {% assign option_handle = option.name | handleize %}
-      {% if option_handle contains 'frame' or option_handle contains 'rahmen' %}
+      {% if option_handle contains 'frame' or option_handle contains 'rahmen' or option_handle contains 'ram' %}
         {% assign has_native_frame_option = true %}
         {% break %}
       {% endif %}
