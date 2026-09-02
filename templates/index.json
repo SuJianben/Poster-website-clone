@@ -110,7 +110,7 @@
         "collection_tab_c4PEqH": {
           "type": "collection_tab",
           "settings": {
-            "collection": "urban-posters",
+            "collection": "animal-friends",
             "custom_link": "",
             "label": "Bestseller",
             "promo_heading": "",
@@ -121,7 +121,7 @@
         "collection_tab_mqUYyw": {
           "type": "collection_tab",
           "settings": {
-            "collection": "time-series-posters",
+            "collection": "dreamy-landscapes",
             "custom_link": "",
             "label": "Personalisierbar",
             "promo_heading": "",
@@ -132,7 +132,7 @@
         "collection_tab_GHwUmw": {
           "type": "collection_tab",
           "settings": {
-            "collection": "still-life-posters",
+            "collection": "nature-garden",
             "custom_link": "",
             "label": "Leinwand",
             "promo_heading": "",
@@ -143,7 +143,7 @@
         "collection_tab_CdLRqy": {
           "type": "collection_tab",
           "settings": {
-            "collection": "urban-posters",
+            "collection": "playful-objects-food",
             "custom_link": "",
             "label": "Acrylglas",
             "promo_heading": "",
@@ -154,7 +154,7 @@
         "collection_tab_gg4zfW": {
           "type": "collection_tab",
           "settings": {
-            "collection": "still-life-posters",
+            "collection": "vehicles-journeys",
             "custom_link": "",
             "label": "Poster",
             "promo_heading": "",
@@ -165,7 +165,7 @@
         "collection_tab_PeBczR": {
           "type": "collection_tab",
           "settings": {
-            "collection": "abstract-posters",
+            "collection": "abstract-colorful",
             "custom_link": "",
             "label": "Abstrakt",
             "promo_heading": "",
@@ -197,7 +197,7 @@
         "collection_tab_PVM3UY": {
           "type": "collection_tab",
           "settings": {
-            "collection": "wandbild-neuheiten-sale",
+            "collection": "animal-friends",
             "label": "Neuheiten Sale -20%",
             "promo_heading": "ALLE NEUHEITEN -20%",
             "promo_button_label": "ZUSCHLAGEN",
@@ -207,7 +207,7 @@
         "collection_tab_qyNi99": {
           "type": "collection_tab",
           "settings": {
-            "collection": "wandbilder-bundles",
+            "collection": "playful-objects-food",
             "label": "Bundles -15%",
             "promo_heading": "",
             "promo_button_label": "",
