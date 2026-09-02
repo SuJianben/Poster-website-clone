@@ -1,1 +1,50 @@
-{}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "cart": {
+    "title": "Your cart",
+    "empty": "Your cart is empty.",
+    "continue_shopping": "Continue shopping",
+    "subtotal": "Subtotal",
+    "tax_note": "Tax included. Shipping and discounts calculated at checkout.",
+    "checkout": "Checkout",
+    "free_shipping_reached": "You qualify for free shipping.",
+    "free_shipping_remaining": "Spend %{amount} more to qualify for free shipping.",
+    "recommendations": "Recommended products",
+    "popular": "POPULAR",
+    "personal": "PERSONALIZED",
+    "from": "From"
+  },
+  "product": {
+    "shipping_cost": "Shipping cost",
+    "shipping_cost_value": "Free shipping within Sweden on orders over 499 kr.",
+    "security": "Security",
+    "security_value": "Fast and secure delivery with tracking.",
+    "delivery_time": "Delivery time",
+    "delivery_time_value": "2–5 business days.",
+    "payment_methods": "Payment methods",
+    "shipping_returns": "Shipping and returns policy",
+    "shipping_delivery": "Shipping and delivery",
+    "returns_exchanges": "Returns and exchanges"
+  },
+  "reviews": {
+    "title": "Customer reviews",
+    "list": "Customer review list",
+    "review": "Customer review",
+    "verified_buyer": "Verified buyer"
+  },
+  "header": { "free_shipping": "Free shipping over 499 kr" },
+  "footer": {
+    "shop": "Shop",
+    "collections": "Collections",
+    "about": "About",
+    "customer_service": "Customer Service"
+  }
+}

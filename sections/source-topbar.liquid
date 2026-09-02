@@ -4,7 +4,7 @@
     data-left-badge="{{ section.settings.left_badge | default: '✭✭✭✭✭' | escape }}"
     data-left-text="{{ section.settings.left_text | default: '2500+ Bewertungen & 30 Tage Probe-Hängen' | escape }}"
     data-center-badge="{{ section.settings.center_badge | default: 'Neu' | escape }}"
-    data-center-text="{{ section.settings.center_text | default: 'Kostenloser Versand ab 49€' | escape }}"
+    data-center-text="{{ section.settings.center_text | default: 'header.free_shipping' | t | escape }}"
   >
     {% render 'source-topbar-1' %}
     <template data-source-topbar-localization>{% comment %}
