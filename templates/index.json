@@ -468,6 +468,7 @@
           "type": "collection",
           "settings": {
             "collection": "figurative-posters",
+            "image": "shopify://shop_images/001-3.jpg",
             "image_url": "",
             "label": "Motivierende Wandbilder"
           }
@@ -476,6 +477,7 @@
           "type": "collection",
           "settings": {
             "collection": "儿童手绘",
+            "image": "shopify://shop_images/004-4.jpg",
             "image_url": "",
             "label": "Religiöse Wandbilder"
           }
@@ -484,6 +486,7 @@
           "type": "collection",
           "settings": {
             "collection": "floral-posters",
+            "image": "shopify://shop_images/002-4.jpg",
             "image_url": "",
             "label": "Crypto Wandbilder"
           }
