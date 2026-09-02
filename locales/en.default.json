@@ -9,42 +9,42 @@
  */
 {
   "cart": {
-    "title": "Your cart",
-    "empty": "Your cart is empty.",
-    "continue_shopping": "Continue shopping",
-    "subtotal": "Subtotal",
-    "tax_note": "Tax included. Shipping and discounts calculated at checkout.",
-    "checkout": "Checkout",
-    "free_shipping_reached": "You qualify for free shipping.",
-    "free_shipping_remaining": "Spend %{amount} more to qualify for free shipping.",
-    "recommendations": "Recommended products",
-    "popular": "POPULAR",
-    "personal": "PERSONALIZED",
-    "from": "From"
+    "title": "Din kundvagn",
+    "empty": "Din kundvagn är tom.",
+    "continue_shopping": "Fortsätt handla",
+    "subtotal": "Delsumma",
+    "tax_note": "Skatt ingår. Frakt och rabatter beräknas i kassan.",
+    "checkout": "Till kassan",
+    "free_shipping_reached": "Du har rätt till fri frakt.",
+    "free_shipping_remaining": "Handla för %{amount} till för fri frakt.",
+    "recommendations": "Rekommenderade produkter",
+    "popular": "POPULÄR",
+    "personal": "PERSONLIG",
+    "from": "Från"
   },
   "product": {
-    "shipping_cost": "Shipping cost",
-    "shipping_cost_value": "Free shipping within Sweden on orders over 499 kr.",
-    "security": "Security",
-    "security_value": "Fast and secure delivery with tracking.",
-    "delivery_time": "Delivery time",
-    "delivery_time_value": "2–5 business days.",
-    "payment_methods": "Payment methods",
-    "shipping_returns": "Shipping and returns policy",
-    "shipping_delivery": "Shipping and delivery",
-    "returns_exchanges": "Returns and exchanges"
+    "shipping_cost": "Fraktkostnad",
+    "shipping_cost_value": "Fri frakt inom Sverige på beställningar över 499 kr.",
+    "security": "Säkerhet",
+    "security_value": "Snabb och trygg leverans med spårning.",
+    "delivery_time": "Leveranstid",
+    "delivery_time_value": "2–5 arbetsdagar.",
+    "payment_methods": "Betalningsmetoder",
+    "shipping_returns": "Frakt- och returpolicy",
+    "shipping_delivery": "Frakt och leverans",
+    "returns_exchanges": "Returer och byten"
   },
   "reviews": {
-    "title": "Customer reviews",
-    "list": "Customer review list",
-    "review": "Customer review",
-    "verified_buyer": "Verified buyer"
+    "title": "Kundrecensioner",
+    "list": "Lista över kundrecensioner",
+    "review": "Kundrecension",
+    "verified_buyer": "Verifierad köpare"
   },
-  "header": { "free_shipping": "Free shipping over 499 kr" },
+  "header": { "free_shipping": "Fri frakt över 499 kr" },
   "footer": {
-    "shop": "Shop",
-    "collections": "Collections",
-    "about": "About",
-    "customer_service": "Customer Service"
+    "shop": "Butik",
+    "collections": "Kollektioner",
+    "about": "Om oss",
+    "customer_service": "Kundservice"
   }
 }
