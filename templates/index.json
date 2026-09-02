@@ -235,6 +235,7 @@
         "gallery_item_q88eMj": {
           "type": "gallery_item",
           "settings": {
+            "image": "shopify://shop_images/001-3.jpg",
             "image_url": "",
             "avatar_url": "",
             "name": "哇哇哇哇",
@@ -245,6 +246,7 @@
         "gallery_item_PB74tM": {
           "type": "gallery_item",
           "settings": {
+            "image": "shopify://shop_images/001-4.jpg",
             "image_url": "",
             "avatar_url": "",
             "name": "哇哇哇哇",
@@ -255,6 +257,7 @@
         "gallery_item_jnFVEL": {
           "type": "gallery_item",
           "settings": {
+            "image": "shopify://shop_images/002-4.jpg",
             "image_url": "",
             "avatar_url": "",
             "name": "哇哇哇哇",
@@ -265,6 +268,7 @@
         "gallery_item_BhpiPC": {
           "type": "gallery_item",
           "settings": {
+            "image": "shopify://shop_images/004-4.jpg",
             "image_url": "",
             "avatar_url": "",
             "name": "哇哇哇哇",
@@ -275,6 +279,7 @@
         "gallery_item_HbJn8k": {
           "type": "gallery_item",
           "settings": {
+            "image": "shopify://shop_images/008-4.jpg",
             "image_url": "",
             "avatar_url": "",
             "name": "哇哇哇哇",
@@ -285,6 +290,7 @@
         "gallery_item_hwhTay": {
           "type": "gallery_item",
           "settings": {
+            "image": "shopify://shop_images/015-4.jpg",
             "image_url": "",
             "avatar_url": "",
             "name": "哇哇哇哇",
