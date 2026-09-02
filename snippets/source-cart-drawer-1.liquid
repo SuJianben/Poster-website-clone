@@ -10,10 +10,10 @@
   <div class="drawer__inner color-scheme-1">
     <div id="CartDrawer-source-cart-drawer" class="drawer__content flex flex-col h-full w-full">
       <div class="drawer__header">
-        <div class="cart-drawer__message color-scheme-inverse text-center">Schneller und Sicherer Versand!</div>
+        <div class="cart-drawer__message color-scheme-inverse text-center">Snabb och trygg leverans!</div>
         <div class="drawer__header-inner cart-drawer__header flex items-center justify-between gap-3">
           <h2 class="drawer__heading h4">
-            <span>Ihr Warenkorb</span>
+            <span>Din kundvagn</span>
             <cart-count class="cart-count cart-count--blank cart-count--drawer-heading" data-type="blank">({{ cart.item_count }})</cart-count>
           </h2>
           <button class="drawer__close-btn z-1 static" aria-controls="CartDrawer" type="button" aria-label="Schließen">
@@ -94,7 +94,7 @@
         <div class="drawer__footer-body drawer__footer-inner-padding">
           <div class="grid gap-1">
             <div class="totals flex justify-between items-center">
-              <span class="totals__subtotal font-body-bolder">Zwischensumme</span>
+              <span class="totals__subtotal font-body-bolder">Delsumma</span>
               <span class="font-body-bolder" data-source-cart-total>{{ cart.total_price | money }}</span>
             </div>
             <div class="tax-note">Steuer inbegriffen. Versand und Rabatte werden im nächsten Schritt berechnet.</div>
@@ -102,7 +102,7 @@
           <form action="{{ routes.cart_url }}" method="post" class="drawer__footer-buttons w-full">
             <button class="btn btn--primary w-full flex items-center justify-center gap-2" type="submit" name="checkout">
               <svg class="source-cart-checkout__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="11" x="5" y="11" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>
-              <span class="btn__text">JETZT SICHER ZUR KASSE</span>
+              <span class="btn__text">TILL KASSAN</span>
             </button>
           </form>
         </div>

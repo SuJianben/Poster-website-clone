@@ -1,7 +1,7 @@
 {%- liquid
   assign review_product = block.settings.product
   assign review_title = block.settings.title | strip
-  assign review_image_alt = review_title | default: 'Customer review'
+  assign review_image_alt = review_title | default: 'Kundrecension'
   assign review_body = block.settings.body | default: ''
   assign review_date = block.settings.review_date | default: ''
   assign review_sort_date = review_date
@@ -14,7 +14,7 @@
   assign helpful = block.settings.helpful_count | default: 0
   assign verified_label = ''
   if block.settings.verified
-    assign verified_label = block.settings.verified_label | default: 'Verified Buyer'
+    assign verified_label = block.settings.verified_label | default: 'Verifierad köpare'
   endif
 
   assign product_name = block.settings.product_name | default: ''

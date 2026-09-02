@@ -89,7 +89,7 @@
           {%- if block.settings.heading != blank -%}
             <h2 class="srp-page__block-heading">{{ block.settings.heading | escape }}</h2>
           {%- endif -%}
-          <h2 class="srp-widget__access-title" id="srp-customer-reviews-{{ block.id }}">{{ block.settings.accessible_heading | default: 'Customer Reviews' | escape }}</h2>
+          <h2 class="srp-widget__access-title" id="srp-customer-reviews-{{ block.id }}">{{ block.settings.accessible_heading | default: 'Kundrecensioner' | escape }}</h2>
           {% render 'source-reviews-summary',
             variant: 'page',
             review_count: block.settings.review_count,
@@ -151,7 +151,7 @@
             data-section-id="{{ section.id }}-reviews-{{ block.id }}"
             data-sprv-default-filter="{{ section.settings.default_filter | default: 'recent' }}"
             data-sprv-page-size="{{ section.settings.reviews_per_page | default: 12 }}"
-            aria-label="{{ block.settings.aria_label | default: 'Customer review list' | escape }}"
+            aria-label="{{ block.settings.aria_label | default: 'Lista över kundrecensioner' | escape }}"
             {{ block.shopify_attributes }}
           >
             {%- if block.settings.heading != blank -%}

@@ -1,5 +1,5 @@
 {%- liquid
-  assign review_title = review.title | default: 'Customer review'
+  assign review_title = review.title | default: 'Kundrecension'
   assign review_body = review.body | default: ''
   assign review_date = review.date | default: review.created_at | default: ''
   assign rating = review.rating | default: 5 | plus: 0
@@ -9,7 +9,7 @@
   assign review_image_url = review.image_url | default: '' | strip
   assign verified_label = ''
   if review.verified
-    assign verified_label = review.verified_label | default: 'Verified Buyer'
+    assign verified_label = review.verified_label | default: 'Verifierad köpare'
   endif
 -%}
 

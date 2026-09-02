@@ -2,11 +2,11 @@
 <script src="{{ 'source-product-tabs-content.js' | asset_url }}" defer="defer"></script>
 
 {% liquid
-  assign description_label = section.settings.description_label | default: 'Description'
+  assign description_label = section.settings.description_label | default: 'Beskrivning'
   assign fair_label = section.settings.fair_label | default: 'Fair Pricing'
   assign artist_label = section.settings.artist_label | default: 'Artist Information'
   assign materials_label = section.settings.materials_label | default: 'Material & Workmanship'
-  assign shipping_label = section.settings.shipping_label | default: 'Shipping and Returns'
+  assign shipping_label = section.settings.shipping_label | default: 'Leverans och returer'
   assign security_label = section.settings.security_label | default: 'Security'
   assign signature_alt = section.settings.signature_alt | default: shop.name
   assign artist_image_alt = section.settings.artist_image_alt | default: product.vendor
@@ -167,14 +167,14 @@
       </div>
 
       <div class="spf-tabs__panel spf-tabs__rte" id="spf-panel-{{ section.id }}-4" role="tabpanel" aria-labelledby="spf-tab-{{ section.id }}-4" tabindex="0" data-spf-panel="4" hidden>
-        <h3>{{ section.settings.shipping_delivery_heading | default: 'Shipping & Delivery' | escape }}</h3>
+        <h3>{{ section.settings.shipping_delivery_heading | default: 'Leverans' | escape }}</h3>
         {% if section.settings.shipping_delivery_content != blank %}
           {{ section.settings.shipping_delivery_content }}
         {% else %}
           <ul>
-            <li><strong>Shipping Costs:</strong> Free worldwide shipping on orders over <strong>€49</strong>.</li>
+            <li><strong>Fraktkostnad:</strong> Fri frakt inom Sverige på beställningar över <strong>499 kr</strong>.</li>
             <li><strong>Security:</strong> Safe and fast shipping including tracking.</li>
-            <li><strong>Delivery Time:</strong> 2–5 business days worldwide (may vary depending on product size and material).</li>
+            <li><strong>Leveranstid:</strong> 2–5 arbetsdagar (kan variera beroende på produktens storlek och material).</li>
           </ul>
           <p><strong>International Shipping:</strong> Please note that deliveries outside the EU may be subject to customs duties or import taxes. These costs are levied by the destination country and are the responsibility of the recipient.</p>
         {% endif %}
@@ -221,7 +221,7 @@
       "type": "text",
       "id": "description_label",
       "label": "描述标签",
-      "default": "Description"
+      "default": "Beskrivning"
     },
     {
       "type": "text",
@@ -245,7 +245,7 @@
       "type": "text",
       "id": "shipping_label",
       "label": "配送与退货标签",
-      "default": "Shipping and Returns"
+      "default": "Leverans och returer"
     },
     {
       "type": "text",
@@ -395,7 +395,7 @@
       "type": "text",
       "id": "shipping_delivery_heading",
       "label": "配送主标题",
-      "default": "Shipping & Delivery"
+      "default": "Leverans"
     },
     {
       "type": "richtext",
