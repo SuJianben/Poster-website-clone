@@ -314,7 +314,7 @@
         "collection_tab_Xii4M7": {
           "type": "collection_tab",
           "settings": {
-            "collection": "儿童手绘",
+            "collection": "kids-wall-art",
             "label": "Dein Eigenes Foto",
             "promo_heading": "",
             "promo_button_label": "",
@@ -324,7 +324,7 @@
         "collection_tab_i9WCWA": {
           "type": "collection_tab",
           "settings": {
-            "collection": "abstract-posters",
+            "collection": "animal-friends",
             "label": "Dein Haustier Portrait",
             "promo_heading": "",
             "promo_button_label": "",
@@ -334,7 +334,7 @@
         "collection_tab_MPLQ8Y": {
           "type": "collection_tab",
           "settings": {
-            "collection": "all",
+            "collection": "nature-garden",
             "label": "Amex Edition",
             "promo_heading": "",
             "promo_button_label": "",
@@ -344,7 +344,7 @@
         "collection_tab_magazine": {
           "type": "collection_tab",
           "settings": {
-            "collection": "abstract-posters",
+            "collection": "playful-objects-food",
             "label": "Magazin Edition",
             "promo_heading": "",
             "promo_button_label": "",
@@ -354,7 +354,7 @@
         "collection_tab_starter": {
           "type": "collection_tab",
           "settings": {
-            "collection": "space-posters",
+            "collection": "vehicles-journeys",
             "label": "Starter Pack Edition",
             "promo_heading": "",
             "promo_button_label": "",
@@ -364,7 +364,7 @@
         "collection_tab_commission": {
           "type": "collection_tab",
           "settings": {
-            "collection": "all",
+            "collection": "abstract-colorful",
             "label": "Auftragsarbeit bestellen",
             "promo_heading": "",
             "promo_button_label": "",
@@ -396,7 +396,7 @@
         "collection_tab_zDyKbU": {
           "type": "collection_tab",
           "settings": {
-            "collection": "landscape-posters",
+            "collection": "vehicles-journeys",
             "label": "Nox'Y Studio",
             "promo_heading": "",
             "promo_button_label": "",
@@ -406,7 +406,7 @@
         "collection_tab_AgyaRt": {
           "type": "collection_tab",
           "settings": {
-            "collection": "ricardoquexo",
+            "collection": "playful-objects-food",
             "label": "Ricardoquexo",
             "promo_heading": "",
             "promo_button_label": "",
@@ -416,7 +416,7 @@
         "collection_tab_stefan": {
           "type": "collection_tab",
           "settings": {
-            "collection": "stefan-bammert",
+            "collection": "nature-garden",
             "label": "Stefan Bammert",
             "promo_heading": "",
             "promo_button_label": "",
@@ -426,7 +426,7 @@
         "collection_tab_sabrina": {
           "type": "collection_tab",
           "settings": {
-            "collection": "sabrina-seck",
+            "collection": "dreamy-landscapes",
             "label": "Sabrina Seck",
             "promo_heading": "",
             "promo_button_label": "",
@@ -436,7 +436,7 @@
         "collection_tab_petra": {
           "type": "collection_tab",
           "settings": {
-            "collection": "petra-meikle-de-vlas",
+            "collection": "animal-friends",
             "label": "Petra Meikle de Vlas",
             "promo_heading": "",
             "promo_button_label": "",
