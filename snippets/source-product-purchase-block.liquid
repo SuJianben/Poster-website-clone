@@ -175,6 +175,8 @@
           {% assign is_size_option = false %}
           {% assign is_material_option = false %}
           {% assign is_frame_option = false %}
+          {%- comment -%} Swedish size labels must use the same size controls as English. {%- endcomment -%}
+          {% if option_name_downcase contains 'storlek' or option_handle contains 'storlek' %}{% assign is_size_option = true %}{% endif %}
           {% if option_name_downcase contains 'size' or option_name_downcase contains 'größe' %}{% assign is_size_option = true %}{% endif %}
           {% if option_handle contains 'size' or option_handle contains 'gross' %}{% assign is_size_option = true %}{% endif %}
           {% if option_handle contains 'material' %}{% assign is_material_option = true %}{% endif %}
