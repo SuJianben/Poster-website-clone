@@ -213,11 +213,22 @@
             "promo_button_label": "",
             "promo_link": "shopify://collections/wandbilder-bundles"
           }
+        },
+        "collection_tab_hynDeN": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "",
+            "label": "",
+            "promo_heading": "ALLE NEUHEITEN -20%",
+            "promo_button_label": "ZUSCHLAGEN",
+            "promo_link": ""
+          }
         }
       },
       "block_order": [
         "collection_tab_PVM3UY",
-        "collection_tab_qyNi99"
+        "collection_tab_qyNi99",
+        "collection_tab_hynDeN"
       ],
       "settings": {
         "enabled": true,
