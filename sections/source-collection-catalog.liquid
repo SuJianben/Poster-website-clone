@@ -14,7 +14,7 @@
 {% assign collection_title = collection.title | default: 'Collection' %}
 
 {% if collection.image != blank %}
-  <div class="collection-hero collection-hero--image-as-bg hero hero--extra-small hero--mobile-auto section section--padding page-width page-width--full" style="--section-padding-top: 16px;--section-padding-bottom: 0px;">
+  <div class="collection-hero collection-hero--image-as-bg hero hero--extra-small hero--mobile-auto section section--padding page-width page-width--full" style="--section-padding-top: 16px;--section-padding-bottom: 0px;overflow:hidden;">
     <div class="collection-hero__inner relative f-grid f-grid--gap-none color-scheme-inverse blocks-radius">
       <parallax-element class="flex overflow-hidden">
         <motion-element class="block flex-1" data-motion="zoom-out">
@@ -43,7 +43,7 @@
 </div>
 
 <div class="collection section--padding page-width page-width--full color-scheme-1" style="--section-padding-top: 10px;--section-padding-bottom: 60px;">
-  <div class="sticky-element grid gap-5 z-9" style="--sticky-offset: 0px;">
+  <div class="grid gap-5">
     <div class="collection__toolbar flex flex-wrap items-end md:items-center justify-between gap-x-2">
       <div class="collection__toolbar-left flex md:items-center flex-col md:flex-row">
         <div data-facet-loading class="md:order-last"><div class="loading__spinner hidden"><svg aria-hidden="true" focusable="false" class="spinner icon icon--extra-medium" viewBox="0 0 66 66"><circle class="path" fill="none" stroke-width="4" cx="33" cy="33" r="30"></circle></svg></div><p id="ProductCount" class="m-0 text-subtext" role="status">{{ collection.products_count }} products</p></div>

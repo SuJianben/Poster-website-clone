@@ -23,7 +23,7 @@
 {% assign collection_banner = section.settings.banner_image | default: collection.image %}
 
 {% if section.settings.show_banner and collection_banner != blank %}
-  <div class="collection-hero collection-hero--image-as-bg hero hero--extra-small hero--mobile-auto section section--padding page-width page-width--full" style="--section-padding-top: 16px;--section-padding-bottom: 0px;">
+  <div class="collection-hero collection-hero--image-as-bg hero hero--extra-small hero--mobile-auto section section--padding page-width page-width--full" style="--section-padding-top: 16px;--section-padding-bottom: 0px;overflow:hidden;">
     <div class="collection-hero__inner relative f-grid f-grid--gap-none color-scheme-inverse blocks-radius">
       <parallax-element class="flex overflow-hidden">
         <motion-element class="block flex-1" data-motion="zoom-out">
