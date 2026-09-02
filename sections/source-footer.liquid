@@ -1,4 +1,25 @@
 {% if section.settings.enabled %}
+<style>
+  @media screen and (min-width: 1024px) {
+    .footer .footer__top-wrapper {
+      flex-wrap: nowrap !important;
+      align-items: flex-start;
+      gap: clamp(2.4rem, 3vw, 5.6rem);
+    }
+
+    .footer .footer__top-wrapper > .footer-block {
+      flex: 1 1 0 !important;
+      width: auto !important;
+      min-width: 0;
+      max-width: none !important;
+    }
+
+    .footer .footer__top-wrapper > .footer-block--contact_information {
+      order: -1;
+      flex-grow: 1.35 !important;
+    }
+  }
+</style>
 {% render 'source-footer-1' %}
 <template data-source-footer-localization>
   <div class="country-switcher no-js-hidden" style="--f-max-width: 220px">
@@ -79,7 +100,17 @@
         },
         "general": {
           "heading": {{ section.settings.general_heading | json }},
-          "links": [{% for link in section.settings.menu_general.links %}{"title": {{ link.title | json }}, "url": {{ link.url | json }}}{% unless forloop.last %},{% endunless %}{% endfor %}]
+          "links": [
+            {% assign footer_general_link_count = 0 %}
+            {% for link in section.settings.menu_general.links %}
+              {% if footer_general_link_count > 0 %},{% endif %}{"title": {{ link.title | json }}, "url": {{ link.url | json }}}
+              {% assign footer_general_link_count = footer_general_link_count | plus: 1 %}
+            {% endfor %}
+            {% if shop.refund_policy.body != blank %}{% if footer_general_link_count > 0 %},{% endif %}{"title": "Refund Policy", "url": {{ shop.refund_policy.url | json }}}{% assign footer_general_link_count = footer_general_link_count | plus: 1 %}{% endif %}
+            {% if shop.privacy_policy.body != blank %}{% if footer_general_link_count > 0 %},{% endif %}{"title": "Privacy Policy", "url": {{ shop.privacy_policy.url | json }}}{% assign footer_general_link_count = footer_general_link_count | plus: 1 %}{% endif %}
+            {% if shop.shipping_policy.body != blank %}{% if footer_general_link_count > 0 %},{% endif %}{"title": "Shipping Policy", "url": {{ shop.shipping_policy.url | json }}}{% assign footer_general_link_count = footer_general_link_count | plus: 1 %}{% endif %}
+            {% if shop.terms_of_service.body != blank %}{% if footer_general_link_count > 0 %},{% endif %}{"title": "Terms of Service", "url": {{ shop.terms_of_service.url | json }}}{% endif %}
+          ]
         }
       },
       "contact": {
