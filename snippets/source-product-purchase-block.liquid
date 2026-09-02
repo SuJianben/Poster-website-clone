@@ -188,7 +188,7 @@
               {% if is_size_option %}
                 <span class="spx-product__size-tools">
                   {% if block.settings.show_size_guide %}
-                    <button type="button" data-spx-size-guide aria-haspopup="dialog" aria-label="{{ block.settings.size_guide_label | default: 'Size guide' }}" title="{{ block.settings.size_guide_label | default: 'Size guide' }}">
+                    <button type="button" data-spx-size-guide aria-haspopup="dialog" aria-label="{{ block.settings.size_guide_label | default: 'Storleksguide' }}" title="{{ block.settings.size_guide_label | default: 'Storleksguide' }}">
                       <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 6v4m4-4v4m4-4v4m4-4v4"/></svg>
                       <span>{{ block.settings.size_guide_label }}</span>
                     </button>
@@ -250,12 +250,12 @@
     {% unless has_native_frame_option %}
       {% if block.settings.enabled != false %}
         {% assign manual_frame_default = block.settings.default_frame | default: 'none' %}
-        {% assign manual_frame_property_name = block.settings.property_name | default: 'Premium Frame' %}
-        {% assign manual_none_label = block.settings.none_label | default: 'No frame' %}
-        {% assign manual_white_label = block.settings.white_label | default: 'White' %}
-        {% assign manual_black_label = block.settings.black_label | default: 'Black' %}
+        {% assign manual_frame_property_name = block.settings.property_name | default: 'Premiumram' %}
+        {% assign manual_none_label = block.settings.none_label | default: 'Utan ram' %}
+        {% assign manual_white_label = block.settings.white_label | default: 'Vit' %}
+        {% assign manual_black_label = block.settings.black_label | default: 'Svart' %}
         {% assign manual_silver_label = block.settings.silver_label | default: 'Silver' %}
-        {% assign manual_gold_label = block.settings.gold_label | default: 'Gold' %}
+        {% assign manual_gold_label = block.settings.gold_label | default: 'Guld' %}
         {% assign manual_none_image_url = block.settings.none_image_url %}
         {% assign manual_white_image_url = block.settings.white_image_url %}
         {% assign manual_black_image_url = block.settings.black_image_url %}
@@ -267,7 +267,7 @@
         {% if manual_silver_image_url == blank and block.settings.silver_image != blank %}{% assign manual_silver_image_url = block.settings.silver_image | image_url: width: 2048 %}{% endif %}
         {% if manual_gold_image_url == blank and block.settings.gold_image != blank %}{% assign manual_gold_image_url = block.settings.gold_image | image_url: width: 2048 %}{% endif %}
         <div class="spx-product__option-group spx-product__manual-frame-picker" data-spx-manual-frame-picker data-analytics-block-type="frame_picker" {{ block.shopify_attributes }}>
-          <p><strong>{{ block.settings.heading | default: 'Premium Frame' }}:</strong> <span data-spx-manual-frame-output>{% if manual_frame_default == 'white' %}{{ manual_white_label }}{% elsif manual_frame_default == 'black' %}{{ manual_black_label }}{% elsif manual_frame_default == 'silver' %}{{ manual_silver_label }}{% elsif manual_frame_default == 'gold' %}{{ manual_gold_label }}{% else %}{{ manual_none_label }}{% endif %}</span></p>
+          <p><strong>{{ block.settings.heading | default: 'Premiumram' }}:</strong> <span data-spx-manual-frame-output>{% if manual_frame_default == 'white' %}{{ manual_white_label }}{% elsif manual_frame_default == 'black' %}{{ manual_black_label }}{% elsif manual_frame_default == 'silver' %}{{ manual_silver_label }}{% elsif manual_frame_default == 'gold' %}{{ manual_gold_label }}{% else %}{{ manual_none_label }}{% endif %}</span></p>
           <div class="spx-product__frame-options" role="group" aria-label="{{ block.settings.heading | default: 'Premium Frame' | escape }}">
             <button type="button" class="spx-product__frame-option{% if manual_frame_default == 'none' %} is-selected{% endif %}" data-spx-manual-frame-value data-spx-frame-tone="none" data-spx-frame-label="{{ manual_none_label | escape }}" data-spx-manual-frame-image="{{ manual_none_image_url | escape }}" aria-label="{{ manual_none_label | escape }}" aria-pressed="{% if manual_frame_default == 'none' %}true{% else %}false{% endif %}" title="{{ manual_none_label | escape }}">{% if manual_none_image_url != blank %}<img class="spx-product__frame-image" src="{{ manual_none_image_url | escape }}" alt="" loading="lazy">{% else %}<span class="spx-product__frame-swatch spx-product__frame-swatch--none" aria-hidden="true"></span>{% endif %}<span class="visually-hidden">{{ manual_none_label }}</span></button>
             <button type="button" class="spx-product__frame-option{% if manual_frame_default == 'white' %} is-selected{% endif %}" data-spx-manual-frame-value data-spx-frame-tone="white" data-spx-frame-label="{{ manual_white_label | escape }}" data-spx-manual-frame-image="{{ manual_white_image_url | escape }}" aria-label="{{ manual_white_label | escape }}" aria-pressed="{% if manual_frame_default == 'white' %}true{% else %}false{% endif %}" title="{{ manual_white_label | escape }}">{% if manual_white_image_url != blank %}<img class="spx-product__frame-image" src="{{ manual_white_image_url | escape }}" alt="" loading="lazy">{% else %}<span class="spx-product__frame-swatch spx-product__frame-swatch--white" aria-hidden="true"></span>{% endif %}<span class="visually-hidden">{{ manual_white_label }}</span></button>
@@ -287,14 +287,14 @@
       <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" data-spx-cart-variant-id>
       <input type="hidden" name="quantity" value="1">
       {% if block.settings.show_hanging_kit %}
-        {% assign hanging_kit_property_name = block.settings.hanging_kit_property_name | default: 'Hanging kit' %}
-        {% assign hanging_kit_property_value = block.settings.hanging_kit_property_value | default: 'Yes' %}
+        {% assign hanging_kit_property_name = block.settings.hanging_kit_property_name | default: 'Upphängningskit' %}
+        {% assign hanging_kit_property_value = block.settings.hanging_kit_property_value | default: 'Ja' %}
         <div class="spx-product__addon" data-spx-addon>
-          <p class="spx-product__addon-heading">{{ block.settings.hanging_kit_heading | default: 'Optional' }}</p>
+          <p class="spx-product__addon-heading">{{ block.settings.hanging_kit_heading | default: 'Tillval' }}</p>
           <label class="spx-product__addon-control">
             <input type="checkbox" name="properties[{{ hanging_kit_property_name | escape }}]" value="{{ hanging_kit_property_value | escape }}" data-spx-addon-toggle data-spx-addon-variant-id="{{ block.settings.hanging_kit_variant_id | escape }}">
             <span class="spx-product__addon-switch" aria-hidden="true"></span>
-            <span class="spx-product__addon-label">{{ block.settings.hanging_kit_label | default: 'Hanging kit' }}</span>
+            <span class="spx-product__addon-label">{{ block.settings.hanging_kit_label | default: 'Upphängningskit' }}</span>
             {% if block.settings.hanging_kit_note != blank %}<span class="spx-product__addon-note">{{ block.settings.hanging_kit_note }}</span>{% endif %}
           </label>
         </div>
