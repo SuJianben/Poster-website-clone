@@ -1,4 +1,30 @@
 @media (min-width: 1024px) {
+  header details[is='details-mega'] > .mega-menu {
+    display: block;
+  }
+
+  header details[is='details-mega'] > .mega-menu .source-header-simple-submenu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem 2.4rem;
+    margin: 0;
+    padding: 1.6rem 0 2rem;
+    list-style: none;
+  }
+
+  header details[is='details-mega'] > .mega-menu .source-header-simple-submenu a {
+    display: block;
+    color: inherit;
+    font-size: 1.4rem;
+    line-height: 1.5;
+    text-decoration: none;
+  }
+
+  header details[is='details-mega'] > .mega-menu .source-header-simple-submenu a:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.3rem;
+  }
+
   header details[is='details-mega'] > .mega-menu > .mega-menu__container {
     padding-block-start: 47px;
   }
@@ -16,6 +42,12 @@
 
   header details[is='details-mega'].source-mega-menu-closing > .mega-menu > .mega-menu__container {
     transform: translateY(-100%);
+    visibility: visible;
+  }
+
+  header details[is='details-mega']:hover > .mega-menu > .mega-menu__container,
+  header details[is='details-mega'][open] > .mega-menu > .mega-menu__container {
+    transform: translateY(0);
     visibility: visible;
   }
 }

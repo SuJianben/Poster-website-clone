@@ -105,7 +105,13 @@
               </summary>
               <div class="mega-menu v-scrollable">
                 <div class="mega-menu__container color-scheme-1">
-                  <div class="page-width mega-menu__wrapper"></div>
+                  <div class="page-width mega-menu__wrapper">
+                    <ul class="source-header-simple-submenu" role="list">
+                      {% for child in link.links %}
+                        <li><a href="{{ child.url }}">{{ child.title }}</a></li>
+                      {% endfor %}
+                    </ul>
+                  </div>
                 </div>
               </div>
             </details>
