@@ -13,7 +13,7 @@
 }
 
 .product-card__atelier-badges {
-  margin-bottom: 8px !important;
+  margin-bottom: 16px !important;
 }
 
 /* Keep the same compact rhythm when a card has a multi-line title. */
