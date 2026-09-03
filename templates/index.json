@@ -13,8 +13,8 @@
       "type": "source-hero",
       "settings": {
         "enabled": true,
-        "desktop_video": "shopify://files/videos/飞书20260902-104755.mp4",
-        "mobile_video": "shopify://files/videos/飞书20260902-104801.mp4",
+        "desktop_video": "shopify://files/videos/banner_desktop_text.webm",
+        "mobile_video": "shopify://files/videos/banner_desktop_text.webm",
         "link": "shopify://collections/儿童手绘",
         "link_label": "",
         "product": "snappy-friends-print",
@@ -29,6 +29,7 @@
         "image_rGxGKh": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/TPC_Artwall_43_Low_Res_a179b207-af70-4731-8560-00444a1cddc5.jpg",
             "link": "",
             "image_height": 80,
             "mobile_image_height": 50
@@ -44,6 +45,7 @@
         "image_tfmwwU": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/AcrylglasbildSaveWaterDrinkChampagneOriginalPopArtBild10.jpg",
             "link": "",
             "image_height": 80,
             "mobile_image_height": 50
@@ -59,6 +61,7 @@
         "image_7VdAQU": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/TPC_Artwall_43_Low_Res_a179b207-af70-4731-8560-00444a1cddc5.jpg",
             "link": "",
             "image_height": 80,
             "mobile_image_height": 50
@@ -99,7 +102,7 @@
         "collection_tab_4pbgRQ": {
           "type": "collection_tab",
           "settings": {
-            "collection": "kids-wall-art",
+            "collection": "儿童手绘",
             "custom_link": "",
             "label": "",
             "promo_heading": "",
@@ -110,7 +113,7 @@
         "collection_tab_c4PEqH": {
           "type": "collection_tab",
           "settings": {
-            "collection": "animal-friends",
+            "collection": "urban-posters",
             "custom_link": "",
             "label": "Bestseller",
             "promo_heading": "",
@@ -121,7 +124,7 @@
         "collection_tab_mqUYyw": {
           "type": "collection_tab",
           "settings": {
-            "collection": "dreamy-landscapes",
+            "collection": "time-series-posters",
             "custom_link": "",
             "label": "Personalisierbar",
             "promo_heading": "",
@@ -132,7 +135,7 @@
         "collection_tab_GHwUmw": {
           "type": "collection_tab",
           "settings": {
-            "collection": "nature-garden",
+            "collection": "still-life-posters",
             "custom_link": "",
             "label": "Leinwand",
             "promo_heading": "",
@@ -143,7 +146,7 @@
         "collection_tab_CdLRqy": {
           "type": "collection_tab",
           "settings": {
-            "collection": "playful-objects-food",
+            "collection": "urban-posters",
             "custom_link": "",
             "label": "Acrylglas",
             "promo_heading": "",
@@ -154,7 +157,7 @@
         "collection_tab_gg4zfW": {
           "type": "collection_tab",
           "settings": {
-            "collection": "vehicles-journeys",
+            "collection": "still-life-posters",
             "custom_link": "",
             "label": "Poster",
             "promo_heading": "",
@@ -165,7 +168,7 @@
         "collection_tab_PeBczR": {
           "type": "collection_tab",
           "settings": {
-            "collection": "abstract-colorful",
+            "collection": "abstract-posters",
             "custom_link": "",
             "label": "Abstrakt",
             "promo_heading": "",
@@ -197,8 +200,9 @@
         "collection_tab_PVM3UY": {
           "type": "collection_tab",
           "settings": {
-            "collection": "animal-friends",
+            "collection": "wandbild-neuheiten-sale",
             "label": "Neuheiten Sale -20%",
+            "promo_image": "shopify://shop_images/Screenshot_2026-02-01_000936.webp",
             "promo_heading": "ALLE NEUHEITEN -20%",
             "promo_button_label": "ZUSCHLAGEN",
             "promo_link": "shopify://collections/wandbild-neuheiten-sale"
@@ -207,7 +211,7 @@
         "collection_tab_qyNi99": {
           "type": "collection_tab",
           "settings": {
-            "collection": "playful-objects-food",
+            "collection": "wandbilder-bundles",
             "label": "Bundles -15%",
             "promo_heading": "",
             "promo_button_label": "",
@@ -235,7 +239,7 @@
         "gallery_item_q88eMj": {
           "type": "gallery_item",
           "settings": {
-            "image": "shopify://shop_images/001-3.jpg",
+            "image": "shopify://shop_images/04_detailed_poster_image_67d82f53-a20d-40e0-b84f-1393350caa59.jpg",
             "image_url": "",
             "avatar_url": "",
             "name": "哇哇哇哇",
@@ -246,7 +250,7 @@
         "gallery_item_PB74tM": {
           "type": "gallery_item",
           "settings": {
-            "image": "shopify://shop_images/001-4.jpg",
+            "image": "shopify://shop_images/03_detailed_poster_image_ffaafbcf-8229-4800-aaf4-e85dccd6d749.jpg",
             "image_url": "",
             "avatar_url": "",
             "name": "哇哇哇哇",
@@ -257,7 +261,7 @@
         "gallery_item_jnFVEL": {
           "type": "gallery_item",
           "settings": {
-            "image": "shopify://shop_images/002-4.jpg",
+            "image": "shopify://shop_images/04_detailed_poster_image_5ee33e1b-5e63-4e90-b4ba-51a196202bee.jpg",
             "image_url": "",
             "avatar_url": "",
             "name": "哇哇哇哇",
@@ -268,7 +272,7 @@
         "gallery_item_BhpiPC": {
           "type": "gallery_item",
           "settings": {
-            "image": "shopify://shop_images/004-4.jpg",
+            "image": "shopify://shop_images/03_detailed_poster_image_88e63780-119b-4f13-9f28-2c62bda91e8e.jpg",
             "image_url": "",
             "avatar_url": "",
             "name": "哇哇哇哇",
@@ -279,7 +283,7 @@
         "gallery_item_HbJn8k": {
           "type": "gallery_item",
           "settings": {
-            "image": "shopify://shop_images/008-4.jpg",
+            "image": "shopify://shop_images/03_detailed_poster_image_ecaa9085-7f7a-4c7d-b7a3-9b5c1b9088fb.jpg",
             "image_url": "",
             "avatar_url": "",
             "name": "哇哇哇哇",
@@ -290,7 +294,7 @@
         "gallery_item_hwhTay": {
           "type": "gallery_item",
           "settings": {
-            "image": "shopify://shop_images/015-4.jpg",
+            "image": "shopify://shop_images/04_detailed_poster_image_3d63771d-1645-4883-b585-793fe57554eb.jpg",
             "image_url": "",
             "avatar_url": "",
             "name": "哇哇哇哇",
@@ -320,7 +324,7 @@
         "collection_tab_Xii4M7": {
           "type": "collection_tab",
           "settings": {
-            "collection": "kids-wall-art",
+            "collection": "儿童手绘",
             "label": "Dein Eigenes Foto",
             "promo_heading": "",
             "promo_button_label": "",
@@ -330,7 +334,7 @@
         "collection_tab_i9WCWA": {
           "type": "collection_tab",
           "settings": {
-            "collection": "animal-friends",
+            "collection": "abstract-posters",
             "label": "Dein Haustier Portrait",
             "promo_heading": "",
             "promo_button_label": "",
@@ -340,7 +344,7 @@
         "collection_tab_MPLQ8Y": {
           "type": "collection_tab",
           "settings": {
-            "collection": "nature-garden",
+            "collection": "all",
             "label": "Amex Edition",
             "promo_heading": "",
             "promo_button_label": "",
@@ -350,7 +354,7 @@
         "collection_tab_magazine": {
           "type": "collection_tab",
           "settings": {
-            "collection": "playful-objects-food",
+            "collection": "abstract-posters",
             "label": "Magazin Edition",
             "promo_heading": "",
             "promo_button_label": "",
@@ -360,7 +364,7 @@
         "collection_tab_starter": {
           "type": "collection_tab",
           "settings": {
-            "collection": "vehicles-journeys",
+            "collection": "space-posters",
             "label": "Starter Pack Edition",
             "promo_heading": "",
             "promo_button_label": "",
@@ -370,7 +374,7 @@
         "collection_tab_commission": {
           "type": "collection_tab",
           "settings": {
-            "collection": "abstract-colorful",
+            "collection": "all",
             "label": "Auftragsarbeit bestellen",
             "promo_heading": "",
             "promo_button_label": "",
@@ -402,7 +406,7 @@
         "collection_tab_zDyKbU": {
           "type": "collection_tab",
           "settings": {
-            "collection": "vehicles-journeys",
+            "collection": "landscape-posters",
             "label": "Nox'Y Studio",
             "promo_heading": "",
             "promo_button_label": "",
@@ -412,7 +416,7 @@
         "collection_tab_AgyaRt": {
           "type": "collection_tab",
           "settings": {
-            "collection": "playful-objects-food",
+            "collection": "ricardoquexo",
             "label": "Ricardoquexo",
             "promo_heading": "",
             "promo_button_label": "",
@@ -422,7 +426,7 @@
         "collection_tab_stefan": {
           "type": "collection_tab",
           "settings": {
-            "collection": "nature-garden",
+            "collection": "stefan-bammert",
             "label": "Stefan Bammert",
             "promo_heading": "",
             "promo_button_label": "",
@@ -432,7 +436,7 @@
         "collection_tab_sabrina": {
           "type": "collection_tab",
           "settings": {
-            "collection": "dreamy-landscapes",
+            "collection": "sabrina-seck",
             "label": "Sabrina Seck",
             "promo_heading": "",
             "promo_button_label": "",
@@ -442,7 +446,7 @@
         "collection_tab_petra": {
           "type": "collection_tab",
           "settings": {
-            "collection": "animal-friends",
+            "collection": "petra-meikle-de-vlas",
             "label": "Petra Meikle de Vlas",
             "promo_heading": "",
             "promo_button_label": "",
@@ -473,8 +477,7 @@
         "collection_motivation": {
           "type": "collection",
           "settings": {
-            "collection": "kids-wall-art",
-            "image": "shopify://shop_images/072-4.jpg",
+            "collection": "figurative-posters",
             "image_url": "",
             "label": "Motivierende Wandbilder"
           }
@@ -482,8 +485,7 @@
         "collection_religion": {
           "type": "collection",
           "settings": {
-            "collection": "kids-wall-art",
-            "image": "shopify://shop_images/090-4.jpg",
+            "collection": "儿童手绘",
             "image_url": "",
             "label": "Religiöse Wandbilder"
           }
@@ -492,7 +494,6 @@
           "type": "collection",
           "settings": {
             "collection": "floral-posters",
-            "image": "shopify://shop_images/089-4.jpg",
             "image_url": "",
             "label": "Crypto Wandbilder"
           }
@@ -501,7 +502,6 @@
           "type": "collection",
           "settings": {
             "collection": "landscape-posters",
-            "image": "shopify://shop_images/088-4.jpg",
             "image_url": "",
             "label": "Auto Wandbilder"
           }
@@ -510,7 +510,6 @@
           "type": "collection",
           "settings": {
             "collection": "movie-posters",
-            "image": "shopify://shop_images/087-2.jpg",
             "image_url": "",
             "label": "Abstrakte Wandbilder"
           }
@@ -519,7 +518,6 @@
           "type": "collection",
           "settings": {
             "collection": "still-life-posters",
-            "image": "shopify://shop_images/083-4.jpg",
             "image_url": "",
             "label": "Pop Art Wandbilder"
           }
@@ -528,7 +526,6 @@
           "type": "collection",
           "settings": {
             "collection": "time-series-posters",
-            "image": "shopify://shop_images/079-4.jpg",
             "image_url": "",
             "label": "Blattgold Wandbilder"
           }
@@ -555,7 +552,7 @@
         "image_iYQiCP": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/090-4.jpg",
+            "image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Frame_Oak_Low_Res.jpg",
             "link": "",
             "column_span": "1",
             "row_span": "1"
@@ -564,7 +561,7 @@
         "image_kmJ3F8": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/001-4.jpg",
+            "image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Close_Up_Low_Res.jpg",
             "link": "",
             "column_span": "1",
             "row_span": "1"
@@ -573,7 +570,7 @@
         "image_FEUEey": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/002-3.jpg",
+            "image": "shopify://shop_images/Anna_Johansson_Lueur_Lifestyle_Low_Res.jpg",
             "link": "",
             "column_span": "1",
             "row_span": "1"
@@ -582,7 +579,7 @@
         "image_4kwfKx": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/002-4.jpg",
+            "image": "shopify://shop_images/04_detailed_poster_image.jpg",
             "link": "",
             "column_span": "2",
             "row_span": "2"
@@ -591,7 +588,7 @@
         "image_mAwr4N": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/003-4.jpg",
+            "image": "shopify://shop_images/04_detailed_poster_image_3d63771d-1645-4883-b585-793fe57554eb.jpg",
             "link": "",
             "column_span": "2",
             "row_span": "2"
@@ -600,7 +597,7 @@
         "image_YdpeX7": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/007-4.jpg",
+            "image": "shopify://shop_images/03_detailed_poster_image.jpg",
             "link": "",
             "column_span": "1",
             "row_span": "1"
@@ -609,7 +606,7 @@
         "image_W7Wzhd": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/006-3.jpg",
+            "image": "shopify://shop_images/03_detailed_poster_image_ea64f1f0-a3a2-442f-abb7-f0f2bf563fe9.jpg",
             "link": "",
             "column_span": "2",
             "row_span": "1"
@@ -618,7 +615,7 @@
         "image_MTBdJW": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/008-4.jpg",
+            "image": "shopify://shop_images/03_detailed_poster_image_8f974724-bf0b-44c2-bee0-0e5f9f79be1a.jpg",
             "link": "",
             "column_span": "1",
             "row_span": "1"
@@ -648,57 +645,45 @@
         "slide_Mbr6hk": {
           "type": "slide",
           "settings": {
-            "title": "666",
-            "body": "2233",
-            "customer_name": "555",
-            "customer_location": "66666",
-            "product": "kids-abstract-color-patches-079",
-            "scene_image": "shopify://shop_images/001-3.jpg"
+            "title": "Färg som gör barnrummet levande",
+            "body": "Vackert handritat motiv med glada färger. Det blev en fin detalj i barnrummet.",
+            "customer_name": "Emma L.",
+            "customer_location": "Stockholm, Sverige",
+            "product": "be-proud-print",
+            "scene_image": "shopify://shop_images/03_detailed_poster_image_ffaafbcf-8229-4800-aaf4-e85dccd6d749.jpg"
           }
         },
         "slide_kQGGqG": {
           "type": "slide",
           "settings": {
-            "title": "666",
-            "body": "2233",
-            "customer_name": "555",
-            "customer_location": "66666",
-            "product": "kids-bedside-lamp-044",
-            "scene_image": "shopify://shop_images/044-4.jpg"
-          }
-        },
-        "slide_VtL3eQ": {
-          "type": "slide",
-          "settings": {
-            "title": "",
-            "body": "",
-            "customer_name": "",
-            "customer_location": "",
-            "product": "kids-bicycle-060",
-            "scene_image": "shopify://shop_images/060-4.jpg"
+            "title": "En favorit i vår familj",
+            "body": "Färgerna är ännu finare i verkligheten och trycket passar perfekt ovanför skrivbordet.",
+            "customer_name": "Linnea K.",
+            "customer_location": "Göteborg, Sverige",
+            "product": "nord-projects-9pm",
+            "scene_image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg"
           }
         },
         "slide_Vgx3YX": {
           "type": "slide",
           "settings": {
-            "title": "666",
-            "body": "2233",
-            "customer_name": "555",
-            "customer_location": "66666",
-            "product": "kids-bird-009",
-            "scene_image": "shopify://shop_images/009-3.jpg"
+            "title": "Lekfull konst med personlig känsla",
+            "body": "Ett charmigt motiv som barnen tycker om. Lätt att kombinera med resten av inredningen.",
+            "customer_name": "Sofia N.",
+            "customer_location": "Malmö, Sverige",
+            "product": "snappy-friends-print",
+            "scene_image": "shopify://shop_images/Anna_Morner_Pink_Lemon_Product_Low_Res.jpg"
           }
         }
       },
       "block_order": [
         "slide_Mbr6hk",
         "slide_kQGGqG",
-        "slide_VtL3eQ",
         "slide_Vgx3YX"
       ],
       "settings": {
         "enabled": true,
-        "heading": "Lieblingsprodukte unserer Kunden"
+        "heading": "Kundernas favoritprodukter"
       }
     },
     "announcement": {
@@ -772,7 +757,6 @@
         "review_zb8dDc",
         "review_QmjKnC"
       ],
-      "disabled": true,
       "settings": {
         "enabled": true,
         "heading": "",
