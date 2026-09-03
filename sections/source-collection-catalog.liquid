@@ -11,16 +11,17 @@
 <script src="{{ collection_theme_url }}" defer="defer"></script>
 <script src="{{ collection_facets_url }}" defer="defer"></script>
 
-{% assign collection_title = collection.title | default: 'Collection' %}
+{% assign collection_title = section.settings.heading | default: collection.title | default: 'Collection' %}
+{% assign collection_banner = section.settings.banner_image | default: collection.image %}
 
-{% if collection.image != blank %}
+{% if section.settings.show_banner and collection_banner != blank %}
   <div class="collection-hero collection-hero--image-as-bg hero hero--extra-small hero--mobile-auto section section--padding page-width page-width--full" style="--section-padding-top: 16px;--section-padding-bottom: 0px;overflow:hidden;">
     <div class="collection-hero__inner relative f-grid f-grid--gap-none color-scheme-inverse blocks-radius">
       <parallax-element class="flex overflow-hidden">
         <motion-element class="block flex-1" data-motion="zoom-out">
           <picture class="hero__media media-wrapper">
-            <source media="(max-width: 767px)" srcset="{{ collection.image | image_url: width: 800 }} 800w, {{ collection.image | image_url: width: 1000 }} 1000w">
-            {{ collection.image | image_url: width: 3000 | image_tag: alt: collection_title, loading: 'eager', fetchpriority: 'high', class: 'collection-hero__image', sizes: '(max-width: 767px) calc(100vw - 3rem), min(1430px, 100vw)' }}
+            <source media="(max-width: 767px)" srcset="{{ collection_banner | image_url: width: 800 }} 800w, {{ collection_banner | image_url: width: 1000 }} 1000w">
+            {{ collection_banner | image_url: width: 3000 | image_tag: alt: collection_title, loading: 'eager', fetchpriority: 'high', class: 'collection-hero__image', sizes: '(max-width: 767px) calc(100vw - 3rem), min(1430px, 100vw)' }}
             <div class="bg-overlay" style="--color-overlay-alpha: 28;"></div>
           </picture>
         </motion-element>
@@ -82,5 +83,27 @@
 {% render 'source-collection-seo-content', collection: collection %}
 
 {% schema %}
-{ "name": "系列商品目录", "settings": [] }
+{
+  "name": "系列商品目录",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_banner",
+      "label": "显示系列横幅",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "系列横幅图片",
+      "info": "上传后优先显示；留空时使用该系列在 Shopify 中的图片。"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "横幅标题覆盖",
+      "info": "留空时使用系列名称。"
+    }
+  ]
+}
 {% endschema %}
