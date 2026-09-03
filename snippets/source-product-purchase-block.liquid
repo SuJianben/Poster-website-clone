@@ -344,3 +344,21 @@
       {% endif %}
     </div>
 {% endcase %}
+
+{%- comment -%}Keep size before frame consistently across translated product pages.{%- endcomment -%}
+<script>
+  (function () {
+    function sortProductOptions() {
+      document.querySelectorAll('[data-spx-variant-picker]').forEach(function (picker) {
+        var groups = Array.prototype.slice.call(picker.querySelectorAll(':scope > [data-spx-variant-option]'));
+        groups.sort(function (a, b) {
+          return (parseInt(a.style.order || a.style.getPropertyValue('--spx-option-order') || '10', 10) || 10) -
+            (parseInt(b.style.order || b.style.getPropertyValue('--spx-option-order') || '10', 10) || 10);
+        });
+        groups.forEach(function (group) { picker.appendChild(group); });
+      });
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', sortProductOptions);
+    else sortProductOptions();
+  })();
+</script>
