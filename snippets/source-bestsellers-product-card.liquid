@@ -102,7 +102,7 @@
         {% endif %}
       </div>
       <div class="product-card__info text-center">
-        <div class="product-card__atelier-badges" style="margin-bottom: 2px; display: flex; flex-wrap: wrap; gap: 4px; justify-content: center;">
+        <div class="product-card__atelier-badges" style="margin-bottom: 8px; display: flex; flex-wrap: wrap; gap: 4px; justify-content: center;">
           <button class="atelier-badge js-open-atelier-drawer-card atelier-badge--{% if atelier_edition_key == 'atelier' %}silver{% else %}{{ atelier_edition_key }}{% endif %}" type="button" aria-haspopup="dialog" aria-controls="atelier-drawer-title" data-atelier-title="{{ product.metafields.custom.atelier_title.value | escape }}" data-atelier-description="{{ product.metafields.custom.atelier_description.value | escape }}">{{ atelier_edition_label }}<svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="margin-left:3px;"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
         </div>
         <h3 class="product-card__title text-pcard-title" style="min-height: 0; margin-bottom: 2px;"><a class="reversed-link block" href="{{ product.url }}"><span class="reversed-link__text">{{ product.title }}</span></a></h3>
