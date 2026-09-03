@@ -248,6 +248,7 @@
       this.renderShipping(cart.total_price);
       this.renderPromotion(cart.item_count);
       this.renderDiscounts(cart.cart_level_discount_applications || []);
+      this.applySwedishText(cart.item_count);
       document.querySelectorAll('cart-count').forEach((count) => {
         const isDrawerHeading = count.classList.contains('cart-count--drawer-heading') || count.dataset.type === 'blank';
         count.textContent = isDrawerHeading ? `(${cart.item_count})` : cart.item_count;
@@ -258,6 +259,67 @@
       document.documentElement.classList.add('cart-count-ready');
       document.documentElement.classList.toggle('cart-has-items', !isEmpty);
       document.dispatchEvent(new CustomEvent('cart:updated', { detail: { cart } }));
+    }
+
+    applySwedishText(itemCount = 0) {
+      const decode = (value) => {
+        const node = document.createElement('textarea');
+        node.innerHTML = value;
+        return node.value;
+      };
+      const setText = (selector, value) => {
+        this.querySelectorAll(selector).forEach((element) => {
+          element.textContent = decode(value);
+        });
+      };
+
+      setText('.cart-drawer__message', 'Snabb och trygg leverans!');
+      setText('.free-shipping-goal__label--success', 'Du har fri frakt.');
+      const shippingDefault = this.querySelector('.free-shipping-goal__label--default');
+      const amount = this.querySelector('[data-left-to-spend]')?.textContent || '';
+      if (shippingDefault) shippingDefault.innerHTML = decode('Handla f&#246;r ') + '<strong data-left-to-spend>' + amount + '</strong>' + decode(' till f&#246;r att f&#229; fri frakt!');
+      setText('.tax-note', 'Skatt ing&#229;r. Frakt och rabatter ber&auml;knas i n&auml;sta steg.');
+      setText('.cart-trust-badges p', 'Best&auml;ll utan risk &#8211; 100 % pengarna tillbaka-garanti');
+      this.querySelector('.drawer__close-btn')?.setAttribute('aria-label', decode('St&auml;ng'));
+
+      this.querySelectorAll('.cart-item').forEach((item) => {
+        const title = item.querySelector('.cart-item__title')?.textContent?.trim() || '';
+        item.querySelector('.cart-item__remove')?.setAttribute('aria-label', decode('Ta bort ') + title);
+        item.querySelector('[name="minus"]')?.setAttribute('aria-label', 'Minska antal');
+        item.querySelector('[name="plus"]')?.setAttribute('aria-label', decode('&Ouml;ka antal'));
+        item.querySelector('.quantity__input')?.setAttribute('aria-label', decode('Antal f&#246;r ') + title);
+        item.querySelectorAll('.cart-item__option-value strong').forEach((label) => {
+          const key = label.textContent.trim().replace(/:$/, '');
+          const names = { Size: 'Storlek', 'Premium Frame': 'Premiumram', Frame: 'Ram', 'Hanging kit': 'Upph&auml;ngningskit' };
+          if (names[key]) label.textContent = decode(names[key]) + ':';
+        });
+      });
+
+      const promotion = this.querySelector('[data-source-cart-promotion]');
+      if (promotion) {
+        promotion.setAttribute('aria-label', 'M&auml;ngdrabatter');
+        const tiers = [
+          { quantity: 1, discount: 5 }, { quantity: 2, discount: 10 }, { quantity: 3, discount: 15 },
+          { quantity: 4, discount: 20 }, { quantity: 5, discount: 25 }
+        ];
+        const nextGoal = tiers.find((tier) => itemCount < tier.quantity);
+        const copy = promotion.querySelector('.source-cart-promotion__copy');
+        if (copy) {
+          copy.textContent = nextGoal
+            ? decode('K&ouml;p ') + Math.max(1, nextGoal.quantity - itemCount) + decode(' artiklar till f&ouml;r att f&aring; ') + nextGoal.discount + '% rabatt.'
+            : decode('Du har f&aring;tt maximal m&auml;ngdrabatt.');
+        }
+        promotion.querySelectorAll('.source-cart-promotion__goal-value').forEach((value, index) => {
+          const quantity = tiers[index]?.quantity;
+          if (!quantity) return;
+          value.innerHTML = '<span>' + quantity + ' ' + decode(quantity === 1 ? 'artikel' : 'artiklar') + '</span><span>k&ouml;p</span>';
+        });
+        promotion.querySelectorAll('.source-cart-promotion__tag').forEach((tag) => {
+          tag.textContent = '';
+        });
+        const bar = promotion.querySelector('.source-cart-promotion__bar');
+        if (bar) bar.setAttribute('aria-valuetext', `${Math.min(itemCount, 5)} av 5 artiklar`);
+      }
     }
 
     renderShipping(subtotal) {

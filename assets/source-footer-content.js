@@ -128,9 +128,36 @@
     });
   }
 
+  function applySwedishBenefitText(scope) {
+    const root = scope.querySelector('#shopify-section-sections--28031812927754__multicolumn_icon_rTKNUF')
+      || document.querySelector('#shopify-section-sections--28031812927754__multicolumn_icon_rTKNUF');
+    if (!root) return;
+    const decode = (value) => {
+      const node = document.createElement('textarea');
+      node.innerHTML = value;
+      return node.value;
+    };
+    const benefits = [
+      ['30 dagars &ouml;ppet k&ouml;p', 'Handla tryggt &#8211; returnera om det inte passar.'],
+      ['Fri frakt p&aring; alla best&auml;llningar &ouml;ver 499 kr', ''],
+      ['Snabb och s&auml;ker leverans', 'Leverans inom 5&#8211;7 arbetsdagar.'],
+      ['100 % s&auml;kra betalningar', 'Betala med PayPal, kort eller Klarna'],
+      ['V&auml;nlig kundservice', 'Kontakta oss via v&aring;r kontaktsida']
+    ];
+    root.querySelectorAll('.multicolumn-card').forEach((card, index) => {
+      const benefit = benefits[index];
+      if (!benefit) return;
+      const title = card.querySelector('.multicolumn-card__title');
+      const text = card.querySelector('.multicolumn-card__text');
+      if (title) title.textContent = decode(benefit[0]);
+      if (text && benefit[1]) text.textContent = decode(benefit[1]);
+    });
+  }
+
   function initialize(scope = document) {
     applyNativeStoreData(scope);
     scope.querySelectorAll(selector).forEach(applyOverrides);
+    applySwedishBenefitText(scope);
   }
 
   document.addEventListener('DOMContentLoaded', () => initialize());

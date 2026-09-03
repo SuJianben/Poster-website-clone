@@ -10,10 +10,10 @@
   <div class="drawer__inner color-scheme-1">
     <div id="CartDrawer-source-cart-drawer" class="drawer__content flex flex-col h-full w-full">
       <div class="drawer__header">
-        <div class="cart-drawer__message color-scheme-inverse text-center">Schneller und Sicherer Versand!</div>
+        <div class="cart-drawer__message color-scheme-inverse text-center">Snabb och trygg leverans!</div>
         <div class="drawer__header-inner cart-drawer__header flex items-center justify-between gap-3">
           <h2 class="drawer__heading h4">
-            <span>Ihr Warenkorb</span>
+            <span>Din kundvagn</span>
             <cart-count class="cart-count cart-count--blank cart-count--drawer-heading" data-type="blank">({{ cart.item_count }})</cart-count>
           </h2>
           <button class="drawer__close-btn z-1 static" aria-controls="CartDrawer" type="button" aria-label="Schließen">
@@ -35,8 +35,8 @@
           {% assign source_free_shipping_percent = cart.total_price | times: 100.0 | divided_by: source_free_shipping_threshold %}
         {% endif %}
         <free-shipping-goal data-cart-total="{{ cart.total_price }}" data-minimum-amount="49" class="free-shipping-goal grid gap-2 w-full no-js-hidden{% if cart.total_price >= source_free_shipping_threshold %} is-reached{% endif %}">
-          <span class="free-shipping-goal__label free-shipping-goal__label--success">Du hast Anspruch auf kostenlosen Versand.</span>
-          <span class="free-shipping-goal__label free-shipping-goal__label--default">Geben Sie <strong data-left-to-spend>{{ source_free_shipping_remaining | money }}</strong> mehr aus, um kostenlosen Versand zu erhalten!</span>
+          <span class="free-shipping-goal__label free-shipping-goal__label--success">Du har fri frakt.</span>
+          <span class="free-shipping-goal__label free-shipping-goal__label--default">Handla för <strong data-left-to-spend>{{ source_free_shipping_remaining | money }}</strong> till för att få fri frakt!</span>
           <progress-bar class="progress-bar" data-value="{{ cart.total_price | divided_by: 100.0 }}" data-max="49" style="--percent: {{ source_free_shipping_percent }}%;"><span class="progress-bar__indicator" data-source-cart-shipping-indicator style="width: {{ source_free_shipping_percent }}%;"></span></progress-bar>
         </free-shipping-goal>
         <div id="CartDrawerBody-source-cart-drawer" class="flex flex-col gap-4 flex-grow">
@@ -57,13 +57,13 @@
                             {% for property in item.properties %}{% assign first_character = property.first | slice: 0 %}{% unless property.last == blank or first_character == '_' %}<div class="cart-item__option-value text-sm text-subtext"><strong>{{ property.first }}:</strong> {{ property.last }}</div>{% endunless %}{% endfor %}
                           </div>
                         </div>
-                        <button type="button" class="cart-item__remove flex items-center justify-center relative btn-remove" data-source-cart-remove="{{ forloop.index }}" aria-label="{{ item.product.title | escape }} entfernen">
+                        <button type="button" class="cart-item__remove flex items-center justify-center relative btn-remove" data-source-cart-remove="{{ forloop.index }}" aria-label="Ta bort {{ item.product.title | escape }}">
                           <span class="flex"><svg aria-hidden="true" class="icon icon-close icon--small icon--thick" fill="none" viewBox="0 0 24 24"><path d="M18.75 5.13496L5.25 18.8544" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M18.75 18.8544L5.25 5.13496" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
                         </button>
                       </div>
                       <div class="cart-item__action flex items-center justify-between gap-3">
                         <quantity-input class="cart-quantity quantity self-end">
-                          <button type="button" name="minus" class="quantity__button" aria-label="Menge verringern"><svg aria-hidden="true" focusable="false" viewBox="0 0 16 16" fill="none"><path d="M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+                          <button type="button" name="minus" class="quantity__button" aria-label="Minska antal"><svg aria-hidden="true" focusable="false" viewBox="0 0 16 16" fill="none"><path d="M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
                           <input class="quantity__input" type="number" value="{{ item.quantity }}" min="0" step="1" data-source-cart-quantity="{{ forloop.index }}" aria-label="Menge für {{ item.product.title | escape }}">
                           <button type="button" name="plus" class="quantity__button" aria-label="Menge erhöhen"><svg aria-hidden="true" focusable="false" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M8 3v10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
                         </quantity-input>
@@ -94,7 +94,7 @@
         <div class="drawer__footer-body drawer__footer-inner-padding">
           <div class="grid gap-1">
             <div class="totals flex justify-between items-center">
-              <span class="totals__subtotal font-body-bolder">Zwischensumme</span>
+              <span class="totals__subtotal font-body-bolder">Delsumma</span>
               <span class="font-body-bolder" data-source-cart-total>{{ cart.total_price | money }}</span>
             </div>
             <div class="tax-note">Steuer inbegriffen. Versand und Rabatte werden im nächsten Schritt berechnet.</div>
@@ -102,7 +102,7 @@
           <form action="{{ routes.cart_url }}" method="post" class="drawer__footer-buttons w-full">
             <button class="btn btn--primary w-full flex items-center justify-center gap-2" type="submit" name="checkout">
               <svg class="source-cart-checkout__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="11" x="5" y="11" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>
-              <span class="btn__text">JETZT SICHER ZUR KASSE</span>
+              <span class="btn__text">TILL KASSAN</span>
             </button>
           </form>
         </div>
