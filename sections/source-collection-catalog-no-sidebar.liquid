@@ -20,8 +20,10 @@
 </style>
 
 {% assign collection_title = section.settings.heading | default: collection.title | default: 'Collection' %}
-{% assign collection_banner = section.settings.banner_image | default: collection.image %}
-{% assign collection_mobile_banner = section.settings.mobile_banner_image | default: collection_banner %}
+{% assign collection_custom_banner = collection.metafields.custom.banner_image.value %}
+{% assign collection_banner = collection_custom_banner | default: section.settings.banner_image | default: collection.image %}
+{% assign collection_custom_mobile_banner = collection.metafields.custom.mobile_banner_image.value %}
+{% assign collection_mobile_banner = collection_custom_mobile_banner | default: section.settings.mobile_banner_image | default: collection_banner %}
 
 {% if section.settings.show_banner and collection_banner != blank %}
   <div class="collection-hero collection-hero--image-as-bg hero hero--extra-small hero--mobile-auto section section--padding page-width page-width--full" style="--section-padding-top: 16px;--section-padding-bottom: 0px;overflow:hidden;">
