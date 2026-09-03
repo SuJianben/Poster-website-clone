@@ -13,14 +13,14 @@
 }
 
 .product-card__atelier-badges {
-  margin-bottom: 16px !important;
+  margin-bottom: 10px !important;
 }
 
 /* The card info wrapper is a flex column, so anchor the requested gap on
    the title itself as well as the badge container. This prevents section-
    specific flex spacing rules from collapsing the visible separation. */
 .product-card__atelier-badges + .product-card__title {
-  margin-top: 16px !important;
+  margin-top: 0 !important;
 }
 
 /* Keep the same compact rhythm when a card has a multi-line title. */
