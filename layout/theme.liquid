@@ -46,5 +46,21 @@
       {% render 'source-global-overlays' %}
     </div>
     {% render 'source-atelier-drawer' %}
+    <style id="source-badge-finish">
+      /* Final badge styling is placed after all section markup so section-level
+         inline styles cannot override the storefront presentation. */
+      .f-badge--sale {
+        border-radius: var(--pcard-radius, 1rem) !important;
+      }
+      .f-badge--trending {
+        color: #fff !important;
+        border: 0 !important;
+        border-color: transparent !important;
+        background: #000 !important;
+        background-color: #000 !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+      }
+    </style>
   </body>
 </html>
