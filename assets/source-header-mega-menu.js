@@ -2,7 +2,7 @@
   const SELECTOR = "header details[is='details-mega']";
   const OPEN_DELAY = 100;
   const CLOSE_DELAY = 150;
-  const TRANSITION_DURATION = 500;
+  const TRANSITION_DURATION = 420;
 
   function initMenu(menu) {
     if (menu.dataset.sourceMegaMenuReady === 'true') return;
