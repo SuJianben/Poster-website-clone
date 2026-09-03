@@ -20,7 +20,7 @@
 
 {% for option in product.options_with_values %}
   {% assign option_name = option.name | downcase %}
-  {% if option_name contains 'size' or option_name contains 'größe' or option_name contains 'groesse' %}{% assign size_option = option %}{% endif %}
+  {% if option_name contains 'size' or option_name contains 'storlek' or option_name contains 'größe' or option_name contains 'groesse' %}{% assign size_option = option %}{% endif %}
 {% endfor %}
 
 {% assign info_border_color = '#e8e8e8' %}
@@ -78,16 +78,16 @@
       </div>
 
       <div class="product__block product__block--variant_picker">
-        <variant-selects id="variant-selects-{{ section.id }}" data-section="{{ section.id }}" data-url="{{ product.url }}" data-update-url="true">
+        <variant-selects id="variant-selects-{{ section.id }}" data-section="{{ section.id }}" data-url="{{ product.url }}" data-update-url="true" style="display:flex!important;flex-direction:column!important;">
           {% for option in product.options_with_values %}
             {% assign option_name = option.name | downcase %}
             {% assign is_size = false %}{% assign is_frame = false %}{% assign is_material = false %}{% assign is_version = false %}
-            {% if option_name contains 'size' or option_name contains 'größe' or option_name contains 'groesse' %}{% assign is_size = true %}{% endif %}
-            {% if option_name contains 'frame' or option_name contains 'rahmen' %}{% assign is_frame = true %}{% endif %}
+            {% if option_name contains 'size' or option_name contains 'storlek' or option_name contains 'größe' or option_name contains 'groesse' %}{% assign is_size = true %}{% endif %}
+            {% if option_name contains 'frame' or option_name contains 'rahmen' or option_name contains 'ram' %}{% assign is_frame = true %}{% endif %}
             {% if option_name contains 'material' %}{% assign is_material = true %}{% endif %}
             {% if option_name contains 'version' %}{% assign is_version = true %}{% endif %}
 
-            <fieldset class="product-form__input product-form__input--button product-form__input--button-square{% if is_size %} source-size-options{% elsif is_frame %} source-frame-options{% elsif is_material %} source-material-options{% elsif is_version %} source-version-options{% endif %}" data-source-product-option data-option-index="{{ forloop.index0 }}">
+            <fieldset class="product-form__input product-form__input--button product-form__input--button-square{% if is_size %} source-size-options{% elsif is_frame %} source-frame-options{% elsif is_material %} source-material-options{% elsif is_version %} source-version-options{% endif %}" style="order:{% if is_material %}0{% elsif is_size %}1{% elsif is_frame %}2{% else %}5{% endif %}!important;" data-source-product-option data-option-index="{{ forloop.index0 }}">
               <legend class="block w-full p-0">
                 <div class="form__label">
                   <div class="flex flex-wrap gap-2"><span class="font-body-bolder">{{ option.name }}:</span><span class="text-subtext" data-source-product-option-label>{{ option.selected_value }}</span></div>
