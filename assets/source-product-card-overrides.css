@@ -21,7 +21,7 @@
    specific flex spacing rules from collapsing the visible separation. */
 .product-card__atelier-badges + .product-card__title {
   margin-top: 0 !important;
-  padding-top: 8px !important;
+  padding-top: 6px !important;
 }
 
 /* Keep the same compact rhythm when a card has a multi-line title. */
