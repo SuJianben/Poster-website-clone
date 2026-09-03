@@ -57,13 +57,13 @@
           <input type="hidden" name="return_to" value="{{ request.path }}">
           <h2 class="visually-hidden">Language</h2>
           <button type="button" class="disclosure__toggle btn--plain text-normal font-body" aria-expanded="false" aria-controls="FooterLanguageList-{{ section.id }}" data-disclosure-toggle>
-            {{ localization.language.endonym_name }}
+            {{ localization.language.endonym_name | capitalize }}
             <svg class="icon icon-caret-up icon--medium icon--thick" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3.75 12.5L10 6.25L16.25 12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
           <ul id="FooterLanguageList-{{ section.id }}" class="disclosure-list v-scrollable text-left">
             {% for language in localization.available_languages %}
               <li class="disclosure-list__item{% if language.iso_code == localization.language.iso_code %} disclosure-list__item--current{% endif %}" tabindex="-1">
-                <a class="disclosure-list__option" href="#" hreflang="{{ language.iso_code }}" lang="{{ language.iso_code }}"{% if language.iso_code == localization.language.iso_code %} aria-current="true"{% endif %} data-value="{{ language.iso_code }}" data-disclosure-option>{{ language.endonym_name }}</a>
+              <a class="disclosure-list__option" href="#" hreflang="{{ language.iso_code }}" lang="{{ language.iso_code }}"{% if language.iso_code == localization.language.iso_code %} aria-current="true"{% endif %} data-value="{{ language.iso_code }}" data-disclosure-option>{{ language.endonym_name | capitalize }}</a>
               </li>
             {% endfor %}
           </ul>

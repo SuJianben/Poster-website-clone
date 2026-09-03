@@ -4,7 +4,7 @@
     data-left-badge="{{ section.settings.left_badge | default: '✭✭✭✭✭' | escape }}"
     data-left-text="{{ section.settings.left_text | default: '2500+ Bewertungen & 30 Tage Probe-Hängen' | escape }}"
     data-center-badge="{{ section.settings.center_badge | default: 'Neu' | escape }}"
-    data-center-text="{{ section.settings.center_text | default: 'Kostenloser Versand ab 49€' | escape }}"
+    data-center-text="{{ section.settings.center_text | default: 'header.free_shipping' | t | escape }}"
   >
     {% render 'source-topbar-1' %}
     <template data-source-topbar-localization>{% comment %}
@@ -13,7 +13,7 @@
         <div class="topbar__country flex items-center gap-4">
           <details class="source-topbar-localization">
             <summary class="disclosure__toggle btn--plain text-normal font-body">
-              {{ localization.language.endonym_name }}
+              {{ localization.language.endonym_name | capitalize }}
               <svg class="icon icon-caret-up icon--medium icon--thick" aria-hidden="true" focusable="false" viewBox="0 0 20 20" fill="none">
                 <path d="M3.75 12.5L10 6.25L16.25 12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
@@ -22,7 +22,7 @@
               <ul class="source-topbar-localization__list">
                 {% for language in localization.available_languages %}
                   <li>
-                    <button class="source-topbar-localization__option" type="submit" name="language_code" value="{{ language.iso_code }}">{{ language.endonym_name }}</button>
+                <button class="source-topbar-localization__option" type="submit" name="language_code" value="{{ language.iso_code }}">{{ language.endonym_name | capitalize }}</button>
                   </li>
                 {% endfor %}
               </ul>
