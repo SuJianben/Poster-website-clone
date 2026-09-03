@@ -1,39 +1,64 @@
 {% if section.settings.menu != blank %}
+  <style>
+    @media (min-width: 1024px) {
+      .source-mega-layout { display:grid; grid-template-columns:minmax(170px,.8fr) minmax(0,3.2fr); min-height:300px; }
+      .source-mega-sidebar { display:flex; flex-direction:column; gap:14px; padding:28px 28px 30px 0; border-right:1px solid #ece7df; }
+      .source-mega-sidebar a, .source-mega-grid a { color:#222; font-size:14px; line-height:1.35; text-decoration:none; }
+      .source-mega-sidebar a:hover, .source-mega-grid a:hover { color:#b42318; }
+      .source-mega-content { padding:28px 0 30px 38px; }
+      .source-mega-heading { display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; color:#111; font-size:15px; font-weight:700; }
+      .source-mega-heading a { color:inherit; text-decoration:none; }
+      .source-mega-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px 28px; margin:0; padding:0; list-style:none; }
+      .source-mega-card { display:flex; flex-direction:column; gap:8px; color:#222; font-size:13px; text-decoration:none; }
+      .source-mega-card__media { display:block; aspect-ratio:1.45; overflow:hidden; background:#f3f1ed; }
+      .source-mega-card__media img { display:block; width:100%; height:100%; object-fit:cover; transition:transform .25s ease; }
+      .source-mega-card:hover .source-mega-card__media img { transform:scale(1.03); }
+    }
+    @media (max-width: 1023px) {
+      .source-mega-sidebar { display:none; }
+      .source-mega-content { padding:0; }
+      .source-mega-heading { display:none; }
+    }
+  </style>
   <template data-source-header-mega-config>
     {% for link in section.settings.menu.links %}
       {% if link.links.size > 0 %}
         <template data-source-header-mega-panel data-menu-index="{{ forloop.index0 }}">
           <div class="mega-menu v-scrollable">
             <div class="mega-menu__container color-scheme-1">
-              <div class="page-width mega-menu__wrapper">
-                <style>.menu-sidebar { --f-columns-lg: 5; --f-column-gap-lg: 3rem; --f-row-gap-lg: 3rem; }</style>
-                <menu-sidebar class="block menu-sidebar relative w-full mega-menu__item">
-                  {% for child in link.links %}
-                    <details class="menu-sidebar__item"{% if forloop.first %} open{% endif %}>
-                      <summary class="menu-sidebar__toggle blocks-radius-sm flex items-center justify-between{% if forloop.first %} is-visible{% endif %}"{% if child.links.size > 0 %} data-has-children="true"{% endif %}>
-                        <a href="{{ child.url }}" class="h6 full-unstyled-link">{{ child.title }}</a>
-                        {% if child.links.size > 0 %}
-                          <svg class="icon icon-caret-right rtl-flip-x icon--small icon--thick" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 3.75L13.75 10L7.5 16.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <div class="page-width mega-menu__wrapper source-mega-wrapper">
+                <div class="source-mega-layout">
+                  <aside class="source-mega-sidebar" aria-label="Serier">
+                    {% for child in link.links %}
+                      <a href="{{ child.url }}">{{ child.title }}</a>
+                    {% endfor %}
+                  </aside>
+                  <div class="source-mega-content">
+                    <div class="source-mega-heading">
+                      <a href="{{ link.url }}">{{ link.title }}</a>
+                      <a href="{{ link.url }}">Visa allt&nbsp;→</a>
+                    </div>
+                    <ul class="source-mega-grid" role="list">
+                      {% for child in link.links %}
+                        {% assign mega_collection = child.object %}
+                        {% assign mega_image = mega_collection.image | default: mega_collection.featured_image %}
+                        {% if mega_image == blank and mega_collection.products_count > 0 %}
+                          {% assign mega_image = mega_collection.products.first.featured_image %}
                         {% endif %}
-                      </summary>
-                      <div class="menu-sidebar__content no-empty">
-                        <ul class="f-grid">
-                          {% for grandchild in child.links %}
-                            {% assign collection_image = grandchild.object.image %}
-                            <li>
-                              <a href="{{ grandchild.url }}" class="grid gap-3 hover-wrapper reversed-link">
-                                {% if collection_image != blank %}
-                                  <div class="overflow-hidden blocks-radius-md"><div class="media-wrapper" style="--aspect-ratio: 1/1;">{{ collection_image | image_url: width: 1080 | image_tag: loading: 'lazy', class: 'motion-reduce hover-scale-up', widths: '352, 768, 1024, 1080', alt: grandchild.title }}</div></div>
-                                {% endif %}
-                                <p class="block m-0"><span class="reversed-link__text">{{ grandchild.title }}</span></p>
-                              </a>
-                            </li>
-                          {% endfor %}
-                        </ul>
-                      </div>
-                    </details>
-                  {% endfor %}
-                </menu-sidebar>
+                        <li>
+                          <a class="source-mega-card" href="{{ child.url }}">
+                            {% if mega_image != blank %}
+                              <span class="source-mega-card__media">{{ mega_image | image_url: width: 420 | image_tag: loading: 'lazy', alt: child.title }}</span>
+                            {% else %}
+                              <span class="source-mega-card__media"></span>
+                            {% endif %}
+                            <span>{{ child.title }}</span>
+                          </a>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
