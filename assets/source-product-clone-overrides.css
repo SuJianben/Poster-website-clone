@@ -374,6 +374,11 @@ product-info.source-product {
 .source-product-shipping { margin: 8px 0 0; color: #666; font-size: 13px; }
 .product__block--meta { margin-bottom: 0 !important; }
 .product__block--price { margin-top: 18px !important; }
+.product__block--variant_picker { margin-top: 12px !important; }
+.source-product variant-selects { display: flex !important; flex-direction: column !important; }
+.source-product variant-selects > .source-size-options { order: 1 !important; }
+.source-product variant-selects > .source-frame-options { order: 2 !important; }
+.source-product variant-selects > .source-material-options { order: 0 !important; }
 
 .source-product .product-form__input {
   position: relative;
