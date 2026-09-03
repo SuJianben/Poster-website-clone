@@ -148,3 +148,24 @@
 
 <dialog class="source-product-size-modal" data-source-product-size-modal aria-label="Size Guide"><div class="source-product-size-modal__content"><button type="button" data-source-product-size-close aria-label="Close">×</button><h2>Size Guide</h2>{% if size_option != blank %}<ul>{% for value in size_option.values %}<li>{{ value }}</li>{% endfor %}</ul>{% endif %}</div></dialog>
 <script type="application/json" data-source-product-variants>{{ product.variants | json }}</script>
+<script>
+  (function () {
+    function normalizeProductOptionOrder() {
+      document.querySelectorAll('variant-selects').forEach(function (picker) {
+        var fields = Array.prototype.slice.call(picker.querySelectorAll(':scope > fieldset'));
+        fields.sort(function (a, b) {
+          var order = function (el) {
+            if (el.classList.contains('source-material-options')) return 0;
+            if (el.classList.contains('source-size-options')) return 1;
+            if (el.classList.contains('source-frame-options')) return 2;
+            return 5;
+          };
+          return order(a) - order(b);
+        });
+        fields.forEach(function (field) { picker.appendChild(field); });
+      });
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', normalizeProductOptionOrder);
+    else normalizeProductOptionOrder();
+  })();
+</script>
