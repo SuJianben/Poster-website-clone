@@ -8,10 +8,10 @@
       .source-mega-content { padding:28px 0 30px 38px; }
       .source-mega-heading { display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; color:#111; font-size:15px; font-weight:700; }
       .source-mega-heading a { color:inherit; text-decoration:none; }
-      .source-mega-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px 28px; margin:0; padding:0; list-style:none; }
+      .source-mega-grid { display:grid; grid-template-columns:repeat(3,minmax(150px,220px)); justify-content:start; gap:18px 28px; margin:0; padding:0; list-style:none; }
       .source-mega-card { display:flex; flex-direction:column; gap:8px; color:#222; font-size:13px; text-decoration:none; }
-      .source-mega-card__media { display:block; aspect-ratio:1.45; overflow:hidden; background:#f3f1ed; }
-      .source-mega-card__media img { display:block; width:100%; height:100%; object-fit:cover; transition:transform .25s ease; }
+      .source-mega-card__media { display:block; width:220px; height:150px; overflow:hidden; background:#f3f1ed; }
+      .source-mega-card__media img { display:block; width:100%; height:100%; object-fit:contain; transition:transform .25s ease; }
       .source-mega-card:hover .source-mega-card__media img { transform:scale(1.03); }
     }
     @media (max-width: 1023px) {
