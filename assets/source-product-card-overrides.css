@@ -1,0 +1,22 @@
+/* Product-card typography and spacing overrides (applies to every shelf,
+   collection grid, search result and recommendation card). */
+.product-card__title {
+  min-height: 0 !important;
+  margin-bottom: 2px !important;
+}
+
+.product-card__material {
+  margin-top: 0 !important;
+  margin-bottom: 2px !important;
+  color: #9a9a9a !important;
+  font-weight: 400 !important;
+}
+
+.product-card__atelier-badges {
+  margin-bottom: 2px !important;
+}
+
+/* Keep the same compact rhythm when a card has a multi-line title. */
+.product-card__title + .product-card__material {
+  margin-top: 0 !important;
+}
