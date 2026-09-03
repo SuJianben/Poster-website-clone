@@ -26,7 +26,7 @@
       </div>
 
       <div class="drawer__body flex-grow v-scrollable flex flex-col{% if cart.item_count == 0 %} hidden{% endif %}" data-source-cart-body>
-        {% assign source_free_shipping_threshold = 4900 %}
+        {% assign source_free_shipping_threshold = 49900 %}
         {% assign source_free_shipping_remaining = source_free_shipping_threshold | minus: cart.total_price %}
         {% if source_free_shipping_remaining < 0 %}{% assign source_free_shipping_remaining = 0 %}{% endif %}
         {% if cart.total_price >= source_free_shipping_threshold %}
@@ -34,10 +34,10 @@
         {% else %}
           {% assign source_free_shipping_percent = cart.total_price | times: 100.0 | divided_by: source_free_shipping_threshold %}
         {% endif %}
-        <free-shipping-goal data-cart-total="{{ cart.total_price }}" data-minimum-amount="49" class="free-shipping-goal grid gap-2 w-full no-js-hidden{% if cart.total_price >= source_free_shipping_threshold %} is-reached{% endif %}">
+        <free-shipping-goal data-cart-total="{{ cart.total_price }}" data-minimum-amount="499" class="free-shipping-goal grid gap-2 w-full no-js-hidden{% if cart.total_price >= source_free_shipping_threshold %} is-reached{% endif %}">
           <span class="free-shipping-goal__label free-shipping-goal__label--success">Du har fri frakt.</span>
           <span class="free-shipping-goal__label free-shipping-goal__label--default">Handla för <strong data-left-to-spend>{{ source_free_shipping_remaining | money }}</strong> till för att få fri frakt!</span>
-          <progress-bar class="progress-bar" data-value="{{ cart.total_price | divided_by: 100.0 }}" data-max="49" style="--percent: {{ source_free_shipping_percent }}%;"><span class="progress-bar__indicator" data-source-cart-shipping-indicator style="width: {{ source_free_shipping_percent }}%;"></span></progress-bar>
+          <progress-bar class="progress-bar" data-value="{{ cart.total_price | divided_by: 100.0 }}" data-max="499" style="--percent: {{ source_free_shipping_percent }}%;"><span class="progress-bar__indicator" data-source-cart-shipping-indicator style="width: {{ source_free_shipping_percent }}%;"></span></progress-bar>
         </free-shipping-goal>
         <div id="CartDrawerBody-source-cart-drawer" class="flex flex-col gap-4 flex-grow">
           <cart-items class="flex-grow">

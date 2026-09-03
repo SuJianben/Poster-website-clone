@@ -332,7 +332,7 @@
       const goal = this.querySelector('free-shipping-goal');
       if (!goal) return;
 
-      const threshold = Number(goal.dataset.minimumAmount || 49) * 100;
+      const threshold = Number(goal.dataset.minimumAmount || 499) * 100;
       const progress = threshold ? Math.min(1, Math.max(0, Number(subtotal || 0) / threshold)) : 1;
       const remaining = Math.max(0, threshold - Number(subtotal || 0));
       const progressBar = goal.querySelector('progress-bar');
