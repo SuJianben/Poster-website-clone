@@ -13,7 +13,7 @@
 }
 
 .product-card__atelier-badges {
-  margin-bottom: 10px !important;
+  margin-bottom: 14px !important;
 }
 
 /* The card info wrapper is a flex column, so anchor the requested gap on
