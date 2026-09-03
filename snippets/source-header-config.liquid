@@ -4,6 +4,26 @@
     assign source_header_menu = linklists['main-menu']
   endif
 %}
+<style>
+  @media (min-width: 1024px) {
+    .source-mega-wrapper { max-width: 100%; padding: 0 2.5rem; }
+    .source-mega-layout { display:grid; grid-template-columns:minmax(150px, .8fr) minmax(0, 3.2fr); min-height:260px; }
+    .source-mega-sidebar { display:flex; flex-direction:column; gap:12px; padding:28px 28px 30px 0; border-right:1px solid #ece7df; }
+    .source-mega-sidebar__title, .source-mega-title { color:#111; font-size:13px; font-weight:700; letter-spacing:.02em; text-transform:uppercase; }
+    .source-mega-sidebar a, .source-mega-grid a { color:#222; font-size:14px; line-height:1.35; text-decoration:none; transition:color .15s ease; }
+    .source-mega-sidebar a:hover, .source-mega-grid a:hover, .source-mega-view-all:hover { color:#b42318; }
+    .source-mega-content { padding:28px 0 30px 38px; }
+    .source-mega-heading-row { display:flex; align-items:center; justify-content:space-between; gap:20px; margin-bottom:18px; }
+    .source-mega-title { font-size:15px; }
+    .source-mega-view-all { color:#111; font-size:12px; font-weight:700; text-decoration:none; }
+    .source-mega-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px 34px; margin:0; padding:0; list-style:none; }
+  }
+  @media (max-width: 1023px) {
+    .source-mega-sidebar { display:none; }
+    .source-mega-content { padding:0; }
+    .source-mega-heading-row { display:none; }
+  }
+</style>
 {% capture source_header_navigation %}
 [
   {% for link in source_header_menu.links %}
@@ -105,12 +125,28 @@
               </summary>
               <div class="mega-menu v-scrollable">
                 <div class="mega-menu__container color-scheme-1">
-                  <div class="page-width mega-menu__wrapper">
-                    <ul class="source-header-simple-submenu" role="list">
-                      {% for child in link.links %}
-                        <li><a href="{{ child.url }}">{{ child.title }}</a></li>
-                      {% endfor %}
-                    </ul>
+                  <div class="page-width mega-menu__wrapper source-mega-wrapper">
+                    <div class="source-mega-layout">
+                      <aside class="source-mega-sidebar" aria-label="Snabblänkar">
+                        <strong class="source-mega-sidebar__title">Snabblänkar</strong>
+                        {% for quick_link in source_header_menu.links %}
+                          {% unless quick_link.title == link.title %}
+                            <a href="{{ quick_link.url }}">{{ quick_link.title }}</a>
+                          {% endunless %}
+                        {% endfor %}
+                      </aside>
+                      <div class="source-mega-content">
+                        <div class="source-mega-heading-row">
+                          <a class="source-mega-title" href="{{ link.url }}">{{ link.title }}</a>
+                          <a class="source-mega-view-all" href="{{ link.url }}">Visa allt&nbsp;→</a>
+                        </div>
+                        <ul class="source-mega-grid" role="list">
+                          {% for child in link.links %}
+                            <li><a href="{{ child.url }}">{{ child.title }}</a></li>
+                          {% endfor %}
+                        </ul>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
