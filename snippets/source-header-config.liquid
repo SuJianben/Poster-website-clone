@@ -21,19 +21,11 @@
     .source-mega-card__media { display:block; aspect-ratio:1.45; overflow:hidden; background:#f3f1ed; }
     .source-mega-card__media img { display:block; width:100%; height:100%; object-fit:cover; transition:transform .25s ease; }
     .source-mega-card:hover .source-mega-card__media img { transform:scale(1.03); }
-    .source-mega-products { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin-bottom:24px; }
-    .source-mega-product { display:flex; flex-direction:column; gap:6px; min-width:0; color:#222; text-decoration:none; }
-    .source-mega-product__media { display:block; aspect-ratio:1/1; overflow:hidden; background:#f3f1ed; }
-    .source-mega-product__media img { display:block; width:100%; height:100%; object-fit:cover; transition:transform .25s ease; }
-    .source-mega-product:hover .source-mega-product__media img { transform:scale(1.03); }
-    .source-mega-product__title { overflow:hidden; font-size:11px; font-weight:700; line-height:1.25; text-overflow:ellipsis; white-space:nowrap; }
-    .source-mega-product__price { color:#c22; font-size:11px; font-weight:700; }
   }
   @media (max-width: 1023px) {
     .source-mega-sidebar { display:none; }
     .source-mega-content { padding:0; }
     .source-mega-heading-row { display:none; }
-    .source-mega-products { display:none; }
   }
 </style>
 {% capture source_header_navigation %}
@@ -152,25 +144,13 @@
                           <a class="source-mega-title" href="{{ link.url }}">{{ link.title }}</a>
                           <a class="source-mega-view-all" href="{{ link.url }}">Visa allt&nbsp;→</a>
                         </div>
-                        <div class="source-mega-products" aria-label="Utvalda produkter">
-                          {% for mega_product in collections['kids-wall-art'].products limit: 4 %}
-                            <a class="source-mega-product" href="{{ mega_product.url }}">
-                              <span class="source-mega-product__media">
-                                {% if mega_product.featured_image != blank %}
-                                  {{ mega_product.featured_image | image_url: width: 420 | image_tag: loading: 'lazy', alt: mega_product.title }}
-                                {% endif %}
-                              </span>
-                              <span class="source-mega-product__title">{{ mega_product.title }}</span>
-                              <span class="source-mega-product__price">{{ mega_product.price | money }}</span>
-                            </a>
-                          {% endfor %}
-                        </div>
                         <ul class="source-mega-grid" role="list">
                           {% for child in link.links %}
                             <li>
                               <a class="source-mega-card" href="{{ child.url }}">
                                 {% assign mega_collection = child.object %}
                                 {% assign mega_image = mega_collection.image | default: mega_collection.featured_image %}
+                                {% if mega_image == blank and mega_collection.products_count > 0 %}{% assign mega_image = mega_collection.products.first.featured_image %}{% endif %}
                                 {% if mega_image != blank %}<span class="source-mega-card__media">{{ mega_image | image_url: width: 420 | image_tag: loading: 'lazy', alt: child.title }}</span>{% endif %}
                                 <span>{{ child.title }}</span>
                               </a>
