@@ -74,6 +74,11 @@
       .spx-product__panel {
         border-top-color: #000 !important;
       }
+      /* Reserve space below the border for the floating badge row so it never
+         overlaps the reviews, title, or artist blocks beneath it. */
+      .spx-product__panel-content {
+        padding-top: 30px !important;
+      }
       .spx-product__top-badge--sale {
         border-radius: var(--pcard-radius, 1rem) !important;
         color: #000 !important;
@@ -107,6 +112,9 @@
         flex: 0 0 calc((100% - 24px) / 4) !important;
       }
       @media (max-width: 767px) {
+        .spx-product__panel-content {
+          padding-top: 24px !important;
+        }
         .spx-product .spx-product__frame-options {
           gap: 7px !important;
         }
