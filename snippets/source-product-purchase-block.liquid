@@ -221,11 +221,13 @@
                     {% if frame_value_downcase contains 'black' or frame_value_downcase contains 'schwarz' or frame_value_downcase == 'svart' %}{% assign frame_tone = 'black' %}{% endif %}
                     {% if frame_value_downcase contains 'silver' or frame_value_downcase contains 'silber' %}{% assign frame_tone = 'silver' %}{% endif %}
                     {% if frame_value_downcase contains 'gold' %}{% assign frame_tone = 'gold' %}{% endif %}
-                    <button type="button" class="spx-product__frame-option{% if value == option.selected_value %} is-selected{% endif %}" data-spx-variant-value data-spx-frame-tone="{{ frame_tone }}" data-option-value="{{ option_value_label | escape }}" aria-label="{{ option_value_label | escape }}" aria-pressed="{% if value == option.selected_value %}true{% else %}false{% endif %}" title="{{ option_value_label | escape }}"{% unless value.available %} disabled{% endunless %}>
-                      <span class="spx-product__frame-swatch spx-product__frame-swatch--{{ frame_tone }}" aria-hidden="true"></span>
-                      <span class="spx-product__frame-option-label">{{ option_value_label }}</span>
-                      <span class="spx-product__frame-price-row" aria-hidden="true"><span class="spx-product__frame-price" data-spx-frame-price></span><s class="spx-product__frame-compare" data-spx-frame-compare></s></span>
-                    </button>
+                    {% unless frame_tone == 'gold' %}
+                      <button type="button" class="spx-product__frame-option{% if value == option.selected_value %} is-selected{% endif %}" data-spx-variant-value data-spx-frame-tone="{{ frame_tone }}" data-option-value="{{ option_value_label | escape }}" aria-label="{{ option_value_label | escape }}" aria-pressed="{% if value == option.selected_value %}true{% else %}false{% endif %}" title="{{ option_value_label | escape }}"{% unless value.available %} disabled{% endunless %}>
+                        <span class="spx-product__frame-swatch spx-product__frame-swatch--{{ frame_tone }}" aria-hidden="true"></span>
+                        <span class="spx-product__frame-option-label">{{ option_value_label }}</span>
+                        <span class="spx-product__frame-price-row" aria-hidden="true"><span class="spx-product__frame-price" data-spx-frame-price></span><s class="spx-product__frame-compare" data-spx-frame-compare></s></span>
+                      </button>
+                    {% endunless %}
                   {% elsif is_material_option %}
                     <button type="button" class="spx-product__material-option{% if value == option.selected_value %} is-selected{% endif %}" data-spx-variant-value data-option-value="{{ option_value_label | escape }}" aria-pressed="{% if value == option.selected_value %}true{% else %}false{% endif %}"{% unless value.available %} disabled{% endunless %}>{{ option_value_label }}</button>
                   {% else %}
