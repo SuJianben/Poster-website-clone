@@ -145,16 +145,20 @@
                           <a class="source-mega-view-all" href="{{ link.url }}">Visa allt&nbsp;→</a>
                         </div>
                         <ul class="source-mega-grid" role="list">
-                          {% for child in link.links %}
+                          {% assign featured_handles = 'animal-friends,nature-garden,vehicles-journeys,playful-objects-food,abstract-colorful,dreamy-landscapes' | split: ',' %}
+                          {% for featured_handle in featured_handles %}
+                            {% assign child = collections[featured_handle] %}
+                            {% if child != blank %}
                             <li>
                               <a class="source-mega-card" href="{{ child.url }}">
-                                {% assign mega_collection = child.object %}
+                                {% assign mega_collection = child %}
                                 {% assign mega_image = mega_collection.image | default: mega_collection.featured_image %}
                                 {% if mega_image == blank and mega_collection.products_count > 0 %}{% assign mega_image = mega_collection.products.first.featured_image %}{% endif %}
                                 {% if mega_image != blank %}<span class="source-mega-card__media">{{ mega_image | image_url: width: 420 | image_tag: loading: 'lazy', alt: child.title }}</span>{% endif %}
                                 <span>{{ child.title }}</span>
                               </a>
                             </li>
+                            {% endif %}
                           {% endfor %}
                         </ul>
                       </div>
