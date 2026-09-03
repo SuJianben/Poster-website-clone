@@ -32,7 +32,7 @@
 /* Deal badges use the same corner radius as the product-card image shell. */
 .f-badge--sale {
   border-radius: var(--pcard-radius, 1rem) !important;
-  color: #fff !important;
+  color: #000 !important;
   background: #09cda9f7 !important;
   background-color: #09cda9f7 !important;
   border-color: transparent !important;
