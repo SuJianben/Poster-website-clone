@@ -336,6 +336,11 @@ product-info.source-product {
    including the homepage canvas-deals shelf and collection shelves. */
 .f-badge--sale {
   border-radius: var(--pcard-radius, 1rem) !important;
+  color: #fff !important;
+  background: #09cda9f7 !important;
+  background-color: #09cda9f7 !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
 }
 .f-badge--bestseller { color: #000; border: 1px solid #b38728; background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c); background-size: 200% 200%; animation: source-product-gold-shine 4s ease infinite; }
 .f-badge--limited-edition,
