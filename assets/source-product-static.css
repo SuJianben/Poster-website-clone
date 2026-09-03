@@ -158,8 +158,8 @@
 .spx-product .spx-product__atelier-badge:hover { filter:brightness(1.05); }
 .spx-product__atelier-badge svg { width:10px; height:10px; margin-left:4px; stroke:currentColor; stroke-linecap:round; stroke-linejoin:round; stroke-width:2.5; }
 .spx-product__price { margin:0; font-size:28px; font-weight:800; line-height:1.1; }
-.spx-product__shipping { margin:8px 0 30px; color:#666; font-size:13px; font-weight:700; }
-.spx-product__option-group { margin-top:22px; }
+.spx-product__shipping { margin:8px 0 10px; color:#666; font-size:13px; font-weight:700; }
+.spx-product__option-group { margin-top:12px; }
 .spx-product__option-group p { margin:0 0 12px; color:#666; font-size:14px; font-weight:700; }
 .spx-product__variant-picker { display:flex !important; flex-direction:column !important; }
 .spx-product__variant-picker > .spx-product__option-group { order:var(--spx-option-order,10) !important; }
@@ -399,8 +399,8 @@ body.modal-showing .spx-product__back-to-top, body.modal-show .spx-product__back
   }
   .spx-product__atelier-badge svg { width: 7px; height: 7px; margin-left: 2px; }
   .spx-product__price { font-size: 21px; }
-  .spx-product__shipping { margin: 4px 0 18px; font-size: 11px; }
-  .spx-product__option-group { margin-top: 17px; }
+  .spx-product__shipping { margin: 4px 0 10px; font-size: 11px; }
+  .spx-product__option-group { margin-top: 12px; }
   .spx-product__option-group p { margin-bottom: 9px; font-size: 12px; }
   .spx-product__option-row, .spx-product__option-grid { gap: 7px; }
   .spx-product__option-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
