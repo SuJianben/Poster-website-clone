@@ -41,6 +41,10 @@
                     <ul class="source-mega-grid" role="list">
                       {% for child in link.links %}
                         {% assign mega_collection = child.object %}
+                        {% if mega_collection == blank and child.url contains '/collections/' %}
+                          {% assign mega_handle = child.url | split: '/collections/' | last | split: '?' | first | split: '#' | first %}
+                          {% assign mega_collection = collections[mega_handle] %}
+                        {% endif %}
                         {% assign mega_product = mega_collection.products.first %}
                         {% assign mega_image = mega_product.featured_image %}
                         {% if mega_image == blank %}
