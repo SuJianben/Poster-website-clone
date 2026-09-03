@@ -17,6 +17,10 @@
     .source-mega-title { font-size:15px; }
     .source-mega-view-all { color:#111; font-size:12px; font-weight:700; text-decoration:none; }
     .source-mega-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px 34px; margin:0; padding:0; list-style:none; }
+    .source-mega-card { display:flex; flex-direction:column; gap:8px; color:#222; font-size:13px; text-decoration:none; }
+    .source-mega-card__media { display:block; aspect-ratio:1.45; overflow:hidden; background:#f3f1ed; }
+    .source-mega-card__media img { display:block; width:100%; height:100%; object-fit:cover; transition:transform .25s ease; }
+    .source-mega-card:hover .source-mega-card__media img { transform:scale(1.03); }
   }
   @media (max-width: 1023px) {
     .source-mega-sidebar { display:none; }
@@ -142,7 +146,14 @@
                         </div>
                         <ul class="source-mega-grid" role="list">
                           {% for child in link.links %}
-                            <li><a href="{{ child.url }}">{{ child.title }}</a></li>
+                            <li>
+                              <a class="source-mega-card" href="{{ child.url }}">
+                                {% assign mega_collection = child.object %}
+                                {% assign mega_image = mega_collection.image | default: mega_collection.featured_image %}
+                                {% if mega_image != blank %}<span class="source-mega-card__media">{{ mega_image | image_url: width: 420 | image_tag: loading: 'lazy', alt: child.title }}</span>{% endif %}
+                                <span>{{ child.title }}</span>
+                              </a>
+                            </li>
                           {% endfor %}
                         </ul>
                       </div>
