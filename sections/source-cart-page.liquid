@@ -9,10 +9,10 @@
   <div class="scc-cart__wrap">
     <nav class="scc-cart__crumbs" aria-label="Breadcrumb"><a href="{{ routes.root_url }}">Start</a><span>Dein Warenkorb</span></nav>
 
-    <h1 class="scc-cart__title">Din kundvagn <span>({{ cart.item_count }})</span></h1>
+    <h1 class="scc-cart__title">Ihr Warenkorb <span>({{ cart.item_count }})</span></h1>
 
     {% if cart.item_count == 0 %}
-      <div class="scc-cart__empty"><h2>Din kundvagn är tom.</h2><a href="{{ routes.all_products_collection_url }}">Fortsätt handla <span>→</span></a></div>
+      <div class="scc-cart__empty"><h2>Ihr Warenkorb ist derzeit leer.</h2><a href="{{ routes.all_products_collection_url }}">Weiter einkaufen <span>→</span></a></div>
     {% else %}
       <form action="{{ routes.cart_url }}" method="post" class="scc-cart__form" data-scc-form>
         <div class="scc-cart__layout">
@@ -24,7 +24,7 @@
                 <div class="scc-cart__item-main">
                   <a class="scc-cart__product-title" href="{{ item.url }}">{{ item.product.title }}</a>
                   {% unless item.product.has_only_default_variant %}<p>{{ item.variant.title }}</p>{% endunless %}
-                  <div class="scc-cart__quantity" aria-label="Antal för {{ item.title | escape }}"><button type="button" data-scc-quantity="-1" aria-label="Minska antal">−</button><input name="updates[]" value="{{ item.quantity }}" inputmode="numeric" aria-label="Antal" data-scc-quantity-input><button type="button" data-scc-quantity="1" aria-label="Öka antal">+</button></div>
+                  <div class="scc-cart__quantity" aria-label="Menge für {{ item.title | escape }}"><button type="button" data-scc-quantity="-1" aria-label="Menge verringern">−</button><input name="updates[]" value="{{ item.quantity }}" inputmode="numeric" aria-label="Menge" data-scc-quantity-input><button type="button" data-scc-quantity="1" aria-label="Menge erhöhen">+</button></div>
                 </div>
                 <div class="scc-cart__item-price">
                   {% if item.line_level_discount_allocations.size > 0 %}<p class="scc-cart__discount-label">◇ {% for discount in item.line_level_discount_allocations %}{{ discount.discount_application.title }}{% unless forloop.last %}, {% endunless %}{% endfor %}</p>{% endif %}
@@ -35,9 +35,9 @@
           </div>
           <aside class="scc-cart__summary">
             <div class="scc-cart__shipping"><strong>{% if cart.total_price >= 4900 %}Du hast Anspruch auf kostenlosen Versand.{% else %}Noch {{ 4900 | minus: cart.total_price | money }} bis zum kostenlosen Versand.{% endif %}</strong><span><i style="width:{% if cart.total_price >= 4900 %}100{% else %}{{ cart.total_price | times: 100 | divided_by: 4900 }}{% endif %}%"></i></span></div>
-            <div class="scc-cart__subtotal"><strong>Delsumma</strong><b>{{ cart.total_price | money }}</b></div>
-            <p>Skatt ingår. <a href="{{ routes.cart_url }}">Frakt</a> och rabatter beräknas i nästa steg.</p>
-            <button class="scc-cart__checkout" type="submit" name="checkout">Till kassan <span>›</span></button>
+            <div class="scc-cart__subtotal"><strong>Zwischensumme</strong><b>{{ cart.total_price | money }}</b></div>
+            <p>Steuer inbegriffen. <a href="{{ routes.cart_url }}">Versand</a> und Rabatte werden im nächsten Schritt berechnet.</p>
+            <button class="scc-cart__checkout" type="submit" name="checkout">Sicher Zur Kasse <span>›</span></button>
             {% if additional_checkout_buttons %}<div class="scc-cart__express">{{ content_for_additional_checkout_buttons }}</div>{% endif %}
           </aside>
         </div>
@@ -45,12 +45,12 @@
     {% endif %}
 
     {% if recommendation_collection.products_count > 0 %}
-      <section class="scc-cart__recommendations" aria-label="Rekommenderade produkter">
+      <section class="scc-cart__recommendations" aria-label="Empfohlene Produkte">
         <div class="scc-cart__recommendation-viewport" data-scc-recommendation-viewport><div class="scc-cart__recommendation-track" data-scc-recommendation-track>
           {% for product in recommendation_collection.products limit: section.settings.max_recommendations %}
             <a class="scc-cart__recommendation" href="{{ product.url }}">
               <span class="scc-cart__recommendation-image">{% if product.featured_image %}{{ product.featured_image | image_url: width: 720 | image_tag: loading: 'lazy', widths: '360, 540, 720', alt: product.title }}{% endif %}</span>
-              {% if forloop.index == 1 %}<em>POPULÄR</em>{% elsif forloop.index == 2 %}<em>PERSONLIG</em>{% elsif product.compare_at_price > product.price %}<em>-{{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price }}%</em>{% endif %}
+              {% if forloop.index == 1 %}<em>TRENDING</em>{% elsif forloop.index == 2 %}<em>PERSONALISIERBAR</em>{% elsif product.compare_at_price > product.price %}<em>-{{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price }}%</em>{% endif %}
               <small>{{ product.vendor | default: 'ATELIER EXCLUSIVE' }}</small><strong>{{ product.title }}</strong><span class="scc-cart__recommendation-type">{{ product.type | default: 'POSTERS' }}</span><b>Ab {{ product.price | money }}</b>
             </a>
           {% endfor %}

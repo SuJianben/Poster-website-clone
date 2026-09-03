@@ -7,44 +7,4 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
-{
-  "cart": {
-    "title": "Din kundvagn",
-    "empty": "Din kundvagn är tom.",
-    "continue_shopping": "Fortsätt handla",
-    "subtotal": "Delsumma",
-    "tax_note": "Skatt ingår. Frakt och rabatter beräknas i kassan.",
-    "checkout": "Till kassan",
-    "free_shipping_reached": "Du har rätt till fri frakt.",
-    "free_shipping_remaining": "Handla för %{amount} till för fri frakt.",
-    "recommendations": "Rekommenderade produkter",
-    "popular": "POPULÄR",
-    "personal": "PERSONLIG",
-    "from": "Från"
-  },
-  "product": {
-    "shipping_cost": "Fraktkostnad",
-    "shipping_cost_value": "Fri frakt inom Sverige på beställningar över 499 kr.",
-    "security": "Säkerhet",
-    "security_value": "Snabb och trygg leverans med spårning.",
-    "delivery_time": "Leveranstid",
-    "delivery_time_value": "2–5 arbetsdagar.",
-    "payment_methods": "Betalningsmetoder",
-    "shipping_returns": "Frakt- och returpolicy",
-    "shipping_delivery": "Frakt och leverans",
-    "returns_exchanges": "Returer och byten"
-  },
-  "reviews": {
-    "title": "Kundrecensioner",
-    "list": "Lista över kundrecensioner",
-    "review": "Kundrecension",
-    "verified_buyer": "Verifierad köpare"
-  },
-  "header": { "free_shipping": "Fri frakt över 499 kr" },
-  "footer": {
-    "shop": "Butik",
-    "collections": "Kollektioner",
-    "about": "Om oss",
-    "customer_service": "Kundservice"
-  }
-}
+{}

@@ -1,7 +1,7 @@
 <div class="product__block product__block--collapsible_tab source-product-accordion source-product-accordion--upward{% if mobile_only %} source-product-mobile-only{% endif %}">
   <details id="SourceProductDetails-{{ product.id }}" class="accordion-details" is="accordion-group">
     <summary class="accordion-details__summary flex items-center justify-between">
-      <h2 class="h5 inline-richtext">Produktdetaljer</h2>
+      <h2 class="h5 inline-richtext">Product Details</h2>
       <span class="source-product-accordion-icon" aria-hidden="true"></span>
     </summary>
     <div id="SourceProductDetailsContent-{{ product.id }}" class="accordion-details__content rte text-subtext accordion-product-details">
@@ -12,14 +12,14 @@
 <div class="product__block product__block--collapsible_tab source-product-accordion source-product-accordion--downward{% if mobile_only %} source-product-mobile-only{% endif %}">
   <details id="SourceProductShipping-{{ product.id }}" class="accordion-details" is="accordion-group">
     <summary class="accordion-details__summary flex items-center justify-between">
-      <h2 class="h5 inline-richtext">Leverans och returer</h2>
+      <h2 class="h5 inline-richtext">Shipping and Returns</h2>
       <span class="source-product-accordion-icon" aria-hidden="true"></span>
     </summary>
     <div id="SourceProductShippingContent-{{ product.id }}" class="accordion-details__content rte text-subtext">
-      <h3>Leverans</h3>
-      <ul><li><strong>{{ 'product.shipping_cost' | t }}:</strong> {{ 'product.shipping_cost_value' | t }}</li><li><strong>{{ 'product.security' | t }}:</strong> {{ 'product.security_value' | t }}</li><li><strong>{{ 'product.delivery_time' | t }}:</strong> {{ 'product.delivery_time_value' | t }}</li></ul>
-      <h3>Returer och byten</h3>
-      <p>Du kan returnera eller byta din beställning inom 30 dagar från mottagandet. Personliga produkter kan inte returneras om de inte är defekta.</p>
+      <h3>Shipping &amp; Delivery</h3>
+      <ul><li><strong>Shipping Costs:</strong> Free worldwide shipping on orders over €49.</li><li><strong>Security:</strong> Safe and fast shipping including tracking.</li><li><strong>Delivery Time:</strong> 2–5 business days worldwide.</li></ul>
+      <h3>Returns &amp; Exchanges</h3>
+      <p>You can return or exchange your order within 30 days of receipt. Personalized products are excluded from return unless defective.</p>
     </div>
   </details>
 </div>

@@ -1,12 +1,8 @@
 {{ 'source-product-followup.css' | asset_url | stylesheet_tag }}
 
-{%- comment -%}
-  Use the product's scene/lifestyle image by default (second image). The
-  section image picker still takes precedence when an editor chooses one.
-{%- endcomment -%}
-{% assign showcase_image = section.settings.image | default: product.images[1] | default: product.featured_image %}
+{% assign showcase_image = section.settings.image | default: product.featured_image %}
 
-<section class="spf-showcase" aria-label="Produkt i miljö">
+<section class="spf-showcase" aria-label="Kunstwerk im Wohnraum">
   <div class="spf-showcase__media">
     {% if showcase_image != blank %}
       {{ showcase_image
