@@ -92,6 +92,30 @@
         box-shadow: none !important;
         text-shadow: none !important;
       }
+      /* Hide the brand/retailer banner on product details. */
+      .spx-product__brands {
+        display: none !important;
+      }
+      /* Four remaining manual frame choices fill the row evenly after Gold is removed. */
+      .spx-product .spx-product__frame-options {
+        gap: 8px !important;
+        overflow-x: visible !important;
+      }
+      .spx-product .spx-product__frame-options .spx-product__frame-option {
+        width: calc((100% - 24px) / 4) !important;
+        min-width: 0 !important;
+        flex: 0 0 calc((100% - 24px) / 4) !important;
+      }
+      @media (max-width: 767px) {
+        .spx-product .spx-product__frame-options {
+          gap: 7px !important;
+        }
+        .spx-product .spx-product__frame-options .spx-product__frame-option {
+          width: calc((100% - 21px) / 4) !important;
+          min-width: 0 !important;
+          flex-basis: calc((100% - 21px) / 4) !important;
+        }
+      }
     </style>
   </body>
 </html>
