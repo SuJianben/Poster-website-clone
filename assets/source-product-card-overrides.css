@@ -28,3 +28,20 @@
 .product-card__title + .product-card__material {
   margin-top: 0 !important;
 }
+
+/* Deal badges use the same corner radius as the product-card image shell. */
+.f-badge--sale {
+  border-radius: var(--pcard-radius, 1rem) !important;
+}
+
+/* Keep the hot-selling badge crisp and minimal across homepage and collection
+   shelves: solid black with no outline or shadow. */
+.f-badge--trending {
+  color: #fff !important;
+  border: 0 !important;
+  border-color: transparent !important;
+  background: #000 !important;
+  background-color: #000 !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}

@@ -8,7 +8,7 @@
       <div class="section__wrapper" is="product-tabs" data-section-id="{{ section.id }}">
         <div class="section__header s__header rich-text rich-text--tight md:text-center text-center flex flex-col md:items-center">
           <div class="section__header--text s__header--text rich-text rich-text--tight flex-1">
-            <h2 class="rich-text__heading inline-richtext hd2"><motion-element data-motion="fade-up" data-motion-delay="50" class="block">{{ section.settings.heading_prefix }} <em is="highlight-text" class="highlight-text relative inline-block font-normal highlight-text--thick-underline animate" style="--hl-style-color: 204, 45, 82, 1.0;">{{ section.settings.heading_highlight }}</em> {{ section.settings.heading_suffix }}</motion-element></h2>
+            <h2 class="rich-text__heading inline-richtext hd2"><motion-element data-motion="fade-up" data-motion-delay="50" class="block">{{ section.settings.heading_prefix }} <em is="highlight-text" class="highlight-text relative inline-block font-normal highlight-text--thick-underline animate" style="--hl-style-color: 9, 205, 169, 0.97;">{{ section.settings.heading_highlight }}</em> {{ section.settings.heading_suffix }}</motion-element></h2>
             {% if section.settings.promotion_text != blank %}<motion-element class="rich-text__button block" data-motion="fade-up" data-motion-delay="100"><a class="btn btn--underline btn--with-icon" href="{{ section.settings.promotion_link }}"><span class="btn__text">{{ section.settings.promotion_text }}</span><span class="btn__icon order-last svg-icon svg-icon--caret-right icon--small icon--thick inline-flex"><svg class="icon icon-caret-right" viewBox="0 0 20 20" fill="none"><path d="M7.5 3.75L13.75 10L7.5 16.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></motion-element>{% endif %}
           </div>
           <motion-element class="section__header--buttons flex-1 block" data-motion="fade-up" data-motion-delay="150"><div class="tabs-nav swipe-mobile swipe-mobile--auto-cols no-js-hidden"><div class="tabs-nav__inner flex flex-wrap md:justify-center swipe-mobile__inner" role="tablist">
@@ -43,7 +43,7 @@
   </div>
   <section class="source-mobile-canvas-deals" data-mobile-canvas-deals>
     <header class="source-mobile-canvas-deals__header">
-      <h2>{{ section.settings.heading_prefix }} <em is="highlight-text" class="highlight-text relative inline-block font-normal highlight-text--thick-underline animate" style="--hl-style-color: 204, 45, 82, 1.0;">{{ section.settings.heading_highlight }}</em> {{ section.settings.heading_suffix }}</h2>
+      <h2>{{ section.settings.heading_prefix }} <em is="highlight-text" class="highlight-text relative inline-block font-normal highlight-text--thick-underline animate" style="--hl-style-color: 9, 205, 169, 0.97;">{{ section.settings.heading_highlight }}</em> {{ section.settings.heading_suffix }}</h2>
       {% if section.settings.promotion_text != blank %}
         <a class="source-mobile-canvas-deals__promo-link" href="{{ section.settings.promotion_link }}">{{ section.settings.promotion_text }} <span aria-hidden="true">›</span></a>
       {% endif %}

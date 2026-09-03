@@ -324,7 +324,19 @@ product-info.source-product {
   text-transform: uppercase;
   text-shadow: 0 1px 2px rgba(0, 0, 0, .3);
 }
-.f-badge--trending { color: #fff; border-color: #ff4d4d; background: #b90e0a; box-shadow: 0 0 10px rgba(185, 14, 10, .4); }
+.f-badge--trending {
+  color: #fff;
+  border: 0 !important;
+  background: #000 !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+/* Keep sale badges aligned with the rounded product-card corners everywhere,
+   including the homepage canvas-deals shelf and collection shelves. */
+.f-badge--sale {
+  border-radius: var(--pcard-radius, 1rem) !important;
+}
 .f-badge--bestseller { color: #000; border: 1px solid #b38728; background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c); background-size: 200% 200%; animation: source-product-gold-shine 4s ease infinite; }
 .f-badge--limited-edition,
 .f-badge--personalisierbar { color: #fff; border-color: #333; background: #000; box-shadow: 0 2px 5px rgba(0, 0, 0, .3); }
@@ -374,11 +386,6 @@ product-info.source-product {
 .source-product-shipping { margin: 8px 0 0; color: #666; font-size: 13px; }
 .product__block--meta { margin-bottom: 0 !important; }
 .product__block--price { margin-top: 18px !important; }
-.product__block--variant_picker { margin-top: 12px !important; }
-.source-product variant-selects { display: flex !important; flex-direction: column !important; }
-.source-product variant-selects > .source-size-options { order: 1 !important; }
-.source-product variant-selects > .source-frame-options { order: 2 !important; }
-.source-product variant-selects > .source-material-options { order: 0 !important; }
 
 .source-product .product-form__input {
   position: relative;
