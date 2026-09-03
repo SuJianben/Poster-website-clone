@@ -293,6 +293,12 @@
           const names = { Size: 'Storlek', 'Premium Frame': 'Premiumram', Frame: 'Ram', 'Hanging kit': 'Upph&auml;ngningskit' };
           if (names[key]) label.textContent = decode(names[key]) + ':';
         });
+        item.querySelectorAll('.cart-item__option-value').forEach((row) => {
+          const values = { Gold: 'Guld', Black: 'Svart', White: 'Vit', 'No frame': 'Ingen ram' };
+          const valueNode = Array.from(row.childNodes).find((node) => node.nodeType === Node.TEXT_NODE && node.textContent.trim());
+          const rawValue = valueNode?.textContent.trim();
+          if (valueNode && values[rawValue]) valueNode.textContent = ' ' + decode(values[rawValue]);
+        });
       });
 
       const promotion = this.querySelector('[data-source-cart-promotion]');
