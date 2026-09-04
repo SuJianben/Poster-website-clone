@@ -1,6 +1,8 @@
 (() => {
   const ROOT_SELECTOR = 'favorite-products[data-enable-slider="true"]';
   const TRANSITION_MS = 300;
+  const SLIDE_DURATION_MS = 520;
+  const SLIDE_EASING = 'cubic-bezier(0.22, 1, 0.36, 1)';
 
   function slidesFor(root, selector) {
     return Array.from(root.querySelectorAll(`${selector} > .swiper-wrapper > .swiper-slide:not([hidden])`));
@@ -18,6 +20,11 @@
       root.querySelector('.favorite-products__products > .swiper-wrapper'),
       root.querySelector('.favorite-products__media .swiper-wrapper'),
     ].filter(Boolean).forEach((track) => {
+      const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+      track.style.transition = reduceMotion
+        ? 'none'
+        : `transform ${SLIDE_DURATION_MS}ms ${SLIDE_EASING}`;
+      track.style.willChange = 'transform';
       track.style.transform = `translate3d(-${nextIndex * 100}%, 0, 0)`;
     });
 
