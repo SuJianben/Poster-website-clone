@@ -29,8 +29,8 @@
       "type": "source-header",
       "settings": {
         "enabled": true,
-        "logo_width": 400,
-        "logo_width_mobile": 200,
+        "logo_width": 280,
+        "logo_width_mobile": 60,
         "logo_link": "",
         "search_placeholder": "Vad söker du?",
         "menu": "main-menu"
