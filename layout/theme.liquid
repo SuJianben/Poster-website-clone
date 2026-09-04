@@ -71,11 +71,24 @@
           --header-grid-template: "icons-left logo icons" / auto minmax(0, 1fr) auto !important;
         }
 
-        /* Predictive search is replaced by the dedicated mobile search UI;
-           leaving its grid cell visible creates the large blank band above
-           the logo and icons. */
+        /* Keep the predictive-search panel available for the mobile search
+           trigger, but take it out of the header grid so it cannot reserve a
+           blank row above the logo. */
         .header-section .header__top .header__search {
-          display: none !important;
+          display: block !important;
+          position: absolute !important;
+          inset: 0 !important;
+          z-index: 4 !important;
+          padding: 0 !important;
+          visibility: hidden;
+          opacity: 0;
+          pointer-events: none;
+        }
+
+        .header-section .header__top .header__search.mobile-search-active {
+          visibility: visible;
+          opacity: 1;
+          pointer-events: auto;
         }
 
         .header-section .header__bottom {
