@@ -65,6 +65,17 @@
         .header-section .header__top {
           --section-padding-top: 8px !important;
           --section-padding-bottom: 8px !important;
+          --section-padding-top-mobile: 8px !important;
+          --section-padding-bottom-mobile: 8px !important;
+          /* The reference mobile header is a single compact row. */
+          --header-grid-template: "icons-left logo icons" / auto minmax(0, 1fr) auto !important;
+        }
+
+        /* Predictive search is replaced by the dedicated mobile search UI;
+           leaving its grid cell visible creates the large blank band above
+           the logo and icons. */
+        .header-section .header__top .header__search {
+          display: none !important;
         }
 
         .header-section .header__bottom {
