@@ -666,11 +666,12 @@ cart-drawer[hidden] {
 .cart-drawer .payment-icons {
   align-items: center;
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  column-gap: 7px;
-  row-gap: 6px;
+  grid-template-columns: repeat(5, 38px);
+  justify-content: center;
+  column-gap: 4px;
+  row-gap: 4px;
   overflow: visible;
-  padding: 0 4px;
+  padding: 0;
 }
 
 .cart-drawer .payment-icons span {
