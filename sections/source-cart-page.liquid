@@ -7,7 +7,7 @@
 
 <section class="scc-cart" data-scc-cart data-cart-count="{{ cart.item_count }}" data-section-id="{{ section.id }}">
   <div class="scc-cart__wrap">
-    <nav class="scc-cart__crumbs" aria-label="Breadcrumb"><a href="{{ routes.root_url }}">Start</a><span>Dein Warenkorb</span></nav>
+    <nav class="scc-cart__crumbs" aria-label="Brödsmulor"><a href="{{ routes.root_url }}">Hem</a><span>Din kundvagn</span></nav>
 
     <h1 class="scc-cart__title">Ihr Warenkorb <span>({{ cart.item_count }})</span></h1>
 
@@ -34,7 +34,7 @@
             {% endfor %}
           </div>
           <aside class="scc-cart__summary">
-            <div class="scc-cart__shipping"><strong>{% if cart.total_price >= 4900 %}Du hast Anspruch auf kostenlosen Versand.{% else %}Noch {{ 4900 | minus: cart.total_price | money }} bis zum kostenlosen Versand.{% endif %}</strong><span><i style="width:{% if cart.total_price >= 4900 %}100{% else %}{{ cart.total_price | times: 100 | divided_by: 4900 }}{% endif %}%"></i></span></div>
+            <div class="scc-cart__shipping"><strong>{% if cart.total_price >= 4900 %}Du har fri frakt.{% else %}Handla för {{ 4900 | minus: cart.total_price | money }} till för att få fri frakt.{% endif %}</strong><span><i style="width:{% if cart.total_price >= 4900 %}100{% else %}{{ cart.total_price | times: 100 | divided_by: 4900 }}{% endif %}%"></i></span></div>
             <div class="scc-cart__subtotal"><strong>Zwischensumme</strong><b>{{ cart.total_price | money }}</b></div>
             <p>Steuer inbegriffen. <a href="{{ routes.cart_url }}">Versand</a> und Rabatte werden im nächsten Schritt berechnet.</p>
             <button class="scc-cart__checkout" type="submit" name="checkout">Sicher Zur Kasse <span>›</span></button>
@@ -45,12 +45,12 @@
     {% endif %}
 
     {% if recommendation_collection.products_count > 0 %}
-      <section class="scc-cart__recommendations" aria-label="Empfohlene Produkte">
+      <section class="scc-cart__recommendations" aria-label="Rekommenderade produkter">
         <div class="scc-cart__recommendation-viewport" data-scc-recommendation-viewport><div class="scc-cart__recommendation-track" data-scc-recommendation-track>
           {% for product in recommendation_collection.products limit: section.settings.max_recommendations %}
             <a class="scc-cart__recommendation" href="{{ product.url }}">
               <span class="scc-cart__recommendation-image">{% if product.featured_image %}{{ product.featured_image | image_url: width: 720 | image_tag: loading: 'lazy', widths: '360, 540, 720', alt: product.title }}{% endif %}</span>
-              {% if forloop.index == 1 %}<em>TRENDING</em>{% elsif forloop.index == 2 %}<em>PERSONALISIERBAR</em>{% elsif product.compare_at_price > product.price %}<em>-{{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price }}%</em>{% endif %}
+              {% if forloop.index == 1 %}<em>POPULÄRT</em>{% elsif forloop.index == 2 %}<em>PERSONLIGT MOTIV</em>{% elsif product.compare_at_price > product.price %}<em>-{{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price }}%</em>{% endif %}
               <small>{{ product.vendor | default: 'ATELIER EXCLUSIVE' }}</small><strong>{{ product.title }}</strong><span class="scc-cart__recommendation-type">{{ product.type | default: 'POSTERS' }}</span><b>Ab {{ product.price | money }}</b>
             </a>
           {% endfor %}

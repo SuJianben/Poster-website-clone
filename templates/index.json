@@ -18,9 +18,9 @@
         "link": "shopify://collections/儿童手绘",
         "link_label": "",
         "product": "snappy-friends-print",
-        "primary_badge": "Trending",
-        "secondary_badge": "Limited Edition",
-        "price_prefix": "Ab"
+        "primary_badge": "Populärt",
+        "secondary_badge": "Begränsad upplaga",
+        "price_prefix": "Från"
       }
     },
     "promotion": {
@@ -37,7 +37,7 @@
         "text_ccfqfF": {
           "type": "text",
           "settings": {
-            "text": "123",
+            "text": "",
             "text_style": "h2"
           }
         },
@@ -52,7 +52,7 @@
         "text_j4eUQN": {
           "type": "text",
           "settings": {
-            "text": "666",
+            "text": "",
             "text_style": "h2"
           }
         },
@@ -67,14 +67,14 @@
         "text_aXaUQc": {
           "type": "text",
           "settings": {
-            "text": "666",
+            "text": "",
             "text_style": "h2"
           }
         },
         "text_MzbyFh": {
           "type": "text",
           "settings": {
-            "text": "666",
+            "text": "",
             "text_style": "h2"
           }
         }
@@ -112,7 +112,7 @@
           "settings": {
             "collection": "animal-friends",
             "custom_link": "",
-            "label": "Bestseller",
+            "label": "Bästsäljare",
             "promo_heading": "",
             "promo_button_label": "",
             "promo_link": ""
@@ -123,7 +123,7 @@
           "settings": {
             "collection": "dreamy-landscapes",
             "custom_link": "",
-            "label": "Personalisierbar",
+            "label": "Personliga motiv",
             "promo_heading": "",
             "promo_button_label": "",
             "promo_link": ""
@@ -134,7 +134,7 @@
           "settings": {
             "collection": "nature-garden",
             "custom_link": "",
-            "label": "Leinwand",
+            "label": "Canvas",
             "promo_heading": "",
             "promo_button_label": "",
             "promo_link": ""
@@ -145,7 +145,7 @@
           "settings": {
             "collection": "playful-objects-food",
             "custom_link": "",
-            "label": "Acrylglas",
+            "label": "Akrylglas",
             "promo_heading": "",
             "promo_button_label": "",
             "promo_link": ""
@@ -156,7 +156,7 @@
           "settings": {
             "collection": "vehicles-journeys",
             "custom_link": "",
-            "label": "Poster",
+            "label": "Postrar",
             "promo_heading": "",
             "promo_button_label": "",
             "promo_link": ""
@@ -185,8 +185,8 @@
       ],
       "settings": {
         "enabled": true,
-        "heading_prefix": "UNSERE",
-        "heading_highlight": "BESTSELLER",
+        "heading_prefix": "VÅRA",
+        "heading_highlight": "BÄSTSÄLJARE",
         "collection_label": "",
         "collection_button_link": ""
       }
@@ -198,9 +198,9 @@
           "type": "collection_tab",
           "settings": {
             "collection": "animal-friends",
-            "label": "Neuheiten Sale -20%",
-            "promo_heading": "ALLE NEUHEITEN -20%",
-            "promo_button_label": "ZUSCHLAGEN",
+            "label": "Nyheter rea −20%",
+            "promo_heading": "ALLA NYHETER −20%",
+            "promo_button_label": "HANDLA NU",
             "promo_link": "shopify://collections/wandbild-neuheiten-sale"
           }
         },
@@ -208,7 +208,7 @@
           "type": "collection_tab",
           "settings": {
             "collection": "playful-objects-food",
-            "label": "Bundles -15%",
+            "label": "Paket −15%",
             "promo_heading": "",
             "promo_button_label": "",
             "promo_link": "shopify://collections/wandbilder-bundles"
@@ -221,12 +221,12 @@
       ],
       "settings": {
         "enabled": true,
-        "heading_prefix": "LEINWAND",
-        "heading_highlight": "DEALS",
-        "heading_suffix": "SHOPPEN %",
-        "promotion_text": "20% auf alle Leinwand Neuheiten und mehr",
+        "heading_prefix": "CANVAS",
+        "heading_highlight": "ERBJUDANDEN",
+        "heading_suffix": "SHOPPA −20%",
+        "promotion_text": "20 % rabatt på alla nya canvasmotiv och mer",
         "promotion_link": "",
-        "collection_label": "Zur Kollektion"
+        "collection_label": "Till kollektionen"
       }
     },
     "gallery": {
@@ -238,7 +238,7 @@
             "image": "shopify://shop_images/001-3.jpg",
             "image_url": "",
             "avatar_url": "",
-            "name": "哇哇哇哇",
+            "name": "Kundfavorit",
             "reference_name": "Mo Vlogs",
             "link": ""
           }
@@ -249,7 +249,7 @@
             "image": "shopify://shop_images/001-4.jpg",
             "image_url": "",
             "avatar_url": "",
-            "name": "哇哇哇哇",
+            "name": "Kundfavorit",
             "reference_name": "Die Geissens",
             "link": ""
           }
@@ -260,7 +260,7 @@
             "image": "shopify://shop_images/002-4.jpg",
             "image_url": "",
             "avatar_url": "",
-            "name": "哇哇哇哇",
+            "name": "Kundfavorit",
             "reference_name": "Knossi",
             "link": ""
           }
@@ -271,7 +271,7 @@
             "image": "shopify://shop_images/004-4.jpg",
             "image_url": "",
             "avatar_url": "",
-            "name": "哇哇哇哇",
+            "name": "Kundfavorit",
             "reference_name": "Jeremy Fragrance",
             "link": ""
           }
@@ -282,7 +282,7 @@
             "image": "shopify://shop_images/008-4.jpg",
             "image_url": "",
             "avatar_url": "",
-            "name": "哇哇哇哇",
+            "name": "Kundfavorit",
             "reference_name": "Torben Platzer",
             "link": ""
           }
@@ -293,7 +293,7 @@
             "image": "shopify://shop_images/015-4.jpg",
             "image_url": "",
             "avatar_url": "",
-            "name": "哇哇哇哇",
+            "name": "Kundfavorit",
             "reference_name": "Philip Hopf",
             "link": ""
           }
@@ -309,9 +309,9 @@
       ],
       "settings": {
         "enabled": true,
-        "rating_text": "★★★★★ 2.500+ 5-Sterne Bewertungen",
-        "heading_highlight": "Über 60.000",
-        "heading_suffix": "glückliche Kunden"
+        "rating_text": "★★★★★ 2 500+ recensioner med 5 stjärnor",
+        "heading_highlight": "Över 60 000",
+        "heading_suffix": "nöjda kunder"
       }
     },
     "personal": {
@@ -321,7 +321,7 @@
           "type": "collection_tab",
           "settings": {
             "collection": "kids-wall-art",
-            "label": "Dein Eigenes Foto",
+            "label": "Ditt eget foto",
             "promo_heading": "",
             "promo_button_label": "",
             "promo_link": ""
@@ -331,7 +331,7 @@
           "type": "collection_tab",
           "settings": {
             "collection": "animal-friends",
-            "label": "Dein Haustier Portrait",
+            "label": "Porträtt av ditt husdjur",
             "promo_heading": "",
             "promo_button_label": "",
             "promo_link": ""
@@ -351,7 +351,7 @@
           "type": "collection_tab",
           "settings": {
             "collection": "playful-objects-food",
-            "label": "Magazin Edition",
+            "label": "Magasin Edition",
             "promo_heading": "",
             "promo_button_label": "",
             "promo_link": ""
@@ -361,7 +361,7 @@
           "type": "collection_tab",
           "settings": {
             "collection": "vehicles-journeys",
-            "label": "Starter Pack Edition",
+            "label": "Startpaket Edition",
             "promo_heading": "",
             "promo_button_label": "",
             "promo_link": ""
@@ -371,7 +371,7 @@
           "type": "collection_tab",
           "settings": {
             "collection": "abstract-colorful",
-            "label": "Auftragsarbeit bestellen",
+            "label": "Beställ ett specialverk",
             "promo_heading": "",
             "promo_button_label": "",
             "promo_link": ""
@@ -388,12 +388,12 @@
       ],
       "settings": {
         "enabled": true,
-        "eyebrow": "Mit jedem Bild erzählst du deine ganz eigene Geschichte.",
-        "heading_prefix": "DEIN PERSÖNLICHES",
-        "heading_highlight": "MEISTERWERK",
-        "link_label": "Zu Allen Personalisierbaren Motiven",
+        "eyebrow": "Varje bild berättar din alldeles egna historia.",
+        "heading_prefix": "DITT PERSONLIGA",
+        "heading_highlight": "MÄSTERVERK",
+        "link_label": "Se alla personliga motiv",
         "link": "shopify://collections/all",
-        "collection_label": "Zur Kollektion"
+        "collection_label": "Till kollektionen"
       }
     },
     "artists": {
@@ -459,12 +459,12 @@
       ],
       "settings": {
         "enabled": true,
-        "eyebrow": "Mit jedem Verkauf wird der Künstler unterstützt",
-        "heading_prefix": "DESIGNED VON ECHTEN",
-        "heading_highlight": "KÜNSTLERN",
-        "link_label": "Zu Allen Künstlern",
+        "eyebrow": "Varje köp stöttar konstnären",
+        "heading_prefix": "DESIGNAT AV ÄKTA",
+        "heading_highlight": "KONSTNÄRER",
+        "link_label": "Se alla konstnärer",
         "link": "shopify://collections/all",
-        "collection_label": "Zur Kollektion"
+        "collection_label": "Till kollektionen"
       }
     },
     "collection-list": {
@@ -476,7 +476,7 @@
             "collection": "kids-wall-art",
             "image": "shopify://shop_images/072-4.jpg",
             "image_url": "",
-            "label": "Motivierende Wandbilder"
+            "label": "Inspirerande väggkonst"
           }
         },
         "collection_religion": {
@@ -485,7 +485,7 @@
             "collection": "kids-wall-art",
             "image": "shopify://shop_images/090-4.jpg",
             "image_url": "",
-            "label": "Religiöse Wandbilder"
+            "label": "Religiös väggkonst"
           }
         },
         "collection_crypto": {
@@ -494,7 +494,7 @@
             "collection": "floral-posters",
             "image": "shopify://shop_images/089-4.jpg",
             "image_url": "",
-            "label": "Crypto Wandbilder"
+            "label": "Kryptokonst"
           }
         },
         "collection_auto": {
@@ -503,7 +503,7 @@
             "collection": "landscape-posters",
             "image": "shopify://shop_images/088-4.jpg",
             "image_url": "",
-            "label": "Auto Wandbilder"
+            "label": "Bilmotiv"
           }
         },
         "collection_abstract": {
@@ -512,7 +512,7 @@
             "collection": "movie-posters",
             "image": "shopify://shop_images/087-2.jpg",
             "image_url": "",
-            "label": "Abstrakte Wandbilder"
+            "label": "Abstrakt väggkonst"
           }
         },
         "collection_pop_art": {
@@ -521,7 +521,7 @@
             "collection": "still-life-posters",
             "image": "shopify://shop_images/083-4.jpg",
             "image_url": "",
-            "label": "Pop Art Wandbilder"
+            "label": "Pop art-väggkonst"
           }
         },
         "collection_blattgold": {
@@ -530,7 +530,7 @@
             "collection": "time-series-posters",
             "image": "shopify://shop_images/079-4.jpg",
             "image_url": "",
-            "label": "Blattgold Wandbilder"
+            "label": "Bladguldsverk"
           }
         }
       },
@@ -545,8 +545,8 @@
       ],
       "settings": {
         "enabled": true,
-        "heading_prefix": "MEHR",
-        "heading_highlight": "KOLLEKTIONEN"
+        "heading_prefix": "FLER",
+        "heading_highlight": "KOLLEKTIONER"
       }
     },
     "grid-banner": {
@@ -637,8 +637,8 @@
       ],
       "settings": {
         "enabled": true,
-        "heading": "Eindrücke und Inspiration der Community",
-        "button_label": "Zu Allen Bewertungen",
+        "heading": "Intryck och inspiration från vår community",
+        "button_label": "Se alla recensioner",
         "button_link": "shopify://collections/all"
       }
     },
@@ -648,8 +648,8 @@
         "slide_Mbr6hk": {
           "type": "slide",
           "settings": {
-            "title": "Wunderschön und farbenfroh",
-            "body": "Das Poster bringt sofort gute Laune ins Kinderzimmer.",
+            "title": "Vackert och färgstarkt",
+            "body": "Postern sprider genast glädje i barnrummet.",
             "customer_name": "Anna L.",
             "customer_location": "Stockholm",
             "product": "kids-abstract-color-patches-079",
@@ -659,8 +659,8 @@
         "slide_kQGGqG": {
           "type": "slide",
           "settings": {
-            "title": "Perfekt fürs Kinderzimmer",
-            "body": "Tolle Qualität und eine schnelle Lieferung. Wir sind begeistert!",
+            "title": "Perfekt för barnrummet",
+            "body": "Fantastisk kvalitet och snabb leverans. Vi är överlyckliga!",
             "customer_name": "Lisa M.",
             "customer_location": "Göteborg",
             "product": "kids-bedside-lamp-044",
@@ -670,8 +670,8 @@
         "slide_VtL3eQ": {
           "type": "slide",
           "settings": {
-            "title": "Ein echter Lieblingsplatz",
-            "body": "Unser Kind liebt die bunten Details – ein wunderschöner Blickfang.",
+            "title": "En riktig favoritplats",
+            "body": "Vårt barn älskar de färgglada detaljerna – en underbar blickfångare.",
             "customer_name": "Maja S.",
             "customer_location": "Malmö",
             "product": "kids-bicycle-060",
@@ -686,7 +686,7 @@
       ],
       "settings": {
         "enabled": true,
-        "heading": "Lieblingsprodukte unserer Kunden"
+        "heading": "Våra kunders favoritprodukter"
       }
     },
     "announcement": {
@@ -695,11 +695,11 @@
         "review_ihYkDH": {
           "type": "review",
           "settings": {
-            "date": "24144",
+            "date": "2026-06-21",
             "rating": 5,
-            "title": "12412412",
-            "message": "51512521",
-            "author": "125125125",
+            "title": "Fantastisk poster",
+            "message": "Precis som jag föreställde mig. Snabb leverans och väl förpackad.",
+            "author": "Rene B.",
             "product": "nord-projects-8am",
             "link": ""
           }
@@ -707,11 +707,11 @@
         "review_4zedEa": {
           "type": "review",
           "settings": {
-            "date": "12313",
+            "date": "2026-06-18",
             "rating": 5,
-            "title": "123123",
-            "message": "1231312",
-            "author": "123123123",
+            "title": "Så nöjd",
+            "message": "Färgerna är fantastiska och kvaliteten över förväntan.",
+            "author": "Anna L.",
             "product": "nord-projects-8am",
             "link": ""
           }
@@ -719,11 +719,11 @@
         "review_VEJhPV": {
           "type": "review",
           "settings": {
-            "date": "12313",
+            "date": "2026-06-15",
             "rating": 5,
-            "title": "123123",
-            "message": "1231312",
-            "author": "123123123",
+            "title": "Snabb leverans",
+            "message": "Enkel beställning och tavlan kom fram snabbt och säkert.",
+            "author": "Mikael S.",
             "product": "nord-projects-8am",
             "link": ""
           }
@@ -731,11 +731,11 @@
         "review_zb8dDc": {
           "type": "review",
           "settings": {
-            "date": "12313",
+            "date": "2026-06-12",
             "rating": 5,
-            "title": "123123",
-            "message": "1231312",
-            "author": "123123123",
+            "title": "Vacker på väggen",
+            "message": "Ett fint tillskott i vårt hem. Rekommenderas varmt!",
+            "author": "Sofia K.",
             "product": "nord-projects-8am",
             "link": ""
           }
@@ -743,11 +743,11 @@
         "review_QmjKnC": {
           "type": "review",
           "settings": {
-            "date": "12313",
+            "date": "2026-06-10",
             "rating": 5,
-            "title": "123123",
-            "message": "1231312",
-            "author": "123123123",
+            "title": "Hög kvalitet",
+            "message": "Trycket är skarpt och färgerna är precis som på bilden.",
+            "author": "Erik N.",
             "product": "nord-projects-8am",
             "link": ""
           }

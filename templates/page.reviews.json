@@ -16,15 +16,15 @@
           "type": "review",
           "settings": {
             "enabled": true,
-            "reviewer": "Customer name",
+            "reviewer": "Kundnamn",
             "review_date": "",
             "rating": 5,
-            "title": "Review title",
-            "body": "Add the customer's review here.",
+            "title": "Recensionens rubrik",
+            "body": "Skriv kundens recension här.",
             "product": "",
             "product_name": "",
             "verified": true,
-            "verified_label": "Verified Buyer",
+            "verified_label": "Verifierad köpare",
             "country": "",
             "image_1": "shopify://shop_images/AcrylglasbildSaveWaterDrinkChampagneOriginalPopArtBild12.jpg",
             "image_1_url": "",
@@ -36,17 +36,17 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Bewertungen"
+            "heading": "Kundrecensioner"
           }
         },
         "hero": {
           "type": "hero",
           "settings": {
             "image_url": "",
-            "alt": "Customer artwork and reviews",
-            "aria_label": "Unsere Glücklichen Kunden",
-            "heading": "Unsere Glücklichen Kunden",
-            "subheading": "<p>Echte Bewertungen, Echte Inspiration</p>",
+            "alt": "Kundernas konst och recensioner",
+            "aria_label": "Våra nöjda kunder",
+            "heading": "Våra nöjda kunder",
+            "subheading": "<p>Äkta recensioner, äkta inspiration</p>",
             "show_highlight": true,
             "highlight_color": "#a18d34"
           }
@@ -55,7 +55,7 @@
           "type": "summary",
           "settings": {
             "heading": "",
-            "accessible_heading": "Customer Reviews",
+            "accessible_heading": "Kundrecensioner",
             "review_count": "2626",
             "average_rating": "4,9",
             "use_custom_summary": true,
@@ -66,11 +66,11 @@
           "type": "reviews",
           "settings": {
             "heading": "",
-            "aria_label": "Customer review list",
+            "aria_label": "Lista över kundrecensioner",
             "review_count": "2625",
             "append_to_existing": true,
             "show_write": true,
-            "write_heading": "Write a review",
+            "write_heading": "Skriv en recension",
             "contact_url": ""
           }
         }
@@ -83,8 +83,8 @@
         "reviews"
       ],
       "settings": {
-        "page_label": "Bewertungen",
-        "write_heading": "Write a review",
+        "page_label": "Kundrecensioner",
+        "write_heading": "Skriv en recension",
         "contact_url": "",
         "default_filter": "recent",
         "reviews_per_page": 12

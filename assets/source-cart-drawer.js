@@ -359,7 +359,7 @@
         promotion = document.createElement('section');
         promotion.className = 'source-cart-promotion';
         promotion.dataset.sourceCartPromotion = '';
-        promotion.setAttribute('aria-label', 'Mengenangebote');
+        promotion.setAttribute('aria-label', 'Mängdrabatter');
         promotion.innerHTML = '<div class="source-cart-promotion__container">' +
           '<div class="source-cart-promotion__text-wrapper"><span class="source-cart-promotion__copy"></span></div>' +
           '<div class="source-cart-promotion__bar-wrapper">' +
@@ -383,8 +383,8 @@
       const nextGoal = tiers.find((tier) => itemCount < tier.quantity);
       if (copy) {
         copy.textContent = !nextGoal
-          ? 'Sie haben sich den maximalen Mengenrabatt gesichert.'
-          : 'Kaufen Sie ' + Math.max(1, nextGoal.quantity - itemCount) + ' weitere Artikel, um ' + nextGoal.discount + '% Rabatt 🏷️ zu erhalten.';
+          ? 'Du har nått maximal mängdrabatt.'
+          : 'Köp ' + Math.max(1, nextGoal.quantity - itemCount) + ' artiklar till för att få ' + nextGoal.discount + '% rabatt 🏷️.';
       }
 
       const goals = tiers.map((tier) => {

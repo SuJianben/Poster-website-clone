@@ -12,8 +12,8 @@
     "main": {
       "type": "source-review-write",
       "settings": {
-        "title": "Write a Review",
-        "heading": "Kundenbewertungen",
+        "title": "Skriv en recension",
+        "heading": "Kundrecensioner",
         "review_count": "2625",
         "apps_script_endpoint": "https://script.google.com/macros/s/AKfycbzi-ZdiFDrP7YVr2nwLZPPXX5XhTvg0fj_k3ktU4jexZLzwNBZq_TbZeG3OhXviiqPX/exec"
       }

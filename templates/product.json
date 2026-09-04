@@ -15,20 +15,20 @@
         "top_badge": {
           "type": "top_badge",
           "settings": {
-            "text": "Trending"
+            "text": "Populärt"
           }
         },
         "brand_banner": {
           "type": "brand_banner",
           "settings": {
-            "text": "und 60.000+ Kunden lieben unsere Premium Wandbilder."
+            "text": "Över 60 000 kunder älskar vår premiumväggkonst."
           }
         },
         "reviews": {
           "type": "reviews",
           "settings": {
             "count": "2,861",
-            "label": "Verifizierte Bewertungen"
+            "label": "Verifierade recensioner"
           }
         },
         "title": {
@@ -41,12 +41,12 @@
         "artist": {
           "type": "artist",
           "settings": {
-            "label": "Künstler:",
+            "label": "Konstnär:",
             "use_product_vendor": true,
             "name": "",
             "url": "",
             "show_atelier_badge": true,
-            "atelier_text": "ATELIER EXCLUSIVE"
+            "atelier_text": "ATELJÉ EXKLUSIV"
           }
         },
         "price": {
@@ -54,7 +54,7 @@
           "settings": {
             "use_product_price": true,
             "price_text": "$29.00",
-            "shipping_text": "Kostenloser Versand."
+            "shipping_text": "Fri frakt."
           }
         },
         "variant_picker": {
@@ -62,23 +62,23 @@
           "settings": {
             "picker_type": "button",
             "show_size_guide": true,
-            "size_guide_label": "SIZE GUIDE",
+            "size_guide_label": "STORLEKSGUIDE",
             "popular_size": "",
-            "popular_size_label": "Bestseller"
+            "popular_size_label": "Bästsäljare"
           }
         },
         "frame_picker": {
           "type": "frame_picker",
           "settings": {
             "enabled": true,
-            "heading": "Premium Frame",
-            "property_name": "Premium Frame",
+            "heading": "Premiumram",
+            "property_name": "Premiumram",
             "default_frame": "none",
-            "none_label": "No frame",
-            "white_label": "White",
-            "black_label": "Black",
+            "none_label": "Utan ram",
+            "white_label": "Vit",
+            "black_label": "Svart",
             "silver_label": "Silver",
-            "gold_label": "Gold",
+            "gold_label": "Guld",
             "none_image_url": "",
             "white_image_url": "",
             "black_image_url": "",
@@ -90,47 +90,47 @@
         "buy_button": {
           "type": "buy_button",
           "settings": {
-            "label": "Add To Cart",
+            "label": "Lägg i kundvagn",
             "show_hanging_kit": true,
-            "hanging_kit_heading": "Optional",
-            "hanging_kit_label": "Hanging kit",
+            "hanging_kit_heading": "Tillval",
+            "hanging_kit_label": "Upphängningskit",
             "hanging_kit_note": "",
-            "hanging_kit_property_name": "Hanging kit",
-            "hanging_kit_property_value": "Yes",
+            "hanging_kit_property_name": "Upphängningskit",
+            "hanging_kit_property_value": "Ja",
             "hanging_kit_variant_id": ""
           }
         },
         "volume_discount": {
           "type": "volume_discount",
           "settings": {
-            "heading": "🌞 SUMMER-SALE: Get more, save more! 🎉",
-            "note": "Can be combined with already discounted items!",
-            "quantity_heading": "Buy quantity",
-            "discount_heading": "Discount",
-            "tier_1_quantity": "Buy 1",
-            "tier_1_discount": "Get 5% off",
-            "tier_2_quantity": "Buy 2",
-            "tier_2_discount": "Get 10% off",
-            "tier_3_quantity": "Buy 3",
-            "tier_3_discount": "Get 15% off",
-            "tier_4_quantity": "Buy 4",
-            "tier_4_discount": "Get 20% off",
-            "tier_5_quantity": "Buy 5+",
-            "tier_5_discount": "Get 25% off"
+            "heading": "🌞 SOMMARREA: Köp mer, spara mer! 🎉",
+            "note": "Kan kombineras med redan nedsatta varor!",
+            "quantity_heading": "Antal",
+            "discount_heading": "Rabatt",
+            "tier_1_quantity": "Köp 1",
+            "tier_1_discount": "Få 5 % rabatt",
+            "tier_2_quantity": "Köp 2",
+            "tier_2_discount": "Få 10 % rabatt",
+            "tier_3_quantity": "Köp 3",
+            "tier_3_discount": "Få 15 % rabatt",
+            "tier_4_quantity": "Köp 4",
+            "tier_4_discount": "Få 20 % rabatt",
+            "tier_5_quantity": "Köp 5+",
+            "tier_5_discount": "Få 25 % rabatt"
           }
         },
         "benefits": {
           "type": "benefits",
           "settings": {
-            "benefit_1": "Immediately Ready to hang",
-            "benefit_2": "Free worldwide shipping over €49",
-            "benefit_3": "Estimated delivery: August 15 - August 17"
+            "benefit_1": "Klar att hängas upp direkt",
+            "benefit_2": "Fri frakt över 49 €",
+            "benefit_3": "Beräknad leverans: 15–17 augusti"
           }
         },
         "payment_trust": {
           "type": "payment_trust",
           "settings": {
-            "heading": "Accepted payment methods",
+            "heading": "Accepterade betalningsmetoder",
             "note": ""
           }
         }
@@ -150,23 +150,23 @@
         "payment_trust"
       ],
       "settings": {
-        "product_details_heading": "Product Details",
+        "product_details_heading": "Produktdetaljer",
         "product_details_content": "",
-        "shipping_returns_heading": "Shipping and Returns",
+        "shipping_returns_heading": "Leverans och returer",
         "shipping_returns_content": ""
       }
     },
     "source_benefits": {
       "type": "source-product-benefits",
       "settings": {
-        "benefit_1_title": "Premium Qualität",
-        "benefit_1_description": "Handgefertigt in deutscher Manufaktur mit zertifizierten Materialien.",
-        "benefit_2_title": "Zufrieden oder Geld zurück",
-        "benefit_2_description": "100 % Zufriedenheit oder Geld-zurück-Garantie.",
-        "benefit_3_title": "Free Shipping over 49€",
-        "benefit_3_description": "We ship your order quickly and extremely securely packed.",
-        "benefit_4_title": "30 Tage Rückgaberecht",
-        "benefit_4_description": "No ifs or buts – test your artwork completely risk-free."
+        "benefit_1_title": "Premiumkvalitet",
+        "benefit_1_description": "Handgjord med certifierade material.",
+        "benefit_2_title": "Nöjd eller pengarna tillbaka",
+        "benefit_2_description": "100 % nöjdhetsgaranti eller pengarna tillbaka.",
+        "benefit_3_title": "Fri frakt över 49 €",
+        "benefit_3_description": "Vi skickar din beställning snabbt och säkert förpackad.",
+        "benefit_4_title": "30 dagars returrätt",
+        "benefit_4_description": "Prova din tavla helt riskfritt – utan krångel."
       }
     },
     "source_showcase": {
@@ -241,7 +241,7 @@
         "media_logo_yahoo_finance"
       ],
       "settings": {
-        "heading": "Bekannt aus",
+        "heading": "Kända från",
         "section_link_label": "",
         "section_link": ""
       }
@@ -249,32 +249,32 @@
     "source_tabs": {
       "type": "source-product-tabs-content",
       "settings": {
-        "description_label": "Description",
-        "fair_label": "Fair Pricing",
-        "artist_label": "Artist Information",
-        "materials_label": "Material & Workmanship",
-        "shipping_label": "Shipping and Returns",
-        "security_label": "Security",
+        "description_label": "Beskrivning",
+        "fair_label": "Rättvist pris",
+        "artist_label": "Om konstnären",
+        "materials_label": "Material och hantverk",
+        "shipping_label": "Leverans och returer",
+        "security_label": "Säkerhet",
         "description_heading": "",
         "description_content": "",
         "show_signature": false,
         "signature_alt": "",
         "fair_gallery_price": "$1,000",
-        "fair_gallery_label": "Traditional\nGallery",
+        "fair_gallery_label": "Traditionellt\ngalleri",
         "fair_artwork_price": "$94",
         "fair_logo_alt": "",
-        "fair_heading": "Fair Pricing",
+        "fair_heading": "Rättvist pris",
         "fair_content": "",
         "artist_image_alt": "",
         "artist_heading": "",
         "artist_content": "",
-        "materials_main_alt": "Canvas material close-up",
-        "materials_second_alt": "Canvas stretcher frame close-up",
-        "materials_heading": "Details about Canvas Prints:",
+        "materials_main_alt": "Närbild av canvasmaterial",
+        "materials_second_alt": "Närbild av canvasram",
+        "materials_heading": "Detaljer om canvastryck:",
         "materials_content": "",
-        "shipping_delivery_heading": "Shipping & Delivery",
-        "shipping_delivery_content": "<ul><li><strong>Shipping Costs:</strong> Free worldwide shipping on orders over <strong>€49</strong>.</li><li><strong>Security:</strong> Safe and fast shipping including tracking.</li><li><strong>Delivery Time:</strong> 2–5 business days worldwide (may vary depending on product size and material).</li></ul><p><strong>International Shipping:</strong> Please note that deliveries outside the EU may be subject to customs duties or import taxes. These costs are levied by the destination country and are the responsibility of the recipient.</p>",
-        "shipping_returns_heading": "Returns & Exchanges",
+        "shipping_delivery_heading": "Leverans",
+        "shipping_delivery_content": "<ul><li><strong>Fraktkostnad:</strong> Fri frakt över <strong>49 €</strong>.</li><li><strong>Säkerhet:</strong> Snabb och säker frakt med spårning.</li><li><strong>Leveranstid:</strong> 2–5 arbetsdagar (kan variera beroende på storlek och material).</li></ul><p><strong>Internationell frakt:</strong> Leveranser utanför EU kan omfattas av tull eller importavgifter som mottagaren ansvarar för.</p>",
+        "shipping_returns_heading": "Returer och byten",
         "shipping_returns_content": "",
         "shipping_policy_content": "",
         "security_content": ""
@@ -283,7 +283,7 @@
     "source_recommendations": {
       "type": "source-product-recommendations",
       "settings": {
-        "heading": "Recommendations for you",
+        "heading": "Rekommenderat för dig",
         "products_to_show": 10
       }
     },
@@ -297,12 +297,12 @@
             "reviewer": "Tapio V.",
             "review_date": "2026-06-16",
             "rating": 5,
-            "title": "7 beautiful acrylglas work in my home",
-            "body": "I have ordered paintings over the years and i am very proud of the acrylglas work. They are my home decoration items and guests immediately notice them.",
+            "title": "Sju vackra akrylglastavlor i mitt hem",
+            "body": "Jag har beställt tavlor i flera år och är mycket nöjd med akrylglaset. Gästerna lägger genast märke till dem.",
             "product": "",
-            "product_name": "Shit Happens - Acrylglas - 40 X 40 CM / Ohne Rahmen",
+            "product_name": "Shit Happens – Akrylglas – 40 × 40 cm / Utan ram",
             "verified": true,
-            "verified_label": "Verified Buyer",
+            "verified_label": "Verifierad köpare",
             "country": "Finland",
             "image_1_url": "https://cdn.stamped.io/tr:w-350:/uploads/photos/228253_8264592785674_bbcf5af6_6d4e_4392_8109_868d996fa81e.jpg?",
             "image_2_url": "https://cdn.stamped.io/tr:w-350:/uploads/photos/228253_8264592785674_85af7e91_7171_4fd5_81c6_e48557cb06fc.jpg?",
@@ -317,12 +317,12 @@
             "reviewer": "James C.",
             "review_date": "2026-06-07",
             "rating": 4,
-            "title": "Awesome company",
-            "body": "The colours and attention to detail are top quality. Customer service was fantastic and delivery was reliable.",
+            "title": "Fantastiskt företag",
+            "body": "Färgerna och detaljrikedomen håller högsta kvalitet. Kundservicen var fantastisk och leveransen pålitlig.",
             "product": "",
             "product_name": "",
             "verified": false,
-            "verified_label": "Verified Buyer",
+            "verified_label": "Verifierad köpare",
             "country": "",
             "image_1_url": "",
             "image_2_url": "",
@@ -338,11 +338,11 @@
             "review_date": "2026-06-06",
             "rating": 5,
             "title": "5/5",
-            "body": "Ordering was very easy and the product arrived in about a week. The artwork feels high quality and I would order again.",
+            "body": "Det var enkelt att beställa och produkten kom på ungefär en vecka. Tavlan känns exklusiv och jag beställer gärna igen.",
             "product": "",
             "product_name": "Queen Card - Acrylglas",
             "verified": true,
-            "verified_label": "Verified Buyer",
+            "verified_label": "Verifierad köpare",
             "country": "Finland",
             "image_1_url": "https://cdn.stamped.io/tr:w-350:/uploads/photos/228253_8202634854666_e52e860b_9db8_4f3c_8a81_0cd68bfa9de8.jpg?",
             "image_2_url": "",
@@ -358,11 +358,11 @@
             "review_date": "2026-05-29",
             "rating": 3,
             "title": "Bild",
-            "body": "Hat alles super geklappt, Qualität ist gut und Lieferung war schnell.",
+            "body": "Allt fungerade perfekt, kvaliteten är bra och leveransen var snabb.",
             "product": "",
             "product_name": "Old Money Duck",
             "verified": true,
-            "verified_label": "Verified Buyer",
+            "verified_label": "Verifierad köpare",
             "country": "Switzerland",
             "image_1_url": "https://cdn.stamped.io/tr:w-350:/uploads/photos/228253_10484023623946_f6621af5_7a5c_4871_8105_f5465414762a_r1780202711687.jpg?v=1780202711",
             "image_2_url": "",
@@ -379,7 +379,7 @@
       ],
       "settings": {
         "review_source": "manual",
-        "heading": "Über 60.000 zufriedene Kunden",
+        "heading": "Över 60 000 nöjda kunder",
         "use_custom_summary": false,
         "average_rating": "4,9",
         "review_count": "2626",

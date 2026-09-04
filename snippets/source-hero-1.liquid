@@ -2,8 +2,8 @@
   assign fallback_product = collections.all.products.first
   assign hero_product = section.settings.product | default: fallback_product
   assign hero_link = section.settings.link | default: '/collections/bestseller-wandbilder'
-  assign primary_badge = section.settings.primary_badge | default: 'Trending'
-  assign secondary_badge = section.settings.secondary_badge | default: 'Limited Edition'
+  assign primary_badge = section.settings.primary_badge | default: 'Populärt'
+  assign secondary_badge = section.settings.secondary_badge | default: 'Begränsad upplaga'
   assign desktop_aspect_ratio = 2.2583333333
 
   if section.settings.desktop_video != blank and section.settings.desktop_video.aspect_ratio != blank

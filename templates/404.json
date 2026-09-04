@@ -12,9 +12,9 @@
     "main": {
       "type": "source-404-page",
       "settings": {
-        "heading": "404 Seite nicht gefunden",
-        "description": "Die von Ihnen angeforderte Seite existiert nicht.",
-        "button_label": "Weiter Einkaufen",
+        "heading": "404 Sidan hittades inte",
+        "description": "Sidan du begärde finns inte.",
+        "button_label": "Fortsätt handla",
         "padding_top": 72,
         "padding_bottom": 64
   }

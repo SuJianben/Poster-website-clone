@@ -106,22 +106,22 @@
         "id": "sp_progress_next",
         "label": "未达成提示模板",
         "info": "可使用 {remaining}、{discount} 占位符。",
-        "default": "Kaufen Sie {remaining} weitere Artikel, um {discount}% Rabatt zu erhalten."
+        "default": "Köp {remaining} artiklar till för att få {discount} % rabatt."
       },
-      { "type": "text", "id": "sp_progress_done", "label": "全部达成提示", "default": "Sie haben sich den maximalen Mengenrabatt gesichert." },
+      { "type": "text", "id": "sp_progress_done", "label": "全部达成提示", "default": "Du har nått maximal mängdrabatt." },
       {
         "type": "text",
         "id": "sp_progress_disc",
         "label": "折扣标签模板",
         "info": "可使用 {discount} 占位符。",
-        "default": "{discount}% Rabatt"
+        "default": "{discount} % rabatt"
       },
       {
         "type": "text",
         "id": "sp_progress_goal",
         "label": "商品数量标签模板",
         "info": "可使用 {quantity} 占位符。",
-        "default": "{quantity} Artikel kaufen"
+        "default": "Köp {quantity} artiklar"
       },
       { "type": "range", "id": "sp_tier_count", "label": "显示优惠档位数量", "min": 1, "max": 5, "step": 1, "default": 5 },
       { "type": "number", "id": "sp_t1_qty", "label": "档位 1 商品数量", "default": 1 },
@@ -149,7 +149,7 @@
       { "type": "text", "id": "atelier_drawer_exclusive_title_en", "label": "版本二名称", "default": "ATELIER EXCLUSIVE" },
       { "type": "textarea", "id": "atelier_drawer_exclusive_text_en", "label": "版本二说明", "default": "A collection of exclusive art pieces. These unique designs are created directly for us." },
       { "type": "text", "id": "atelier_drawer_essentials_title_en", "label": "版本三名称", "default": "ESSENTIALS" },
-      { "type": "textarea", "id": "atelier_drawer_essentials_text_en", "label": "版本三说明", "default": "Timeless favorites and bestsellers from artists who have chosen not to limit their works." }
+      { "type": "textarea", "id": "atelier_drawer_essentials_text_en", "label": "版本三说明", "default": "Tidlösa favoriter och bästsäljare från konstnärer som väljer att skapa utan begränsningar." }
     ]
   }
 ]

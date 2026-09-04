@@ -3,7 +3,7 @@
   <div data-source-predictive-results>
     {% if predictive_search.resources.queries.size > 0 %}
       <section class="source-predictive-group">
-        <h3 class="source-predictive-group__title">Vorschläge</h3>
+        <h3 class="source-predictive-group__title">Förslag</h3>
         <div class="source-predictive-group__list" role="group">
           {% for query in predictive_search.resources.queries %}
             <a class="source-predictive-result" href="{{ query.url }}" role="option">
@@ -20,7 +20,7 @@
 
     {% if predictive_search.resources.collections.size > 0 %}
       <section class="source-predictive-group">
-        <h3 class="source-predictive-group__title">Sammlungen</h3>
+        <h3 class="source-predictive-group__title">Kollektioner</h3>
         <div class="source-predictive-group__list" role="group">
           {% for collection in predictive_search.resources.collections %}
             <a class="source-predictive-result" href="{{ collection.url }}" role="option">
@@ -34,7 +34,7 @@
     {% assign page_result_count = predictive_search.resources.articles.size | plus: predictive_search.resources.pages.size %}
     {% if page_result_count > 0 %}
       <section class="source-predictive-group">
-        <h3 class="source-predictive-group__title">Artikel und Seiten</h3>
+        <h3 class="source-predictive-group__title">Artiklar och sidor</h3>
         <div class="source-predictive-group__list" role="group">
           {% for article in predictive_search.resources.articles %}
             <a class="source-predictive-result" href="{{ article.url }}" role="option">
@@ -52,7 +52,7 @@
 
     {% if predictive_search.resources.products.size > 0 %}
       <section class="source-predictive-group">
-        <h3 class="source-predictive-group__title">Produkte</h3>
+        <h3 class="source-predictive-group__title">Produkter</h3>
         <div class="source-predictive-group__list" role="group">
           {% for product in predictive_search.resources.products %}
             <a class="source-predictive-result" href="{{ product.url }}" role="option">

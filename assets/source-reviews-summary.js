@@ -13,7 +13,7 @@
     modal.hidden = true;
     modal.setAttribute('role', 'dialog');
     modal.setAttribute('aria-modal', 'true');
-    modal.setAttribute('aria-label', 'Customer Review Photos');
+    modal.setAttribute('aria-label', 'Bilder från kundrecensioner');
     modal.innerHTML = `
       <div class="srp-summary-modal__dialog" role="region" aria-roledescription="carousel">
         <button type="button" class="srp-summary-modal__nav srp-summary-modal__nav--prev" aria-label="Previous Photo">‹</button>
@@ -29,7 +29,7 @@
         </aside>
         <button type="button" class="srp-summary-modal__nav srp-summary-modal__nav--next" aria-label="Next Photo">›</button>
       </div>
-      <div class="srp-summary-modal__thumbs" role="tablist" aria-label="Customer review photos"></div>`;
+      <div class="srp-summary-modal__thumbs" role="tablist" aria-label="Bilder från kundrecensioner"></div>`;
     document.body.appendChild(modal);
 
     const media = modal.querySelector('.srp-summary-modal__media');

@@ -28,10 +28,10 @@
       {% unless has_sale_badge %}<span class="spx-product__top-badge spx-product__top-badge--sale">SPARE 20%</span>{% endunless %}
       {% if has_product_badge %}
         {% if has_sale_badge %}<span class="spx-product__top-badge spx-product__top-badge--sale">SPARE {{ sale_percentage }}%</span>{% endif %}
-        {% if has_trending_badge %}<span class="spx-product__top-badge spx-product__top-badge--trending">Trending</span>{% endif %}
+        {% if has_trending_badge %}<span class="spx-product__top-badge spx-product__top-badge--trending">Populärt</span>{% endif %}
         {% if has_bestseller_badge %}<span class="spx-product__top-badge spx-product__top-badge--bestseller">Bestseller</span>{% endif %}
         {% if has_new_badge %}<span class="spx-product__top-badge spx-product__top-badge--new">New</span>{% endif %}
-        {% if has_limited_badge %}<span class="spx-product__top-badge spx-product__top-badge--limited">Limited Edition</span>{% endif %}
+        {% if has_limited_badge %}<span class="spx-product__top-badge spx-product__top-badge--limited">Begränsad upplaga</span>{% endif %}
         {% if has_personalizable_badge %}<span class="spx-product__top-badge spx-product__top-badge--personalizable">Personalizable</span>{% endif %}
       {% elsif block.settings.text != blank %}
         <span class="spx-product__top-badge spx-product__top-badge--trending">{{ block.settings.text }}</span>
@@ -231,7 +231,7 @@
                   {% elsif is_material_option %}
                     <button type="button" class="spx-product__material-option{% if value == option.selected_value %} is-selected{% endif %}" data-spx-variant-value data-option-value="{{ option_value_label | escape }}" aria-pressed="{% if value == option.selected_value %}true{% else %}false{% endif %}"{% unless value.available %} disabled{% endunless %}>{{ option_value_label }}</button>
                   {% else %}
-                    <button type="button"{% if value == option.selected_value %} class="is-selected"{% endif %} data-spx-variant-value data-option-value="{{ option_value_label | escape }}" aria-pressed="{% if value == option.selected_value %}true{% else %}false{% endif %}"{% unless value.available %} disabled{% endunless %}>{{ option_value_label }}{% if is_size_option and block.settings.popular_size != blank and option_value_label == block.settings.popular_size %}<span class="spx-product__popular">{{ block.settings.popular_size_label | default: 'Bestseller' }}</span>{% endif %}</button>
+                    <button type="button"{% if value == option.selected_value %} class="is-selected"{% endif %} data-spx-variant-value data-option-value="{{ option_value_label | escape }}" aria-pressed="{% if value == option.selected_value %}true{% else %}false{% endif %}"{% unless value.available %} disabled{% endunless %}>{{ option_value_label }}{% if is_size_option and block.settings.popular_size != blank and option_value_label == block.settings.popular_size %}<span class="spx-product__popular">{{ block.settings.popular_size_label | default: 'Bästsäljare' }}</span>{% endif %}</button>
                   {% endif %}
                 {% endfor %}
               </div>
@@ -274,7 +274,7 @@
         {% if manual_gold_image_url == blank and block.settings.gold_image != blank %}{% assign manual_gold_image_url = block.settings.gold_image | image_url: width: 2048 %}{% endif %}
         <div class="spx-product__option-group spx-product__manual-frame-picker" data-spx-manual-frame-picker data-analytics-block-type="frame_picker" {{ block.shopify_attributes }}>
           <p><strong>{{ block.settings.heading | default: 'Premiumram' }}:</strong> <span data-spx-manual-frame-output>{% if manual_frame_default == 'white' %}{{ manual_white_label }}{% elsif manual_frame_default == 'black' %}{{ manual_black_label }}{% elsif manual_frame_default == 'silver' %}{{ manual_silver_label }}{% else %}{{ manual_none_label }}{% endif %}</span></p>
-          <div class="spx-product__frame-options" role="group" aria-label="{{ block.settings.heading | default: 'Premium Frame' | escape }}">
+          <div class="spx-product__frame-options" role="group" aria-label="{{ block.settings.heading | default: 'Premiumram' | escape }}">
             <button type="button" class="spx-product__frame-option{% if manual_frame_default == 'none' %} is-selected{% endif %}" data-spx-manual-frame-value data-spx-frame-tone="none" data-spx-frame-label="{{ manual_none_label | escape }}" data-spx-manual-frame-image="{{ manual_none_image_url | escape }}" aria-label="{{ manual_none_label | escape }}" aria-pressed="{% if manual_frame_default == 'none' %}true{% else %}false{% endif %}" title="{{ manual_none_label | escape }}">{% if manual_none_image_url != blank %}<img class="spx-product__frame-image" src="{{ manual_none_image_url | escape }}" alt="" loading="lazy">{% else %}<span class="spx-product__frame-swatch spx-product__frame-swatch--none" aria-hidden="true"></span>{% endif %}<span class="visually-hidden">{{ manual_none_label }}</span></button>
             <button type="button" class="spx-product__frame-option{% if manual_frame_default == 'white' %} is-selected{% endif %}" data-spx-manual-frame-value data-spx-frame-tone="white" data-spx-frame-label="{{ manual_white_label | escape }}" data-spx-manual-frame-image="{{ manual_white_image_url | escape }}" aria-label="{{ manual_white_label | escape }}" aria-pressed="{% if manual_frame_default == 'white' %}true{% else %}false{% endif %}" title="{{ manual_white_label | escape }}">{% if manual_white_image_url != blank %}<img class="spx-product__frame-image" src="{{ manual_white_image_url | escape }}" alt="" loading="lazy">{% else %}<span class="spx-product__frame-swatch spx-product__frame-swatch--white" aria-hidden="true"></span>{% endif %}<span class="visually-hidden">{{ manual_white_label }}</span></button>
             <button type="button" class="spx-product__frame-option{% if manual_frame_default == 'black' %} is-selected{% endif %}" data-spx-manual-frame-value data-spx-frame-tone="black" data-spx-frame-label="{{ manual_black_label | escape }}" data-spx-manual-frame-image="{{ manual_black_image_url | escape }}" aria-label="{{ manual_black_label | escape }}" aria-pressed="{% if manual_frame_default == 'black' %}true{% else %}false{% endif %}" title="{{ manual_black_label | escape }}">{% if manual_black_image_url != blank %}<img class="spx-product__frame-image" src="{{ manual_black_image_url | escape }}" alt="" loading="lazy">{% else %}<span class="spx-product__frame-swatch spx-product__frame-swatch--black" aria-hidden="true"></span>{% endif %}<span class="visually-hidden">{{ manual_black_label }}</span></button>
@@ -312,16 +312,16 @@
     </form>
 
   {% when 'volume_discount' %}
-    <section class="spx-product__sale" aria-label="Quantity discount promotion" data-analytics-block-type="volume_discount" {{ block.shopify_attributes }}>
+    <section class="spx-product__sale" aria-label="Mängdrabatt" data-analytics-block-type="volume_discount" {{ block.shopify_attributes }}>
       <p class="spx-product__sale-title">{{ block.settings.heading }}</p>
       <p>{{ block.settings.note }}</p>
-      <div class="spx-product__discount-table" role="table" aria-label="Quantity discounts">
-        <div class="spx-product__discount-row spx-product__discount-row--head" role="row"><span role="columnheader">{{ block.settings.quantity_heading | default: 'Buy quantity' }}</span><span role="columnheader">{{ block.settings.discount_heading | default: 'Discount' }}</span></div>
-        <div class="spx-product__discount-row" role="row"><span role="cell">{{ block.settings.tier_1_quantity | default: 'Buy 1' }}</span><span role="cell">{{ block.settings.tier_1_discount | default: 'Get 5% off' }}</span></div>
-        <div class="spx-product__discount-row" role="row"><span role="cell">{{ block.settings.tier_2_quantity | default: 'Buy 2' }}</span><span role="cell">{{ block.settings.tier_2_discount | default: 'Get 10% off' }}</span></div>
-        <div class="spx-product__discount-row" role="row"><span role="cell">{{ block.settings.tier_3_quantity | default: 'Buy 3' }}</span><span role="cell">{{ block.settings.tier_3_discount | default: 'Get 15% off' }}</span></div>
-        <div class="spx-product__discount-row" role="row"><span role="cell">{{ block.settings.tier_4_quantity | default: 'Buy 4' }}</span><span role="cell">{{ block.settings.tier_4_discount | default: 'Get 20% off' }}</span></div>
-        <div class="spx-product__discount-row" role="row"><span role="cell">{{ block.settings.tier_5_quantity | default: 'Buy 5+' }}</span><span role="cell">{{ block.settings.tier_5_discount | default: 'Get 25% off' }}</span></div>
+      <div class="spx-product__discount-table" role="table" aria-label="Mängdrabatter">
+        <div class="spx-product__discount-row spx-product__discount-row--head" role="row"><span role="columnheader">{{ block.settings.quantity_heading | default: 'Antal' }}</span><span role="columnheader">{{ block.settings.discount_heading | default: 'Rabatt' }}</span></div>
+        <div class="spx-product__discount-row" role="row"><span role="cell">{{ block.settings.tier_1_quantity | default: 'Köp 1' }}</span><span role="cell">{{ block.settings.tier_1_discount | default: 'Få 5 % rabatt' }}</span></div>
+        <div class="spx-product__discount-row" role="row"><span role="cell">{{ block.settings.tier_2_quantity | default: 'Köp 2' }}</span><span role="cell">{{ block.settings.tier_2_discount | default: 'Få 10 % rabatt' }}</span></div>
+        <div class="spx-product__discount-row" role="row"><span role="cell">{{ block.settings.tier_3_quantity | default: 'Köp 3' }}</span><span role="cell">{{ block.settings.tier_3_discount | default: 'Få 15 % rabatt' }}</span></div>
+        <div class="spx-product__discount-row" role="row"><span role="cell">{{ block.settings.tier_4_quantity | default: 'Köp 4' }}</span><span role="cell">{{ block.settings.tier_4_discount | default: 'Få 20 % rabatt' }}</span></div>
+        <div class="spx-product__discount-row" role="row"><span role="cell">{{ block.settings.tier_5_quantity | default: 'Köp 5+' }}</span><span role="cell">{{ block.settings.tier_5_discount | default: 'Få 25 % rabatt' }}</span></div>
       </div>
     </section>
 

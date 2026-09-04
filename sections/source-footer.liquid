@@ -29,7 +29,7 @@
         <input type="hidden" name="utf8" value="✓">
         <input type="hidden" name="_method" value="put">
         <input type="hidden" name="return_to" value="{{ request.path }}">
-        <h2 class="visually-hidden">Country/region</h2>
+        <h2 class="visually-hidden">Land/region</h2>
         <button type="button" class="disclosure__toggle btn--plain text-normal font-body" aria-expanded="false" aria-controls="FooterCountryList-{{ section.id }}" data-disclosure-toggle>
           <span class="f-country-flags f-country-flags--{{ localization.country.iso_code }}" style="--background-image: url(//cdn.shopify.com/static/images/flags/{{ localization.country.iso_code | downcase }}.svg?width=20)"></span>
           {{ localization.country.name }} ({{ localization.country.currency.iso_code }} {{ localization.country.currency.symbol }})
@@ -55,7 +55,7 @@
           <input type="hidden" name="utf8" value="✓">
           <input type="hidden" name="_method" value="put">
           <input type="hidden" name="return_to" value="{{ request.path }}">
-          <h2 class="visually-hidden">Language</h2>
+          <h2 class="visually-hidden">Språk</h2>
           <button type="button" class="disclosure__toggle btn--plain text-normal font-body" aria-expanded="false" aria-controls="FooterLanguageList-{{ section.id }}" data-disclosure-toggle>
             {{ localization.language.endonym_name | capitalize }}
             <svg class="icon icon-caret-up icon--medium icon--thick" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3.75 12.5L10 6.25L16.25 12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -73,7 +73,7 @@
   </div>
 </template>
 <template data-source-footer-payments>
-  <span class="visually-hidden">Payment methods</span>
+  <span class="visually-hidden">Betalningsmetoder</span>
   <ul class="list list-payment" role="list">
     {% for payment_type in shop.enabled_payment_types %}
       <li class="list-payment__item">{{ payment_type | payment_type_svg_tag: class: 'icon icon--full-color' }}</li>
@@ -106,10 +106,10 @@
               {% if footer_general_link_count > 0 %},{% endif %}{"title": {{ link.title | json }}, "url": {{ link.url | json }}}
               {% assign footer_general_link_count = footer_general_link_count | plus: 1 %}
             {% endfor %}
-            {% if shop.refund_policy.body != blank %}{% if footer_general_link_count > 0 %},{% endif %}{"title": "Refund Policy", "url": {{ shop.refund_policy.url | json }}}{% assign footer_general_link_count = footer_general_link_count | plus: 1 %}{% endif %}
-            {% if shop.privacy_policy.body != blank %}{% if footer_general_link_count > 0 %},{% endif %}{"title": "Privacy Policy", "url": {{ shop.privacy_policy.url | json }}}{% assign footer_general_link_count = footer_general_link_count | plus: 1 %}{% endif %}
-            {% if shop.shipping_policy.body != blank %}{% if footer_general_link_count > 0 %},{% endif %}{"title": "Shipping Policy", "url": {{ shop.shipping_policy.url | json }}}{% assign footer_general_link_count = footer_general_link_count | plus: 1 %}{% endif %}
-            {% if shop.terms_of_service.body != blank %}{% if footer_general_link_count > 0 %},{% endif %}{"title": "Terms of Service", "url": {{ shop.terms_of_service.url | json }}}{% endif %}
+            {% if shop.refund_policy.body != blank %}{% if footer_general_link_count > 0 %},{% endif %}{"title": "Returpolicy", "url": {{ shop.refund_policy.url | json }}}{% assign footer_general_link_count = footer_general_link_count | plus: 1 %}{% endif %}
+            {% if shop.privacy_policy.body != blank %}{% if footer_general_link_count > 0 %},{% endif %}{"title": "Integritetspolicy", "url": {{ shop.privacy_policy.url | json }}}{% assign footer_general_link_count = footer_general_link_count | plus: 1 %}{% endif %}
+            {% if shop.shipping_policy.body != blank %}{% if footer_general_link_count > 0 %},{% endif %}{"title": "Fraktpolicy", "url": {{ shop.shipping_policy.url | json }}}{% assign footer_general_link_count = footer_general_link_count | plus: 1 %}{% endif %}
+            {% if shop.terms_of_service.body != blank %}{% if footer_general_link_count > 0 %},{% endif %}{"title": "Användarvillkor", "url": {{ shop.terms_of_service.url | json }}}{% endif %}
           ]
         }
       },
@@ -135,16 +135,16 @@
   "settings": [
     { "type": "checkbox", "id": "enabled", "label": "显示模块", "default": true },
     { "type": "header", "content": "页脚菜单" },
-    { "type": "text", "id": "service_heading", "label": "服务标题", "default": "Service" },
+    { "type": "text", "id": "service_heading", "label": "服务标题", "default": "Handla" },
     { "type": "link_list", "id": "menu_service", "label": "服务菜单" },
-    { "type": "text", "id": "information_heading", "label": "信息标题", "default": "Mehr Infos" },
+    { "type": "text", "id": "information_heading", "label": "信息标题", "default": "Mer information" },
     { "type": "link_list", "id": "menu_information", "label": "信息菜单" },
-    { "type": "text", "id": "collaboration_heading", "label": "合作标题", "default": "Zusammenarbeit" },
+    { "type": "text", "id": "collaboration_heading", "label": "合作标题", "default": "Samarbeta med oss" },
     { "type": "link_list", "id": "menu_collaboration", "label": "合作菜单" },
-    { "type": "text", "id": "general_heading", "label": "通用标题", "default": "Allgemein" },
+    { "type": "text", "id": "general_heading", "label": "通用标题", "default": "Allmänt" },
     { "type": "link_list", "id": "menu_general", "label": "通用菜单" },
     { "type": "header", "content": "联系信息" },
-    { "type": "text", "id": "contact_heading", "label": "联系区标题", "default": "Über Uns" },
+    { "type": "text", "id": "contact_heading", "label": "联系区标题", "default": "Om oss" },
     { "type": "textarea", "id": "contact_address", "label": "地址" },
     { "type": "text", "id": "contact_email", "label": "邮箱" },
     { "type": "image_picker", "id": "awards_image", "label": "荣誉图片" },

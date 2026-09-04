@@ -16,7 +16,7 @@
             <span>Din kundvagn</span>
             <cart-count class="cart-count cart-count--blank cart-count--drawer-heading" data-type="blank">({{ cart.item_count }})</cart-count>
           </h2>
-          <button class="drawer__close-btn z-1 static" aria-controls="CartDrawer" type="button" aria-label="Schließen">
+          <button class="drawer__close-btn z-1 static" aria-controls="CartDrawer" type="button" aria-label="Stäng">
             <svg aria-hidden="true" focusable="false" class="icon icon-close icon--large icon--thick" fill="none" viewBox="0 0 24 24">
               <path d="M18.75 5.13496L5.25 18.8544" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               <path d="M18.75 18.8544L5.25 5.13496" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -64,7 +64,7 @@
                       <div class="cart-item__action flex items-center justify-between gap-3">
                         <quantity-input class="cart-quantity quantity self-end">
                           <button type="button" name="minus" class="quantity__button" aria-label="Minska antal"><svg aria-hidden="true" focusable="false" viewBox="0 0 16 16" fill="none"><path d="M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
-                          <input class="quantity__input" type="number" value="{{ item.quantity }}" min="0" step="1" data-source-cart-quantity="{{ forloop.index }}" aria-label="Menge für {{ item.product.title | escape }}">
+                            <input class="quantity__input" type="number" value="{{ item.quantity }}" min="0" step="1" data-source-cart-quantity="{{ forloop.index }}" aria-label="Antal för {{ item.product.title | escape }}">
                           <button type="button" name="plus" class="quantity__button" aria-label="Menge erhöhen"><svg aria-hidden="true" focusable="false" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M8 3v10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
                         </quantity-input>
                         <div class="cart-item__prices text-right flex flex-col gap-2">
@@ -97,7 +97,7 @@
               <span class="totals__subtotal font-body-bolder">Delsumma</span>
               <span class="font-body-bolder" data-source-cart-total>{{ cart.total_price | money }}</span>
             </div>
-            <div class="tax-note">Steuer inbegriffen. Versand und Rabatte werden im nächsten Schritt berechnet.</div>
+            <div class="tax-note">Skatt ingår. Frakt och rabatter beräknas i nästa steg.</div>
           </div>
           <form action="{{ routes.cart_url }}" method="post" class="drawer__footer-buttons w-full">
             <button class="btn btn--primary w-full flex items-center justify-center gap-2" type="submit" name="checkout">

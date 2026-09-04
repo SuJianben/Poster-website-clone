@@ -6,7 +6,7 @@
     assign is_little_artists = true
     assign card_image_style = 'object-fit: contain !important; object-position: center center;'
   endif
-  assign material = product.type | default: 'Leinwand'
+  assign material = product.type | default: 'Canvas'
   assign is_on_sale = false
   assign display_price = product.price_min
   assign display_compare_at_price = product.compare_at_price_max
@@ -93,10 +93,10 @@
         {% if is_trending or product.tags contains 'Bestseller' or product.tags contains 'Limited Edition' or product.tags contains 'Personalisierbar' or product.tags contains 'Neuheiten' or is_on_sale %}
           <div class="product-card__badge">
             {% if promotion_discount != blank and promotion_discount > 0 %}<span class="f-badge f-badge--sale" aria-hidden="true">-{{ promotion_discount }}%</span>{% elsif is_on_sale %}<span class="f-badge f-badge--sale" aria-hidden="true">-{{ product.compare_at_price_max | minus: product.price_min | times: 100 | divided_by: product.compare_at_price_max }}%</span>{% endif %}
-            {% if is_trending %}<span class="f-badge f-badge--custom f-badge--trending">Trending</span>{% endif %}
-            {% if product.tags contains 'Bestseller' %}<span class="f-badge f-badge--custom f-badge--bestseller">Bestseller</span>{% endif %}
-            {% if product.tags contains 'Limited Edition' %}<span class="f-badge f-badge--custom f-badge--limited-edition">Limited Edition</span>{% endif %}
-            {% if product.tags contains 'Personalisierbar' %}<span class="f-badge f-badge--custom f-badge--personalisierbar">Personalisierbar</span>{% endif %}
+            {% if is_trending %}<span class="f-badge f-badge--custom f-badge--trending">Populärt</span>{% endif %}
+            {% if product.tags contains 'Bestseller' %}<span class="f-badge f-badge--custom f-badge--bestseller">Bästsäljare</span>{% endif %}
+            {% if product.tags contains 'Limited Edition' %}<span class="f-badge f-badge--custom f-badge--limited-edition">Begränsad upplaga</span>{% endif %}
+            {% if product.tags contains 'Personalisierbar' %}<span class="f-badge f-badge--custom f-badge--personalisierbar">Personligt motiv</span>{% endif %}
             {% if product.tags contains 'Neuheiten' %}<span class="f-badge f-badge--custom f-badge--new">Neu</span>{% endif %}
           </div>
         {% endif %}

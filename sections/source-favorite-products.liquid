@@ -20,7 +20,7 @@
               "product": {% if product != blank %}{
                 "url": {{ product.url | json }},
                 "title": {{ product.title | json }},
-                "material": {{ product.type | default: 'Leinwand' | json }},
+                "material": {{ product.type | default: 'Canvas' | json }},
                 "price": {{ product.price_min | money | json }},
                 "priceVaries": {{ product.price_varies | json }},
                 "primaryImage": {% if product.featured_image != blank %}{{ product.featured_image | image_url: width: 1080 | json }}{% else %}null{% endif %},

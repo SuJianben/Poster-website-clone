@@ -11,11 +11,11 @@
     <header class="spf-known__header">
       {% if section.settings.section_link != blank %}
         <a class="spf-known__heading-link" href="{{ section.settings.section_link }}">
-          <h2 id="spf-known-{{ section.id }}">{{ section.settings.heading | default: 'Bekannt aus' | escape }}</h2>
+          <h2 id="spf-known-{{ section.id }}">{{ section.settings.heading | default: 'Kända från' | escape }}</h2>
           {% if section.settings.section_link_label != blank %}<span>{{ section.settings.section_link_label | escape }}</span>{% endif %}
         </a>
       {% else %}
-        <h2 id="spf-known-{{ section.id }}">{{ section.settings.heading | default: 'Bekannt aus' | escape }}</h2>
+        <h2 id="spf-known-{{ section.id }}">{{ section.settings.heading | default: 'Kända från' | escape }}</h2>
       {% endif %}
     </header>
 

@@ -20,9 +20,9 @@
       ['product', 'Robot King Print', '/products/robot-king-print'],
       ['product', 'No Rules Print', '/products/no-rules-print'],
       ['collection', "Children\'s Hand-Drawn Art", '/collections/儿童手绘'],
-      ['collection', 'Bestseller', '/collections/bestseller'],
-      ['collection', 'Personalisierbar', '/collections/personalisierbar'],
-      ['collection', 'Leinwand', '/collections/leinwand'],
+      ['collection', 'Bästsäljare', '/collections/bestseller'],
+      ['collection', 'Personliga motiv', '/collections/personalisierbar'],
+      ['collection', 'Canvas', '/collections/leinwand'],
       ['collection', 'Acrylglas', '/collections/acrylglas'],
       ['collection', 'Poster', '/collections/poster'],
       ['collection', 'Abstrakt', '/collections/abstrakt'],
@@ -97,8 +97,8 @@
       if (!suggestions.length) suggestions.push({ title: query, url: `/search?q=${encodeURIComponent(query)}&type=product` });
 
       container.replaceChildren();
-      appendGroup(container, 'Vorschläge', suggestions, true);
-      appendGroup(container, 'Sammlungen', collections);
+      appendGroup(container, 'Förslag', suggestions, true);
+      appendGroup(container, 'Kollektioner', collections);
       appendGroup(container, 'Produkte', products);
       content.classList.remove('hidden');
       content.classList.add('source-mobile-predictive-active');

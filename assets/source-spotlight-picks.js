@@ -21,7 +21,7 @@
       enabled: true,
       highlight: '-20%',
       title: 'Rabatt auf Neuheiten',
-      description: 'Jede Woche neue Angebote',
+      description: 'Nya erbjudanden varje vecka',
       button: 'Sparen',
       link: '/collections/wandbild-neuheiten-sale',
       scheme: '10'
@@ -30,7 +30,7 @@
       enabled: true,
       highlight: '-15%',
       title: 'Rabatt auf Bundles',
-      description: 'Entdecke passende Bundles',
+      description: 'Upptäck matchande paket',
       button: 'Sparen',
       link: '/collections/wandbilder-bundles',
       scheme: '10'
@@ -40,19 +40,19 @@
   const DEFAULT_CONFIG = {
     enabled: true,
     button: {
-      label: 'Angebote',
+      label: 'Erbjudanden',
       background: '#3D1313',
       textColor: '#FFFFFF'
     },
-    banner: 'Spare jetzt mit diesen exklusiven Angeboten',
-    title: 'Besondere Angebote',
+    banner: 'Spara med dessa exklusiva erbjudanden',
+    title: 'Specialerbjudanden',
     offers: DEFAULT_OFFERS,
     progress: {
       enabled: true,
-      nextCopy: 'Kaufen Sie {remaining} weitere Artikel, um {discount}% Rabatt zu erhalten.',
-      completeCopy: 'Sie haben sich den maximalen Mengenrabatt gesichert.',
-      discountLabel: '{discount}% Rabatt',
-      goalTemplate: '{quantity} Artikel kaufen',
+      nextCopy: 'Köp {remaining} artiklar till för att få {discount} % rabatt.',
+      completeCopy: 'Du har nått maximal mängdrabatt.',
+      discountLabel: '{discount} % rabatt',
+      goalTemplate: 'Köp {quantity} artiklar',
       tierCount: 5,
       tiers: DEFAULT_TIERS
     }
