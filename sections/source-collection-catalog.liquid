@@ -6,6 +6,7 @@
 {% assign collection_facets_url = 'source-facets.js' | asset_url | split: '?' | first %}
 <link rel="stylesheet" href="{{ collection_css_url }}">
 <link rel="stylesheet" href="{{ collection_hero_css_url }}">
+{{ 'source-collection-sticky-toolbar.css' | asset_url | stylesheet_tag }}
 {% render 'source-collection-runtime-config' %}
 <script src="{{ collection_vendor_url }}" defer="defer"></script>
 <script src="{{ collection_theme_url }}" defer="defer"></script>
@@ -47,7 +48,7 @@
 </div>
 
 <div class="collection section--padding page-width page-width--full color-scheme-1" style="--section-padding-top: 10px;--section-padding-bottom: 60px;">
-  <div class="grid gap-5">
+  <div class="grid gap-5 source-collection-sticky-toolbar">
     <div class="collection__toolbar flex flex-wrap items-end md:items-center justify-between gap-x-2">
       <div class="collection__toolbar-left flex md:items-center flex-col md:flex-row">
         <div data-facet-loading class="md:order-last"><div class="loading__spinner hidden"><svg aria-hidden="true" focusable="false" class="spinner icon icon--extra-medium" viewBox="0 0 66 66"><circle class="path" fill="none" stroke-width="4" cx="33" cy="33" r="30"></circle></svg></div><p id="ProductCount" class="m-0 text-subtext" role="status">{{ collection.products_count }} products</p></div>
@@ -72,7 +73,7 @@
   </div>
 
   <div class="collection__content flex gap-5">
-      {% if collection.filters.size > 0 %}<div id="FacetFiltersContainer" class="hidden xl:block"><div class="sticky-element z-8" style="--sticky-offset: 7.2rem;">{% render 'source-collection-facets', collection: collection, scope: 'vertical', section_id: section.id %}</div></div>{% endif %}
+      {% if collection.filters.size > 0 %}<div id="FacetFiltersContainer" class="hidden xl:block"><div class="sticky-element z-8" style="--sticky-offset: calc(var(--source-collection-sticky-top, 0px) + 7.2rem);">{% render 'source-collection-facets', collection: collection, scope: 'vertical', section_id: section.id %}</div></div>{% endif %}
       {% paginate collection.products by 24 %}
         <div id="ProductGridContainer" class="flex-1 min-w-0">
           <div id="ProductsList" class="grid-list products-list products-list--list-standard f-grid f-grid--gap-medium f-grid--row-gap-medium" data-grid-class="product-card-style-standard" data-list-class="product-card-style-standard" data-layout="grid" style="--f-columns-mobile: 2; --f-columns-md: 3;--f-columns-lg: 4; --f-columns-xl: 4;">
