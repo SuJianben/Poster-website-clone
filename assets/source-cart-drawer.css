@@ -488,9 +488,9 @@ cart-drawer[hidden] {
   font-size: 13px;
   font-weight: 800;
   height: 100%;
+  line-height: 34px;
   padding: 0 30px;
   text-align: center;
-  transform: translateY(-1px);
   width: 100%;
 }
 
