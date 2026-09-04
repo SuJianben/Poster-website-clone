@@ -10,3 +10,11 @@
 .source-collection-sticky-toolbar .collection__toolbar {
   margin-bottom: 0;
 }
+
+/* Keep the desktop facet column attached to the toolbar instead of applying
+   the global header offset a second time. */
+@media (min-width: 1280px) {
+  .collection:has(> .source-collection-sticky-toolbar) #FacetFiltersContainer .sticky-element {
+    top: var(--source-collection-sticky-toolbar-height, 69px) !important;
+  }
+}
