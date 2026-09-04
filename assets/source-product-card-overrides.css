@@ -24,6 +24,12 @@
   padding-top: 6px !important;
 }
 
+/* Keep the badge stack inset evenly from the card's top-left corner. */
+.product-card .product-card__badge {
+  top: 10px !important;
+  left: 10px !important;
+}
+
 /* Keep the same compact rhythm when a card has a multi-line title. */
 .product-card__title + .product-card__material {
   margin-top: 0 !important;
