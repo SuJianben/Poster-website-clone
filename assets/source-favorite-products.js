@@ -63,6 +63,8 @@
 
     root.addEventListener('pointerdown', (event) => {
       if (event.pointerType === 'mouse' && event.button !== 0) return;
+      const target = event.target instanceof Element ? event.target : null;
+      if (target?.closest('.swiper-controls')) return;
       dragStartX = event.clientX;
       dragStartY = event.clientY;
       dragging = true;
