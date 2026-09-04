@@ -47,13 +47,14 @@
     </div>
     {% render 'source-atelier-drawer' %}
     <style id="source-badge-finish">
-      /* Keep the page background continuous with the inverse footer. The
-         footer custom-logo section can be shorter than the viewport, which
-         otherwise exposes the body's default white background as a strip
-         below the footer. */
-      html,
-      body,
-      .site-wrapper {
+      /* Keep the footer's custom logo area visually continuous at the very
+         bottom without changing transparent header/page sections. */
+      .source-footer-custom {
+        background-color: #000 !important;
+        padding-bottom: 3rem !important;
+      }
+
+      .source-footer-custom .massive-footer-logo-container {
         background-color: #000 !important;
       }
 
