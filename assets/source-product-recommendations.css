@@ -5,7 +5,7 @@
 
 .spr-recs {
   --spr-recs-text: #000;
-  --spr-recs-muted: #555;
+  --spr-recs-muted: #9a9a9a;
   --spr-recs-border: #dedede;
   --spr-recs-gap: 30px;
   position: relative;
@@ -233,8 +233,8 @@
   margin: 0 0 2px;
   color: var(--spr-recs-muted);
   font-size: 13px;
-  font-weight: 700;
-  line-height: 15.6px;
+  font-weight: 400;
+  line-height: 1.2;
   text-transform: uppercase;
 }
 
