@@ -41,11 +41,13 @@
   align-items: center !important;
   justify-content: center !important;
   box-sizing: border-box !important;
+  width: 44px !important;
   height: 18px !important;
   min-height: 18px !important;
-  padding: 0 8px !important;
+  padding: 0 !important;
   border-radius: 5px !important;
   color: #fff !important;
+  text-align: center !important;
   line-height: 18px !important;
   background: #09cda9f7 !important;
   background-color: #09cda9f7 !important;
