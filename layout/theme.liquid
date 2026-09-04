@@ -47,6 +47,13 @@
     </div>
     {% render 'source-atelier-drawer' %}
     <style id="source-badge-finish">
+      /* Breadcrumbs are intentionally omitted from the storefront layout. */
+      .section-breadcrumb,
+      .source-product-breadcrumbs,
+      .spx-product__breadcrumbs {
+        display: none !important;
+      }
+
       /* Keep the footer's custom logo area visually continuous at the very
          bottom without changing transparent header/page sections. */
       .source-footer-custom {
