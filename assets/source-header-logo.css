@@ -42,9 +42,6 @@
 
   .header__top--logo-center .header__logo > a {
     pointer-events: auto;
-    /* The supplied wordmark has transparent padding on the right; this
-       small offset centers the visible artwork itself in the header. */
-    transform: translateX(5%);
   }
 
   .header__logo > a[data-source-header-logo] {
