@@ -98,7 +98,7 @@
           {% if source_menu_index == 2 %}
             style="--hl-link-color: #9c6161;"
           {% elsif source_menu_index == 3 %}
-            style="--hl-link-color: #d71a00;"
+            style="--hl-link-color: #05eac0f7;"
           {% endif %}
         >
           {% if link.links.size > 0 %}
@@ -254,7 +254,7 @@
               </div>
             </details>
           {% else %}
-            <a href="{{ link.url }}" class="menu-drawer__item-link menu-drawer__item-link-heading flex items-center justify-between{% if forloop.index0 == 2 or forloop.index0 == 3 %} hightlight-link hightlight-link--star_twinkle{% endif %}"{% if forloop.index0 == 2 %} style="--hl-link-color: #9c6161;"{% elsif forloop.index0 == 3 %} style="--hl-link-color: #d71a00;"{% endif %}>
+            <a href="{{ link.url }}" class="menu-drawer__item-link menu-drawer__item-link-heading flex items-center justify-between{% if forloop.index0 == 2 or forloop.index0 == 3 %} hightlight-link hightlight-link--star_twinkle{% endif %}"{% if forloop.index0 == 2 %} style="--hl-link-color: #9c6161;"{% elsif forloop.index0 == 3 %} style="--hl-link-color: #05eac0f7;"{% endif %}>
               <span>{{ link.title }}</span>
               {% if forloop.index0 == 2 or forloop.index0 == 3 %}
                 <svg class="star star-1" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 0L7.854 4.146L12 6L7.854 7.854L6 12L4.146 7.854L0 6L4.146 4.146L6 0Z" fill="currentColor"/></svg>
