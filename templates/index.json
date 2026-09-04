@@ -648,10 +648,10 @@
         "slide_Mbr6hk": {
           "type": "slide",
           "settings": {
-            "title": "666",
-            "body": "2233",
-            "customer_name": "555",
-            "customer_location": "66666",
+            "title": "Wunderschön und farbenfroh",
+            "body": "Das Poster bringt sofort gute Laune ins Kinderzimmer.",
+            "customer_name": "Anna L.",
+            "customer_location": "Stockholm",
             "product": "kids-abstract-color-patches-079",
             "scene_image": "shopify://shop_images/001-3.jpg"
           }
@@ -659,10 +659,10 @@
         "slide_kQGGqG": {
           "type": "slide",
           "settings": {
-            "title": "666",
-            "body": "2233",
-            "customer_name": "555",
-            "customer_location": "66666",
+            "title": "Perfekt fürs Kinderzimmer",
+            "body": "Tolle Qualität und eine schnelle Lieferung. Wir sind begeistert!",
+            "customer_name": "Lisa M.",
+            "customer_location": "Göteborg",
             "product": "kids-bedside-lamp-044",
             "scene_image": "shopify://shop_images/044-4.jpg"
           }
@@ -670,31 +670,19 @@
         "slide_VtL3eQ": {
           "type": "slide",
           "settings": {
-            "title": "",
-            "body": "",
-            "customer_name": "",
-            "customer_location": "",
+            "title": "Ein echter Lieblingsplatz",
+            "body": "Unser Kind liebt die bunten Details – ein wunderschöner Blickfang.",
+            "customer_name": "Maja S.",
+            "customer_location": "Malmö",
             "product": "kids-bicycle-060",
             "scene_image": "shopify://shop_images/060-4.jpg"
-          }
-        },
-        "slide_Vgx3YX": {
-          "type": "slide",
-          "settings": {
-            "title": "666",
-            "body": "2233",
-            "customer_name": "555",
-            "customer_location": "66666",
-            "product": "kids-bird-009",
-            "scene_image": "shopify://shop_images/009-3.jpg"
           }
         }
       },
       "block_order": [
         "slide_Mbr6hk",
         "slide_kQGGqG",
-        "slide_VtL3eQ",
-        "slide_Vgx3YX"
+        "slide_VtL3eQ"
       ],
       "settings": {
         "enabled": true,
