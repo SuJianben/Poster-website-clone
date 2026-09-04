@@ -17,4 +17,11 @@
   .collection:has(> .source-collection-sticky-toolbar) #FacetFiltersContainer .sticky-element {
     top: var(--source-collection-sticky-toolbar-height, 69px) !important;
   }
+
+  /* The hidden pagination field is the first child in the facet form, so the
+     first visible filter is technically :nth-child(2). Restore top breathing
+     room to match the reference collection layout. */
+  .collection:has(> .source-collection-sticky-toolbar) #FacetFiltersContainer .facet-accordion-details:nth-child(2) .accordion-details__summary {
+    padding-top: 1.6rem;
+  }
 }
