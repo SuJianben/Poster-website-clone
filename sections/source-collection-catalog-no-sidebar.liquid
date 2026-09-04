@@ -12,6 +12,7 @@
 <script src="{{ collection_theme_url }}" defer="defer"></script>
 <script src="{{ collection_facets_url }}" defer="defer"></script>
 <script src="{{ 'source-collection-room-view.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'source-collection-product-filters.js' | asset_url }}" defer="defer"></script>
 
 <style>
   @media screen and (min-width: 1280px) {
@@ -60,8 +61,8 @@
   <div class="grid gap-5 source-collection-sticky-toolbar">
     <div class="collection__toolbar flex flex-wrap items-end md:items-center justify-between gap-x-2">
       <div class="collection__toolbar-left flex md:items-center flex-col md:flex-row">
-        <div data-facet-loading class="md:order-last"><div class="loading__spinner hidden"><svg aria-hidden="true" focusable="false" class="spinner icon icon--extra-medium" viewBox="0 0 66 66"><circle class="path" fill="none" stroke-width="4" cx="33" cy="33" r="30"></circle></svg></div><p id="ProductCount" class="m-0 text-subtext" role="status">{{ collection.products_count }} products</p></div>
-        {% if collection.filters.size > 0 %}
+        <div data-facet-loading class="md:order-last"><div class="loading__spinner hidden"><svg aria-hidden="true" focusable="false" class="spinner icon icon--extra-medium" viewBox="0 0 66 66"><circle class="path" fill="none" stroke-width="4" cx="33" cy="33" r="30"></circle></svg></div><p id="ProductCount" class="m-0 text-subtext" role="status">{{ collection.products_count }} produkter</p></div>
+        {% if collection.filters.size > 0 or true %}
           <div class="facet-drawer-wrapper no-js-hidden">
             <div class="hidden xl:flex"><button is="facet-toggler" type="button" class="btn btn--icon gap-2 facet-drawer-button no-js-hidden"><span class="btn__text flex gap-1 items-center"><svg class="icon icon--small" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M2.662 5.5h14.676M5.997 10h8.006M8.665 14.5h2.67" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>Filter</span></button></div>
           </div>
