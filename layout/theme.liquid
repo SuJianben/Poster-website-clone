@@ -73,6 +73,15 @@
         }
       }
 
+      /* The hero's featured-product teaser is useful on desktop but crowds
+         the mobile hero artwork. Keep the hero itself and hide only this card
+         on narrow screens. */
+      @media screen and (max-width: 767px) {
+        .slideshow-with-product__product {
+          display: none !important;
+        }
+      }
+
       /* Final badge styling is placed after all section markup so section-level
          inline styles cannot override the storefront presentation. */
       .f-badge--sale {
