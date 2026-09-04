@@ -77,13 +77,13 @@
   case atelier_edition_key
     when 'limited', 'limited atelier exclusive', 'limited-atelier', 'limited_atelier'
       assign atelier_edition_key = 'limited'
-      assign atelier_edition_label = 'LIMITED ATELIER EXCLUSIVE'
+      assign atelier_edition_label = 'BEGRÄNSAD UTGÅVA'
     when 'atelier', 'atelier exclusive', 'silver'
       assign atelier_edition_key = 'atelier'
-      assign atelier_edition_label = 'ATELIER EXCLUSIVE'
+      assign atelier_edition_label = 'ATELJÉUTGÅVA'
     else
       assign atelier_edition_key = 'essentials'
-      assign atelier_edition_label = 'ESSENTIALS'
+      assign atelier_edition_label = 'BASUTBUD'
   endcase
 %}
 

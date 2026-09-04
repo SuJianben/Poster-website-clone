@@ -15,7 +15,7 @@
   {% if normalized_tag == 'bestseller' or normalized_tag == 'best seller' %}{% assign has_bestseller = true %}{% endif %}
   {% if normalized_tag contains 'limited edition' or normalized_tag contains 'limited' %}{% assign has_limited = true %}{% endif %}
   {% if normalized_tag contains 'personal' or normalized_tag contains 'custom' %}{% assign has_personalizable = true %}{% endif %}
-  {% if normalized_tag contains 'atelier' or normalized_tag contains 'exclusive' %}{% assign atelier_label = 'ATELIER EXCLUSIVE' %}{% endif %}
+  {% if normalized_tag contains 'atelier' or normalized_tag contains 'exclusive' %}{% assign atelier_label = 'ATELJÉUTGÅVA' %}{% endif %}
 {% endfor %}
 
 {% for option in product.options_with_values %}
@@ -42,16 +42,16 @@
       <img src="{{ 'source-bauhaus-logo.png' | asset_url }}" alt="Bauhaus" class="brands-banner__logo bauhaus-logo-large" width="78" height="16">
       <span class="brands-banner__comma">,</span>
       <img src="{{ 'source-xxxlutz-logo.png' | asset_url }}" alt="XXXLutz" class="brands-banner__logo xxxlutz-logo" width="70" height="13">
-      <span class="brands-banner__text">und 60.000+ Kunden lieben unsere Premium Wandbilder.</span>
+      <span class="brands-banner__text">Över 60 000 kunder älskar vår premiumväggkonst.</span>
     </div>
 
     <div class="product__blocks accordion-parent">
       <div class="product__block product__block--badges product__badges">
         <div class="custom-top-badges">
-          {% if has_trending %}<span class="f-badge f-badge--custom f-badge--trending">Trending</span>{% endif %}
-          {% if has_personalizable %}<span class="f-badge f-badge--custom f-badge--personalisierbar">Personalizable</span>{% endif %}
+          {% if has_trending %}<span class="f-badge f-badge--custom f-badge--trending">Populärt</span>{% endif %}
+          {% if has_personalizable %}<span class="f-badge f-badge--custom f-badge--personalisierbar">Personligt motiv</span>{% endif %}
           {% if has_bestseller %}<span class="f-badge f-badge--custom f-badge--bestseller">Bestseller</span>{% endif %}
-          {% if has_limited %}<span class="f-badge f-badge--custom f-badge--limited-edition">Limited Edition</span>{% endif %}
+          {% if has_limited %}<span class="f-badge f-badge--custom f-badge--limited-edition">Begränsad upplaga</span>{% endif %}
         </div>
       </div>
 
