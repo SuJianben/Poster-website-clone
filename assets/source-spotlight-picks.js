@@ -11,27 +11,27 @@
     {
       enabled: true,
       highlight: '-10%',
-      title: 'Rabatt für Newsletter Anmeldung',
+      title: 'Rabatt när du prenumererar på nyhetsbrevet',
       description: '',
-      button: 'Zur Anmeldung',
+      button: 'Prenumerera',
       link: '/pages/newsletter',
       scheme: 'inverse'
     },
     {
       enabled: true,
       highlight: '-20%',
-      title: 'Rabatt auf Neuheiten',
+      title: 'Rabatt på nyheter',
       description: 'Nya erbjudanden varje vecka',
-      button: 'Sparen',
+      button: 'Spara',
       link: '/collections/wandbild-neuheiten-sale',
       scheme: '10'
     },
     {
       enabled: true,
       highlight: '-15%',
-      title: 'Rabatt auf Bundles',
+      title: 'Rabatt på paket',
       description: 'Upptäck matchande paket',
-      button: 'Sparen',
+      button: 'Spara',
       link: '/collections/wandbilder-bundles',
       scheme: '10'
     }

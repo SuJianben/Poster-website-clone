@@ -1,38 +1,88 @@
+{% liquid
+  assign spotlight_button_label = settings.sp_btn_label | default: 'Erbjudanden'
+  assign spotlight_button_key = spotlight_button_label | downcase | strip
+  if spotlight_button_key == 'angebote'
+    assign spotlight_button_label = 'Erbjudanden'
+  endif
+  assign spotlight_banner = settings.sp_banner | default: 'Spara med dessa exklusiva erbjudanden'
+  assign spotlight_banner_key = spotlight_banner | downcase | strip
+  if spotlight_banner_key == 'spare jetzt mit diesen exklusiven angeboten'
+    assign spotlight_banner = 'Spara med dessa exklusiva erbjudanden'
+  endif
+  assign spotlight_title = settings.sp_title | default: 'Specialerbjudanden'
+  assign spotlight_title_key = spotlight_title | downcase | strip
+  if spotlight_title_key == 'besondere angebote'
+    assign spotlight_title = 'Specialerbjudanden'
+  endif
+  assign spotlight_o1_title = settings.sp_o1_title | default: 'Rabatt när du prenumererar på nyhetsbrevet'
+  assign spotlight_o1_title_key = spotlight_o1_title | downcase | strip
+  if spotlight_o1_title_key == 'rabatt für newsletter anmeldung'
+    assign spotlight_o1_title = 'Rabatt när du prenumererar på nyhetsbrevet'
+  endif
+  assign spotlight_o1_button = settings.sp_o1_btn | default: 'Prenumerera'
+  if spotlight_o1_button == 'Zur Anmeldung'
+    assign spotlight_o1_button = 'Prenumerera'
+  endif
+  assign spotlight_o2_title = settings.sp_o2_title | default: 'Rabatt på nyheter'
+  if spotlight_o2_title == 'Rabatt auf Neuheiten'
+    assign spotlight_o2_title = 'Rabatt på nyheter'
+  endif
+  assign spotlight_o2_desc = settings.sp_o2_desc | default: 'Nya erbjudanden varje vecka'
+  if spotlight_o2_desc == 'Jede Woche neue Angebote'
+    assign spotlight_o2_desc = 'Nya erbjudanden varje vecka'
+  endif
+  assign spotlight_o2_button = settings.sp_o2_btn | default: 'Spara'
+  if spotlight_o2_button == 'Sparen'
+    assign spotlight_o2_button = 'Spara'
+  endif
+  assign spotlight_o3_title = settings.sp_o3_title | default: 'Rabatt på paket'
+  if spotlight_o3_title == 'Rabatt auf Bundles'
+    assign spotlight_o3_title = 'Rabatt på paket'
+  endif
+  assign spotlight_o3_desc = settings.sp_o3_desc | default: 'Upptäck matchande paket'
+  if spotlight_o3_desc == 'Entdecke passende Bundles'
+    assign spotlight_o3_desc = 'Upptäck matchande paket'
+  endif
+  assign spotlight_o3_button = settings.sp_o3_btn | default: 'Spara'
+  if spotlight_o3_button == 'Sparen'
+    assign spotlight_o3_button = 'Spara'
+  endif
+%}
 <script type="application/json" data-source-spotlight-config>
   {
     "enabled": {{ settings.sp_enabled | default: true, allow_false: true | json }},
     "button": {
-      "label": {{ settings.sp_btn_label | default: 'Angebote' | json }},
+      "label": {{ spotlight_button_label | json }},
       "background": {{ settings.sp_btn_bg | default: '#3D1313' | json }},
       "textColor": {{ settings.sp_btn_text | default: '#FFFFFF' | json }}
     },
-    "banner": {{ settings.sp_banner | default: 'Spare jetzt mit diesen exklusiven Angeboten' | json }},
-    "title": {{ settings.sp_title | default: 'Besondere Angebote' | json }},
+    "banner": {{ spotlight_banner | json }},
+    "title": {{ spotlight_title | json }},
     "offers": [
       {
         "enabled": {{ settings.sp_o1_enabled | default: true, allow_false: true | json }},
         "highlight": {{ settings.sp_o1_badge | default: '-10%' | json }},
-        "title": {{ settings.sp_o1_title | default: 'Rabatt für Newsletter Anmeldung' | json }},
-        "description": {{ settings.sp_o1_desc | json }},
-        "button": {{ settings.sp_o1_btn | default: 'Zur Anmeldung' | json }},
+        "title": {{ spotlight_o1_title | json }},
+        "description": {{ settings.sp_o1_desc | default: 'Få rabatt när du prenumererar på vårt nyhetsbrev' | json }},
+        "button": {{ spotlight_o1_button | json }},
         "link": {{ settings.sp_o1_link | default: '/pages/newsletter' | json }},
         "scheme": {{ settings.sp_o1_scheme | default: 'inverse' | json }}
       },
       {
         "enabled": {{ settings.sp_o2_enabled | default: true, allow_false: true | json }},
         "highlight": {{ settings.sp_o2_badge | default: '-20%' | json }},
-        "title": {{ settings.sp_o2_title | default: 'Rabatt auf Neuheiten' | json }},
-        "description": {{ settings.sp_o2_desc | default: 'Jede Woche neue Angebote' | json }},
-        "button": {{ settings.sp_o2_btn | default: 'Sparen' | json }},
+        "title": {{ spotlight_o2_title | json }},
+        "description": {{ spotlight_o2_desc | json }},
+        "button": {{ spotlight_o2_button | json }},
         "link": {{ settings.sp_o2_link | default: '/collections/wandbild-neuheiten-sale' | json }},
         "scheme": {{ settings.sp_o2_scheme | default: '10' | json }}
       },
       {
         "enabled": {{ settings.sp_o3_enabled | default: true, allow_false: true | json }},
         "highlight": {{ settings.sp_o3_badge | default: '-15%' | json }},
-        "title": {{ settings.sp_o3_title | default: 'Rabatt auf Bundles' | json }},
-        "description": {{ settings.sp_o3_desc | default: 'Entdecke passende Bundles' | json }},
-        "button": {{ settings.sp_o3_btn | default: 'Sparen' | json }},
+        "title": {{ spotlight_o3_title | json }},
+        "description": {{ spotlight_o3_desc | json }},
+        "button": {{ spotlight_o3_button | json }},
         "link": {{ settings.sp_o3_link | default: '/collections/wandbilder-bundles' | json }},
         "scheme": {{ settings.sp_o3_scheme | default: '10' | json }}
       },
@@ -58,7 +108,7 @@
     "progress": {
       "enabled": {{ settings.sp_progress_on | default: true, allow_false: true | json }},
       "nextCopy": {{ settings.sp_progress_next | json }},
-      "completeCopy": {{ settings.sp_progress_done | default: 'Sie haben sich den maximalen Mengenrabatt gesichert.' | json }},
+      "completeCopy": {{ settings.sp_progress_done | default: 'Du har nått maximal mängdrabatt.' | json }},
       "discountLabel": {{ settings.sp_progress_disc | json }},
       "goalTemplate": {{ settings.sp_progress_goal | json }},
       "tierCount": {{ settings.sp_tier_count | default: 5 | json }},
