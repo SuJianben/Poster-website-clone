@@ -14,4 +14,48 @@
       </div>
     </details>
   {% endfor %}
+
+  {% comment %}Client-side product facets for the storefront collection layout.{% endcomment %}
+  <details class="accordion-details facet-accordion-details source-product-filter" data-product-filter-group="orientation">
+    <summary class="accordion-details__summary flex items-center justify-between"><span class="h6">Orientering</span><svg class="icon icon-plus-toggle icon--small icon--thick" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path class="icon-plus-toggle__horizontal" d="M3.125 10h13.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path class="icon-plus-toggle__vertical" d="M10 3.125v13.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary>
+    <div class="accordion-details__content parent-display flex flex-col gap-3">
+      <label class="flex items-center gap-2"><input type="checkbox" value="portrait" data-product-filter="orientation"><span>Stående</span></label>
+      <label class="flex items-center gap-2"><input type="checkbox" value="landscape" data-product-filter="orientation"><span>Liggande</span></label>
+    </div>
+  </details>
+
+  <details class="accordion-details facet-accordion-details source-product-filter" data-product-filter-group="color">
+    <summary class="accordion-details__summary flex items-center justify-between"><span class="h6">Färg</span><svg class="icon icon-plus-toggle icon--small icon--thick" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path class="icon-plus-toggle__horizontal" d="M3.125 10h13.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path class="icon-plus-toggle__vertical" d="M10 3.125v13.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary>
+    <div class="accordion-details__content parent-display flex flex-col gap-3">
+      {% assign source_filter_colors = 'blue|mint|lavender|yellow|peach|pink|red|green|aqua|coral' | split: '|' %}
+      {% assign source_filter_color_labels = 'Blå|Mint|Lavendel|Gul|Persika|Rosa|Röd|Grön|Aqua|Korall' | split: '|' %}
+      {% for color in source_filter_colors %}<label class="flex items-center gap-2"><input type="checkbox" value="{{ color }}" data-product-filter="color"><span>{{ source_filter_color_labels[forloop.index0] }}</span></label>{% endfor %}
+    </div>
+  </details>
+
+  <details class="accordion-details facet-accordion-details source-product-filter" data-product-filter-group="frame">
+    <summary class="accordion-details__summary flex items-center justify-between"><span class="h6">Ram</span><svg class="icon icon-plus-toggle icon--small icon--thick" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path class="icon-plus-toggle__horizontal" d="M3.125 10h13.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path class="icon-plus-toggle__vertical" d="M10 3.125v13.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary>
+    <div class="accordion-details__content parent-display flex flex-col gap-3">
+      {% assign source_filter_frames = 'no frame|white|black|silver' | split: '|' %}
+      {% assign source_filter_frame_labels = 'Utan ram|Vit|Svart|Silver' | split: '|' %}
+      {% for frame in source_filter_frames %}<label class="flex items-center gap-2"><input type="checkbox" value="{{ frame }}" data-product-filter="frame"><span>{{ source_filter_frame_labels[forloop.index0] }}</span></label>{% endfor %}
+    </div>
+  </details>
+
+  <details class="accordion-details facet-accordion-details source-product-filter" data-product-filter-group="size">
+    <summary class="accordion-details__summary flex items-center justify-between"><span class="h6">Storlek</span><svg class="icon icon-plus-toggle icon--small icon--thick" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path class="icon-plus-toggle__horizontal" d="M3.125 10h13.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path class="icon-plus-toggle__vertical" d="M10 3.125v13.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary>
+    <div class="accordion-details__content parent-display flex flex-col gap-3">
+      {% assign source_filter_sizes = '8 × 12 in|12 × 18 in|20 × 30 in' | split: '|' %}
+      {% for size in source_filter_sizes %}<label class="flex items-center gap-2"><input type="checkbox" value="{{ size | downcase }}" data-product-filter="size"><span>{{ size }}</span></label>{% endfor %}
+    </div>
+  </details>
+
+  <details class="accordion-details facet-accordion-details source-product-filter" data-product-filter-group="price">
+    <summary class="accordion-details__summary flex items-center justify-between"><span class="h6">Pris</span><svg class="icon icon-plus-toggle icon--small icon--thick" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path class="icon-plus-toggle__horizontal" d="M3.125 10h13.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path class="icon-plus-toggle__vertical" d="M10 3.125v13.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary>
+    <div class="accordion-details__content parent-display flex flex-col gap-3">
+      <label class="flex items-center gap-2"><input type="checkbox" value="under-200" data-product-filter="price"><span>Under 200 kr</span></label>
+      <label class="flex items-center gap-2"><input type="checkbox" value="200-400" data-product-filter="price"><span>200–400 kr</span></label>
+      <label class="flex items-center gap-2"><input type="checkbox" value="over-400" data-product-filter="price"><span>Över 400 kr</span></label>
+    </div>
+  </details>
 </form>

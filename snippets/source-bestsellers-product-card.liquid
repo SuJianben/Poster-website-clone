@@ -7,6 +7,17 @@
     assign card_image_style = 'object-fit: contain !important; object-position: center center;'
   endif
   assign material = product.type | default: 'Canvas'
+  assign product_tag_data = product.tags | join: '|' | downcase
+  assign size_values = blank
+  assign frame_values = blank
+  for product_option in product.options_with_values
+    assign option_name_key = product_option.name | downcase
+    if option_name_key == 'size'
+      assign size_values = product_option.values | join: '|' | downcase
+    elsif option_name_key == 'premium frame'
+      assign frame_values = product_option.values | join: '|' | downcase
+    endif
+  endfor
   assign is_on_sale = false
   assign display_price = product.price_min
   assign display_compare_at_price = product.compare_at_price_max
@@ -72,7 +83,7 @@
   endcase
 %}
 
-<div class="f-column swiper-slide">
+<div class="f-column swiper-slide" data-filter-tags="{{ product_tag_data | escape }}" data-filter-sizes="{{ size_values | escape }}" data-filter-frames="{{ frame_values | escape }}" data-filter-price="{{ product.price_min }}" data-filter-available="{{ product.available }}">
   <div class="product-card product-card-style-standard color-inherit{% if is_little_artists %} product-card--little-artists{% endif %}">
     <div class="product-card__wrapper h-full">
       <div class="product-card__image-wrapper{% if secondary_image != blank %} has-second-image{% endif %} color-scheme-1 bg-none">
