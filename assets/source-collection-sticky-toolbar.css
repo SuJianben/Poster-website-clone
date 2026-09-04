@@ -11,6 +11,18 @@
   margin-bottom: 0;
 }
 
+/* Room view displays the product's lifestyle/room image (media[1]) while
+   retaining the same card dimensions and layout. */
+html.room-view-active .product-card__image-wrapper.has-second-image .product-card__image--main {
+  opacity: 0;
+}
+
+html.room-view-active .product-card__image-wrapper.has-second-image .product-card__image--second {
+  display: block !important;
+  visibility: visible;
+  opacity: 1;
+}
+
 /* Keep the desktop facet column attached to the toolbar instead of applying
    the global header offset a second time. */
 @media (min-width: 1280px) {

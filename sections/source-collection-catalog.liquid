@@ -11,6 +11,7 @@
 <script src="{{ collection_vendor_url }}" defer="defer"></script>
 <script src="{{ collection_theme_url }}" defer="defer"></script>
 <script src="{{ collection_facets_url }}" defer="defer"></script>
+<script src="{{ 'source-collection-room-view.js' | asset_url }}" defer="defer"></script>
 
 {% assign collection_title = section.settings.heading | default: collection.title | default: 'Collection' %}
 {% assign collection_custom_banner = collection.metafields.custom.banner_image.value %}
