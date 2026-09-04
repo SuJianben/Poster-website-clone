@@ -47,10 +47,10 @@
     </div>
     {% render 'source-atelier-drawer' %}
     <style id="source-badge-finish">
-      /* Breadcrumbs are intentionally omitted from the storefront layout. */
+      /* Collection listing breadcrumbs are intentionally omitted. Product
+         detail breadcrumbs remain visible for navigation context. */
       .section-breadcrumb,
-      .source-product-breadcrumbs,
-      .spx-product__breadcrumbs {
+      .collection .section-breadcrumb {
         display: none !important;
       }
 
