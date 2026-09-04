@@ -8,7 +8,7 @@ product-info.source-product {
 }
 
 .source-product-breadcrumbs {
-  padding-block: 14px;
+  padding-block: 20px;
 }
 
 .source-product-breadcrumbs .breadcrumbs {
@@ -681,7 +681,7 @@ details[open] .source-product-accordion-icon::after { transform: translate(-50%,
 }
 
 @media (max-width: 767.98px) {
-  .source-product-breadcrumbs { padding-block: 12px; }
+  .source-product-breadcrumbs { padding-block: 16px; }
   .source-product .product { display: block; }
   .source-product .product__media-wrapper,
   .source-product .product__info-wrapper { width: 100%; max-width: none; padding: 0; }
