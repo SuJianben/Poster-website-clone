@@ -438,6 +438,7 @@ cart-drawer[hidden] {
 }
 
 .cart-drawer .cart-quantity {
+  --quantity-border-width: 0px;
   align-items: center;
   border: 1px solid #e3e3e3;
   border-radius: 8px;
@@ -460,7 +461,8 @@ cart-drawer[hidden] {
   justify-content: center;
   padding: 0;
   position: absolute;
-  top: 0;
+  top: 50%;
+  transform: translateY(-50%);
   width: 30px;
   z-index: 1;
 }
@@ -491,6 +493,7 @@ cart-drawer[hidden] {
   line-height: 34px;
   padding: 0 30px;
   text-align: center;
+  box-shadow: none;
   width: 100%;
 }
 
