@@ -7,6 +7,10 @@
     assign card_image_style = 'object-fit: contain !important; object-position: center center;'
   endif
   assign material = product.type | default: 'Canvas'
+  assign material_key = material | downcase | strip
+  if material_key == 'kids & nursery poster'
+    assign material = 'POSTER FÖR BARNRUM'
+  endif
   assign product_tag_data = product.tags | join: '|' | downcase
   assign size_values = blank
   assign frame_values = blank

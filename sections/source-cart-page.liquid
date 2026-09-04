@@ -51,7 +51,10 @@
             <a class="scc-cart__recommendation" href="{{ product.url }}">
               <span class="scc-cart__recommendation-image">{% if product.featured_image %}{{ product.featured_image | image_url: width: 720 | image_tag: loading: 'lazy', widths: '360, 540, 720', alt: product.title }}{% endif %}</span>
               {% if forloop.index == 1 %}<em>POPULÄRT</em>{% elsif forloop.index == 2 %}<em>PERSONLIGT MOTIV</em>{% elsif product.compare_at_price > product.price %}<em>-{{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price }}%</em>{% endif %}
-              <small>{{ product.vendor | default: 'ATELIER EXCLUSIVE' }}</small><strong>{{ product.title }}</strong><span class="scc-cart__recommendation-type">{{ product.type | default: 'POSTERS' }}</span><b>Ab {{ product.price | money }}</b>
+              {% assign cart_product_type = product.type | default: 'POSTERS' %}
+              {% assign cart_product_type_key = cart_product_type | downcase | strip %}
+              {% if cart_product_type_key == 'kids & nursery poster' %}{% assign cart_product_type = 'POSTER FÖR BARNRUM' %}{% endif %}
+              <small>{{ product.vendor | default: 'ATELIER EXCLUSIVE' }}</small><strong>{{ product.title }}</strong><span class="scc-cart__recommendation-type">{{ cart_product_type }}</span><b>Ab {{ product.price | money }}</b>
             </a>
           {% endfor %}
         </div></div>

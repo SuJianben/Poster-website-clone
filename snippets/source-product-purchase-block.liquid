@@ -152,6 +152,8 @@
           {% if linked_material_products != blank %}
             {% assign current_material_is_linked = false %}
             {% assign current_material_label = product.metafields.custom.material_label.value | default: product.type | default: product.title %}
+            {% assign current_material_key = current_material_label | downcase | strip %}
+            {% if current_material_key == 'kids & nursery poster' %}{% assign current_material_label = 'POSTER FÖR BARNRUM' %}{% endif %}
             {% for material_product in linked_material_products %}
               {% if material_product.id == product.id %}{% assign current_material_is_linked = true %}{% endif %}
             {% endfor %}
@@ -163,6 +165,8 @@
                 {% endunless %}
                 {% for material_product in linked_material_products %}
                   {% assign material_label = material_product.metafields.custom.material_label.value | default: material_product.type | default: material_product.title %}
+                  {% assign material_label_key = material_label | downcase | strip %}
+                  {% if material_label_key == 'kids & nursery poster' %}{% assign material_label = 'POSTER FÖR BARNRUM' %}{% endif %}
                   <a class="spx-product__material-option{% if material_product.id == product.id %} is-selected{% endif %}" href="{{ material_product.url }}"{% if material_product.id == product.id %} aria-current="page"{% endif %}>{{ material_label }}</a>
                 {% endfor %}
               </div>

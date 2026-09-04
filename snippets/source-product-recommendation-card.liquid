@@ -2,6 +2,10 @@
   assign card_product = product
   assign card_title = card_product.title | default: 'Recommended product'
   assign card_material = card_product.type | default: 'Product'
+  assign card_material_key = card_material | downcase | strip
+  if card_material_key == 'kids & nursery poster'
+    assign card_material = 'POSTER FÖR BARNRUM'
+  endif
   assign card_url = card_product.url | default: routes.all_products_collection_url
   assign card_image = card_product.featured_image | image_url: width: 900
   assign card_hover_image = ''
@@ -28,11 +32,11 @@
   endcapture
 
   if card_product.tags contains 'Trending'
-    assign card_badge = 'TRENDING'
+    assign card_badge = 'POPULÄRT'
   elsif card_product.tags contains 'Bestseller'
     assign card_badge = 'BESTSELLER'
   elsif card_product.tags contains 'Personalisierbar'
-    assign card_badge = 'PERSONALISIERBAR'
+    assign card_badge = 'PERSONLIGT MOTIV'
   elsif card_product.compare_at_price > card_product.price
     assign discount_percent = card_product.compare_at_price | minus: card_product.price | times: 100 | divided_by: card_product.compare_at_price
     assign card_badge = '-' | append: discount_percent | append: '%'

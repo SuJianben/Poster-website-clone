@@ -8,6 +8,9 @@
         "slides": [
           {% for block in section.blocks %}
             {% assign product = block.settings.product %}
+            {% assign favorite_material = product.type | default: 'Canvas' %}
+            {% assign favorite_material_key = favorite_material | downcase | strip %}
+            {% if favorite_material_key == 'kids & nursery poster' %}{% assign favorite_material = 'POSTER FÖR BARNRUM' %}{% endif %}
             {
               "index": {{ forloop.index0 }},
               "blockId": {{ block.id | json }},
@@ -20,7 +23,7 @@
               "product": {% if product != blank %}{
                 "url": {{ product.url | json }},
                 "title": {{ product.title | json }},
-                "material": {{ product.type | default: 'Canvas' | json }},
+                "material": {{ favorite_material | json }},
                 "price": {{ product.price_min | money | json }},
                 "priceVaries": {{ product.price_varies | json }},
                 "primaryImage": {% if product.featured_image != blank %}{{ product.featured_image | image_url: width: 1080 | json }}{% else %}null{% endif %},
