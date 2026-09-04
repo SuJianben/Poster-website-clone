@@ -67,6 +67,17 @@
           --section-padding-bottom: 8px !important;
         }
 
+        /* Center the store logo against the viewport, independently of the
+           unequal menu and action-icon widths on either side. */
+        .header-section .header__logo {
+          position: absolute !important;
+          top: 50% !important;
+          left: 50% !important;
+          width: max-content;
+          max-width: calc(100% - 190px);
+          transform: translate(-50%, -50%) !important;
+        }
+
         .header-section .header__bottom {
           --section-padding-top: 0 !important;
           --section-padding-bottom: 0 !important;
