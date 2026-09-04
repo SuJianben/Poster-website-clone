@@ -112,14 +112,14 @@
         {% endif %}
       {% endif %}
     {% endif %}
-    {% assign atelier_edition_label = block.settings.atelier_text | default: 'ATELJÉUTGÅVA' %}
+    {% assign atelier_edition_label = block.settings.atelier_text | default: 'ATELJÉ EXKLUSIV' %}
     {% assign atelier_edition_key = atelier_edition_label | downcase | strip %}
-    {% if atelier_edition_key == 'atelier exclusive' %}{% assign atelier_edition_label = 'ATELJÉUTGÅVA' %}{% endif %}
+    {% if atelier_edition_key == 'atelier exclusive' %}{% assign atelier_edition_label = 'ATELJÉ EXKLUSIV' %}{% endif %}
     {% if atelier_edition_key == 'limited atelier exclusive' %}{% assign atelier_edition_label = 'BEGRÄNSAD UTGÅVA' %}{% endif %}
     {% if atelier_edition_key == 'essentials' %}{% assign atelier_edition_label = 'BASUTBUD' %}{% endif %}
     {% case atelier_edition_key %}
       {% when 'limited' %}{% assign atelier_edition_label = 'BEGRÄNSAD UTGÅVA' %}
-      {% when 'atelier' %}{% assign atelier_edition_label = 'ATELJÉUTGÅVA' %}
+      {% when 'atelier' %}{% assign atelier_edition_label = 'ATELJÉ EXKLUSIV' %}
       {% when 'essentials' %}{% assign atelier_edition_label = 'BASUTBUD' %}
     {% endcase %}
     {% assign show_atelier_badge = block.settings.show_atelier_badge %}

@@ -15,7 +15,7 @@
   {% if normalized_tag == 'bestseller' or normalized_tag == 'best seller' %}{% assign has_bestseller = true %}{% endif %}
   {% if normalized_tag contains 'limited edition' or normalized_tag contains 'limited' %}{% assign has_limited = true %}{% endif %}
   {% if normalized_tag contains 'personal' or normalized_tag contains 'custom' %}{% assign has_personalizable = true %}{% endif %}
-  {% if normalized_tag contains 'atelier' or normalized_tag contains 'exclusive' %}{% assign atelier_label = 'ATELJÉUTGÅVA' %}{% endif %}
+  {% if normalized_tag contains 'atelier' or normalized_tag contains 'exclusive' %}{% assign atelier_label = 'ATELJÉ EXKLUSIV' %}{% endif %}
 {% endfor %}
 
 {% for option in product.options_with_values %}

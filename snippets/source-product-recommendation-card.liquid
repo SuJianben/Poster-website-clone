@@ -55,7 +55,7 @@
       assign has_atelier_edition_metafield = true
     when 'atelier', 'atelier exclusive', 'silver'
       assign atelier_edition_key = 'atelier'
-      assign atelier_edition_label = 'ATELJÉUTGÅVA'
+      assign atelier_edition_label = 'ATELJÉ EXKLUSIV'
       assign has_atelier_edition_metafield = true
     when 'essentials', 'essential'
       assign atelier_edition_key = 'essentials'
@@ -70,7 +70,7 @@
       assign atelier_edition_label = 'BEGRÄNSAD UTGÅVA'
     elsif atelier_product_tags contains 'atelier exclusive'
       assign atelier_edition_key = 'atelier'
-      assign atelier_edition_label = 'ATELJÉUTGÅVA'
+      assign atelier_edition_label = 'ATELJÉ EXKLUSIV'
     endif
   endif
 -%}
