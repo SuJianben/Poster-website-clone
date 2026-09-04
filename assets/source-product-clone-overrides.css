@@ -703,7 +703,7 @@ details[open] .source-product-accordion-icon::after { transform: translate(-50%,
   .product__info-box { margin-top: 30px; padding: 24px 15px; }
   .inner-brands-banner { margin: -10px -15px 15px !important; padding: 10px 5px !important; }
   .product__info-box .product__block--badges { left: 15px !important; }
-  .custom-top-badges .f-badge--custom { height: 15px !important; min-height: 15px !important; padding: 0 6px !important; border-radius: 5px !important; font-size: 10px !important; line-height: 15px !important; transform: none !important; }
+  .custom-top-badges .f-badge--custom { height: 18px !important; min-height: 18px !important; padding: 0 7px !important; border-radius: 5px !important; font-size: 11px !important; line-height: 18px !important; transform: none !important; }
   .product__title { font-size: 27px; }
   .variant-label--standard { width: calc((100% - 8px) / 2) !important; flex-basis: calc((100% - 8px) / 2) !important; }
   .variant-label--with-image { width: 72px !important; height: 55px !important; flex-basis: 72px !important; }
