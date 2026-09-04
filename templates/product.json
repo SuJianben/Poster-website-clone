@@ -377,6 +377,7 @@
         "manual_review_tomi",
         "manual_review_daniel"
       ],
+      "disabled": true,
       "settings": {
         "review_source": "manual",
         "heading": "Över 60 000 nöjda kunder",
