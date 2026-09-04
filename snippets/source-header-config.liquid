@@ -42,7 +42,8 @@
 <div
   hidden
   data-source-header-config
-  data-logo="{% if section.settings.logo != blank %}{{ section.settings.logo | image_url: width: 800 }}{% endif %}"
+  data-logo="{% if section.settings.logo != blank %}{{ section.settings.logo | image_url: width: 800 }}{% else %}{{ 'daylightwalls_logo_wordmark.png' | asset_url }}{% endif %}"
+  data-logo-mobile="{{ 'daylightwalls_logo_shopify_icon.png' | asset_url }}"
   data-logo-width="{{ section.settings.logo_width | default: 400 }}"
   data-logo-width-mobile="{{ section.settings.logo_width_mobile | default: 200 }}"
   data-logo-link="{{ section.settings.logo_link | default: routes.root_url }}"
@@ -50,37 +51,6 @@
   data-search-placeholder="{{ section.settings.search_placeholder | default: 'Vad söker du?' | escape }}"
   data-navigation="{{ source_header_navigation | strip_newlines | escape }}"
 ></div>
-
-{% if section.settings.logo == blank %}
-  <style data-source-header-logo-fallback>
-    .header-section .header__logo > a.header__logo--image {
-      max-width: min({{ section.settings.logo_width | default: 400 }}px, calc(100vw - 11rem));
-    }
-
-    .header-section .header__logo > a.header__logo--image > img.logo {
-      display: none !important;
-    }
-
-    .header-section .header__logo > a.header__logo--image::after {
-      display: block;
-      max-width: 100%;
-      overflow: hidden;
-      color: currentColor;
-      content: {{ shop.name | json }};
-      font: inherit;
-      letter-spacing: 0;
-      line-height: 1.1;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    @media (max-width: 1023px) {
-      .header-section .header__logo > a.header__logo--image {
-        max-width: min({{ section.settings.logo_width_mobile | default: 200 }}px, calc(100vw - 8rem));
-      }
-    }
-  </style>
-{% endif %}
 
 {% comment %}
   The captured header markup contains a visual fallback menu from the reference

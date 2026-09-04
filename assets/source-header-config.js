@@ -103,6 +103,7 @@
     if (!logoAnchor) return;
 
     const logo = configNode.dataset.logo;
+    const mobileLogo = configNode.dataset.logoMobile;
     const shopName = configNode.dataset.shopName || 'Store';
     const desktopWidth = getLogoWidth(configNode.dataset.logoWidth, 400, 80, 500);
     const mobileWidth = getLogoWidth(configNode.dataset.logoWidthMobile, 200, 60, 280);
@@ -123,8 +124,9 @@
       images.forEach((image) => {
         image.hidden = false;
         image.removeAttribute('aria-hidden');
-        image.src = logo;
-        image.srcset = logo;
+        const imageSource = image.classList.contains('header__logo--mobile') && mobileLogo ? mobileLogo : logo;
+        image.src = imageSource;
+        image.srcset = imageSource;
         image.alt = shopName;
       });
       fallback?.remove();
