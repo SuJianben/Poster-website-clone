@@ -7,7 +7,7 @@
   @keyframes spx-module-reveal { from { opacity:0; transform:translate3d(0,18px,0); } to { opacity:1; transform:translate3d(0,0,0); } }
 }
 .spx-product__shell { width:100%; margin:0; }
-.spx-product__breadcrumbs { display:flex; align-items:center; gap:10px; min-height:28px; margin:0 0 8px; padding-block:8px; color:#555; font-size:14px; }
+.spx-product__breadcrumbs { display:flex; align-items:center; gap:10px; min-height:28px; margin:0 0 8px; padding-block:10px; color:#555; font-size:14px; }
 .spx-product__breadcrumbs a { color:#111; font-weight:700; text-decoration:none; }
 .spx-product__breadcrumbs a:hover { text-decoration:underline; }
 .spx-product__breadcrumbs > span[aria-hidden] { width:1px; height:16px; background:#dedede; }
