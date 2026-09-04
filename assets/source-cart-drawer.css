@@ -666,7 +666,7 @@ cart-drawer[hidden] {
 .cart-drawer .payment-icons {
   align-items: center;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(28px, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   column-gap: 7px;
   row-gap: 6px;
   overflow: visible;
