@@ -29,10 +29,18 @@
   margin-top: 0 !important;
 }
 
-/* Deal badges use the same corner radius as the product-card image shell. */
-.f-badge--sale {
-  border-radius: var(--pcard-radius, 1rem) !important;
-  color: #000 !important;
+/* Compact discount label used on product cards. */
+.product-card__badge .f-badge--sale {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  height: 15px !important;
+  min-height: 15px !important;
+  padding: 0 8px !important;
+  border-radius: 5px !important;
+  color: #fff !important;
+  line-height: 15px !important;
   background: #09cda9f7 !important;
   background-color: #09cda9f7 !important;
   border-color: transparent !important;
@@ -41,7 +49,18 @@
 
 /* Keep the hot-selling badge crisp and minimal across homepage and collection
    shelves: solid black with no outline or shadow. */
-.f-badge--trending {
+.product-card__badge .f-badge--trending {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  width: auto !important;
+  height: 15px !important;
+  min-height: 15px !important;
+  padding: 0 6px !important;
+  border-radius: 5px !important;
+  font-size: 10px !important;
+  line-height: 15px !important;
   color: #fff !important;
   border: 0 !important;
   border-color: transparent !important;
