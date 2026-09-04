@@ -2,13 +2,16 @@
   position: sticky;
   top: 0;
   z-index: 20;
-  background: rgb(var(--color-background));
-  border-bottom: 1px solid rgba(var(--color-foreground), 0.12);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  /* Keep the sticky controls part of the page flow. The filter area should
+     not look like a separate card while it remains pinned on scroll. */
+  background: transparent;
+  border: 0;
+  box-shadow: none;
 }
 
 .source-collection-sticky-toolbar .collection__toolbar {
   margin-bottom: 0;
+  background: transparent;
 }
 
 /* Room view displays the product's lifestyle/room image (media[1]) while
