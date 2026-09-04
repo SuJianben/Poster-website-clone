@@ -58,6 +58,21 @@
         background-color: #000 !important;
       }
 
+      /* Match the reference site's compact mobile header rhythm.  The static
+         source header defaults to 1.6rem above and below the logo, which makes
+         the mobile header visibly taller than the announcement bar. */
+      @media screen and (max-width: 1023px) {
+        .header-section .header__top {
+          --section-padding-top: 8px !important;
+          --section-padding-bottom: 8px !important;
+        }
+
+        .header-section .header__bottom {
+          --section-padding-top: 0 !important;
+          --section-padding-bottom: 0 !important;
+        }
+      }
+
       /* Final badge styling is placed after all section markup so section-level
          inline styles cannot override the storefront presentation. */
       .f-badge--sale {
