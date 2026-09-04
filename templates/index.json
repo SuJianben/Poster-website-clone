@@ -221,9 +221,9 @@
       ],
       "settings": {
         "enabled": true,
-        "heading_prefix": "CANVAS",
-        "heading_highlight": "ERBJUDANDEN",
-        "heading_suffix": "SHOPPA −20%",
+        "heading_prefix": "CANVASTAVLOR",
+        "heading_highlight": "−20%",
+        "heading_suffix": "",
         "promotion_text": "20 % rabatt på alla nya canvasmotiv och mer",
         "promotion_link": "",
         "collection_label": "Till kollektionen"

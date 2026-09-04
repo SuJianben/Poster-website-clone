@@ -123,10 +123,10 @@
         <h3 class="product-card__title text-pcard-title" style="min-height: 0; margin-bottom: 2px;"><a class="reversed-link block" href="{{ product.url }}"><span class="reversed-link__text">{{ product.title }}</span></a></h3>
         <p class="product-card__material" style="color: #9a9a9a; font-size: 13px; font-weight: 400; margin: 0 0 2px 0; line-height: 1.2; text-transform: uppercase;">{{ material }}</p>
         <div class="f-price f-price--center{% if is_on_sale %} f-price--on-sale{% endif %}">
-          <div class="f-price__regular"><span class="f-price-item f-price-item--regular">{% if product.price_varies %}Ab {% endif %}{% if is_on_sale %}{{ display_compare_at_price | money }}{% else %}{{ display_price | money }}{% endif %}</span></div>
+          <div class="f-price__regular"><span class="f-price-item f-price-item--regular">{% if product.price_varies %}Från {% endif %}{% if is_on_sale %}{{ display_compare_at_price | money }}{% else %}{{ display_price | money }}{% endif %}</span></div>
           {% if is_on_sale %}
             <div class="f-price__sale">
-              <span class="f-price-item f-price-item--sale">{% if product.price_varies %}Ab {% endif %}{{ display_price | money }}</span>
+              <span class="f-price-item f-price-item--sale">{% if product.price_varies %}Från {% endif %}{{ display_price | money }}</span>
               <span class="f-price-item f-price-item--regular"><s>{{ display_compare_at_price | money }}</s></span>
             </div>
           {% endif %}

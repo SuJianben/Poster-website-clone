@@ -54,7 +54,7 @@
               {% assign cart_product_type = product.type | default: 'POSTERS' %}
               {% assign cart_product_type_key = cart_product_type | downcase | strip %}
               {% if cart_product_type_key == 'kids & nursery poster' %}{% assign cart_product_type = 'POSTER FÖR BARNRUM' %}{% endif %}
-              <small>{{ product.vendor | default: 'ATELIER EXCLUSIVE' }}</small><strong>{{ product.title }}</strong><span class="scc-cart__recommendation-type">{{ cart_product_type }}</span><b>Ab {{ product.price | money }}</b>
+              <small>{{ product.vendor | default: 'ATELIER EXCLUSIVE' }}</small><strong>{{ product.title }}</strong><span class="scc-cart__recommendation-type">{{ cart_product_type }}</span><b>Från {{ product.price | money }}</b>
             </a>
           {% endfor %}
         </div></div>
