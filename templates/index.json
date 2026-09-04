@@ -689,84 +689,6 @@
         "heading": "Våra kunders favoritprodukter"
       }
     },
-    "announcement": {
-      "type": "source-announcement",
-      "blocks": {
-        "review_ihYkDH": {
-          "type": "review",
-          "settings": {
-            "date": "2026-06-21",
-            "rating": 5,
-            "title": "Fantastisk poster",
-            "message": "Precis som jag föreställde mig. Snabb leverans och väl förpackad.",
-            "author": "Rene B.",
-            "product": "nord-projects-8am",
-            "link": ""
-          }
-        },
-        "review_4zedEa": {
-          "type": "review",
-          "settings": {
-            "date": "2026-06-18",
-            "rating": 5,
-            "title": "Så nöjd",
-            "message": "Färgerna är fantastiska och kvaliteten över förväntan.",
-            "author": "Anna L.",
-            "product": "nord-projects-8am",
-            "link": ""
-          }
-        },
-        "review_VEJhPV": {
-          "type": "review",
-          "settings": {
-            "date": "2026-06-15",
-            "rating": 5,
-            "title": "Snabb leverans",
-            "message": "Enkel beställning och tavlan kom fram snabbt och säkert.",
-            "author": "Mikael S.",
-            "product": "nord-projects-8am",
-            "link": ""
-          }
-        },
-        "review_zb8dDc": {
-          "type": "review",
-          "settings": {
-            "date": "2026-06-12",
-            "rating": 5,
-            "title": "Vacker på väggen",
-            "message": "Ett fint tillskott i vårt hem. Rekommenderas varmt!",
-            "author": "Sofia K.",
-            "product": "nord-projects-8am",
-            "link": ""
-          }
-        },
-        "review_QmjKnC": {
-          "type": "review",
-          "settings": {
-            "date": "2026-06-10",
-            "rating": 5,
-            "title": "Hög kvalitet",
-            "message": "Trycket är skarpt och färgerna är precis som på bilden.",
-            "author": "Erik N.",
-            "product": "nord-projects-8am",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "review_ihYkDH",
-        "review_4zedEa",
-        "review_VEJhPV",
-        "review_zb8dDc",
-        "review_QmjKnC"
-      ],
-      "disabled": true,
-      "settings": {
-        "enabled": true,
-        "heading": "",
-        "review_count": ""
-      }
-    },
     "collection-list-secondary": {
       "type": "source-collection-list-secondary",
       "blocks": {
@@ -822,7 +744,6 @@
     "collection-list",
     "grid-banner",
     "favorite-products",
-    "announcement",
     "collection-list-secondary"
   ]
 }
