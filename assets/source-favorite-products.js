@@ -1,8 +1,8 @@
 (() => {
   const ROOT_SELECTOR = 'favorite-products[data-enable-slider="true"]';
   const TRANSITION_MS = 300;
-  const SLIDE_DURATION_MS = 520;
-  const SLIDE_EASING = 'cubic-bezier(0.22, 1, 0.36, 1)';
+  const SLIDE_DURATION_MS = 680;
+  const SLIDE_EASING = 'cubic-bezier(0.65, 0, 0.35, 1)';
 
   function slidesFor(root, selector) {
     return Array.from(root.querySelectorAll(`${selector} > .swiper-wrapper > .swiper-slide:not([hidden])`));
@@ -15,17 +15,32 @@
     const total = testimonialSlides.length;
     const nextIndex = Math.max(0, Math.min(index, total - 1));
 
+    const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    const transformTransition = reduceMotion
+      ? 'none'
+      : `transform ${SLIDE_DURATION_MS}ms ${SLIDE_EASING}`;
+    const fadeTransition = reduceMotion
+      ? 'none'
+      : `opacity ${SLIDE_DURATION_MS}ms ${SLIDE_EASING}`;
+
     [
       root.querySelector('.favorite-products__testimonials .swiper-wrapper'),
       root.querySelector('.favorite-products__products > .swiper-wrapper'),
       root.querySelector('.favorite-products__media .swiper-wrapper'),
     ].filter(Boolean).forEach((track) => {
-      const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-      track.style.transition = reduceMotion
-        ? 'none'
-        : `transform ${SLIDE_DURATION_MS}ms ${SLIDE_EASING}`;
+      track.style.transition = transformTransition;
       track.style.willChange = 'transform';
       track.style.transform = `translate3d(-${nextIndex * 100}%, 0, 0)`;
+    });
+
+    [
+      root.querySelectorAll('.favorite-products__testimonials .swiper-slide:not([hidden])'),
+      root.querySelectorAll('.favorite-products__media .swiper-slide:not([hidden])'),
+    ].forEach((slides) => {
+      slides.forEach((slide) => {
+        slide.style.transition = fadeTransition;
+        slide.style.opacity = slide.dataset.index === String(nextIndex) ? '1' : '0.72';
+      });
     });
 
     productSlides.forEach((slide, slideIndex) => {
