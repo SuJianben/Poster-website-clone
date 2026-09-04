@@ -73,7 +73,7 @@
   </div>
 
   <div class="collection__content flex gap-5">
-      {% if collection.filters.size > 0 %}<div id="FacetFiltersContainer" class="hidden xl:block"><div class="sticky-element z-8" style="--sticky-offset: calc(var(--source-collection-sticky-top, 0px) + 7.2rem);">{% render 'source-collection-facets', collection: collection, scope: 'vertical', section_id: section.id %}</div></div>{% endif %}
+      {% if collection.filters.size > 0 %}<div id="FacetFiltersContainer" class="hidden xl:block"><div class="sticky-element z-8" style="--sticky-offset: 7.2rem;">{% render 'source-collection-facets', collection: collection, scope: 'vertical', section_id: section.id %}</div></div>{% endif %}
       {% paginate collection.products by 24 %}
         <div id="ProductGridContainer" class="flex-1 min-w-0">
           <div id="ProductsList" class="grid-list products-list products-list--list-standard f-grid f-grid--gap-medium f-grid--row-gap-medium" data-grid-class="product-card-style-standard" data-list-class="product-card-style-standard" data-layout="grid" style="--f-columns-mobile: 2; --f-columns-md: 3;--f-columns-lg: 4; --f-columns-xl: 4;">
