@@ -3,7 +3,10 @@ class SourceBasicHeader extends HTMLElement {
   get headerSection() {
     // The migrated source header sits inside Shopify's generated section wrapper.
     // Bind sticky positioning to that wrapper, not the separate Top bar section.
-    return this.closest('.header-section')?.parentElement || document.querySelector('.header-section');
+    // Apply sticky positioning to the generated header section wrapper itself.
+    // Using its parent (.site-wrapper) makes the entire page sticky and leaves
+    // an extra header-sized gap above the content on desktop and mobile.
+    return this.closest('.header-section') || document.querySelector('.header-section');
   }
 
   get headerNavigation() {
