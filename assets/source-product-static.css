@@ -51,6 +51,16 @@
   content:"";
   pointer-events:none;
 }
+
+/* Match the compact 5px-corner badge treatment used on homepage cards. */
+.spx-product__top-badges .spx-product__top-badge--sale,
+.spx-product__top-badges .spx-product__top-badge--trending {
+  height: 18px !important;
+  min-height: 18px !important;
+  padding: 0 8px !important;
+  border-radius: 5px !important;
+  line-height: 18px !important;
+}
 .spx-product__main-image--css-frame[data-spx-active-index="0"]:not([data-spx-frame-tone="none"]) .spx-product__main-image-button::before {
   position:absolute;
   inset:calc(var(--spx-css-frame-inset-block) + clamp(6px,.9vw,12px)) calc(var(--spx-css-frame-inset-inline) + clamp(6px,.9vw,12px));
