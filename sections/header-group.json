@@ -30,7 +30,7 @@
       "settings": {
         "enabled": true,
         "logo_width": 280,
-        "logo_width_mobile": 200,
+        "logo_width_mobile": 160,
         "logo_link": "",
         "search_placeholder": "Vad söker du?",
         "menu": "main-menu"
