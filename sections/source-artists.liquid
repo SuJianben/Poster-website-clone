@@ -3,23 +3,23 @@
 {% endif %}
 {% schema %}
 {
-  "name": "认识艺术家",
+  "name": "精选主题",
   "settings": [
     { "type": "checkbox", "id": "enabled", "label": "显示模块", "default": true },
-    { "type": "text", "id": "eyebrow", "label": "标题上方文字", "default": "Varje köp stöttar konstnären" },
-    { "type": "text", "id": "heading_prefix", "label": "标题前缀", "default": "DESIGNAT AV ÄKTA" },
-    { "type": "text", "id": "heading_highlight", "label": "标题高亮文字", "default": "KONSTNÄRER" },
-    { "type": "text", "id": "link_label", "label": "标题链接文字", "default": "Se alla konstnärer" },
+    { "type": "text", "id": "eyebrow", "label": "标题上方文字", "default": "Utvalda motiv för små och stora fantasier" },
+    { "type": "text", "id": "heading_prefix", "label": "标题前缀", "default": "LEKFULLA MOTIV FÖR" },
+    { "type": "text", "id": "heading_highlight", "label": "标题高亮文字", "default": "BARNRUM" },
+    { "type": "text", "id": "link_label", "label": "标题链接文字", "default": "Se alla motiv" },
     { "type": "url", "id": "link", "label": "标题链接" },
     { "type": "text", "id": "collection_label", "label": "系列按钮文字", "default": "Till kollektionen" }
   ],
   "blocks": [
     {
       "type": "collection_tab",
-      "name": "艺术家系列",
+      "name": "主题系列",
       "settings": [
-        { "type": "collection", "id": "collection", "label": "艺术家系列" },
-        { "type": "text", "id": "label", "label": "艺术家名称" },
+        { "type": "collection", "id": "collection", "label": "商品系列" },
+        { "type": "text", "id": "label", "label": "主题名称" },
         { "type": "image_picker", "id": "promo_image", "label": "推广图片" },
         { "type": "text", "id": "promo_heading", "label": "推广标题" },
         { "type": "text", "id": "promo_button_label", "label": "推广按钮文字" },
@@ -27,6 +27,6 @@
       ]
     }
   ],
-  "presets": [{ "name": "认识艺术家" }]
+  "presets": [{ "name": "精选主题" }]
 }
 {% endschema %}
