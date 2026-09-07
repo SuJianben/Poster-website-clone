@@ -19,10 +19,10 @@
       "type": "source-topbar",
       "settings": {
         "enabled": true,
-        "left_badge": "",
-        "left_text": "",
-        "center_badge": "",
-        "center_text": ""
+        "left_badge": "★★★★★",
+        "left_text": "2 500+ recensioner och 30 dagars provhängning",
+        "center_badge": "Nyhet",
+        "center_text": "Fri frakt över 499 kr"
       }
     },
     "header": {
