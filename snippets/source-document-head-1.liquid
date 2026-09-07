@@ -6,10 +6,10 @@
 <link rel="icon" type="image/png" href="{{ 'daylightwalls_logo_icon_transparent_dark_sun.png' | asset_url }}">
 <link rel="apple-touch-icon" href="{{ 'daylightwalls_logo_icon_transparent_dark_sun.png' | asset_url }}">
 
-<title>
+<title>{% if request.page_type == 'index' %}DaylightWalls | Väggkonst för barnrum – tillverkas på beställning{% else %}
   {{ page_title }}
   {%- unless page_title contains shop.name %} - {{ shop.name }}{% endunless -%}
-</title>
+{% endif %}</title>
 
 {% if page_description %}
   <meta name="description" content="{{ page_description | escape }}">
