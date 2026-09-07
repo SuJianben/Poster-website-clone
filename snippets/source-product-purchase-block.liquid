@@ -224,9 +224,11 @@
                   {% if is_frame_option %}
                     {% assign frame_tone = 'natural' %}
                     {% assign frame_value_downcase = option_value_label | downcase %}
-                    {% if frame_value_downcase contains 'none' or frame_value_downcase contains 'ohne' or frame_value_downcase contains 'no frame' or frame_value_downcase contains 'ingen ram' %}{% assign frame_tone = 'none' %}{% endif %}
+                    {% if frame_value_downcase contains 'none' or frame_value_downcase contains 'ohne' or frame_value_downcase contains 'no frame' or frame_value_downcase contains 'ingen ram' or frame_value_downcase contains 'utan ram' %}{% assign frame_tone = 'none' %}{% endif %}
                     {% if frame_value_downcase contains 'white' or frame_value_downcase contains 'weiss' or frame_value_downcase == 'vit' %}{% assign frame_tone = 'white' %}{% endif %}
                     {% if frame_value_downcase contains 'black' or frame_value_downcase contains 'schwarz' or frame_value_downcase == 'svart' %}{% assign frame_tone = 'black' %}{% endif %}
+                    {% if frame_value_downcase contains 'oak' or frame_value_downcase == 'ek' %}{% assign frame_tone = 'white' %}{% endif %}
+                    {% if frame_value_downcase contains 'dark oak' or frame_value_downcase contains 'mörk ek' or frame_value_downcase contains 'mork ek' %}{% assign frame_tone = 'silver' %}{% endif %}
                     {% if frame_value_downcase contains 'silver' or frame_value_downcase contains 'silber' %}{% assign frame_tone = 'silver' %}{% endif %}
                     {% if frame_value_downcase contains 'gold' %}{% assign frame_tone = 'gold' %}{% endif %}
                     {% unless frame_tone == 'gold' %}
