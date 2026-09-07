@@ -126,7 +126,7 @@
     {% if has_atelier_edition_metafield or atelier_product_tags contains 'limited atelier exclusive' or atelier_product_tags contains 'atelier exclusive' %}{% assign show_atelier_badge = true %}{% endif %}
     <p class="spx-product__artist" data-analytics-block-type="artist" {{ block.shopify_attributes }}>
       {{ block.settings.label }} <a href="{{ artist_url }}">{{ artist_name }}</a>
-      {% if show_atelier_badge %}
+      {% if false %}
         <button class="spx-product__atelier-badge spx-product__atelier-badge--{{ atelier_edition_key }} js-open-atelier-drawer-card" type="button" data-spx-atelier aria-haspopup="dialog" aria-controls="atelier-drawer-title" aria-label="Learn about {{ atelier_edition_label | escape }}" data-atelier-title="{{ product.metafields.custom.atelier_title.value | escape }}" data-atelier-description="{{ product.metafields.custom.atelier_description.value | escape }}">
           {{ atelier_edition_label }}
           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><polyline points="9 18 15 12 9 6"></polyline></svg>
@@ -353,8 +353,8 @@
   {% when 'payment_trust' %}
     <div data-analytics-block-type="payment_trust" {{ block.shopify_attributes }}>
       {% if shop.enabled_payment_types.size > 0 %}
-        <div class="spx-product__payment-title"><span></span>{{ block.settings.heading | default: 'product.payment_methods' | t }}<span></span></div>
-        <div class="spx-product__payment-methods" aria-label="{{ 'product.payment_methods' | t }}">
+        <div class="spx-product__payment-title"><span></span>{% if block.settings.heading != blank %}{{ block.settings.heading }}{% else %}Säkra betalningsmetoder{% endif %}<span></span></div>
+        <div class="spx-product__payment-methods" aria-label="Betalningsmetoder">
           {% for payment_type in shop.enabled_payment_types %}
             <span class="spx-product__payment-method">
               {{ payment_type | payment_type_svg_tag: class: 'icon icon--full-color' }}

@@ -44,8 +44,7 @@
     <script src="{{ 'source-header-mega-menu.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'source-topbar-config.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'source-topbar-localization.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'source-atelier-drawer.js' | asset_url }}" defer="defer"></script>
-  </head>
+    </head>
   <body>
     <div class="site-wrapper">
       {% sections 'header-group' %}
@@ -53,7 +52,6 @@
       {% sections 'footer-group' %}
       {% render 'source-global-overlays' %}
     </div>
-    {% render 'source-atelier-drawer' %}
     <style id="source-badge-finish">
       /* Collection listing breadcrumbs are intentionally omitted. Product
          detail breadcrumbs remain visible for navigation context. */
