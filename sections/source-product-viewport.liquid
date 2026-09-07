@@ -18,6 +18,12 @@
   .spx-product__frame-swatch--white {
     background-image: url('{{ 'frame-option-oak-realistic.jpg' | asset_url }}') !important;
   }
+  .spx-product__frame-swatch--none {
+    background-image: url('{{ 'frame-option-none-realistic.jpg' | asset_url }}') !important;
+  }
+  .spx-product__frame-swatch--none::before {
+    display: none !important;
+  }
   .spx-product__frame-swatch--black {
     background-image: url('{{ 'frame-option-black-realistic.jpg' | asset_url }}') !important;
   }
