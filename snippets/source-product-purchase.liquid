@@ -74,7 +74,7 @@
       <div id="price-{{ section.id }}" class="product__block product__block--price" data-source-product-price>
         <span class="source-product-price" data-source-product-current-price>{{ current_variant.price | money }}</span>
         <s class="source-product-compare-price" data-source-product-compare-price{% unless current_variant.compare_at_price > current_variant.price %} hidden{% endunless %}>{% if current_variant.compare_at_price > current_variant.price %}{{ current_variant.compare_at_price | money }}{% endif %}</s>
-        <p class="source-product-shipping">Kostenloser Versand.</p>
+        <p class="source-product-shipping">Fri frakt över 499 kr · leverans 12–15 arbetsdagar</p>
       </div>
 
       <div class="product__block product__block--variant_picker">

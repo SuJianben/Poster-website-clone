@@ -54,7 +54,7 @@
           "settings": {
             "use_product_price": true,
             "price_text": "$29.00",
-            "shipping_text": "Fri frakt."
+            "shipping_text": "Fri frakt över 499 kr · leverans 12–15 arbetsdagar"
           }
         },
         "variant_picker": {
@@ -102,7 +102,6 @@
         },
         "volume_discount": {
           "type": "volume_discount",
-          "disabled": true,
           "settings": {
             "heading": "🌞 SOMMARREA: Köp mer, spara mer! 🎉",
             "note": "Kan kombineras med redan nedsatta varor!",
@@ -124,8 +123,8 @@
           "type": "benefits",
           "settings": {
             "benefit_1": "Klar att hängas upp direkt",
-            "benefit_2": "Fri frakt över 49 €",
-            "benefit_3": "Beräknad leverans: 15–17 augusti"
+            "benefit_2": "Fri frakt över 499 kr",
+            "benefit_3": "Beräknad leverans: 12–15 arbetsdagar"
           }
         },
         "payment_trust": {
@@ -164,8 +163,8 @@
         "benefit_1_description": "Handgjord med certifierade material.",
         "benefit_2_title": "Nöjd eller pengarna tillbaka",
         "benefit_2_description": "100 % nöjdhetsgaranti eller pengarna tillbaka.",
-        "benefit_3_title": "Fri frakt över 49 €",
-        "benefit_3_description": "Vi skickar din beställning snabbt och säkert förpackad.",
+        "benefit_3_title": "Fri frakt över 499 kr",
+        "benefit_3_description": "Beräknad leverans inom 12–15 arbetsdagar.",
         "benefit_4_title": "30 dagars returrätt",
         "benefit_4_description": "Prova din tavla helt riskfritt – utan krångel."
       }
@@ -274,7 +273,7 @@
         "materials_heading": "Detaljer om canvastryck:",
         "materials_content": "",
         "shipping_delivery_heading": "Leverans",
-        "shipping_delivery_content": "<ul><li><strong>Fraktkostnad:</strong> Fri frakt över <strong>49 €</strong>.</li><li><strong>Säkerhet:</strong> Snabb och säker frakt med spårning.</li><li><strong>Leveranstid:</strong> 2–5 arbetsdagar (kan variera beroende på storlek och material).</li></ul><p><strong>Internationell frakt:</strong> Leveranser utanför EU kan omfattas av tull eller importavgifter som mottagaren ansvarar för.</p>",
+        "shipping_delivery_content": "<ul><li><strong>Fraktkostnad:</strong> Fri frakt över <strong>499 kr</strong>.</li><li><strong>Säkerhet:</strong> Snabb och säker frakt med spårning.</li><li><strong>Leveranstid:</strong> 12–15 arbetsdagar.</li></ul><p><strong>Internationell frakt:</strong> Leveranser utanför EU kan omfattas av tull eller importavgifter som mottagaren ansvarar för.</p>",
         "shipping_returns_heading": "Returer och byten",
         "shipping_returns_content": "",
         "shipping_policy_content": "",
@@ -378,7 +377,6 @@
         "manual_review_tomi",
         "manual_review_daniel"
       ],
-      "disabled": true,
       "settings": {
         "review_source": "manual",
         "heading": "Över 60 000 nöjda kunder",

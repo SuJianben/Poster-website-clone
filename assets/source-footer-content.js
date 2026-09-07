@@ -140,7 +140,7 @@
     const benefits = [
       ['30 dagars &ouml;ppet k&ouml;p', 'Handla tryggt &#8211; returnera om det inte passar.'],
       ['Fri frakt p&aring; alla best&auml;llningar &ouml;ver 499 kr', ''],
-      ['Snabb och s&auml;ker leverans', 'Leverans inom 5&#8211;7 arbetsdagar.'],
+      ['Snabb och s&auml;ker leverans', 'Leverans inom 12&#8211;15 arbetsdagar.'],
       ['100 % s&auml;kra betalningar', 'Betala med PayPal, kort eller Klarna'],
       ['V&auml;nlig kundservice', 'Kontakta oss via v&aring;r kontaktsida']
     ];

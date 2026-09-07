@@ -4,7 +4,7 @@
   assign selected_image = selected_media.preview_image | default: product.featured_image
   assign product_details_heading = section.settings.product_details_heading | default: 'Product Details'
   assign product_details_content = section.settings.product_details_content
-  assign shipping_returns_heading = section.settings.shipping_returns_heading | default: 'Shipping and Returns'
+  assign shipping_returns_heading = section.settings.shipping_returns_heading | default: 'Leverans och returer'
   assign shipping_returns_content = section.settings.shipping_returns_content
   assign css_frame_orientation = blank
   if product.tags contains 'Kids Wall Art'
@@ -95,8 +95,8 @@
               {% if shipping_returns_content != blank %}
                 {{ shipping_returns_content }}
               {% else %}
-                <h3>Shipping &amp; Delivery</h3><ul><li><strong>Shipping Costs:</strong> Free worldwide shipping on orders over 99 EUR.</li><li><strong>Security:</strong> Safe and fast shipping including tracking.</li><li><strong>Delivery Time:</strong> 2-7 business days worldwide.</li></ul>
-                <h3>Returns &amp; Exchanges</h3><p>You can return or exchange your order within 30 days of receipt. Personalized products are excluded from return unless defective.</p>
+                <h3>Leverans</h3><ul><li><strong>Fraktkostnad:</strong> Fri frakt över 499 kr.</li><li><strong>Säkerhet:</strong> Snabb och säker frakt med spårning.</li><li><strong>Leveranstid:</strong> 12–15 arbetsdagar.</li></ul>
+                <h3>Returer och byten</h3><p>Du kan returnera eller byta din beställning inom 30 dagar från mottagandet. Personliga produkter kan inte returneras om de inte är defekta.</p>
               {% endif %}
             </div></div>
           </details>
