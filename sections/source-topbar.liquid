@@ -1,10 +1,10 @@
 {% if section.settings.enabled %}
   <div
     data-source-topbar-config
-    data-left-badge="{{ section.settings.left_badge | default: '★★★★★' | escape }}"
-    data-left-text="{{ section.settings.left_text | default: '2 500+ recensioner och 30 dagars provhängning' | escape }}"
-    data-center-badge="{{ section.settings.center_badge | default: 'Nyhet' | escape }}"
-    data-center-text="{{ section.settings.center_text | default: 'Fri frakt över 499 kr' | escape }}"
+    data-left-badge="{{ section.settings.left_badge | escape }}"
+    data-left-text="{{ section.settings.left_text | escape }}"
+    data-center-badge="{{ section.settings.center_badge | escape }}"
+    data-center-text="{{ section.settings.center_text | escape }}"
   >
     {% render 'source-topbar-1' %}
     <template data-source-topbar-localization>{% comment %}
@@ -56,10 +56,10 @@
   "name": "顶部栏",
   "settings": [
     { "type": "checkbox", "id": "enabled", "label": "显示模块", "default": true },
-    { "type": "text", "id": "left_badge", "label": "左侧徽标", "default": "★★★★★", "info": "可直接编辑顶部评分徽标。" },
-    { "type": "text", "id": "left_text", "label": "左侧文字", "default": "2 500+ recensioner och 30 dagars provhängning", "info": "可直接编辑顶部左侧文案。" },
-    { "type": "text", "id": "center_badge", "label": "中间徽标", "default": "Nyhet", "info": "可直接编辑中间徽标。" },
-    { "type": "text", "id": "center_text", "label": "中间文字", "default": "Fri frakt över 499 kr", "info": "可直接编辑中间配送文案。" }
+    { "type": "text", "id": "left_badge", "label": "左侧徽标", "default": "·", "info": "可直接编辑顶部评分徽标。" },
+    { "type": "text", "id": "left_text", "label": "左侧文字", "default": "Tillverkas på beställning · 30 dagars returrätt", "info": "可直接编辑顶部左侧文案。" },
+    { "type": "text", "id": "center_badge", "label": "中间徽标", "default": "·", "info": "可直接编辑中间徽标。" },
+    { "type": "text", "id": "center_text", "label": "中间文字", "default": "Fri frakt inom Sverige · Leverans 12–17 arbetsdagar", "info": "可直接编辑中间配送文案。" }
   ],
   "presets": [{ "name": "顶部栏" }]
 }

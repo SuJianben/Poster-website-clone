@@ -19,9 +19,9 @@
       "type": "source-topbar",
       "settings": {
         "enabled": true,
-        "left_badge": "",
+        "left_badge": " ",
         "left_text": "Tillverkas på beställning · 30 dagars returrätt",
-        "center_badge": "",
+        "center_badge": " ",
         "center_text": "Fri frakt inom Sverige · Leverans 12–17 arbetsdagar"
       }
     },
