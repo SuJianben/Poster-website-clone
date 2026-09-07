@@ -15,11 +15,11 @@
         "enabled": true,
         "desktop_video": "shopify://files/videos/飞书20260902-104755.mp4",
         "mobile_video": "shopify://files/videos/飞书20260902-104801.mp4",
-        "link": "shopify://collections/儿童手绘",
+        "link": "shopify://collections/kids-wall-art",
         "link_label": "",
-        "product": "snappy-friends-print",
-        "primary_badge": "−20%",
-        "secondary_badge": "Populärt",
+        "product": "kids-abstract-color-patches-079",
+        "primary_badge": "",
+        "secondary_badge": "",
         "price_prefix": "Från"
       }
     },
@@ -101,7 +101,7 @@
           "settings": {
             "collection": "kids-wall-art",
             "custom_link": "",
-            "label": "Väggkonst för barn",
+            "label": "Alla motiv",
             "promo_heading": "",
             "promo_button_label": "",
             "promo_link": ""
@@ -112,7 +112,7 @@
           "settings": {
             "collection": "animal-friends",
             "custom_link": "",
-            "label": "Bästsäljare",
+            "label": "Djurvänner",
             "promo_heading": "",
             "promo_button_label": "",
             "promo_link": ""
@@ -121,9 +121,9 @@
         "collection_tab_mqUYyw": {
           "type": "collection_tab",
           "settings": {
-            "collection": "dreamy-landscapes",
+            "collection": "vehicles-journeys",
             "custom_link": "",
-            "label": "Personliga motiv",
+            "label": "Fordon och resor",
             "promo_heading": "",
             "promo_button_label": "",
             "promo_link": ""
@@ -134,7 +134,7 @@
           "settings": {
             "collection": "nature-garden",
             "custom_link": "",
-            "label": "Canvas",
+            "label": "Natur och trädgård",
             "promo_heading": "",
             "promo_button_label": "",
             "promo_link": ""
@@ -145,7 +145,7 @@
           "settings": {
             "collection": "playful-objects-food",
             "custom_link": "",
-            "label": "Akrylglas",
+            "label": "Lekfulla föremål och mat",
             "promo_heading": "",
             "promo_button_label": "",
             "promo_link": ""
@@ -154,9 +154,9 @@
         "collection_tab_gg4zfW": {
           "type": "collection_tab",
           "settings": {
-            "collection": "vehicles-journeys",
+            "collection": "dreamy-landscapes",
             "custom_link": "",
-            "label": "Postrar",
+            "label": "Drömlika landskap",
             "promo_heading": "",
             "promo_button_label": "",
             "promo_link": ""
@@ -167,7 +167,7 @@
           "settings": {
             "collection": "abstract-colorful",
             "custom_link": "",
-            "label": "Abstrakt",
+            "label": "Abstrakt och färgstarkt",
             "promo_heading": "",
             "promo_button_label": "",
             "promo_link": ""
@@ -185,8 +185,8 @@
       ],
       "settings": {
         "enabled": true,
-        "heading_prefix": "VÅRA",
-        "heading_highlight": "BÄSTSÄLJARE",
+        "heading_prefix": "UTVALDA",
+        "heading_highlight": "MOTIV",
         "collection_label": "",
         "collection_button_link": ""
       }
@@ -227,7 +227,8 @@
         "promotion_text": "20 % rabatt på alla nya canvasmotiv och mer",
         "promotion_link": "",
         "collection_label": "Till kollektionen"
-      }
+      },
+      "disabled": true
     },
     "gallery": {
       "type": "source-gallery",
@@ -312,7 +313,8 @@
         "rating_text": "★★★★★ 2 500+ recensioner med 5 stjärnor",
         "heading_highlight": "Över 60 000",
         "heading_suffix": "nöjda kunder"
-      }
+      },
+      "disabled": true
     },
     "personal": {
       "type": "source-personal",
@@ -394,7 +396,8 @@
         "link_label": "Se alla personliga motiv",
         "link": "shopify://collections/all",
         "collection_label": "Till kollektionen"
-      }
+      },
+      "disabled": true
     },
     "artists": {
       "type": "source-artists",
@@ -476,61 +479,61 @@
             "collection": "kids-wall-art",
             "image": "shopify://shop_images/072-4.jpg",
             "image_url": "",
-            "label": "Inspirerande väggkonst"
+            "label": "Alla motiv"
           }
         },
         "collection_religion": {
           "type": "collection",
           "settings": {
-            "collection": "kids-wall-art",
+            "collection": "animal-friends",
             "image": "shopify://shop_images/090-4.jpg",
             "image_url": "",
-            "label": "Religiös väggkonst"
+            "label": "Djurvänner"
           }
         },
         "collection_crypto": {
           "type": "collection",
           "settings": {
-            "collection": "floral-posters",
+            "collection": "vehicles-journeys",
             "image": "shopify://shop_images/089-4.jpg",
             "image_url": "",
-            "label": "Kryptokonst"
+            "label": "Fordon och resor"
           }
         },
         "collection_auto": {
           "type": "collection",
           "settings": {
-            "collection": "landscape-posters",
+            "collection": "nature-garden",
             "image": "shopify://shop_images/088-4.jpg",
             "image_url": "",
-            "label": "Bilmotiv"
+            "label": "Natur och trädgård"
           }
         },
         "collection_abstract": {
           "type": "collection",
           "settings": {
-            "collection": "movie-posters",
+            "collection": "playful-objects-food",
             "image": "shopify://shop_images/087-2.jpg",
             "image_url": "",
-            "label": "Abstrakt väggkonst"
+            "label": "Lekfulla föremål och mat"
           }
         },
         "collection_pop_art": {
           "type": "collection",
           "settings": {
-            "collection": "still-life-posters",
+            "collection": "dreamy-landscapes",
             "image": "shopify://shop_images/083-4.jpg",
             "image_url": "",
-            "label": "Pop art-väggkonst"
+            "label": "Drömlika landskap"
           }
         },
         "collection_blattgold": {
           "type": "collection",
           "settings": {
-            "collection": "time-series-posters",
+            "collection": "abstract-colorful",
             "image": "shopify://shop_images/079-4.jpg",
             "image_url": "",
-            "label": "Bladguldsverk"
+            "label": "Abstrakt och färgstarkt"
           }
         }
       },
@@ -545,7 +548,7 @@
       ],
       "settings": {
         "enabled": true,
-        "heading_prefix": "FLER",
+        "heading_prefix": "ALLA",
         "heading_highlight": "KOLLEKTIONER"
       }
     },
@@ -640,7 +643,8 @@
         "heading": "Intryck och inspiration från vår community",
         "button_label": "Se alla recensioner",
         "button_link": "shopify://collections/all"
-      }
+      },
+      "disabled": true
     },
     "favorite-products": {
       "type": "source-favorite-products",
@@ -687,7 +691,8 @@
       "settings": {
         "enabled": true,
         "heading": "Våra kunders favoritprodukter"
-      }
+      },
+      "disabled": true
     },
     "announcement": {
       "type": "source-announcement",
@@ -773,28 +778,28 @@
         "collection_card_rmCYiB": {
           "type": "collection_card",
           "settings": {
-            "collection": "儿童手绘",
+            "collection": "animal-friends",
             "title": ""
           }
         },
         "collection_card_69gxxV": {
           "type": "collection_card",
           "settings": {
-            "collection": "figurative-posters",
+            "collection": "vehicles-journeys",
             "title": ""
           }
         },
         "collection_card_C9WypB": {
           "type": "collection_card",
           "settings": {
-            "collection": "urban-posters",
+            "collection": "nature-garden",
             "title": ""
           }
         },
         "collection_card_fMxY6e": {
           "type": "collection_card",
           "settings": {
-            "collection": "still-life-posters",
+            "collection": "dreamy-landscapes",
             "title": ""
           }
         }
