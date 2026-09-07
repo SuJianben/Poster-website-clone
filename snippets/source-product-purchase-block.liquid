@@ -230,7 +230,7 @@
                     {% if frame_value_downcase contains 'oak' or frame_value_downcase == 'ek' %}{% assign frame_tone = 'white' %}{% endif %}
                     {% if frame_value_downcase contains 'dark oak' or frame_value_downcase contains 'mörk ek' or frame_value_downcase contains 'mork ek' %}{% assign frame_tone = 'silver' %}{% endif %}
                     {% if frame_value_downcase contains 'silver' or frame_value_downcase contains 'silber' %}{% assign frame_tone = 'silver' %}{% endif %}
-                    {% if frame_value_downcase contains 'gold' %}{% assign frame_tone = 'gold' %}{% endif %}
+                    {% if frame_value_downcase contains 'gold' or frame_value_downcase contains 'guld' %}{% assign frame_tone = 'gold' %}{% endif %}
                     {% unless frame_tone == 'gold' %}
                       <button type="button" class="spx-product__frame-option{% if value == option.selected_value %} is-selected{% endif %}" data-spx-variant-value data-spx-frame-tone="{{ frame_tone }}" data-option-value="{{ option_value_label | escape }}" aria-label="{{ option_value_label | escape }}" aria-pressed="{% if value == option.selected_value %}true{% else %}false{% endif %}" title="{{ option_value_label | escape }}"{% unless value.available %} disabled{% endunless %}>
                         <span class="spx-product__frame-swatch spx-product__frame-swatch--{{ frame_tone }}" aria-hidden="true"></span>

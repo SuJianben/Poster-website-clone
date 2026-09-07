@@ -29,11 +29,11 @@
     .replace(/^-+|-+$/g, '');
   const normalizeFrameTone = (value) => {
     const label = String(value || '').trim().toLocaleLowerCase();
-    if (!label || /(^|\s)(none|ohne|rahmenlos|unframed)(\s|$)|no\s*frame|without\s*(a\s*)?frame/.test(label)) return 'none';
-    if (/white|weiss|weiß/.test(label)) return 'white';
-    if (/black|schwarz/.test(label)) return 'black';
+    if (!label || /(^|\s)(none|ohne|rahmenlos|unframed)(\s|$)|no\s*frame|without\s*(a\s*)?frame|utan\s*ram|ingen\s*ram/.test(label)) return 'none';
+    if (/white|weiss|weiß|\bvit\b/.test(label)) return 'white';
+    if (/black|schwarz|svart/.test(label)) return 'black';
     if (/silver|silber/.test(label)) return 'silver';
-    if (/gold/.test(label)) return 'gold';
+    if (/gold|guld/.test(label)) return 'gold';
     return 'natural';
   };
   const getFrameMediaContext = () => [...product.querySelectorAll('[data-spx-variant-option]')]
