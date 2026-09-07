@@ -302,14 +302,14 @@
       {% if block.settings.show_hanging_kit %}
         {% assign hanging_kit_property_name = block.settings.hanging_kit_property_name | default: 'Upphängningskit' %}
         {% assign hanging_kit_property_value = block.settings.hanging_kit_property_value | default: 'Ja' %}
-        <div class="spx-product__addon" data-spx-addon>
-          <p class="spx-product__addon-heading">{{ block.settings.hanging_kit_heading | default: 'Tillval' }}</p>
-          <label class="spx-product__addon-control">
-            <input type="checkbox" name="properties[{{ hanging_kit_property_name | escape }}]" value="{{ hanging_kit_property_value | escape }}" data-spx-addon-toggle data-spx-addon-variant-id="{{ block.settings.hanging_kit_variant_id | escape }}">
-            <span class="spx-product__addon-switch" aria-hidden="true"></span>
-            <span class="spx-product__addon-label">{{ block.settings.hanging_kit_label | default: 'Upphängningskit' }}</span>
-            {% if block.settings.hanging_kit_note != blank %}<span class="spx-product__addon-note">{{ block.settings.hanging_kit_note }}</span>{% endif %}
-          </label>
+        <div class="spx-product__addon spx-product__addon--included" data-spx-addon>
+          <p class="spx-product__addon-heading">{{ block.settings.hanging_kit_heading | default: 'Ingår' }}</p>
+          <div class="spx-product__addon-included" role="status">
+            <span class="spx-product__addon-check" aria-hidden="true">✓</span>
+            <span class="spx-product__addon-label">{{ block.settings.hanging_kit_label | default: 'Upphängningskit' }} ingår som standard</span>
+          </div>
+          {% if block.settings.hanging_kit_note != blank %}<p class="spx-product__addon-note">{{ block.settings.hanging_kit_note }}</p>{% endif %}
+          <input type="hidden" name="properties[{{ hanging_kit_property_name | escape }}]" value="{{ hanging_kit_property_value | escape }}" data-spx-addon-default="true" data-spx-addon-variant-id="{{ block.settings.hanging_kit_variant_id | escape }}">
         </div>
       {% endif %}
       <button class="spx-product__cart-button" type="submit" data-spx-cart-button data-analytics-event="product_add_to_cart"{% unless product.selected_or_first_available_variant.available %} disabled{% endunless %}>

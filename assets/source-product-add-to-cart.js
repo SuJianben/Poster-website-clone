@@ -70,9 +70,12 @@
     buildAddRequest() {
       const formData = new FormData(this.form);
       const addonToggle = this.form.querySelector('[data-spx-addon-toggle]');
-      const addonVariantId = Number(addonToggle?.dataset.spxAddonVariantId || 0);
+      const addonDefault = this.form.querySelector('[data-spx-addon-default="true"]');
+      const addonInput = addonToggle || addonDefault;
+      const addonEnabled = addonToggle ? addonToggle.checked : Boolean(addonDefault);
+      const addonVariantId = Number(addonInput?.dataset.spxAddonVariantId || 0);
 
-      if (!addonToggle?.checked || !Number.isInteger(addonVariantId) || addonVariantId < 1) {
+      if (!addonEnabled || !Number.isInteger(addonVariantId) || addonVariantId < 1) {
         return { body: formData };
       }
 

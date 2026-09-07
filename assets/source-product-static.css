@@ -226,6 +226,10 @@
 .spx-product__frame-compare { color:#555; font-size:9px; text-decoration-thickness:1px; }
 .spx-product__addon { margin:21px 0 0; }
 .spx-product__addon-heading { margin:0 0 9px; color:#111; font-size:14px; font-weight:700; line-height:1.2; }
+.spx-product__addon--included { margin-top:20px; }
+.spx-product__addon-included { display:flex; align-items:center; gap:8px; color:#333; font-size:14px; font-weight:700; line-height:1.25; }
+.spx-product__addon-check { display:inline-grid; width:22px; height:22px; flex:0 0 22px; place-items:center; border-radius:50%; background:#111; color:#fff; font-size:14px; line-height:1; }
+.spx-product__addon--included .spx-product__addon-note { margin:7px 0 0; }
 .spx-product__addon-control { display:flex; align-items:center; gap:9px; color:#333; cursor:pointer; }
 .spx-product__addon-control input { position:absolute; width:1px; height:1px; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
 .spx-product__addon-switch { position:relative; display:block; width:38px; height:22px; flex:0 0 38px; border-radius:999px; background:#d0d0d0; transition:background .24s ease; }
