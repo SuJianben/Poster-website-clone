@@ -102,6 +102,7 @@
         },
         "volume_discount": {
           "type": "volume_discount",
+          "disabled": true,
           "settings": {
             "heading": "🌞 SOMMARREA: Köp mer, spara mer! 🎉",
             "note": "Kan kombineras med redan nedsatta varor!",
@@ -377,6 +378,7 @@
         "manual_review_tomi",
         "manual_review_daniel"
       ],
+      "disabled": true,
       "settings": {
         "review_source": "manual",
         "heading": "Över 60 000 nöjda kunder",
