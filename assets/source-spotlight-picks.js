@@ -23,7 +23,7 @@
       title: 'Rabatt på nyheter',
       description: 'Nya erbjudanden varje vecka',
       button: 'Spara',
-      link: '/collections/wandbild-neuheiten-sale',
+      link: '/collections/all?sort_by=created-descending',
       scheme: '10'
     },
     {
@@ -32,7 +32,7 @@
       title: 'Rabatt på paket',
       description: 'Upptäck matchande paket',
       button: 'Spara',
-      link: '/collections/wandbilder-bundles',
+      link: '/collections/all',
       scheme: '10'
     }
   ];
@@ -178,7 +178,12 @@
       title: asText(offer?.title).trim(),
       description: asText(offer?.description).trim(),
       button: asText(offer?.button).trim(),
-      link: asText(offer?.link).trim(),
+      // Keep legacy promotion settings usable after those collection handles
+      // were removed from the store. This also repairs existing saved theme
+      // settings, not only the defaults below.
+      link: asText(offer?.link).trim()
+        .replace('/collections/wandbild-neuheiten-sale', '/collections/all?sort_by=created-descending')
+        .replace('/collections/wandbilder-bundles', '/collections/all'),
       scheme: offer?.scheme === 'inverse' ? 'inverse' : '10'
     }))
     .filter((offer) => offer.enabled && (offer.highlight || offer.title || offer.description));

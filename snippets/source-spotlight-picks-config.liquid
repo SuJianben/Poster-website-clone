@@ -74,7 +74,7 @@
         "title": {{ spotlight_o2_title | json }},
         "description": {{ spotlight_o2_desc | json }},
         "button": {{ spotlight_o2_button | json }},
-        "link": {{ settings.sp_o2_link | default: '/collections/wandbild-neuheiten-sale' | json }},
+        "link": {{ settings.sp_o2_link | default: '/collections/all?sort_by=created-descending' | json }},
         "scheme": {{ settings.sp_o2_scheme | default: '10' | json }}
       },
       {
@@ -83,7 +83,7 @@
         "title": {{ spotlight_o3_title | json }},
         "description": {{ spotlight_o3_desc | json }},
         "button": {{ spotlight_o3_button | json }},
-        "link": {{ settings.sp_o3_link | default: '/collections/wandbilder-bundles' | json }},
+        "link": {{ settings.sp_o3_link | default: '/collections/all' | json }},
         "scheme": {{ settings.sp_o3_scheme | default: '10' | json }}
       },
       {
