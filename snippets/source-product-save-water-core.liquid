@@ -69,6 +69,10 @@
               <div class="spx-product__css-frame-mat">
                 <button class="spx-product__main-image-button" type="button" aria-label="Expand {{ product.title | escape }}" data-spx-open-zoom>
                   {% if selected_image != blank %}<img data-spx-main-image src="{{ selected_image | image_url: width: 1620 }}" alt="{{ product.title | escape }}">{% else %}{{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}{% endif %}
+                  <span class="spx-product__frame-edge spx-product__frame-edge--top" aria-hidden="true"></span>
+                  <span class="spx-product__frame-edge spx-product__frame-edge--right" aria-hidden="true"></span>
+                  <span class="spx-product__frame-edge spx-product__frame-edge--bottom" aria-hidden="true"></span>
+                  <span class="spx-product__frame-edge spx-product__frame-edge--left" aria-hidden="true"></span>
                 </button>
               </div>
             </div>

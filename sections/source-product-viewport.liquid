@@ -6,15 +6,18 @@
 <style>
   /* Use the supplied product photos for both the option previews and the rendered frame effect. */
   .spx-product__main-image--css-frame[data-spx-frame-tone="white"] {
-    --spx-css-frame-image: url('{{ 'frame-texture-oak.jpg' | asset_url }}');
+    --spx-css-frame-texture-h: url('{{ 'frame-texture-oak-h.webp' | asset_url }}');
+    --spx-css-frame-texture-v: url('{{ 'frame-texture-oak-v.webp' | asset_url }}');
     --spx-css-frame-inner: #8b572c;
   }
   .spx-product__main-image--css-frame[data-spx-frame-tone="black"] {
-    --spx-css-frame-image: url('{{ 'frame-texture-black.jpg' | asset_url }}');
+    --spx-css-frame-texture-h: url('{{ 'frame-texture-black-h.webp' | asset_url }}');
+    --spx-css-frame-texture-v: url('{{ 'frame-texture-black-v.webp' | asset_url }}');
     --spx-css-frame-inner: #202020;
   }
   .spx-product__main-image--css-frame[data-spx-frame-tone="silver"] {
-    --spx-css-frame-image: url('{{ 'frame-texture-dark-oak.jpg' | asset_url }}');
+    --spx-css-frame-texture-h: url('{{ 'frame-texture-dark-oak-h.webp' | asset_url }}');
+    --spx-css-frame-texture-v: url('{{ 'frame-texture-dark-oak-v.webp' | asset_url }}');
     --spx-css-frame-inner: #2b1a11;
   }
   .spx-product__frame-swatch--white {
