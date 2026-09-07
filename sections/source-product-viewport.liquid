@@ -6,13 +6,16 @@
 <style>
   /* Use the supplied product photos for both the option previews and the rendered frame effect. */
   .spx-product__main-image--css-frame[data-spx-frame-tone="white"] {
-    --spx-css-frame-image: url('{{ 'frame-option-oak-realistic.jpg' | asset_url }}');
+    --spx-css-frame-image: linear-gradient(135deg, #d7aa6f 0%, #b97d3e 22%, #e2bb7c 42%, #98602d 57%, #d2a061 78%, #865025 100%);
+    --spx-css-frame-inner: #8b572c;
   }
   .spx-product__main-image--css-frame[data-spx-frame-tone="black"] {
-    --spx-css-frame-image: url('{{ 'frame-option-black-realistic.jpg' | asset_url }}');
+    --spx-css-frame-image: linear-gradient(135deg, #161616 0%, #343434 24%, #0a0a0a 49%, #050505 54%, #2b2b2b 77%, #101010 100%);
+    --spx-css-frame-inner: #202020;
   }
   .spx-product__main-image--css-frame[data-spx-frame-tone="silver"] {
-    --spx-css-frame-image: url('{{ 'frame-option-dark-oak-realistic.jpg' | asset_url }}');
+    --spx-css-frame-image: linear-gradient(135deg, #513222 0%, #2d1a12 23%, #65412a 46%, #24130d 55%, #4b2d1e 77%, #1b0f0a 100%);
+    --spx-css-frame-inner: #2b1a11;
   }
   .spx-product__frame-swatch--white {
     background-image: url('{{ 'frame-option-oak-realistic.jpg' | asset_url }}') !important;
