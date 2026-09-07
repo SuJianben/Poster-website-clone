@@ -20,11 +20,11 @@
       "type": "source-newsletter",
       "settings": {
         "enabled": true,
-        "heading": "",
-        "subheading": "",
-        "email_placeholder": "",
-        "button_label": "",
-        "success_message": ""
+        "heading": "Nya motiv först till dig",
+        "subheading": "Vi skickar ett mejl när nya barnrumsmotiv släpps – inte oftare än så.",
+        "email_placeholder": "Ange din e-postadress",
+        "button_label": "Prenumerera",
+        "success_message": "Tack! Du är med på listan."
       }
     },
     "icons": {
