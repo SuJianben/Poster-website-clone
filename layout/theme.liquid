@@ -8,6 +8,14 @@
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-TX99B7K4');</script>
     <!-- End Google Tag Manager -->
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6R19DWXB41"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-6R19DWXB41');
+    </script>
     {% render 'source-document-head-1' %}
     {{ content_for_header }}
     {{ 'source-static-layout.css' | asset_url | stylesheet_tag }}
