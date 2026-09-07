@@ -1,6 +1,13 @@
 <!doctype html>
 <html class="no-js cart-has-items source-content-pending" lang="{{ request.locale.iso_code }}">
   <head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TX99B7K4');</script>
+    <!-- End Google Tag Manager -->
     {% render 'source-document-head-1' %}
     {{ content_for_header }}
     {{ 'source-static-layout.css' | asset_url | stylesheet_tag }}
@@ -23,10 +30,6 @@
         });
       }, { once: true });
     </script>
-      
-
-
-
     <noscript><style>html.source-content-pending .site-wrapper { visibility: visible; }</style></noscript>
 
     <script src="{{ 'source-theme-editor.js' | asset_url }}" defer="defer"></script>
@@ -40,14 +43,20 @@
     <script src="{{ 'source-header-mega-menu.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'source-topbar-config.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'source-topbar-localization.js' | asset_url }}" defer="defer"></script>
-    </head>
+    <script src="{{ 'source-atelier-drawer.js' | asset_url }}" defer="defer"></script>
+  </head>
   <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TX99B7K4"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <div class="site-wrapper">
       {% sections 'header-group' %}
       {{ content_for_layout }}
       {% sections 'footer-group' %}
       {% render 'source-global-overlays' %}
     </div>
+    {% render 'source-atelier-drawer' %}
     <style id="source-badge-finish">
       /* Collection listing breadcrumbs are intentionally omitted. Product
          detail breadcrumbs remain visible for navigation context. */
