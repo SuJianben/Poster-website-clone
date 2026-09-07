@@ -3,6 +3,28 @@
 <script src="{{ 'source-product-static.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'source-product-unit-toggle.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'source-product-add-to-cart.js' | asset_url }}" defer="defer"></script>
+<style>
+  /* Use the supplied product photos for both the option previews and the rendered frame effect. */
+  .spx-product__main-image--css-frame[data-spx-frame-tone="white"],
+  .spx-product__main-image--css-frame[data-spx-frame-tone="silver"] {
+    --spx-css-frame-image: url('{{ 'frame-option-oak-realistic.jpg' | asset_url }}');
+  }
+  .spx-product__main-image--css-frame[data-spx-frame-tone="black"] {
+    --spx-css-frame-image: url('{{ 'frame-option-black-realistic.jpg' | asset_url }}');
+  }
+  .spx-product__main-image--css-frame[data-spx-frame-tone="silver"] {
+    --spx-css-frame-image: url('{{ 'frame-option-dark-oak-realistic.jpg' | asset_url }}');
+  }
+  .spx-product__frame-swatch--white {
+    background-image: url('{{ 'frame-option-oak-realistic.jpg' | asset_url }}') !important;
+  }
+  .spx-product__frame-swatch--black {
+    background-image: url('{{ 'frame-option-black-realistic.jpg' | asset_url }}') !important;
+  }
+  .spx-product__frame-swatch--silver {
+    background-image: url('{{ 'frame-option-dark-oak-realistic.jpg' | asset_url }}') !important;
+  }
+</style>
 {% render 'source-product-save-water-core', section: section, product: product %}
 
 {% schema %}
@@ -13,7 +35,7 @@
     { "type": "text", "id": "product_details_heading", "label": "商品详情标题", "default": "Product Details" },
     { "type": "richtext", "id": "product_details_content", "label": "商品详情自定义内容", "info": "留空时显示当前商品的描述（description）。也可通过动态来源连接产品元字段。" },
     { "type": "header", "content": "配送与退换货配置" },
-    { "type": "text", "id": "shipping_returns_heading", "label": "配送与退换货标题", "default": "Shipping and Returns" },
+    { "type": "text", "id": "shipping_returns_heading", "label": "配送与退换货标题", "default": "Leverans och returer" },
     { "type": "richtext", "id": "shipping_returns_content", "label": "配送与退换货自定义内容", "info": "留空时使用当前配送与退换货说明。也可通过动态来源连接产品元字段。" }
   ],
   "max_blocks": 12,
@@ -72,7 +94,7 @@
       "settings": [
         { "type": "checkbox", "id": "use_product_price", "label": "使用商品价格", "default": true },
         { "type": "text", "id": "price_text", "label": "备用价格" },
-        { "type": "text", "id": "shipping_text", "label": "配送说明", "default": "Kostenloser Versand." }
+        { "type": "text", "id": "shipping_text", "label": "配送说明", "default": "Fri frakt över 499 kr · leverans 12–15 arbetsdagar" }
       ]
     },
     {
@@ -107,9 +129,9 @@
         { "type": "text", "id": "property_name", "label": "购物车属性名称", "default": "Premium Frame" },
         { "type": "select", "id": "default_frame", "label": "默认画框", "options": [ { "value": "none", "label": "无框" }, { "value": "white", "label": "白色" }, { "value": "black", "label": "黑色" }, { "value": "silver", "label": "银色" }, { "value": "gold", "label": "金色" } ], "default": "none" },
         { "type": "text", "id": "none_label", "label": "无框显示名称", "default": "No frame" },
-        { "type": "text", "id": "white_label", "label": "白色画框名称", "default": "White" },
+        { "type": "text", "id": "white_label", "label": "浅色木框名称", "default": "Ek" },
         { "type": "text", "id": "black_label", "label": "黑色画框名称", "default": "Black" },
-        { "type": "text", "id": "silver_label", "label": "银色画框名称", "default": "Silver" },
+        { "type": "text", "id": "silver_label", "label": "深色木框名称", "default": "Mörk ek" },
         { "type": "text", "id": "gold_label", "label": "金色画框名称", "default": "Gold" },
         { "type": "header", "content": "画框成品图" },
         { "type": "image_picker", "id": "none_image", "label": "无框成品图" },
@@ -170,8 +192,8 @@
       "limit": 1,
       "settings": [
         { "type": "text", "id": "benefit_1", "label": "卖点 1", "default": "Immediately Ready to hang" },
-        { "type": "text", "id": "benefit_2", "label": "卖点 2", "default": "Free worldwide shipping over €49" },
-        { "type": "text", "id": "benefit_3", "label": "卖点 3", "default": "Estimated delivery: August 15 - August 17" }
+        { "type": "text", "id": "benefit_2", "label": "卖点 2", "default": "Fri frakt över 499 kr" },
+        { "type": "text", "id": "benefit_3", "label": "卖点 3", "default": "Beräknad leverans: 12–15 arbetsdagar" }
       ]
     },
     {
