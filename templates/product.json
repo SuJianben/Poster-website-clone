@@ -12,49 +12,30 @@
     "main": {
       "type": "source-product-viewport",
       "blocks": {
-        "top_badge": {
-          "type": "top_badge",
-          "settings": {
-            "text": "Populärt"
-          }
-        },
-        "brand_banner": {
-          "type": "brand_banner",
-          "settings": {
-            "text": "Över 60 000 kunder älskar vår premiumväggkonst."
-          }
-        },
-        "reviews": {
-          "type": "reviews",
-          "settings": {
-            "count": "2,861",
-            "label": "Verifierade recensioner"
-          }
-        },
         "title": {
           "type": "title",
           "settings": {
             "use_product_title": true,
-            "heading": "Save Water - Poster"
+            "heading": ""
           }
         },
         "artist": {
           "type": "artist",
           "settings": {
-            "label": "Konstnär:",
+            "label": "Design:",
             "use_product_vendor": true,
             "name": "",
             "url": "",
             "show_atelier_badge": true,
-            "atelier_text": "ATELJÉ EXKLUSIV"
+            "atelier_text": ""
           }
         },
         "price": {
           "type": "price",
           "settings": {
             "use_product_price": true,
-            "price_text": "$29.00",
-            "shipping_text": "Fri frakt över 499 kr · leverans 12–15 arbetsdagar"
+            "price_text": "",
+            "shipping_text": "Fri frakt inom Sverige · Tillverkas på beställning · Leverans 12–17 arbetsdagar"
           }
         },
         "variant_picker": {
@@ -75,9 +56,9 @@
             "property_name": "Premiumram",
             "default_frame": "none",
             "none_label": "Utan ram",
-            "white_label": "Ek",
+            "white_label": "Vit",
             "black_label": "Svart",
-            "silver_label": "Mörk ek",
+            "silver_label": "Silver",
             "gold_label": "Guld",
             "none_image_url": "",
             "white_image_url": "",
@@ -100,32 +81,12 @@
             "hanging_kit_variant_id": ""
           }
         },
-        "volume_discount": {
-          "type": "volume_discount",
-          "disabled": true,
-          "settings": {
-            "heading": "🌞 SOMMARREA: Köp mer, spara mer! 🎉",
-            "note": "Kan kombineras med redan nedsatta varor!",
-            "quantity_heading": "Antal",
-            "discount_heading": "Rabatt",
-            "tier_1_quantity": "Köp 1",
-            "tier_1_discount": "Få 5 % rabatt",
-            "tier_2_quantity": "Köp 2",
-            "tier_2_discount": "Få 10 % rabatt",
-            "tier_3_quantity": "Köp 3",
-            "tier_3_discount": "Få 15 % rabatt",
-            "tier_4_quantity": "Köp 4",
-            "tier_4_discount": "Få 20 % rabatt",
-            "tier_5_quantity": "Köp 5+",
-            "tier_5_discount": "Få 25 % rabatt"
-          }
-        },
         "benefits": {
           "type": "benefits",
           "settings": {
-            "benefit_1": "Klar att hängas upp direkt",
-            "benefit_2": "Fri frakt över 499 kr",
-            "benefit_3": "Beräknad leverans: 12–15 arbetsdagar"
+            "benefit_1": "Trycks först när du beställer – inget lager, inget svinn",
+            "benefit_2": "Fri spårbar frakt inom Sverige",
+            "benefit_3": "Leverans 12–17 arbetsdagar · 30 dagars returrätt"
           }
         },
         "payment_trust": {
@@ -137,16 +98,12 @@
         }
       },
       "block_order": [
-        "top_badge",
-        "brand_banner",
-        "reviews",
         "title",
         "artist",
         "price",
         "variant_picker",
         "frame_picker",
         "buy_button",
-        "volume_discount",
         "benefits",
         "payment_trust"
       ],
@@ -154,20 +111,20 @@
         "product_details_heading": "Produktdetaljer",
         "product_details_content": "",
         "shipping_returns_heading": "Leverans och returer",
-        "shipping_returns_content": ""
+        "shipping_returns_content": "<p><strong>Tillverkas först när du beställer.</strong> Vi trycker inte i stora upplagor och håller inget lager – varje tryck görs efter att din beställning kommit in, så ingenting överproduceras och ingenting går till spillo.</p><p>Därför tar leveransen lite längre tid än hos lagerbutiker: räkna med <strong>12–17 arbetsdagar</strong> från orderbekräftelse till din dörr. Alla beställningar inom Sverige skickas <strong>fraktfritt</strong> och spårbart, rullade i ett stadigt skyddsrör.</p><p><strong>Ändrat dig?</strong> Returnera oanvända tryck i originalförpackning inom 30 dagar efter leverans för full återbetalning – skriv till <a href=\"mailto:support@daylightwalls.com\">support@daylightwalls.com</a>.</p>"
       }
     },
     "source_benefits": {
       "type": "source-product-benefits",
       "settings": {
-        "benefit_1_title": "Premiumkvalitet",
-        "benefit_1_description": "Handgjord med certifierade material.",
-        "benefit_2_title": "Nöjd eller pengarna tillbaka",
-        "benefit_2_description": "100 % nöjdhetsgaranti eller pengarna tillbaka.",
-        "benefit_3_title": "Fri frakt över 499 kr",
-        "benefit_3_description": "Beräknad leverans inom 12–15 arbetsdagar.",
+        "benefit_1_title": "Arkivkvalitet",
+        "benefit_1_description": "200 g matt fine art-papper och ljusäkta pigmentbläck.",
+        "benefit_2_title": "Kontrolleras för hand",
+        "benefit_2_description": "Varje tryck granskas innan det packas.",
+        "benefit_3_title": "Fri frakt inom Sverige",
+        "benefit_3_description": "Spårbar leverans, 12–17 arbetsdagar, tillverkas på beställning.",
         "benefit_4_title": "30 dagars returrätt",
-        "benefit_4_description": "Prova din tavla helt riskfritt – utan krångel."
+        "benefit_4_description": "Oanvända tryck i originalförpackning."
       }
     },
     "source_showcase": {
@@ -245,14 +202,15 @@
         "heading": "Kända från",
         "section_link_label": "",
         "section_link": ""
-      }
+      },
+      "disabled": true
     },
     "source_tabs": {
       "type": "source-product-tabs-content",
       "settings": {
         "description_label": "Beskrivning",
-        "fair_label": "Rättvist pris",
-        "artist_label": "Om konstnären",
+        "fair_label": "Därför detta pris",
+        "artist_label": "Om DaylightWalls",
         "materials_label": "Material och hantverk",
         "shipping_label": "Leverans och returer",
         "security_label": "Säkerhet",
@@ -260,25 +218,25 @@
         "description_content": "",
         "show_signature": false,
         "signature_alt": "",
-        "fair_gallery_price": "$1,000",
-        "fair_gallery_label": "Traditionellt\ngalleri",
-        "fair_artwork_price": "$94",
+        "fair_gallery_price": "Galleri",
+        "fair_gallery_label": "Inramat galleritryck",
+        "fair_artwork_price": "DaylightWalls",
         "fair_logo_alt": "",
-        "fair_heading": "Rättvist pris",
-        "fair_content": "",
+        "fair_heading": "Därför detta pris",
+        "fair_content": "<p><strong>Mellan slit-och-släng och galleri.</strong></p><p>En poster för 49 kr trycks i tusental på tunt papper och skickas från ett lager. Ett galleritryck för 2 000 kr bär galleriets hyra. Vi ligger medvetet mitt emellan.</p><ul><li><strong>Tillverkas på beställning</strong> – ingenting masstrycks eller ligger på lager</li><li><strong>Arkivmaterial</strong> – 200 g matt fine art-papper och pigmentbläck som håller färgen i decennier</li><li><strong>Kontrolleras för hand</strong> – varje ark granskas innan det rullas och packas</li><li><strong>Direkt från studion</strong> – inga mellanhänder</li></ul><p>Fri frakt inom Sverige på alla beställningar.</p>",
         "artist_image_alt": "",
-        "artist_heading": "",
-        "artist_content": "",
-        "materials_main_alt": "Närbild av canvasmaterial",
-        "materials_second_alt": "Närbild av canvasram",
-        "materials_heading": "Detaljer om canvastryck:",
-        "materials_content": "",
+        "artist_heading": "Om DaylightWalls",
+        "artist_content": "<p>DaylightWalls är en liten studio som gör väggkonst för barnrum, lekrum och barnkammare. Motiven skapas av vårt eget designteam – lekfulla former, varma färger och en handritad känsla som håller från småbarnsår till skolstart.</p><p>Vi trycker varje motiv först när det beställs, i vår egen tryckstudio, och skickar det spårbart till din adress i Sverige. Bolaget bakom butiken är ZHILINK GLOBAL LTD, registrerat i England och Wales (org.nr 17157223).</p>",
+        "materials_main_alt": "Närbild av matt fine art-papper",
+        "materials_second_alt": "Närbild av tryckdetalj",
+        "materials_heading": "Detaljer om trycket:",
+        "materials_content": "<p><strong>Gjort för att ses varje dag.</strong></p><p>Varje tryck görs på <strong>200 g matt fine art-papper</strong> med <strong>pigmentbläck</strong> för djupa färger och lång ljusäkthet. Den matta ytan minskar reflexer så att motivet syns tydligt i både dagsljus och lampljus.</p><p>Motivet anpassas för varje storlek så att detaljer och färgbalans håller. Varje tryck kontrolleras för hand och rullas i ett stadigt skyddsrör – aldrig vikt.</p><ul><li>200 g matt fine art-papper</li><li>Ljusäkta pigmentbläck</li><li>Anpassat per storlek</li><li>Handkontrollerat, rörpackat</li></ul>",
         "shipping_delivery_heading": "Leverans",
-        "shipping_delivery_content": "<ul><li><strong>Fraktkostnad:</strong> Fri frakt över <strong>499 kr</strong>.</li><li><strong>Säkerhet:</strong> Snabb och säker frakt med spårning.</li><li><strong>Leveranstid:</strong> 12–15 arbetsdagar.</li></ul><p><strong>Internationell frakt:</strong> Leveranser utanför EU kan omfattas av tull eller importavgifter som mottagaren ansvarar för.</p>",
+        "shipping_delivery_content": "<p><strong>Tryckt för dig, sedan skickat till dig.</strong></p><p>Vi håller inget lager. Ditt tryck tillverkas efter din beställning och skickas sedan spårbart till din adress i Sverige. Räkna med <strong>12–17 arbetsdagar</strong> totalt (2 arbetsdagars orderhantering + 10–15 arbetsdagars transport).</p><p><strong>Fraktkostnad:</strong> fri frakt på alla beställningar inom Sverige. Du får en spårningslänk via e-post så snart paketet lämnat oss. Vi levererar för närvarande endast inom Sverige.</p>",
         "shipping_returns_heading": "Returer och byten",
-        "shipping_returns_content": "",
-        "shipping_policy_content": "",
-        "security_content": ""
+        "shipping_returns_content": "<p>Oanvända tryck i originalförpackning kan returneras inom 30 dagar efter leverans för full återbetalning. Skriv till <a href=\"mailto:support@daylightwalls.com\">support@daylightwalls.com</a> med ditt ordernummer.</p><p>Skadat vid ankomst? Skicka ett foto så trycker vi om eller återbetalar.</p>",
+        "shipping_policy_content": "<p>Fullständiga villkor finns i vår <a href=\"/policies/shipping-policy\">fraktpolicy</a> och <a href=\"/policies/refund-policy\">återbetalningspolicy</a>.</p>",
+        "security_content": "<p><strong>En säker och skyddad kassa.</strong></p><p>Din betalning hanteras via Shopifys säkra kassa och de betalleverantörer som finns i din region. Kortuppgifter krypteras och lagras inte av DaylightWalls. Vi använder bara de uppgifter som behövs för att hantera din beställning, leverans och kundservice.</p>"
       }
     },
     "source_recommendations": {
