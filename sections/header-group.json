@@ -19,10 +19,10 @@
       "type": "source-topbar",
       "settings": {
         "enabled": true,
-        "left_badge": "★★★★★",
-        "left_text": "2 500+ recensioner och 30 dagars provhängning",
-        "center_badge": "Nyhet",
-        "center_text": "Fri frakt över 499 kr"
+        "left_badge": "",
+        "left_text": "Tillverkas på beställning · 30 dagars returrätt",
+        "center_badge": "",
+        "center_text": "Fri frakt inom Sverige · Leverans 12–17 arbetsdagar"
       }
     },
     "header": {
@@ -42,7 +42,7 @@
         "text_NDjjeh": {
           "type": "text",
           "settings": {
-        "text": "✨ Sommarrea: 5–25 % rabatt"
+            "text": "✨ Sommarrea: 5–25 % rabatt"
           }
         },
         "text_6Gj9YQ": {
