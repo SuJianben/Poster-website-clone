@@ -1,0 +1,32 @@
+<div class="section section--padding dw-page">
+  <div class="page-width" style="max-width: 820px; margin: 0 auto; padding: 48px 20px 64px;">
+    <h1 class="h1" style="margin-bottom: 24px;">{{ page.title }}</h1>
+    <div class="rte dw-page__content">{{ page.content }}</div>
+    {% if page.handle == 'contact' %}
+      {% form 'contact', class: 'dw-contact-form' %}
+        {% if form.posted_successfully? %}
+          <p class="dw-form__success" style="padding:12px 16px;border:1px solid #2e7d32;border-radius:8px;margin:24px 0;">Tack för ditt meddelande! Vi återkommer så snart vi kan.</p>
+        {% endif %}
+        {% if form.errors %}
+          <p class="dw-form__error" style="padding:12px 16px;border:1px solid #c62828;border-radius:8px;margin:24px 0;">{{ form.errors | default_errors }}</p>
+        {% endif %}
+        <div style="display:grid;gap:14px;margin-top:32px;">
+          <label>Namn<br><input type="text" name="contact[name]" required style="width:100%;padding:12px;border:1px solid #ccc;border-radius:8px;"></label>
+          <label>E-post<br><input type="email" name="contact[email]" required style="width:100%;padding:12px;border:1px solid #ccc;border-radius:8px;"></label>
+          <label>Ordernummer (om det gäller en beställning)<br><input type="text" name="contact[order]" style="width:100%;padding:12px;border:1px solid #ccc;border-radius:8px;"></label>
+          <label>Meddelande<br><textarea name="contact[body]" rows="6" required style="width:100%;padding:12px;border:1px solid #ccc;border-radius:8px;"></textarea></label>
+          <button type="submit" class="button" style="padding:14px 24px;background:#111;color:#fff;border:0;border-radius:8px;font-weight:600;cursor:pointer;">Skicka meddelande</button>
+        </div>
+      {% endform %}
+    {% endif %}
+  </div>
+</div>
+<style>
+  .dw-page__content h2 { margin: 28px 0 10px; font-size: 1.35rem; }
+  .dw-page__content h3 { margin: 22px 0 8px; font-size: 1.1rem; }
+  .dw-page__content p, .dw-page__content li { line-height: 1.65; }
+  .dw-page__content ul { padding-left: 1.2em; }
+</style>
+{% schema %}
+{ "name": "Page content", "settings": [] }
+{% endschema %}
