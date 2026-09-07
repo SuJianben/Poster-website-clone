@@ -168,7 +168,7 @@
     const benefits = [
       ['30 dagars &ouml;ppet k&ouml;p', 'Handla tryggt &#8211; returnera om det inte passar.'],
       ['Fri frakt inom Sverige', 'P&aring; alla best&auml;llningar.'],
-      ['Snabb och s&auml;ker leverans', 'Leverans inom 12&#8211;15 arbetsdagar.'],
+      ['Snabb och s&auml;ker leverans', 'Tillverkas p&aring; best&auml;llning &#8211; leverans inom 12&#8211;17 arbetsdagar.'],
       ['100 % s&auml;kra betalningar', 'Betala tryggt via Shopifys s&auml;kra kassa'],
       ['V&auml;nlig kundservice', 'Kontakta oss via v&aring;r kontaktsida']
     ];
