@@ -19,6 +19,33 @@
     element.replaceChildren(fragment);
   }
 
+  function updatePhone(container, value) {
+    if (!container) return;
+    let row = container.querySelector('.footer-info__phone');
+    if (!value) {
+      row?.remove();
+      return;
+    }
+    if (!row) {
+      row = document.createElement('div');
+      row.className = 'footer-info__item footer-info__phone';
+      const icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      icon.setAttribute('width', '20');
+      icon.setAttribute('height', '20');
+      icon.setAttribute('viewBox', '0 0 20 20');
+      icon.setAttribute('fill', 'none');
+      icon.setAttribute('aria-hidden', 'true');
+      icon.innerHTML = '<path d="M6.1 2.5h2.1l1.1 3.4-1.4 1.4c.8 1.7 2.2 3.1 3.9 3.9l1.4-1.4 3.4 1.1V13c0 1.1-.9 2-2 2C8.6 15 5 11.4 5 7.1c0-1.1.9-2 2-2Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>';
+      row.append(icon, document.createElement('a'));
+      container.append(row);
+    }
+    const link = row.querySelector('a');
+    if (link) {
+      link.textContent = value;
+      link.href = `tel:${value.replace(/[^+\d]/g, '')}`;
+    }
+  }
+
   function updateMenu(menuBlock, config) {
     if (!menuBlock || !config) return;
     updateText(menuBlock.querySelector('.footer-block__heading'), config.heading);
@@ -80,12 +107,13 @@
 
     const contactBlock = section.querySelector('.footer-block--contact_information');
     if (contactBlock) {
-      const hasContact = Boolean(config.contact?.address || config.contact?.email);
+      const hasContact = Boolean(config.contact?.address || config.contact?.email || config.contact?.phone);
       contactBlock.hidden = !hasContact;
       if (hasContact) contactBlock.style.removeProperty('display');
       else contactBlock.style.setProperty('display', 'none', 'important');
       updateText(contactBlock.querySelector('.footer-block__heading'), config.contact?.heading);
       updateAddress(contactBlock.querySelector('.footer-info__address span'), config.contact?.address);
+      updatePhone(contactBlock.querySelector('.footer-block__contact-info'), config.contact?.phone);
       const email = contactBlock.querySelector('.footer-info__email a');
       if (email && config.contact?.email) {
         email.textContent = config.contact.email;

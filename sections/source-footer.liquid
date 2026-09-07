@@ -82,7 +82,7 @@
 </template>
 <script src="{{ 'source-footer-content.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'source-footer-collapsible.js' | asset_url }}" defer="defer"></script>
-{% if section.settings.menu_service != blank or section.settings.menu_information != blank or section.settings.menu_collaboration != blank or section.settings.menu_general != blank or section.settings.contact_heading != blank or section.settings.contact_address != blank or section.settings.contact_email != blank or section.settings.awards_image != blank or section.settings.facebook_url != blank or section.settings.instagram_url != blank or section.settings.tiktok_url != blank %}
+{% if section.settings.menu_service != blank or section.settings.menu_information != blank or section.settings.menu_collaboration != blank or section.settings.menu_general != blank or section.settings.contact_heading != blank or section.settings.contact_address != blank or section.settings.contact_email != blank or section.settings.contact_phone != blank or section.settings.awards_image != blank or section.settings.facebook_url != blank or section.settings.instagram_url != blank or section.settings.tiktok_url != blank %}
   <script type="application/json" data-source-footer-overrides>
     {
       "menus": {
@@ -116,7 +116,8 @@
       "contact": {
         "heading": {{ section.settings.contact_heading | json }},
         "address": {{ section.settings.contact_address | json }},
-        "email": {{ section.settings.contact_email | json }}
+        "email": {{ section.settings.contact_email | json }},
+        "phone": {{ section.settings.contact_phone | json }}
       },
       "awardsImage": {% if section.settings.awards_image != blank %}{{ section.settings.awards_image | image_url: width: 800 | json }}{% else %}null{% endif %},
       "social": {
@@ -147,6 +148,7 @@
     { "type": "text", "id": "contact_heading", "label": "联系区标题", "default": "Om oss" },
     { "type": "textarea", "id": "contact_address", "label": "地址" },
     { "type": "text", "id": "contact_email", "label": "邮箱" },
+    { "type": "text", "id": "contact_phone", "label": "电话号码" },
     { "type": "image_picker", "id": "awards_image", "label": "荣誉图片" },
     { "type": "header", "content": "社交链接" },
     { "type": "url", "id": "facebook_url", "label": "Facebook 链接" },
