@@ -506,6 +506,12 @@ product-info.source-product {
   background: transparent !important;
 }
 .variant-label--with-image .variant-frame-image { display: block; width: 100% !important; height: 100% !important; object-fit: cover; object-position: right top; border: 1px solid #e2e2e2; border-radius: 2px; }
+.variant-label--with-image .variant-frame-swatch { display:block; width:100%; height:100%; min-height:0; border:1px solid #e2e2e2; border-radius:2px; }
+.variant-label--with-image .variant-frame-swatch--none { background:linear-gradient(145deg,#fff 0 47%,#dedede 48% 52%,#fff 53%); }
+.variant-label--with-image .variant-frame-swatch--white { background:linear-gradient(135deg,#fff 0%,#e7e7e5 24%,#fff 48%,#c9c9c6 52%,#f8f8f6 76%,#d9d9d6 100%); }
+.variant-label--with-image .variant-frame-swatch--black { background:linear-gradient(135deg,#111 0%,#3a3a3a 25%,#0b0b0b 49%,#050505 52%,#343434 76%,#111 100%); }
+.variant-label--with-image .variant-frame-swatch--silver { background:linear-gradient(135deg,#8f969b 0%,#e7ebed 24%,#aeb5b9 48%,#737a7f 52%,#f4f5f5 76%,#a1a8ac 100%); }
+.variant-label--with-image .variant-frame-swatch--gold { background:linear-gradient(135deg,#8b691f 0%,#f4d878 24%,#b68c2e 48%,#765314 52%,#ffe99a 76%,#a87d22 100%); }
 .source-frame-options input:checked + .variant-label--with-image { border-color: #111 !important; }
 .variant-label--with-image .tooltip { position: absolute; left: 50%; bottom: calc(100% + 8px); z-index: 20; transform: translateX(-50%); padding: 4px 8px; border-radius: 4px; color: #fff; background: #111; font-size: 11px; font-weight: 600; white-space: nowrap; opacity: 0; visibility: hidden; transition: .2s ease; }
 .variant-label--with-image:hover .tooltip { bottom: calc(100% + 5px); opacity: 1; visibility: visible; }

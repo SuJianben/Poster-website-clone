@@ -106,7 +106,7 @@
                   {% if frame_value contains 'schwarz' or frame_value contains 'black' %}{% assign frame_image = 'source-frame-black.png' %}{% endif %}
                   {% if frame_value contains 'silber' or frame_value contains 'silver' %}{% assign frame_image = 'source-frame-silver.png' %}{% endif %}
                   {% if frame_value contains 'gold' %}{% assign frame_image = 'source-frame-gold.png' %}{% endif %}
-                  <label for="{{ option_input_id }}" class="variant-label--with-image" data-tooltip><span class="tooltip">{{ value }}</span><img src="{{ frame_image | asset_url }}" alt="{{ value | escape }}" class="variant-frame-image" width="230" height="160"><span class="visually-hidden">{{ value }}</span></label>
+                  <label for="{{ option_input_id }}" class="variant-label--with-image" data-tooltip><span class="tooltip">{{ value }}</span><span class="variant-frame-swatch variant-frame-swatch--{{ frame_image | remove: 'source-frame-' | remove: '.png' }}" aria-hidden="true"></span><span class="visually-hidden">{{ value }}</span></label>
                 {% elsif is_version %}
                   {% assign swatch_color = value | downcase | replace: ' ', '' %}
                   <label for="{{ option_input_id }}" class="variant-label--color-swatch" data-tooltip><span class="tooltip">{{ value }}</span><span class="version-color-swatch" style="background: {{ swatch_color }};"></span><span class="visually-hidden">{{ value }}</span></label>
