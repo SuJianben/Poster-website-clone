@@ -42,11 +42,13 @@
   inset:var(--spx-css-frame-inset-block) var(--spx-css-frame-inset-inline);
   z-index:2;
   box-sizing:border-box;
-  border:clamp(6px,.9vw,12px) solid transparent;
-  border-image-source:var(--spx-css-frame-image);
-  border-image-slice:1;
-  border-image-width:1;
-  border-image-repeat:stretch;
+  padding:clamp(6px,.9vw,12px);
+  border:0;
+  background:var(--spx-css-frame-image) center / 260px 100% repeat;
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  mask-composite:exclude;
   filter:drop-shadow(0 6px 7px rgb(25 20 16 / 27%));
   content:"";
   pointer-events:none;
