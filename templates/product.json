@@ -102,6 +102,7 @@
         },
         "volume_discount": {
           "type": "volume_discount",
+          "disabled": true,
           "settings": {
             "heading": "🌞 SOMMARREA: Köp mer, spara mer! 🎉",
             "note": "Kan kombineras med redan nedsatta varor!",
